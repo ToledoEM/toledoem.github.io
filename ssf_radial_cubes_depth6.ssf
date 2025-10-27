@@ -1,0 +1,99 @@
+// SSF: Radial cubes fractal, depth 6
+// Save this file as: ssf_radial_cubes_depth6.ssf
+// Open it in Structure Synth and export to OBJ for MeshLab.
+// This script creates a radial, fractal structure built from cubes.
+// Each rule level spawns N arms around the parent cube, translates outward,
+// rotates to produce radial symmetry, and scales down for recursion.
+// Depth levels: R0 (root) -> R1 -> R2 -> R3 -> R4 -> R5 -> R6 (terminator)
+
+startshape R0
+
+// Root: central cube and start recursion
+rule R0 {
+    cube { scale 1.0 } R1
+}
+
+// Level 1: wide radial spread
+rule R1 {
+    // 12 arms around Y, translated outward then recurse
+    12 * {
+        rotate 0 30 0
+        translate 2.5 0 0
+        scale 0.65
+    } cube R2
+}
+
+// Level 2: add tilt and continue radial branching
+rule R2 {
+    12 * {
+        rotate 15 0 0     // tilt up slightly
+        rotate 0 30 0     // rotate around Y for radial placement
+        translate 2.2 0 0
+        scale 0.6
+    } cube R3
+}
+
+// Level 3: increase local branching complexity with double rings
+rule R3 {
+    // inner ring
+    12 * {
+        rotate -10 0 10
+        rotate 0 30 0
+        translate 1.8 0 0
+        scale 0.55
+    } cube R4
+
+    // outer ring offset to create layering
+    12 * {
+        rotate 25 0 -5
+        rotate 0 30 0
+        translate 2.9 0 0
+        scale 0.45
+    } cube R4
+}
+
+// Level 4: introduce slight random-like orientation via alternating tilts
+rule R4 {
+    // even arms
+    12 * {
+        rotate 8 0 18
+        rotate 0 30 0
+        translate 1.6 0 0
+        scale 0.5
+    } cube R5
+
+    // odd arms
+    12 * {
+        rotate -12 0 -14
+        rotate 0 30 0
+        translate 2.0 0 0
+        scale 0.45
+    } cube R5
+}
+
+// Level 5: finer branches, tighter spacing
+rule R5 {
+    16 * {
+        rotate 6 12 4
+        rotate 0 22.5 0
+        translate 1.2 0 0
+        scale 0.42
+    } cube R6
+}
+
+// Level 6: terminator — final detail cubes (no further recursion)
+rule R6 {
+    // dense caps around the tips — small cubes only
+    20 * {
+        rotate 10 0 5
+        rotate 0 18 0
+        translate 0.9 0 0
+        scale 0.28
+    } cube { scale 0.28 }
+}
+
+// Optional aesthetic: color hints (some Structure Synth builds accept 'color')
+// If your version supports color, uncomment and adjust.
+//rule colorize {
+//    cube { color 0.8 0.6 0.4 }
+//}
