@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>STL Deformer (THREE.js)</title>
+        <title>STLShaper - STL Deformation Tool</title>
         <style>
             body {
                 margin: 0;
@@ -76,13 +76,35 @@
             }
 
             #status {
-                height: 30px;
-                line-height: 30px;
-                padding: 0 5px;
+                height: 70px;
+                line-height: 14px;
+                padding: 5px;
                 background: #444;
                 border-radius: 3px;
                 text-align: center;
                 font-size: 0.9em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #progressContainer {
+                display: none;
+            }
+
+            #progressBar {
+                width: 100%;
+                height: 8px;
+                background: #333;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
+            #progressFill {
+                height: 100%;
+                background: #6cf;
+                width: 0%;
+                transition: width 0.3s ease;
             }
 
             button {
@@ -117,6 +139,29 @@
         <div id="ui">
             <div id="status">Ready to load STL.</div>
 
+            <div id="progressContainer" style="display: none;">
+                <div
+                    id="progressBar"
+                    style="
+                        width: 100%;
+                        height: 8px;
+                        background: #333;
+                        border-radius: 4px;
+                        overflow: hidden;
+                    "
+                >
+                    <div
+                        id="progressFill"
+                        style="
+                            height: 100%;
+                            background: #6cf;
+                            width: 0%;
+                            transition: width 0.3s ease;
+                        "
+                    ></div>
+                </div>
+            </div>
+
             <input type="file" id="fileInput" accept=".stl" />
 
             <div>
@@ -133,19 +178,23 @@
                     ><input type="radio" name="type" value="pixel" />
                     Pixelate</label
                 >
+                <label
+                    ><input type="radio" name="type" value="idw" />
+                    IDW Shepard</label
+                >
             </div>
 
             <div id="noiseControls" class="deform-controls">
                 <strong>Noise Settings:</strong>
                 <label>
-                    Intensity: <span id="noiseIntensityVal">15</span>
+                    Intensity: <span id="noiseIntensityVal">1.5</span>
                     <input
                         type="range"
                         id="noiseIntensity"
-                        min="1"
-                        max="100"
-                        value="15"
-                        step="1"
+                        min="0.1"
+                        max="5"
+                        value="1.5"
+                        step="0.1"
                     />
                 </label>
                 <label>
@@ -230,14 +279,14 @@
             >
                 <strong>Pixelate Settings:</strong>
                 <label>
-                    Voxel Size: <span id="pixelSizeVal">10</span>
+                    Voxel Size: <span id="pixelSizeVal">5</span>
                     <input
                         type="range"
                         id="pixelSize"
-                        min="1"
+                        min="0.5"
                         max="50"
-                        value="10"
-                        step="1"
+                        value="5"
+                        step="0.5"
                     />
                 </label>
                 <label>
@@ -251,6 +300,69 @@
                         <option value="xz">X & Z</option>
                         <option value="yz">Y & Z</option>
                     </select>
+                </label>
+            </div>
+
+            <div
+                id="idwControls"
+                class="deform-controls"
+                style="display: none"
+            >
+                <strong>IDW Shepard Settings:</strong>
+                <label>
+                    Number of Points: <span id="idwNumPointsVal">8</span>
+                    <input
+                        type="range"
+                        id="idwNumPoints"
+                        min="3"
+                        max="50"
+                        value="8"
+                        step="1"
+                    />
+                </label>
+                <label>
+                    Seed: <span id="idwSeedVal">0</span>
+                    <input
+                        type="number"
+                        id="idwSeed"
+                        min="0"
+                        max="10000"
+                        value="0"
+                        step="1"
+                    />
+                </label>
+                <label>
+                    Weight: <span id="idwWeightVal">2.0</span>
+                    <input
+                        type="range"
+                        id="idwWeight"
+                        min="-10"
+                        max="10"
+                        value="2.0"
+                        step="0.1"
+                    />
+                </label>
+                <label>
+                    Power: <span id="idwPowerVal">2.0</span>
+                    <input
+                        type="range"
+                        id="idwPower"
+                        min="0.5"
+                        max="6.0"
+                        value="2.0"
+                        step="0.1"
+                    />
+                </label>
+                <label>
+                    Global Scale: <span id="idwScaleVal">2.0</span>
+                    <input
+                        type="range"
+                        id="idwScale"
+                        min="0.1"
+                        max="10.0"
+                        value="2.0"
+                        step="0.1"
+                    />
                 </label>
             </div>
 
@@ -276,6 +388,12 @@
             </div>
 
             <button id="exportBtn" disabled>Export Current STL</button>
+
+            <button id="exportSettingsBtn" disabled>Export Settings</button>
+
+            <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #555; text-align: center; font-size: 0.8em; color: #888;">
+                STLShaper <a href="https://toledoem.github.io/" target="_blank" style="color: #6cf; text-decoration: none;">ToledoEM</a>, MIT license
+            </div>
         </div>
 
         <div id="container"></div>
