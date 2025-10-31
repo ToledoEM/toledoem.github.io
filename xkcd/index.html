@@ -58,18 +58,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="readme_files/libs/clipboard/clipboard.min.js"></script>
-<script src="readme_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="readme_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="readme_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="readme_files/libs/quarto-html/popper.min.js"></script>
-<script src="readme_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="readme_files/libs/quarto-html/anchor.min.js"></script>
-<link href="readme_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="readme_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="readme_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="readme_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="readme_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -83,183 +83,132 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="esp32-duckdns-client-enhanced" class="level1">
-<h1>ESP32 DuckDNS Client (Enhanced) 🦆</h1>
-<p>This project is an open-source, standalone Dynamic DNS (DDNS) client for <strong>DuckDNS.org</strong> that runs on an <strong>ESP32</strong> microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.</p>
-<hr>
+<section id="xkcd" class="level1">
+<h1>xkcd</h1>
+<p>An R package to create hand-drawn (xkcd-style) plots and elements for ggplot2.</p>
+<p>This repository contains the source for the <code>xkcd</code> package (development version). Originally from https://r-forge.r-project.org/projects/xkcd/ which is deprecated and now maintained independently.</p>
+<section id="install" class="level2">
+<h2 class="anchored" data-anchor-id="install">Install</h2>
+<p>Install the current development version from GitHub:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using remotes</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ToledoEM/xkcd"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># or using devtools</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ToledoEM/xkcd"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="quick-start" class="level2">
+<h2 class="anchored" data-anchor-id="quick-start">Quick Start</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xkcd)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">y =</span> <span class="fu">cumsum</span>(<span class="fu">runif</span>(<span class="dv">10</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.8</span>)))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_xkcdpath</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_xkcd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="key-notes" class="level2">
+<h2 class="anchored" data-anchor-id="key-notes">Key Notes</h2>
+<ul>
+<li>The package uses <code>Hmisc::bezier()</code> internally for smoothing paths.</li>
+<li>Uses <code>linewidth</code> (ggplot2 &gt;= 3.4.0) for line thickness; older code using <code>size</code> is supported where possible.</li>
+<li>Requires xkcd fonts to be installed; see <strong>Fonts</strong> section below.</li>
+</ul>
+</section>
+<section id="fonts" class="level2">
+<h2 class="anchored" data-anchor-id="fonts">Fonts</h2>
+<p>To use xkcd fonts in your plots, you need to install and register them with R’s graphics system.</p>
+<section id="install-xkcd-fonts" class="level3">
+<h3 class="anchored" data-anchor-id="install-xkcd-fonts">Install xkcd Fonts</h3>
+<p>If xkcd fonts are not already installed on your system:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrafont)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Download and install the font</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://github.com/ipython/xkcd-font/blob/master/xkcd.ttf?raw=true"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dest =</span> <span class="st">"xkcd.ttf"</span>, <span class="at">mode =</span> <span class="st">"wb"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">font_import</span>(<span class="at">pattern =</span> <span class="st">"[X/x]kcd"</span>, <span class="at">prompt =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="load-fonts-for-plotting" class="level3">
+<h3 class="anchored" data-anchor-id="load-fonts-for-plotting">Load Fonts for Plotting</h3>
+<p>Before plotting, register fonts with your graphics device:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xkcd)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrafont)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load fonts for your output device</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>extrafont<span class="sc">::</span><span class="fu">loadfonts</span>(<span class="at">device =</span> <span class="st">"win"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)  <span class="co"># or "pdf" or "postscript"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Then create your plot</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(...) <span class="sc">+</span> <span class="fu">theme_xkcd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="automatic-font-loading-opt-in" class="level3">
+<h3 class="anchored" data-anchor-id="automatic-font-loading-opt-in">Automatic Font Loading (opt-in)</h3>
+<p>To automatically load fonts when the package is attached (opt-in):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set before loading the package</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">xkcd.auto_load_fonts =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xkcd)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is opt-in to avoid surprising side-effects during package attach.</p>
+</section>
+</section>
+<section id="example-images" class="level2">
+<h2 class="anchored" data-anchor-id="example-images">Example Images</h2>
+<p>Below are three examples from the vignette:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="vignettes/vignettes/font_check.png" class="img-fluid figure-img"></p>
+<figcaption>Font availability check (font_check)</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="vignettes/vignettes/mommy_plot.png" class="img-fluid figure-img"></p>
+<figcaption>Mother’s Day example (mommy_plot)</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="vignettes/vignettes/caritas_plot.png" class="img-fluid figure-img"></p>
+<figcaption>Caritas volunteers example (caritas_plot)</figcaption>
+</figure>
+</div>
+</section>
+<section id="development" class="level2">
+<h2 class="anchored" data-anchor-id="development">Development</h2>
+<p>Set up a development workflow with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regenerate documentation from roxygen comments</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run package checks (skip PDF manual if LaTeX not installed)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>(<span class="at">args =</span> <span class="st">"--no-manual"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Build vignettes</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">build_vignettes</span>()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Install from local source</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_local</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To render the vignette directly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">"vignettes/xkcd-intro.Rmd"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="dependencies">Dependencies</h2>
+<p>The package requires:</p>
+<ul>
+<li><strong>ggplot2</strong> — Graphics framework</li>
+<li><strong>Hmisc</strong> — Bezier curve interpolation</li>
+<li><strong>grid</strong> — Low-level graphics primitives</li>
+<li><strong>extrafont</strong> (optional) — Font management</li>
+</ul>
+<p>Install dependencies with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ggplot2"</span>, <span class="st">"Hmisc"</span>, <span class="st">"grid"</span>, <span class="st">"extrafont"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="contributing" class="level2">
+<h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
+<p>Contributions, bug reports, and pull requests are welcome. Please open an issue with a description and minimal reproducible example if relevant.</p>
+</section>
 <section id="license" class="level2">
 <h2 class="anchored" data-anchor-id="license">License</h2>
-<p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details. It was adapted from the original ESP8266 DuckDNS client created by Davide Gironi <span class="citation" data-cites="davidegironi">@davidegironi</span> (https://davidegironi.blogspot.com/2017/02/duck-dns-esp8266-mini-wifi-client.html).</p>
-<p><strong>Version with NTP and persistent logging</strong> <img src="images/webclient_1_NTP.png" class="img-fluid" alt="Web Interface Status Page"></p>
-<hr>
-</section>
-<section id="configuration-stored-in-eeprom" class="level2">
-<h2 class="anchored" data-anchor-id="configuration-stored-in-eeprom">Configuration Stored in EEPROM</h2>
-<p>Config fields: * Device ID (0–999) * DuckDNS domain * DuckDNS token * Update interval (minutes) * Optional custom NTP server * Persistent logging flag</p>
-<p>EEPROM details: * Size: 512 bytes; init marker <code>0x10</code> * Persistent log ring (20 entries) stored after the config block * Batched commits (every 30s or on critical failure) to reduce wear</p>
-<p>Defaults on first boot: * <code>deviceid = 1</code>, <code>domain = "your-domain"</code>, <code>token = "your-token"</code>, <code>updateinterval = 10</code>, <code>ntpServer = "time.local"</code>, <code>persistentLogging = false</code></p>
-<hr>
-</section>
-<section id="security-notes" class="level2">
-<h2 class="anchored" data-anchor-id="security-notes">Security Notes</h2>
-<ul>
-<li>Settings page protected with HTTP Basic Auth
-<ul>
-<li>Defaults: <code>user</code> / <code>pass</code></li>
-<li>Change in code: <code>ADMIN_USERNAME</code> / <code>ADMIN_PASSWORD</code></li>
-</ul></li>
-<li>HTTPS to DuckDNS uses <code>setInsecure()</code> (no cert validation). For strict TLS, add certificate pinning to <code>WiFiClientSecure</code>.</li>
-</ul>
-<hr>
-</section>
-<section id="led-status" class="level2">
-<h2 class="anchored" data-anchor-id="led-status">LED Status</h2>
-<p>GPIO 2 is used for status LEDs: * WiFiManager AP mode: fast blink * WiFi connecting: slow blink * WiFi connected: steady on * DDNS failure: DDNS LED blinks until next success</p>
-<hr>
-</section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<ul>
-<li>If NTP fails at boot, the system proceeds after ~2 minutes and retries via health checks (every 30 minutes).</li>
-<li>Ensure DuckDNS domain and token are correct on the Settings page.</li>
-<li>If mDNS (<code>.local</code>) doesn’t resolve, use the device IP.</li>
-<li>Use the Serial Monitor for detailed logs (baud 115200).</li>
-</ul>
-<hr>
-</section>
-<section id="changelog-v6" class="level2">
-<h2 class="anchored" data-anchor-id="changelog-v6">Changelog (v6)</h2>
-<ul>
-<li>Reduced EEPROM data sizes; total EEPROM size = 512 bytes</li>
-<li>Optional persistent logging to EEPROM with batched commits (30s or on critical failure)</li>
-<li>In-memory log ring (8 entries) and timestamp backfill after NTP sync</li>
-<li>NTP multi-server fallback and periodic health checks</li>
-<li>Memory pressure monitoring with defensive restart on very low heap</li>
-<li>Safer string handling and bounded buffers</li>
-<li>Simplified web UI and handlers; Basic Auth on Settings page</li>
-<li>Hostname derived from device ID: <code>testduckNNN</code> ### 2. Software &amp; Libraries</li>
-</ul>
-<ol type="1">
-<li>Make sure you have the <strong>Arduino IDE</strong> installed with the <strong>ESP32 board support package</strong>.</li>
-<li>Install the following libraries through the Arduino Library Manager (<code>Sketch</code> &gt; <code>Include Library</code> &gt; <code>Manage Libraries...</code>):
-<ul>
-<li><code>WiFiManager</code> by tzapu</li>
-<li><code>Ticker</code> by sstaub</li>
-</ul></li>
-</ol>
-<section id="flashing-the-code" class="level3">
-<h3 class="anchored" data-anchor-id="flashing-the-code">3. Flashing the Code</h3>
-<ol type="1">
-<li>Open <code>firmware/esp32duckdns_v6.ino</code> in the Arduino IDE or a compatible editor like VS Code.</li>
-<li>Select your ESP32 board from the <code>Tools</code> &gt; <code>Board</code> menu.</li>
-<li>Select the correct COM port under the <code>Tools</code> &gt; <code>Port</code> menu.</li>
-<li>Click the “Upload” button.</li>
-</ol>
-<hr>
-</section>
-</section>
-<section id="how-to-use" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use">How to Use</h2>
-<section id="first-time-wifi-setup" class="level3">
-<h3 class="anchored" data-anchor-id="first-time-wifi-setup">First-Time WiFi Setup</h3>
-<p>The first time you power on the ESP32, it will automatically enter configuration mode.</p>
-<ol type="1">
-<li>Using your phone or computer, scan for new Wi-Fi networks.</li>
-<li>Connect to the network named <strong><code>ESP32-DuckDNS</code></strong>.</li>
-<li>A captive portal page should automatically open in your browser. If not, open a browser and navigate to <code>192.168.4.1</code>.</li>
-<li>Click on <strong>“Configure WiFi”</strong>, select your home network (SSID), and enter its password.</li>
-<li>Click <strong>“Save”</strong>. The ESP32 will save the credentials, reboot, and automatically connect to your home network.</li>
-</ol>
-</section>
-<section id="device-configuration" class="level3">
-<h3 class="anchored" data-anchor-id="device-configuration">Device Configuration</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/webclient_3.png" class="img-fluid figure-img"></p>
-<figcaption>Settings Page</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/webclient_4.png" class="img-fluid figure-img"></p>
-<figcaption>Settings Page</figcaption>
-</figure>
-</div>
-<p>Once the device is connected to your network, you need to configure it.</p>
-<ol type="1">
-<li>Find the device’s IP address by:
-<ul>
-<li>Checking the “Connected Devices” list on your router’s admin page. The hostname will be <strong><code>testduckXXX</code></strong> (where <code>XXX</code> is the Device ID).</li>
-<li>Monitoring the Serial Output in the Arduino IDE when the device boots up.</li>
-</ul></li>
-<li>Open a web browser and enter the ESP32’s IP address.</li>
-<li>You’ll see the status page. Click the <strong>“Settings”</strong> link.</li>
-<li>You will be prompted for a username and password. Enter the defaults:
-<ul>
-<li><strong>Username</strong>: <code>user</code> (these are configurable within the first 20 lines of code)</li>
-<li><strong>Password</strong>: <code>pass</code></li>
-</ul></li>
-<li>On the settings page, you can configure:</li>
-</ol>
-<ul>
-<li><strong>DuckDNS Domain</strong> and <strong>Token</strong></li>
-<li><strong>Update Interval</strong> (minutes)</li>
-<li><strong>NTP Server</strong> (optional; falls back to built-in servers)</li>
-<li><strong>Persistent Logging</strong> toggle</li>
-<li><strong>Device ID</strong> (used for hostname <code>testduckNNN</code>)</li>
-</ul>
-<ol start="6" type="1">
-<li>Click <strong>“Save Settings”</strong>. The device will save your settings and reboot.</li>
-</ol>
-<p>That’s it! The ESP32 is now fully configured.</p>
-<hr>
-</section>
-</section>
-<section id="home-assistant-integration" class="level2">
-<h2 class="anchored" data-anchor-id="home-assistant-integration">Home Assistant Integration</h2>
-<ul>
-<li><code>/</code> — Status page (no authentication)</li>
-<li><code>/settings</code> — Settings page (Basic Auth: <code>user</code> / <code>pass</code>)</li>
-<li><code>/forcesync</code> — Force DDNS update (302 redirect to <code>/</code>)</li>
-<li><code>/forcentp</code> — Force NTP sync (302 redirect to <code>/</code>)</li>
-</ul>
-<hr>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/apijson.png" class="img-fluid figure-img"></p>
-<figcaption>Json</figcaption>
-</figure>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"success"</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"last_update"</span><span class="fu">:</span> <span class="dv">1754857330</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"next_update"</span><span class="fu">:</span> <span class="dv">458</span><span class="fu">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ip"</span><span class="fu">:</span> <span class="st">"192.168.0.7"</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"rssi"</span><span class="fu">:</span> <span class="dv">-54</span><span class="fu">,</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"uptime"</span><span class="fu">:</span> <span class="dv">142</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"time_synced"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ntp_attempts"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ntp_last_sync"</span><span class="fu">:</span> <span class="dv">23000</span><span class="fu">,</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"persistent_logging"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"log"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"time"</span><span class="fu">:</span> <span class="dv">1754857211</span><span class="fu">,</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"local_time"</span><span class="fu">:</span> <span class="dv">21345</span><span class="fu">,</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"success"</span><span class="fu">,</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"SYS"</span><span class="fu">,</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"timestamp_valid"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"error"</span><span class="fu">:</span> <span class="st">"Web server started on port 80"</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"time"</span><span class="fu">:</span> <span class="dv">1754857330</span><span class="fu">,</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"local_time"</span><span class="fu">:</span> <span class="dv">140123</span><span class="fu">,</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"success"</span><span class="fu">,</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"DDNS"</span><span class="fu">,</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"timestamp_valid"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"error"</span><span class="fu">:</span> <span class="st">"DDNS update successful"</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This package is released under the <strong>MIT License</strong>. See the <a href="LICENSE">LICENSE</a> file for details.</p>
 </section>
 </section>
 
