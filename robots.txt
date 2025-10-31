@@ -1,7 +1,10 @@
 User-agent: *
-Allow: /
-Sitemap: https://toledoem.github.io/sitemap.xml
+Sitemap: https://toledoem.github.io/sitemap.txt
 
-# Prevent indexing of certain folders
+# Prevent indexing of development/build artifacts and assets
 Disallow: /site_libs/
 Disallow: /_deprecated/
+Disallow: /cli/
+Disallow: /node_modules/
+Disallow: *.log
+Disallow: *.tmp
