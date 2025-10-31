@@ -665,3 +665,7 @@ a[target="_blank"]:hover img::after {
     width: 1.5rem;
     text-align: center;
 }
+
+.navbar .dropdown-item strong {
+  font-weight: 600;
+}
