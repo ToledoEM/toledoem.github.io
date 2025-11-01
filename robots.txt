@@ -1,5 +1,5 @@
 User-agent: *
+Disallow: site_libs/
 Allow: /
-Sitemap: https://toledoem.github.io/sitemap.xml
-
-Disallow: /site_libs/
+Crawl-delay: 10
+Sitemap: https://toledoem.github.io/sitemap.xml         
