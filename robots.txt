@@ -1,5 +1,5 @@
 User-agent: *
-Sitemap: https://toledoem.github.io/sitemap.txt
+Sitemap: https://toledoem.github.io/sitemap.xml
 
 # Prevent indexing of development/build artifacts and assets
 Disallow: /site_libs/
