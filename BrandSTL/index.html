@@ -86,6 +86,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="stl-branding-tool" class="level1">
 <h1>STL Branding Tool</h1>
 <p>Carve text into STL 3D models using Blender’s boolean operations engine.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Branded_Stanford_Bunny.png" class="img-fluid figure-img"></p>
+<figcaption><code>/Applications/Blender.app/Contents/MacOS/Blender --background --python stl_brander_blender.py -- Stanford_Bunny.stl Stanford_Bunny_sign.stl "Stanford" 2 10</code></figcaption>
+</figure>
+</div>
+<p>Output of command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> Stanford_Bunny.stl Stanford_Bunny_sign.stl <span class="st">"Stanford"</span> 2 10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="features" class="level2">
 <h2 class="anchored" data-anchor-id="features">Features</h2>
 <ul>
@@ -107,20 +115,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
 <section id="single-file" class="level3">
 <h3 class="anchored" data-anchor-id="single-file">Single File</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> input.stl output.stl <span class="st">"BRAND TEXT"</span> <span class="pp">[</span><span class="ss">depth</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">font_size</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> input.stl output.stl <span class="st">"BRAND TEXT"</span> <span class="pp">[</span><span class="ss">depth</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">font_size</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Parameters: - <strong>input.stl</strong>: Input STL file path - <strong>output.stl</strong>: Output STL file path<br>
 - <strong>text</strong>: Text to carve (carved on bottom surface) - <strong>depth</strong>: Carve depth in mm (default: 1.0) - <strong>font_size</strong>: Font size (default: 15)</p>
 </section>
 <section id="examples" class="level3">
 <h3 class="anchored" data-anchor-id="examples">Examples</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic usage</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># With specific depth</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span> 2.0</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># With specific depth and font size</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span> 2.0 12</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic usage</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># With specific depth</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span> 2.0</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># With specific depth and font size</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span> 2.0 12</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="technical-details" class="level2">
