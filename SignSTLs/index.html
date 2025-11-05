@@ -83,185 +83,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="esp32-duckdns-client-enhanced" class="level1">
-<h1>ESP32 DuckDNS Client (Enhanced) 🦆</h1>
-<p>This project is an open-source, standalone Dynamic DNS (DDNS) client for <strong>DuckDNS.org</strong> that runs on an <strong>ESP32</strong> microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.</p>
-<p><strong>Version with NTP and persistent logging</strong> <img src="images/webclient_1_NTP.png" class="img-fluid" alt="Web Interface Status Page"></p>
-<section id="configuration-stored-in-eeprom" class="level2">
-<h2 class="anchored" data-anchor-id="configuration-stored-in-eeprom">Configuration Stored in EEPROM</h2>
-<p>Config fields: * Device ID (0–999) * DuckDNS domain * DuckDNS token * Update interval (minutes) * Optional custom NTP server * Persistent logging flag</p>
-<p>EEPROM details: * Size: 512 bytes; init marker <code>0x10</code> * Persistent log ring (20 entries) stored after the config block * Batched commits (every 30s or on critical failure) to reduce wear</p>
-<p>Defaults on first boot: * <code>deviceid = 1</code>, <code>domain = "your-domain"</code>, <code>token = "your-token"</code>, <code>updateinterval = 10</code>, <code>ntpServer = "time.local"</code>, <code>persistentLogging = false</code></p>
-<hr>
-</section>
-<section id="security-notes" class="level2">
-<h2 class="anchored" data-anchor-id="security-notes">Security Notes</h2>
+<section id="stl-branding-tool" class="level1">
+<h1>STL Branding Tool</h1>
+<p>Carve text into STL 3D models using Blender’s boolean operations engine.</p>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">Features</h2>
 <ul>
-<li>Settings page protected with HTTP Basic Auth
-<ul>
-<li>Defaults: <code>user</code> / <code>pass</code></li>
-<li>Change in code: <code>ADMIN_USERNAME</code> / <code>ADMIN_PASSWORD</code></li>
-</ul></li>
-<li>HTTPS to DuckDNS uses <code>setInsecure()</code> (no cert validation). For strict TLS, add certificate pinning to <code>WiFiClientSecure</code>.</li>
+<li><strong>Blender-Powered</strong>: Uses Blender’s FAST boolean solver for reliable mesh operations</li>
+<li><strong>Automatic Text Mirroring</strong>: Text is mirrored for correct chirality when carved on bottom surface</li>
+<li><strong>Proper Scaling</strong>: Text automatically scales to 20% of available surface area</li>
+<li><strong>High-Quality Carving</strong>: Boolean difference operation creates clean carved text</li>
+<li><strong>Mesh Preservation</strong>: Maintains original mesh integrity without destruction</li>
 </ul>
-<hr>
 </section>
-<section id="led-status" class="level2">
-<h2 class="anchored" data-anchor-id="led-status">LED Status</h2>
-<p>GPIO 2 is used for status LEDs: * WiFiManager AP mode: fast blink * WiFi connecting: slow blink * WiFi connected: steady on * DDNS failure: DDNS LED blinks until next success</p>
-<hr>
-</section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
 <ul>
-<li>If NTP fails at boot, the system proceeds after ~2 minutes and retries via health checks (every 30 minutes).</li>
-<li>Ensure DuckDNS domain and token are correct on the Settings page.</li>
-<li>If mDNS (<code>.local</code>) doesn’t resolve, use the device IP.</li>
-<li>Use the Serial Monitor for detailed logs (baud 115200).</li>
+<li>Blender (installed at <code>/Applications/Blender.app/Contents/MacOS/Blender</code> on macOS)</li>
+<li>Get it at: <a href="https://www.blender.org/download/">https://www.blender.org/download/</a></li>
 </ul>
-<hr>
 </section>
-<section id="changelog" class="level2">
-<h2 class="anchored" data-anchor-id="changelog">Changelog</h2>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<section id="single-file" class="level3">
+<h3 class="anchored" data-anchor-id="single-file">Single File</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> input.stl output.stl <span class="st">"BRAND TEXT"</span> <span class="pp">[</span><span class="ss">depth</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">font_size</span><span class="pp">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Parameters: - <strong>input.stl</strong>: Input STL file path - <strong>output.stl</strong>: Output STL file path<br>
+- <strong>text</strong>: Text to carve (carved on bottom surface) - <strong>depth</strong>: Carve depth in mm (default: 1.0) - <strong>font_size</strong>: Font size (default: 15)</p>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic usage</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># With specific depth</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span> 2.0</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># With specific depth and font size</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">/Applications/Blender.app/Contents/MacOS/Blender</span> <span class="at">--background</span> <span class="at">--python</span> stl_brander_blender.py <span class="at">--</span> model.stl branded.stl <span class="st">"MyBrand"</span> 2.0 12</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="technical-details" class="level2">
+<h2 class="anchored" data-anchor-id="technical-details">Technical Details</h2>
+<section id="text-processing" class="level3">
+<h3 class="anchored" data-anchor-id="text-processing">Text Processing</h3>
 <ul>
-<li>Reduced EEPROM data sizes; total EEPROM size = 512 bytes</li>
-<li>Optional persistent logging to EEPROM with batched commits (30s or on critical failure)</li>
-<li>In-memory log ring (8 entries) and timestamp backfill after NTP sync</li>
-<li>NTP multi-server fallback and periodic health checks</li>
-<li>Memory pressure monitoring with defensive restart on very low heap</li>
-<li>Safer string handling and bounded buffers</li>
-<li>Simplified web UI and handlers; Basic Auth on Settings page</li>
-<li>Hostname derived from device ID: <code>testduckNNN</code></li>
+<li>Text is created using Blender’s text object system</li>
+<li>Converted to mesh geometry for boolean operations</li>
+<li>Automatically centered and scaled to fit surface</li>
+<li>Character spacing optimized for readability</li>
 </ul>
-<section id="software-libraries" class="level3">
-<h3 class="anchored" data-anchor-id="software-libraries">2. Software &amp; Libraries</h3>
-<ol type="1">
-<li>Make sure you have the <strong>Arduino IDE</strong> installed with the <strong>ESP32 board support package</strong>.</li>
-<li>Install the following libraries through the Arduino Library Manager (<code>Sketch</code> &gt; <code>Include Library</code> &gt; <code>Manage Libraries...</code>):
-<ul>
-<li><code>WiFiManager</code> by tzapu</li>
-<li><code>Ticker</code> by sstaub</li>
-</ul></li>
-</ol>
 </section>
-<section id="flashing-the-code" class="level3">
-<h3 class="anchored" data-anchor-id="flashing-the-code">3. Flashing the Code</h3>
-<ol type="1">
-<li>Open <code>firmware/esp32duckdns.ino</code> in the Arduino IDE or a compatible editor like VS Code.</li>
-<li>Select your ESP32 board from the <code>Tools</code> &gt; <code>Board</code> menu.</li>
-<li>Select the correct COM port under the <code>Tools</code> &gt; <code>Port</code> menu.</li>
-<li>Click the “Upload” button.</li>
-</ol>
-<hr>
-</section>
-</section>
-<section id="how-to-use" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use">How to Use</h2>
-<section id="first-time-wifi-setup" class="level3">
-<h3 class="anchored" data-anchor-id="first-time-wifi-setup">First-Time WiFi Setup</h3>
-<p>The first time you power on the ESP32, it will automatically enter configuration mode.</p>
-<ol type="1">
-<li>Using your phone or computer, scan for new Wi-Fi networks.</li>
-<li>Connect to the network named <strong><code>ESP32-DuckDNS</code></strong>.</li>
-<li>A captive portal page should automatically open in your browser. If not, open a browser and navigate to <code>192.168.4.1</code>.</li>
-<li>Click on <strong>“Configure WiFi”</strong>, select your home network (SSID), and enter its password.</li>
-<li>Click <strong>“Save”</strong>. The ESP32 will save the credentials, reboot, and automatically connect to your home network.</li>
-</ol>
-</section>
-<section id="device-configuration" class="level3">
-<h3 class="anchored" data-anchor-id="device-configuration">Device Configuration</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/webclient_3.png" class="img-fluid figure-img"></p>
-<figcaption>Settings Page</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/webclient_4.png" class="img-fluid figure-img"></p>
-<figcaption>Settings Page</figcaption>
-</figure>
-</div>
-<p>Once the device is connected to your network, you need to configure it.</p>
-<ol type="1">
-<li>Find the device’s IP address by:
+<section id="boolean-operations" class="level3">
+<h3 class="anchored" data-anchor-id="boolean-operations">Boolean Operations</h3>
 <ul>
-<li>Checking the “Connected Devices” list on your router’s admin page. The hostname will be <strong><code>testduckXXX</code></strong> (where <code>XXX</code> is the Device ID).</li>
-<li>Monitoring the Serial Output in the Arduino IDE when the device boots up.</li>
-</ul></li>
-<li>Open a web browser and enter the ESP32’s IP address.</li>
-<li>You’ll see the status page. Click the <strong>“Settings”</strong> link.</li>
-<li>You will be prompted for a username and password. Enter the defaults:
-<ul>
-<li><strong>Username</strong>: <code>user</code> (these are configurable within the first 20 lines of code)</li>
-<li><strong>Password</strong>: <code>pass</code></li>
-</ul></li>
-<li>On the settings page, you can configure:</li>
-</ol>
-<ul>
-<li><strong>DuckDNS Domain</strong> and <strong>Token</strong></li>
-<li><strong>Update Interval</strong> (minutes)</li>
-<li><strong>NTP Server</strong> (optional; falls back to built-in servers)</li>
-<li><strong>Persistent Logging</strong> toggle</li>
-<li><strong>Device ID</strong> (used for hostname <code>testduckNNN</code>)</li>
+<li>Uses Blender’s FAST boolean solver</li>
+<li>DIFFERENCE operation carves text into model</li>
+<li>Preserves mesh integrity and vertex count</li>
+<li>Handles complex geometries reliably</li>
 </ul>
-<ol start="6" type="1">
-<li>Click <strong>“Save Settings”</strong>. The device will save your settings and reboot.</li>
-</ol>
-<p>That’s it! The ESP32 is now fully configured.</p>
-<hr>
 </section>
-</section>
-<section id="home-assistant-integration" class="level2">
-<h2 class="anchored" data-anchor-id="home-assistant-integration">Home Assistant Integration</h2>
+<section id="positioning" class="level3">
+<h3 class="anchored" data-anchor-id="positioning">Positioning</h3>
 <ul>
-<li><code>/</code> — Status page (no authentication)</li>
-<li><code>/settings</code> — Settings page (Basic Auth: <code>user</code> / <code>pass</code>)</li>
-<li><code>/forcesync</code> — Force DDNS update (302 redirect to <code>/</code>)</li>
-<li><code>/forcentp</code> — Force NTP sync (302 redirect to <code>/</code>)</li>
-<li><code>/api/status</code> — JSON API endpoint (no authentication)</li>
+<li>Text positioned on bottom surface of model</li>
+<li>X-axis mirroring ensures correct chirality</li>
+<li>Penetrates into model for clean carving</li>
+<li>Automatic bounds detection and centering</li>
 </ul>
-<hr>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/apijson.png" class="img-fluid figure-img"></p>
-<figcaption>Json</figcaption>
-</figure>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"success"</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"last_update"</span><span class="fu">:</span> <span class="dv">1754857330</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"next_update"</span><span class="fu">:</span> <span class="dv">458</span><span class="fu">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ip"</span><span class="fu">:</span> <span class="st">"192.168.0.7"</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"rssi"</span><span class="fu">:</span> <span class="dv">-54</span><span class="fu">,</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"uptime"</span><span class="fu">:</span> <span class="dv">142</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"time_synced"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ntp_attempts"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ntp_last_sync"</span><span class="fu">:</span> <span class="dv">23000</span><span class="fu">,</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"persistent_logging"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"log"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"time"</span><span class="fu">:</span> <span class="dv">1754857211</span><span class="fu">,</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"local_time"</span><span class="fu">:</span> <span class="dv">21345</span><span class="fu">,</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"success"</span><span class="fu">,</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"SYS"</span><span class="fu">,</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"timestamp_valid"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"error"</span><span class="fu">:</span> <span class="st">"Web server started on port 80"</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"time"</span><span class="fu">:</span> <span class="dv">1754857330</span><span class="fu">,</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"local_time"</span><span class="fu">:</span> <span class="dv">140123</span><span class="fu">,</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"success"</span><span class="fu">,</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"DDNS"</span><span class="fu">,</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"timestamp_valid"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"error"</span><span class="fu">:</span> <span class="st">"DDNS update successful"</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="license" class="level3">
-<h3 class="anchored" data-anchor-id="license">License</h3>
-<p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details. It was adapted from the original ESP8266 DuckDNS client created by Davide Gironi <span class="citation" data-cites="davidegironi">@davidegironi</span> (https://davidegironi.blogspot.com/2017/02/duck-dns-esp8266-mini-wifi-client.html).</p>
 </section>
+</section>
+<section id="files" class="level2">
+<h2 class="anchored" data-anchor-id="files">Files</h2>
+<ul>
+<li><code>stl_brander_blender.py</code> - Blender-based carving implementation</li>
+<li><code>stl_brander.py</code> - Legacy Trimesh implementation (deprecated)</li>
+</ul>
+</section>
+<section id="dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="dependencies">Dependencies</h2>
+<ul>
+<li>Blender 3.0 or higher with Python API</li>
+</ul>
+</section>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">License</h2>
+<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
 </section>
 </section>
 
