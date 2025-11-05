@@ -56,17 +56,17 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://toledoem.github.io/SignSTLs/index.html</loc>
-    <lastmod>2025-11-05</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
     <loc>https://toledoem.github.io/field_generation/index.html</loc>
     <lastmod>2025-10-17</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/index.html</loc>
+    <lastmod>2025-11-05</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/BrandSTL/index.html</loc>
     <lastmod>2025-11-05</lastmod>
     <changefreq>weekly</changefreq>
   </url>
