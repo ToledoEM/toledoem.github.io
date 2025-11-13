@@ -2,3 +2,5 @@ update.sh
 .DS_Store
 *.sh
 sitemap.options
+/.quarto/
+**/*.quarto_ipynb
