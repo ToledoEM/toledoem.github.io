@@ -1,0 +1,10 @@
+pandoc: 3.8.2.1
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  vignette: vignette.html
+  WntExample: WntExample.html
+last_built: 2025-11-13T17:13Z
+urls:
+  reference: https://toledoem.github.io/PubMatrixR-v2/reference
+  article: https://toledoem.github.io/PubMatrixR-v2/articles
