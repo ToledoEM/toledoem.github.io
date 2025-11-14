@@ -1,6 +1,7 @@
-update.sh
-.DS_Store
-*.sh
+build_site.sh
+repo_update.sh
+sitemap.sh
 sitemap.options
+.DS_Store
 /.quarto/
 **/*.quarto_ipynb

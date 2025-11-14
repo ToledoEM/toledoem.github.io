@@ -58,33 +58,128 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="floating nav-fixed quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
-<main class="content" id="quarto-document-content">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ESP32 DuckDNS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ToledoEM/duckdns_esp32"> 
+<span class="menu-text">Repository</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#esp32-duckdns-client-enhanced" id="toc-esp32-duckdns-client-enhanced" class="nav-link active" data-scroll-target="#esp32-duckdns-client-enhanced">ESP32 DuckDNS Client (Enhanced) <img src="https://toledoem.github.io/www/ducky_icon.png" alt="ducky icon" width="80" height="80"></a>
+  <ul>
+  <li><a href="#configuration-stored-in-eeprom" id="toc-configuration-stored-in-eeprom" class="nav-link" data-scroll-target="#configuration-stored-in-eeprom">Configuration Stored in EEPROM</a></li>
+  <li><a href="#security-notes" id="toc-security-notes" class="nav-link" data-scroll-target="#security-notes">Security Notes</a></li>
+  <li><a href="#led-status" id="toc-led-status" class="nav-link" data-scroll-target="#led-status">LED Status</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
+  <li><a href="#changelog" id="toc-changelog" class="nav-link" data-scroll-target="#changelog">Changelog</a>
+  <ul class="collapse">
+  <li><a href="#software-libraries" id="toc-software-libraries" class="nav-link" data-scroll-target="#software-libraries">2. Software &amp; Libraries</a></li>
+  <li><a href="#flashing-the-code" id="toc-flashing-the-code" class="nav-link" data-scroll-target="#flashing-the-code">3. Flashing the Code</a></li>
+  </ul></li>
+  <li><a href="#how-to-use" id="toc-how-to-use" class="nav-link" data-scroll-target="#how-to-use">How to Use</a>
+  <ul class="collapse">
+  <li><a href="#first-time-wifi-setup" id="toc-first-time-wifi-setup" class="nav-link" data-scroll-target="#first-time-wifi-setup">First-Time WiFi Setup</a></li>
+  <li><a href="#device-configuration" id="toc-device-configuration" class="nav-link" data-scroll-target="#device-configuration">Device Configuration</a></li>
+  </ul></li>
+  <li><a href="#home-assistant-integration" id="toc-home-assistant-integration" class="nav-link" data-scroll-target="#home-assistant-integration">Home Assistant Integration</a>
+  <ul class="collapse">
+  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
 <section id="esp32-duckdns-client-enhanced" class="level1">
-<h1>ESP32 DuckDNS Client (Enhanced) 🦆</h1>
+<h1>ESP32 DuckDNS Client (Enhanced) <img src="https://toledoem.github.io/www/ducky_icon.png" alt="ducky icon" width="80" height="80"></h1>
 <p>This project is an open-source, standalone Dynamic DNS (DDNS) client for <strong>DuckDNS.org</strong> that runs on an <strong>ESP32</strong> microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.</p>
 <p><strong>Version with NTP and persistent logging</strong> <img src="images/webclient_1_NTP.png" class="img-fluid" alt="Web Interface Status Page"></p>
 <section id="configuration-stored-in-eeprom" class="level2">
@@ -132,6 +227,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Safer string handling and bounded buffers</li>
 <li>Simplified web UI and handlers; Basic Auth on Settings page</li>
 <li>Hostname derived from device ID: <code>testduckNNN</code></li>
+<li>Fixed EEPROM overflow and corruption risk: firmware now computes required EEPROM capacity at startup, calls <code>EEPROM.begin()</code> with a safe size (capped), tracks <code>g_eepromCapacity</code>, and validates persistent-log write addresses to avoid out-of-bounds writes.</li>
+<li>Fixed timestamp backfill bug: <code>updatePendingTimestamps()</code> now correctly marks corrected timestamps as valid (prevents repeated log churn and excessive EEPROM writes).</li>
+<li>Centralized EEPROM commit state and log indexing: replaced per-function static commit flags with a shared commit state and <code>g_persistentLogCount</code>, improving commit batching reliability and preventing duplicate/unsynchronized commits.</li>
+<li>Safer persistent logging fallback: if computed EEPROM requirements exceed a safe cap, persistent logging is disabled with a logged warning to avoid EEPROM corruption.</li>
 </ul>
 <section id="software-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="software-libraries">2. Software &amp; Libraries</h3>
@@ -261,12 +360,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="license" class="level3">
 <h3 class="anchored" data-anchor-id="license">License</h3>
 <p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details. It was adapted from the original ESP8266 DuckDNS client created by Davide Gironi <span class="citation" data-cites="davidegironi">@davidegironi</span> (https://davidegironi.blogspot.com/2017/02/duck-dns-esp8266-mini-wifi-client.html).</p>
+
+
 </section>
 </section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
