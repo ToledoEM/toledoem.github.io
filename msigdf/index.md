@@ -2,6 +2,8 @@
 
 ![msigdf logo](https://toledoem.github.io/img/msigdf_logo.png)
 
+msigdf logo
+
 The [Molecular Signatures Database
 (MSigDB)](https://www.gsea-msigdb.org/gsea/msigdb/index.jsp) in a tidy
 data frame.
@@ -18,7 +20,6 @@ Current version:
 ## Installation
 
 ``` r
-
 # Install devtools if you don't already have it
 install.packages("devtools")
 
@@ -35,14 +36,12 @@ See the [package
 vignette](https://toledoem.github.io/msigdf/msigdf.html) for more.
 
 ``` r
-
 library(dplyr)
 library(msigdf)
 #vignette("msigdf")
 ```
 
 ``` r
-
 msigdf.human %>%
   filter(category_code=="hallmark") %>%
   head
@@ -59,7 +58,6 @@ msigdf.human %>%
     6 hallmark      all              HALLMARK_TNFA_SIGNALING_VIA_NFKB PTGS2 
 
 ``` r
-
 msigdf.human %>% filter(geneset=="KEGG_NON_HOMOLOGOUS_END_JOINING")
 ```
 
