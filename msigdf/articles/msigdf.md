@@ -59,6 +59,7 @@ The data sets in this package have several million rows. The package
 imports the tibble package so they’re displayed nicely.
 
 ``` r
+
 library(tidyverse)
 library(msigdf)
 ```
@@ -66,6 +67,7 @@ library(msigdf)
 Take a look:
 
 ``` r
+
 msigdf.human %>% head()
 ```
 
@@ -80,6 +82,7 @@ msigdf.human %>% head()
     ## 6 c1            all              MT      MT-CYB
 
 ``` r
+
 msigdf.mouse %>% head()
 ```
 
@@ -94,6 +97,7 @@ msigdf.mouse %>% head()
     ## 6 m1            all              MT      mt-Cytb
 
 ``` r
+
 msigdf.urls %>% as.data.frame() %>% head()
 ```
 
@@ -116,6 +120,7 @@ Just get the entries for the [KEGG non-homologous end joining
 pathway](http://www.genome.jp/kegg/pathway/hsa/hsa03450.md):
 
 ``` r
+
 msigdf.human %>% 
   filter(geneset=="KEGG_NON_HOMOLOGOUS_END_JOINING")
 ```
@@ -147,6 +152,7 @@ named list format, get just the first few pathways, and in each of
 those, just display the first few gene symbols.
 
 ``` r
+
 msigdf.human %>% 
   filter(category_code=="c2") %>% 
   select(geneset, symbol) %>% 
@@ -184,6 +190,7 @@ dependent of the construction at MSigDB.
 <https://www.gsea-msigdb.org/gsea/msigdb/human/collections.jsp>
 
 ``` r
+
 msigdf.human %>%
   group_by(category_code,category_subcode) %>% 
   tally()
@@ -214,6 +221,7 @@ msigdf.human %>%
 <https://www.gsea-msigdb.org/gsea/msigdb/mouse/collections.jsp>
 
 ``` r
+
 msigdf.mouse %>%
   group_by(category_code,category_subcode) %>% 
   tally()
@@ -236,6 +244,7 @@ signaling). Optionally, `%>%` this to `browseURL` to open it up in your
 browser.
 
 ``` r
+
 msigdf.human %>%
   filter(category_code=="h") %>%
   count(geneset) %>%
@@ -252,6 +261,7 @@ Just look at the number of genes in each KEGG pathway (sorted descending
 by the number of genes in that pathway):
 
 ``` r
+
 msigdf.human %>%
   filter(category_code=="c2" & grepl("^KEGG_", geneset)) %>%
   count(geneset) %>% 
@@ -284,7 +294,7 @@ msigdf.human %>%
     ## LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
     ## 
     ## locale:
-    ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+    ## [1] C.UTF-8/C.UTF-8/C.UTF-8/C/C.UTF-8/C.UTF-8
     ## 
     ## time zone: Europe/London
     ## tzcode source: internal
@@ -312,8 +322,8 @@ msigdf.human %>%
     ## [31] ragg_1.5.0          pkgconfig_2.0.3     desc_1.4.3         
     ## [34] pkgdown_2.2.0       pillar_1.11.1       bslib_0.9.0        
     ## [37] gtable_0.3.6        glue_1.8.0          systemfonts_1.3.1  
-    ## [40] xfun_0.54           tidyselect_1.2.1    rstudioapi_0.17.1  
-    ## [43] farver_2.1.2        htmltools_0.5.8.1   rmarkdown_2.30     
-    ## [46] compiler_4.5.1      S7_0.2.0
+    ## [40] xfun_0.54           tidyselect_1.2.1    farver_2.1.2       
+    ## [43] htmltools_0.5.8.1   rmarkdown_2.30      compiler_4.5.1     
+    ## [46] S7_0.2.0
 
 [^1]: <http://www.broad.mit.edu/gsea/msigdb/index.jsp>
