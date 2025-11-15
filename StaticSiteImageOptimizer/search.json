@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "README.html",
+    "href": "README.html",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "Recursively converts images in a directory to WebP and updates references in HTML/CSS/JS files, quickly and safety\n\n\ngit clone https://github.com/yourusername/StaticSiteImageOptimizer.git\ncd StaticSiteImageOptimizer\nchmod +x ssio\nThe first time you run ./ssio, it will automatically create the virtual environment and install dependencies using pixi, uv, or python3 (whichever is available).\nTo use ssio globally, add a symlink:\nsudo ln -s $(pwd)/ssio /usr/local/bin/ssio\n\n\n\nConvert all images in a directory to WebP:\n./ssio /path/to/directory\nOr if installed globally:\nssio /path/to/directory\n\n\n\n--quality &lt;0-100&gt; - WebP quality (default: 80)\n--dry-run - Preview changes without making them\n--backup - Create .bak copies of modified files\n--delete-original - Remove original images after conversion\n--extensions &lt;list&gt; - Comma-separated image extensions (default: .jpg,.jpeg,.png,.gif,.bmp,.tiff)\n--include &lt;list&gt; - Comma-separated text file extensions to update (default: .html,.css,.js)\n--log-level &lt;level&gt; - DEBUG, INFO, WARNING, ERROR (default: INFO)\n\n\n\n\nBasic usage:\n./ssio .\nCustom quality with backup:\n./ssio /path/to/site --quality 85 --backup\nDry run mode:\n./ssio . --dry-run\nDelete originals:\n./ssio . --delete-original\nCustom file extensions:\n./ssio . --extensions .jpg,.png --include .html,.css\nComplete example:\n./ssio . --quality 80 --backup --dry-run --log-level DEBUG\n\n\n\n\n\nRecursively scan directories for image files and convert them to WebP\nUpdate references across HTML, CSS, and JS files to use the generated WebP files\nDry-run mode to preview changes\nOptional deletion of original files after successful conversion\nOptional backup of modified files (creates .bak)\nConfigurable quality settings (0-100)\nSupport for multiple image formats (jpg, jpeg, png, gif, bmp, tiff)\n\n\n\n\n\nThe tool replaces references by matching filenames and computing relative paths\nThis is pragmatic and may not cover all edge cases (e.g., dynamic JS templates or complex srcset handling)\nAdd original image formats to .gitignore but keep WebP files tracked\nSafety checks prevent running as root or at filesystem root directories\nUse --backup flag to create .bak files that can be reverted\n\n\n\n\nTo revert changes made by ssio:\n./ssio-revert /path/to/directory\nOptions: - --remove-webp - Also remove .webp files - --dry-run - Preview what would be reverted - --extensions &lt;list&gt; - File extensions to revert (default: .html,.css,.js)\n\n\n\nTo test the tool with sample data:\ncd test\n./download_images.sh\nuv run test_conversion.py\nThis will convert images in test/img/ and update references in test/index.html without deleting originals.\n\n\n\nTo render the documentation site using Quarto:\nquarto render\n\n\n\nThis project is licensed under the MIT License - see the LICENSE file for details."
+  },
+  {
+    "objectID": "README.html#installation",
+    "href": "README.html#installation",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "git clone https://github.com/yourusername/StaticSiteImageOptimizer.git\ncd StaticSiteImageOptimizer\nchmod +x ssio\nThe first time you run ./ssio, it will automatically create the virtual environment and install dependencies using pixi, uv, or python3 (whichever is available).\nTo use ssio globally, add a symlink:\nsudo ln -s $(pwd)/ssio /usr/local/bin/ssio"
+  },
+  {
+    "objectID": "README.html#usage",
+    "href": "README.html#usage",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "Convert all images in a directory to WebP:\n./ssio /path/to/directory\nOr if installed globally:\nssio /path/to/directory\n\n\n\n--quality &lt;0-100&gt; - WebP quality (default: 80)\n--dry-run - Preview changes without making them\n--backup - Create .bak copies of modified files\n--delete-original - Remove original images after conversion\n--extensions &lt;list&gt; - Comma-separated image extensions (default: .jpg,.jpeg,.png,.gif,.bmp,.tiff)\n--include &lt;list&gt; - Comma-separated text file extensions to update (default: .html,.css,.js)\n--log-level &lt;level&gt; - DEBUG, INFO, WARNING, ERROR (default: INFO)\n\n\n\n\nBasic usage:\n./ssio .\nCustom quality with backup:\n./ssio /path/to/site --quality 85 --backup\nDry run mode:\n./ssio . --dry-run\nDelete originals:\n./ssio . --delete-original\nCustom file extensions:\n./ssio . --extensions .jpg,.png --include .html,.css\nComplete example:\n./ssio . --quality 80 --backup --dry-run --log-level DEBUG"
+  },
+  {
+    "objectID": "README.html#features",
+    "href": "README.html#features",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "Recursively scan directories for image files and convert them to WebP\nUpdate references across HTML, CSS, and JS files to use the generated WebP files\nDry-run mode to preview changes\nOptional deletion of original files after successful conversion\nOptional backup of modified files (creates .bak)\nConfigurable quality settings (0-100)\nSupport for multiple image formats (jpg, jpeg, png, gif, bmp, tiff)"
+  },
+  {
+    "objectID": "README.html#notes",
+    "href": "README.html#notes",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "The tool replaces references by matching filenames and computing relative paths\nThis is pragmatic and may not cover all edge cases (e.g., dynamic JS templates or complex srcset handling)\nAdd original image formats to .gitignore but keep WebP files tracked\nSafety checks prevent running as root or at filesystem root directories\nUse --backup flag to create .bak files that can be reverted"
+  },
+  {
+    "objectID": "README.html#reverting-changes",
+    "href": "README.html#reverting-changes",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "To revert changes made by ssio:\n./ssio-revert /path/to/directory\nOptions: - --remove-webp - Also remove .webp files - --dry-run - Preview what would be reverted - --extensions &lt;list&gt; - File extensions to revert (default: .html,.css,.js)"
+  },
+  {
+    "objectID": "README.html#test",
+    "href": "README.html#test",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "To test the tool with sample data:\ncd test\n./download_images.sh\nuv run test_conversion.py\nThis will convert images in test/img/ and update references in test/index.html without deleting originals."
+  },
+  {
+    "objectID": "README.html#render-site",
+    "href": "README.html#render-site",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "To render the documentation site using Quarto:\nquarto render"
+  },
+  {
+    "objectID": "README.html#license",
+    "href": "README.html#license",
+    "title": "Static Site Image Optimizer (ssio)",
+    "section": "",
+    "text": "This project is licensed under the MIT License - see the LICENSE file for details."
+  }
+]

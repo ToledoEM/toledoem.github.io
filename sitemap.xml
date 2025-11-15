@@ -7,12 +7,12 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/</loc>
-    <lastmod>2025-11-14</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/espduckdns/index.html</loc>
-    <lastmod>2025-11-14</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -132,17 +132,17 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/stlshaper.html</loc>
-    <lastmod>2025-11-14</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/gallery.html</loc>
-    <lastmod>2025-11-14</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/NTPGPSHomeBridge/index.html</loc>
-    <lastmod>2025-11-14</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -202,12 +202,12 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/papers.html</loc>
-    <lastmod>2025-11-14</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/code.html</loc>
-    <lastmod>2025-11-14</lastmod>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -292,7 +292,17 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/BrandSTL/index.html</loc>
-    <lastmod>2025-11-14</lastmod>
+    <lastmod>2025-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/StaticSiteImageOptimizer/index.html</loc>
+    <lastmod>2025-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/StaticSiteImageOptimizer/README.html</loc>
+    <lastmod>2025-11-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>
