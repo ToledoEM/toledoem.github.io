@@ -56,7 +56,7 @@
 analyzing publication relationships</h3>
                         <h4 data-toc-skip class="author">ToledoEM</h4>
             
-            <h4 data-toc-skip class="date">2025-11-14</h4>
+            <h4 data-toc-skip class="date">2025-11-15</h4>
       
 
       <div class="d-none name"><code>vignette.Rmd</code></div>
@@ -69,7 +69,7 @@ analyzing publication relationships</h3>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ToledoEM/msigdf" class="external-link">msigdf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://toledoem.github.io/msigdf/" class="external-link">msigdf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pheatmap</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
@@ -123,13 +123,13 @@ this:</p>
 obesity from the MSigDB database:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract WNT-related genes</span></span>
-<span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu">msigdf</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/msigdf/man/msigdf.human.html" class="external-link">msigdf.human</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu">msigdf</span><span class="fu">::</span><span class="va"><a href="https://toledoem.github.io/msigdf/reference/msigdf.human.html" class="external-link">msigdf.human</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="va">geneset</span>, pattern <span class="op">=</span> <span class="st">"wnt"</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Extract obesity-related genes</span></span>
-<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu">msigdf</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/msigdf/man/msigdf.human.html" class="external-link">msigdf.human</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu">msigdf</span><span class="fu">::</span><span class="va"><a href="https://toledoem.github.io/msigdf/reference/msigdf.human.html" class="external-link">msigdf.human</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="va">geneset</span>, pattern <span class="op">=</span> <span class="st">"obesity"</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1248,7 +1248,7 @@ studied genes and their strongest literature partners</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Additional system details</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Date generated:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y-%m-%d %H:%M:%S %Z"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Date generated: 2025-11-14 15:00:18 GMT</span></span>
+<span><span class="co">#&gt; Date generated: 2025-11-15 10:11:57 GMT</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"R version:"</span>, <span class="va">R.version.string</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; R version: R version 4.5.1 (2025-06-13)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Platform:"</span>, <span class="va">R.version</span><span class="op">$</span><span class="va">platform</span>, <span class="st">"\n"</span><span class="op">)</span></span>
@@ -1265,7 +1265,7 @@ studied genes and their strongest literature partners</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Tyler Laird.</p>
+  <p>Developed by Tyler Laird, Toledo Enrique.</p>
 </div>
 
 <div class="pkgdown-footer-right">

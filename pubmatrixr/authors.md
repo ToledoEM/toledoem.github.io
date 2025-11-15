@@ -2,9 +2,9 @@
 
 ## Authors
 
-- **Tyler Laird**. Author, maintainer.
+- **Tyler Laird**. Author.
 
-- **Toledo Enrique**. Contributor.
+- **Toledo Enrique**. Contributor, maintainer.
 
 ## Citation
 
