@@ -2,11 +2,11 @@
 
 ## Introduction and Main Motivation
 
-*Original from author: “Emilio Torres-Manzanera” pulled from
-<https://github.com/cran/xkcd/>*
+Original from author: “Emilio Torres-Manzanera” pulled from
+<https://github.com/cran/xkcd/>\*
 
-The [XKCD](http://xkcd.com) web site is a web comic created by [Randall
-Munroe](http://xkcd.com), who described it as a web comic of romance,
+The [XKCD](https://xkcd.com) web site is a web comic created by [Randall
+Munroe](https://xkcd.com), who described it as a web comic of romance,
 sarcasm, math, and language. He uses stick figures, very simple drawings
 composed of a few lines and curves, in his comics strips, that are
 available under the Creative Commons Attribution-NonCommercial 2.5
@@ -48,9 +48,40 @@ computer or not is typing the following code and comparing the results:
 
 ``` r
 
+# Download xkcd font to a temporary location (do not ship the font with the package)
+library(extrafont)
+tryCatch({
+  temp_font <- file.path(tempdir(), "xkcd.ttf")
+  download.file("https://toledoem.github.io/img/xkcd.ttf",
+                destfile = temp_font, mode = "wb", timeout = 60)
+}, error = function(e) {
+  warning("Failed to download xkcd font. See https://github.com/ipython/xkcd-font")
+})
+
+# If downloaded, copy into the user's fonts directory for registration (not packaged)
+fonts_dir <- path.expand("~/.fonts")
+if (!dir.exists(fonts_dir)) dir.create(fonts_dir, recursive = TRUE)
+if (exists("temp_font") && file.exists(temp_font)) {
+  file.copy(temp_font, file.path(fonts_dir, "xkcd.ttf"), overwrite = TRUE)
+}
+
+# Register fonts (import only when needed)
+font_import(pattern = "[X/x]kcd", prompt = FALSE)
+fonts()
+fonttable()
+if (.Platform$OS.type != "unix") {
+  loadfonts(device = "win")
+} else {
+  loadfonts()
+}
+```
+
+``` r
+
+# Small font-check plot: uses installed xkcd font if available
 library(extrafont)
 library(ggplot2)
-if ('xkcd' %in% fonts()) {
+if ('xkcd' %in% extrafont::fonts()) {
   p <- ggplot() + geom_point(aes(x = mpg, y = wt), data = mtcars) +
     theme(text = element_text(size = 16, family = "xkcd"))
 } else {
@@ -64,61 +95,10 @@ p
 
 ``` r
 
-  # Save initial font-check plot for README
-  try({
-    ggsave(filename = file.path("vignettes", "font_check.png"), plot = p, width = 6, height = 4)
-  }, silent = TRUE)
-```
-
-Look at the labels and check the type of font that appears on them. In
-the case that you do not see the XKCD fonts, you should get and install
-them following the instructions of the next subsection.
-
-### Installing the XKCD Fonts in the Computer
-
-If the XKCD fonts are not installed in the system, you should install
-them using the package extrafont. In particular, the function
-[`font_import()`](https://rdrr.io/pkg/extrafont/man/font_import.html)
-registers font files and assigns a family name,
-[`fonts()`](https://rdrr.io/pkg/extrafont/man/fonts.html) lists
-available type fonts,
-[`fonttable()`](https://rdrr.io/pkg/extrafont/man/fonttable.html) lists
-available font families, and finally,
-[`loadfonts()`](https://rdrr.io/pkg/extrafont/man/loadfonts.html)
-registers the fonts in the Adobe font metric table with R’s PDF
-(portable document format) or PostScript output device.
-
-``` r
-
-library(extrafont)
-tryCatch({
-  download.file("https://toledoem.github.io/img/xkcd.ttf",
-                dest = "xkcd.ttf", mode = "wb", timeout = 60)
-}, error = function(e) {
-  warning("Failed to download xkcd font. See https://github.com/ipython/xkcd-font")
-})
-
-# Create fonts directory
-fonts_dir <- path.expand("~/.fonts")
-if (!dir.exists(fonts_dir)) {
-  dir.create(fonts_dir, recursive = TRUE)
-}
-
-# Copy font file
-file.copy("xkcd.ttf", file.path(fonts_dir, "xkcd.ttf"), overwrite = TRUE)
-
-# Import fonts
-font_import(pattern = "[X/x]kcd", prompt = FALSE)
-fonts()
-fonttable()
-
-# Load fonts for output
-if (.Platform$OS.type != "unix") {
-  # Register fonts for Windows bitmap output
-  loadfonts(device = "win")
-} else {
-  loadfonts()
-}
+# Save initial font-check plot for README (if possible)
+try({
+  ggsave(filename = file.path("vignettes", "font_check.png"), plot = p, width = 6, height = 4)
+}, silent = TRUE)
 ```
 
 If you want to modify these fonts, you may use the spline font database
@@ -499,7 +479,7 @@ ggplot() +
   xkcdaxis(c(0,5), c(0,2)) + theme_xkcd()
 ```
 
-![](xkcd-intro_files/figure-html/unnamed-chunk-5-1.png)
+![](xkcd-intro_files/figure-html/unnamed-chunk-6-1.png)
 
 ### Economic Projections
 
@@ -833,6 +813,5 @@ theme_xkcd()
 
 - XKCD Comic Archive: <https://xkcd.com/>
 - ggplot2 Documentation: <https://ggplot2.tidyverse.org/>
-- extrafont Package:
-  <https://cran.r-project.org/web/packages/extrafont/>
-- Hmisc Package: <https://cran.r-project.org/web/packages/Hmisc/>
+- extrafont Package: <https://CRAN.R-project.org/package=extrafont>
+- Hmisc Package: <https://CRAN.R-project.org/package=Hmisc>
