@@ -92,7 +92,7 @@ registers the fonts in the Adobe font metric table with R’s PDF
 
 library(extrafont)
 tryCatch({
-  download.file("https://github.com/ipython/xkcd-font/blob/master/xkcd.ttf?raw=true",
+  download.file("https://toledoem.github.io/img/xkcd.ttf",
                 dest = "xkcd.ttf", mode = "wb", timeout = 60)
 }, error = function(e) {
   warning("Failed to download xkcd font. See https://github.com/ipython/xkcd-font")
