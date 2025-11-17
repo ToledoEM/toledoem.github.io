@@ -9,7 +9,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://toledoem.github.io/xkcd/NA/NA/NA/blob/HEAD/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/ToledoEM/xkcd/blob/HEAD/DESCRIPTION)
 
 Torres-Manzanera E (2025). *xkcd: Plotting ggplot2 Graphics in an XKCD
 Style*. R package version 0.1.0, <https://github.com/ToledoEM/xkcd>.
