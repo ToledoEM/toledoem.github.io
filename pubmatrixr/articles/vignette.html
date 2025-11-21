@@ -56,7 +56,7 @@
 analyzing publication relationships</h3>
                         <h4 data-toc-skip class="author">ToledoEM</h4>
             
-            <h4 data-toc-skip class="date">2025-11-15</h4>
+            <h4 data-toc-skip class="date">2025-11-21</h4>
       
 
       <div class="d-none name"><code>vignette.Rmd</code></div>
@@ -239,10 +239,10 @@ LEPR
 0
 </td>
 <td style="text-align:center;">
-43
+44
 </td>
 <td style="text-align:center;">
-41
+42
 </td>
 <td style="text-align:center;">
 0
@@ -369,10 +369,10 @@ ADRB2
 19
 </td>
 <td style="text-align:center;">
-118
+119
 </td>
 <td style="text-align:center;">
-88
+92
 </td>
 <td style="text-align:center;">
 0
@@ -1210,12 +1210,12 @@ studied genes and their strongest literature partners</p>
 </h2>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.5.1 (2025-06-13)</span></span>
+<span><span class="co">#&gt; R version 4.5.2 (2025-10-31)</span></span>
 <span><span class="co">#&gt; Platform: aarch64-apple-darwin20</span></span>
 <span><span class="co">#&gt; Running under: macOS Tahoe 26.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib </span></span>
+<span><span class="co">#&gt; BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib </span></span>
 <span><span class="co">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; locale:</span></span>
@@ -1228,29 +1228,29 @@ studied genes and their strongest literature partners</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] ggplot2_4.0.0    pheatmap_1.0.13  msigdf_2025.1    dplyr_1.1.4     </span></span>
+<span><span class="co">#&gt; [1] ggplot2_4.0.1    pheatmap_1.0.13  msigdf_2025.1    dplyr_1.1.4     </span></span>
 <span><span class="co">#&gt; [5] kableExtra_1.4.0 knitr_1.50       PubMatrixR_2.0  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] sass_0.4.10        generics_0.1.4     xml2_1.4.1         stringi_1.8.7     </span></span>
-<span><span class="co">#&gt;  [5] digest_0.6.37      magrittr_2.0.4     evaluate_1.0.5     grid_4.5.1        </span></span>
+<span><span class="co">#&gt;  [1] sass_0.4.10        generics_0.1.4     xml2_1.5.0         stringi_1.8.7     </span></span>
+<span><span class="co">#&gt;  [5] digest_0.6.39      magrittr_2.0.4     evaluate_1.0.5     grid_4.5.2        </span></span>
 <span><span class="co">#&gt;  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     viridisLite_0.4.2 </span></span>
 <span><span class="co">#&gt; [13] scales_1.4.0       pbapply_1.7-4      textshaping_1.0.4  jquerylib_0.1.4   </span></span>
 <span><span class="co">#&gt; [17] cli_3.6.5          rlang_1.1.6        withr_3.0.2        cachem_1.1.0      </span></span>
-<span><span class="co">#&gt; [21] yaml_2.3.10        tools_4.5.1        parallel_4.5.1     curl_7.0.0        </span></span>
+<span><span class="co">#&gt; [21] yaml_2.3.10        tools_4.5.2        parallel_4.5.2     curl_7.0.0        </span></span>
 <span><span class="co">#&gt; [25] vctrs_0.6.5        R6_2.6.1           lifecycle_1.0.4    stringr_1.6.0     </span></span>
 <span><span class="co">#&gt; [29] fs_1.6.6           htmlwidgets_1.6.4  ragg_1.5.0         pkgconfig_2.0.3   </span></span>
 <span><span class="co">#&gt; [33] desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1      bslib_0.9.0       </span></span>
 <span><span class="co">#&gt; [37] gtable_0.3.6       glue_1.8.0         systemfonts_1.3.1  xfun_0.54         </span></span>
 <span><span class="co">#&gt; [41] tibble_3.3.0       tidyselect_1.2.1   rstudioapi_0.17.1  farver_2.1.2      </span></span>
 <span><span class="co">#&gt; [45] htmltools_0.5.8.1  labeling_0.4.3     rmarkdown_2.30     svglite_2.2.2     </span></span>
-<span><span class="co">#&gt; [49] compiler_4.5.1     S7_0.2.0</span></span></code></pre></div>
+<span><span class="co">#&gt; [49] compiler_4.5.2     S7_0.2.1</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Additional system details</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Date generated:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"%Y-%m-%d %H:%M:%S %Z"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Date generated: 2025-11-15 10:11:57 GMT</span></span>
+<span><span class="co">#&gt; Date generated: 2025-11-21 20:50:12 GMT</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"R version:"</span>, <span class="va">R.version.string</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version: R version 4.5.1 (2025-06-13)</span></span>
+<span><span class="co">#&gt; R version: R version 4.5.2 (2025-10-31)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Platform:"</span>, <span class="va">R.version</span><span class="op">$</span><span class="va">platform</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Platform: aarch64-apple-darwin20</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Operating System:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.info.html" class="external-link">Sys.info</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"sysname"</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.info.html" class="external-link">Sys.info</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"release"</span><span class="op">]</span>, <span class="st">"\n"</span><span class="op">)</span></span>

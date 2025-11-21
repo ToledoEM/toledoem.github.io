@@ -410,12 +410,12 @@ studied genes and their strongest literature partners
 ``` r
 
 sessionInfo()
-#> R version 4.5.1 (2025-06-13)
+#> R version 4.5.2 (2025-10-31)
 #> Platform: aarch64-apple-darwin20
 #> Running under: macOS Tahoe 26.1
 #> 
 #> Matrix products: default
-#> BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
+#> BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
 #> LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
 #> 
 #> locale:
@@ -428,32 +428,32 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] ggplot2_4.0.0    pheatmap_1.0.13  msigdf_2025.1    dplyr_1.1.4     
+#> [1] ggplot2_4.0.1    pheatmap_1.0.13  msigdf_2025.1    dplyr_1.1.4     
 #> [5] kableExtra_1.4.0 knitr_1.50       PubMatrixR_2.0  
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] sass_0.4.10        generics_0.1.4     xml2_1.4.1         stringi_1.8.7     
-#>  [5] digest_0.6.37      magrittr_2.0.4     evaluate_1.0.5     grid_4.5.1        
+#>  [1] sass_0.4.10        generics_0.1.4     xml2_1.5.0         stringi_1.8.7     
+#>  [5] digest_0.6.39      magrittr_2.0.4     evaluate_1.0.5     grid_4.5.2        
 #>  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     viridisLite_0.4.2 
 #> [13] scales_1.4.0       pbapply_1.7-4      textshaping_1.0.4  jquerylib_0.1.4   
 #> [17] cli_3.6.5          rlang_1.1.6        withr_3.0.2        cachem_1.1.0      
-#> [21] yaml_2.3.10        tools_4.5.1        parallel_4.5.1     curl_7.0.0        
+#> [21] yaml_2.3.10        tools_4.5.2        parallel_4.5.2     curl_7.0.0        
 #> [25] vctrs_0.6.5        R6_2.6.1           lifecycle_1.0.4    stringr_1.6.0     
 #> [29] fs_1.6.6           htmlwidgets_1.6.4  ragg_1.5.0         pkgconfig_2.0.3   
 #> [33] desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1      bslib_0.9.0       
 #> [37] gtable_0.3.6       glue_1.8.0         systemfonts_1.3.1  xfun_0.54         
 #> [41] tibble_3.3.0       tidyselect_1.2.1   rstudioapi_0.17.1  farver_2.1.2      
 #> [45] htmltools_0.5.8.1  labeling_0.4.3     rmarkdown_2.30     svglite_2.2.2     
-#> [49] compiler_4.5.1     S7_0.2.0
+#> [49] compiler_4.5.2     S7_0.2.1
 ```
 
 ``` r
 
 # Additional system details
 cat("Date generated:", format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"), "\n")
-#> Date generated: 2025-11-15 10:11:57 GMT
+#> Date generated: 2025-11-21 20:50:12 GMT
 cat("R version:", R.version.string, "\n")
-#> R version: R version 4.5.1 (2025-06-13)
+#> R version: R version 4.5.2 (2025-10-31)
 cat("Platform:", R.version$platform, "\n")
 #> Platform: aarch64-apple-darwin20
 cat("Operating System:", Sys.info()["sysname"], Sys.info()["release"], "\n")
