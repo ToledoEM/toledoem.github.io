@@ -95,10 +95,10 @@ p
 
 ``` r
 
-# Save initial font-check plot for README (if possible)
-try({
-  ggsave(filename = file.path("vignettes", "font_check.png"), plot = p, width = 6, height = 4)
-}, silent = TRUE)
+# # Save initial font-check plot for README (if possible)
+# try({
+#   ggsave(filename = file.path("vignettes", "font_check.png"), plot = p, width = 6, height = 4)
+# }, silent = TRUE)
 ```
 
 If you want to modify these fonts, you may use the spline font database
@@ -151,16 +151,7 @@ Once the package has been installed, it can be loaded by typing:
 
 ``` r
 
-# During local development prefer sourcing the package R/ files so vignettes
-# can be rendered without installing the package. When the package is
-# installed (e.g. CRAN/installed build) the code falls back to library(xkcd).
-if (dir.exists("R") && file.exists("R/geom_xkcdpath.R")) {
-  message("Sourcing local package R/ files for vignette (development mode)")
-  files <- list.files("R", pattern = "\\.R$", full.names = TRUE)
-  invisible(sapply(files, source))
-} else {
-  library(xkcd)
-}
+library(xkcd)
 ```
 
 Automatically, it loads the packages ggplot2 and extrafont. The most
@@ -205,16 +196,22 @@ that draws a stick figure with different positions, angles, and lengths:
 
 ightleg, angleleftleg = angleleftleg, angleofneck = angleofneck)
 
-set.seed(123) p \<- ggplot() + geom_point(aes(x = mpg, y = wt, colour =
-as.character(vs)), data = mtcars) + xkcdaxis(xrange, yrange) +
-xkcdman(mapping, dataman) p
+``` r
 
+set.seed(123)
+p <- ggplot() + geom_point(aes(x = mpg, y = wt, colour = as.character(vs)), data = mtcars) +
+  xkcdaxis(xrange, yrange) +
+  xkcdman(mapping, dataman)
+p
+```
 
-    Additionally, you may use the facet option of ggplot2 to split up your data by one or more variables and plot the subsets of data together.
+Additionally, you may use the facet option of ggplot2 to split up your
+data by one or more variables and plot the subsets of data together.
 
+``` r
 
-    ``` r
-    p + facet_grid(. ~ vs)
+p + facet_grid( ~ vs)
+```
 
 ## Some Basic Examples
 
@@ -276,7 +273,7 @@ p
 
 # Save a representative plot for README
 try({
-  ggsave(filename = file.path("vignettes", "caritas_plot.png"), plot = p, width = 9, height = 5)
+  ggsave(filename = file.path("caritas_plot.png"), plot = p, width = 9, height = 5)
 }, silent = TRUE)
 ```
 
@@ -360,7 +357,7 @@ print(p)
 ``` r
 
 # Save a PNG into the vignette folder so it can be used in the README
-out_png <- file.path("vignettes", "mommy_plot.png")
+out_png <- file.path("mommy_plot.png")
 ggsave(filename = out_png, plot = p, width = 9, height = 6)
 ```
 
@@ -470,8 +467,7 @@ p2 + xkcdman(mapping, dataman)
 
 ``` r
 
-# Grouping example: provide a `group` aesthetic to `geom_xkcdpath()` when
-# drawing multiple segments/paths. Use `linewidth` to control stroke thickness.
+# Grouping example: provide a group aesthetic to geom_xkcdpath() when
 df <- data.frame(x = c(1, 3), y = c(1, 1), xend = c(2, 4), yend = c(1.2, 0.8), group = 1)
 ggplot() +
   geom_xkcdpath(aes(x = x, y = y, xend = xend, yend = yend, group = group),
@@ -479,7 +475,7 @@ ggplot() +
   xkcdaxis(c(0,5), c(0,2)) + theme_xkcd()
 ```
 
-![](xkcd-intro_files/figure-html/unnamed-chunk-6-1.png)
+![](xkcd-intro_files/figure-html/help-2.png)
 
 ### Economic Projections
 

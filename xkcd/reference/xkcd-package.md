@@ -1,10 +1,10 @@
-# Plotting ggplot2 Graphics in an XKCD Style
+# Plotting 'ggplot2' Graphics in an 'XKCD' Style
 
 Provides custom geoms and themes to create charts and graphics in the
-distinctive, hand-drawn XKCD webcomic style using the ggplot2 framework.
-The package utilizes custom layers for jittered lines, segments,
-circles, and figures, and includes a theme that supports the necessary
-XKCD font.
+distinctive, hand-drawn 'XKCD' webcomic style using the 'ggplot2'
+framework. The package utilizes custom layers for jittered lines,
+segments, circles, and figures, and includes a theme that supports the
+necessary 'XKCD' font.
 
 ## Details
 

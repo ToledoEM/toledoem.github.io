@@ -8,7 +8,7 @@
   : Creates an XKCD theme
 - [`xkcd-package`](https://toledoem.github.io/xkcd/reference/xkcd-package.md)
   [`xkcd`](https://toledoem.github.io/xkcd/reference/xkcd-package.md) :
-  Plotting ggplot2 Graphics in an XKCD Style
+  Plotting 'ggplot2' Graphics in an 'XKCD' Style
 - [`xkcdaxis()`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)
   : Plot the axis
 - [`xkcdline()`](https://toledoem.github.io/xkcd/reference/xkcdline.md)
