@@ -1,8 +1,6 @@
 # MSigDF
 
-![msigdf logo](https://toledoem.github.io/img/msigdf_logo.png)
-
-msigdf logo
+![](https://toledoem.github.io/img/msigdf_logo.png)
 
 The [Molecular Signatures Database
 (MSigDB)](https://www.gsea-msigdb.org/gsea/msigdb/index.jsp) in a tidy

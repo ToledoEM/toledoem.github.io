@@ -285,12 +285,12 @@ msigdf.human %>%
 
 ## Session info
 
-    ## R version 4.5.1 (2025-06-13)
+    ## R version 4.5.2 (2025-10-31)
     ## Platform: aarch64-apple-darwin20
     ## Running under: macOS Tahoe 26.1
     ## 
     ## Matrix products: default
-    ## BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
+    ## BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
     ## LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
     ## 
     ## locale:
@@ -303,27 +303,21 @@ msigdf.human %>%
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ##  [1] msigdf_2025.1    lubridate_1.9.4  forcats_1.0.1    stringr_1.6.0   
-    ##  [5] dplyr_1.1.4      purrr_1.2.0      readr_2.1.5      tidyr_1.3.1     
-    ##  [9] tibble_3.3.0     ggplot2_4.0.0    tidyverse_2.0.0  knitr_1.50      
-    ## [13] BiocStyle_2.36.0
+    ##  [1] msigdf_2025.1   lubridate_1.9.4 forcats_1.0.1   stringr_1.6.0  
+    ##  [5] dplyr_1.1.4     purrr_1.2.0     readr_2.1.6     tidyr_1.3.1    
+    ##  [9] tibble_3.3.0    ggplot2_4.0.1   tidyverse_2.0.0 knitr_1.50     
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] utf8_1.2.6          sass_0.4.10         generics_0.1.4     
-    ##  [4] stringi_1.8.7       hms_1.1.4           digest_0.6.37      
-    ##  [7] magrittr_2.0.4      evaluate_1.0.5      grid_4.5.1         
-    ## [10] timechange_0.3.0    RColorBrewer_1.1-3  bookdown_0.45      
-    ## [13] fastmap_1.2.0       jsonlite_2.0.0      BiocManager_1.30.26
-    ## [16] scales_1.4.0        textshaping_1.0.4   jquerylib_0.1.4    
-    ## [19] cli_3.6.5           rlang_1.1.6         withr_3.0.2        
-    ## [22] cachem_1.1.0        yaml_2.3.10         tools_4.5.1        
-    ## [25] tzdb_0.5.0          vctrs_0.6.5         R6_2.6.1           
-    ## [28] lifecycle_1.0.4     fs_1.6.6            htmlwidgets_1.6.4  
-    ## [31] ragg_1.5.0          pkgconfig_2.0.3     desc_1.4.3         
-    ## [34] pkgdown_2.2.0       pillar_1.11.1       bslib_0.9.0        
-    ## [37] gtable_0.3.6        glue_1.8.0          systemfonts_1.3.1  
-    ## [40] xfun_0.54           tidyselect_1.2.1    farver_2.1.2       
-    ## [43] htmltools_0.5.8.1   rmarkdown_2.30      compiler_4.5.1     
-    ## [46] S7_0.2.0
+    ##  [1] gtable_0.3.6       jsonlite_2.0.0     compiler_4.5.2     tidyselect_1.2.1  
+    ##  [5] jquerylib_0.1.4    systemfonts_1.3.1  scales_1.4.0       textshaping_1.0.4 
+    ##  [9] yaml_2.3.10        fastmap_1.2.0      R6_2.6.1           generics_0.1.4    
+    ## [13] htmlwidgets_1.6.4  desc_1.4.3         tzdb_0.5.0         bslib_0.9.0       
+    ## [17] pillar_1.11.1      RColorBrewer_1.1-3 rlang_1.1.6        utf8_1.2.6        
+    ## [21] stringi_1.8.7      cachem_1.1.0       xfun_0.54          fs_1.6.6          
+    ## [25] sass_0.4.10        S7_0.2.1           timechange_0.3.0   cli_3.6.5         
+    ## [29] pkgdown_2.2.0      withr_3.0.2        magrittr_2.0.4     digest_0.6.39     
+    ## [33] grid_4.5.2         hms_1.1.4          lifecycle_1.0.4    vctrs_0.6.5       
+    ## [37] evaluate_1.0.5     glue_1.8.0         farver_2.1.2       ragg_1.5.0        
+    ## [41] rmarkdown_2.30     tools_4.5.2        pkgconfig_2.0.3    htmltools_0.5.8.1
 
 [^1]: <http://www.broad.mit.edu/gsea/msigdb/index.jsp>

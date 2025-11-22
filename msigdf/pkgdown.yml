@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   msigdf: msigdf.html
-last_built: 2025-11-14T16:54Z
+last_built: 2025-11-22T12:41Z
 urls:
   reference: https://toledoem.github.io/msigdf/reference
   article: https://toledoem.github.io/msigdf/articles
