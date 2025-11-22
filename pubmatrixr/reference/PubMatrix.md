@@ -59,3 +59,15 @@ PubMatrix(
 
 A dataframe of search results. Each element of the dataframe is the
 number of search results for a pair of search terms from A and B.
+
+## Examples
+
+``` r
+# Note: This example requires internet connection
+A <- c("WNT1", "WNT2")
+B <- c("FZD1", "FZD2")
+# result <- PubMatrix(A = A, B = B, Database = "pubmed", daterange = c(2020, 2023))
+# print(result)
+message("Example commented out to avoid internet dependency in checks")
+#> Example commented out to avoid internet dependency in checks
+```

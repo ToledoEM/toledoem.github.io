@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   vignette: vignette.html
   WntExample: WntExample.html
-last_built: 2025-11-21T20:48Z
+last_built: 2025-11-22T22:37Z
 urls:
   reference: https://toledoem.github.io/PubMatrixR-v2/reference
   article: https://toledoem.github.io/PubMatrixR-v2/articles

@@ -5,8 +5,12 @@
 - **Tyler Laird**. Author.
 
 - **Toledo Enrique**. Contributor, maintainer.
+  [](https://orcid.org/0000-0002-1460-4708)
 
 ## Citation
+
+Source:
+[`inst/CITATION`](https://github.com/ToledoEM/PubMatrixR-v2/blob/HEAD/inst/CITATION)
 
 KG B, DA H, G D, RA L, TJ B, C C, J E (2003). “PubMatrix: a tool for
 multiplex literature mining.” *BMC Bioinformatics*, **4**, 61.

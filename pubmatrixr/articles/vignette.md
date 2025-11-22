@@ -1,5 +1,7 @@
 # PubMatrixR: Literature Co-occurrence Analysis
 
+![](https://toledoem.github.io/img/LogoPubmatrix.png)
+
 ``` r
 
 library(PubMatrixR)
@@ -45,10 +47,12 @@ Once you have your API key, you can use it in PubMatrixR like this:
 
 ``` r
 
-result <- PubMatrix(A = gene_set_1,
-                   B = gene_set_2,
-                   API.key = "your_api_key_here",
-                   Database = "pubmed")
+result <- PubMatrix(
+  A = gene_set_1,
+  B = gene_set_2,
+  API.key = "your_api_key_here",
+  Database = "pubmed"
+)
 ```
 
 ## Preparing Gene Sets
@@ -61,15 +65,15 @@ obesity from the MSigDB database:
 ``` r
 
 # Extract WNT-related genes
-A <- msigdf::msigdf.human %>% 
-  dplyr::filter(grepl(geneset, pattern = "wnt", ignore.case = TRUE)) %>% 
-  dplyr::pull(symbol) %>% 
+A <- msigdf::msigdf.human %>%
+  dplyr::filter(grepl(geneset, pattern = "wnt", ignore.case = TRUE)) %>%
+  dplyr::pull(symbol) %>%
   unique()
 
 # Extract obesity-related genes
-B <- msigdf::msigdf.human %>% 
-  dplyr::filter(grepl(geneset, pattern = "obesity", ignore.case = TRUE)) %>% 
-  dplyr::pull(symbol) %>% 
+B <- msigdf::msigdf.human %>%
+  dplyr::filter(grepl(geneset, pattern = "obesity", ignore.case = TRUE)) %>%
+  dplyr::pull(symbol) %>%
   unique()
 
 # Sample genes for demonstration (making them equal in length)
@@ -84,10 +88,10 @@ When MSigDB is not available, we use these representative gene sets:
 ``` r
 
 # WNT signaling pathway genes
-A <- c("WNT1", "WNT2", "WNT3A", "WNT5A","WNT7B", "CTNNB1", "DVL1")
+A <- c("WNT1", "WNT2", "WNT3A", "WNT5A", "WNT7B", "CTNNB1", "DVL1")
 
-# Obesity-related genes  
-B <- c("LEPR", "ADIPOQ", "PPARG", "TNF", "IL6", "ADRB2" ,"INSR")
+# Obesity-related genes
+B <- c("LEPR", "ADIPOQ", "PPARG", "TNF", "IL6", "ADRB2", "INSR")
 ```
 
 ## Literature Analysis
@@ -101,13 +105,13 @@ literature:
 
 # Run actual PubMatrix analysis
 current_year <- format(Sys.Date(), "%Y")
-result <- PubMatrix(A = A,
-                    B = B,
-                   Database = "pubmed",
-                   daterange = c(2020, current_year),
-                   outfile = "pubmatrix_result")
-#> [1] "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=2020&maxdate=2025"
-#> [1] "<b><a href=\"https://www.ncbi.nlm.nih.gov/pubmed/?term=2020:2025[DP]+AND+"
+result <- PubMatrix(
+  A = A,
+  B = B,
+  Database = "pubmed",
+  daterange = c(2020, current_year),
+  outfile = "pubmatrix_result"
+)
 ```
 
 ### Results Table
@@ -117,14 +121,17 @@ each pair of genes:
 
 ``` r
 
-kable(result, 
-        caption = "Co-occurrence Matrix: WNT Genes vs Obesity Genes (Publication Counts)",
-        align = "c",
-        format = "html") %>%
-    kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                             full_width = FALSE,
-                             position = "center") %>%
-    kableExtra::add_header_above(c(" " = 1, "Obesity Genes" = length(A)))
+kable(result,
+  caption = "Co-occurrence Matrix: WNT Genes vs Obesity Genes (Publication Counts)",
+  align = "c",
+  format = "html"
+) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "center"
+  ) %>%
+  kableExtra::add_header_above(c(" " = 1, "Obesity Genes" = length(B)))
 ```
 
 [TABLE]
@@ -152,7 +159,7 @@ a_genes_data <- data.frame(
 a_genes_data$max_b_gene <- apply(result, 1, function(x) colnames(result)[which.max(x)])
 a_genes_data$max_overlap <- apply(result, 1, max)
 
-# Create data frame for List B genes (columns) colored by List A genes (rows)  
+# Create data frame for List B genes (columns) colored by List A genes (rows)
 b_genes_data <- data.frame(
   gene = colnames(result),
   total_pubs = colSums(result),
@@ -165,27 +172,31 @@ b_genes_data$max_overlap <- apply(result, 2, max)
 
 # Plot A genes colored by their strongest B gene partner
 p1 <- ggplot(a_genes_data, aes(x = reorder(gene, total_pubs), y = total_pubs, fill = max_b_gene)) +
-  geom_bar(stat = "identity")+
+  geom_bar(stat = "identity") +
   coord_flip() +
-  labs(title = "List A Genes by Publication Count",
-       subtitle = "Colored by strongest List B gene partner",
-       x = "Genes (List A)", 
-       y = "Total Publications",
-       fill = "Strongest B Partner") +
+  labs(
+    title = "List A Genes by Publication Count",
+    subtitle = "Colored by strongest List B gene partner",
+    x = "Genes (List A)",
+    y = "Total Publications",
+    fill = "Strongest B Partner"
+  ) +
   theme_minimal() +
   theme(legend.position = "bottom") +
   scale_fill_brewer(palette = "Set1")
 
 
-# Plot B genes colored by their strongest A gene partner  
+# Plot B genes colored by their strongest A gene partner
 p2 <- ggplot(b_genes_data, aes(x = reorder(gene, total_pubs), y = total_pubs, fill = max_a_gene)) +
   geom_bar(stat = "identity") +
   coord_flip() +
-  labs(title = "List B Genes by Publication Count", 
-       subtitle = "Colored by strongest List A gene partner",
-       x = "Genes (List B)",
-       y = "Total Publications", 
-       fill = "Strongest A Partner")+
+  labs(
+    title = "List B Genes by Publication Count",
+    subtitle = "Colored by strongest List A gene partner",
+    x = "Genes (List B)",
+    y = "Total Publications",
+    fill = "Strongest A Partner"
+  ) +
   theme_minimal() +
   theme(legend.position = "bottom") +
   scale_fill_brewer(palette = "Set1")
@@ -210,11 +221,12 @@ co-occurrence counts:
 
 ``` r
 
-plot_pubmatrix_heatmap(result, 
-                       title = "WNT-Obesity Gene Overlap Percentages",
-                       show_numbers = TRUE ,
-                       width =  16,
-                       height = 14)
+plot_pubmatrix_heatmap(result,
+  title = "WNT-Obesity Gene Overlap Percentages",
+  show_numbers = TRUE,
+  width = 12,
+  height = 10
+)
 ```
 
 ![Overlap percentage heatmap with values displayed in each
@@ -228,11 +240,12 @@ For a cleaner visualization without numbers, useful for presentations:
 
 ``` r
 
-plot_pubmatrix_heatmap(result, 
-                       title = "WNT-Obesity Gene Co-occurrence (Clean)",
-                       show_numbers = FALSE,
-                       width = 16,
-                       height = 14)
+plot_pubmatrix_heatmap(result,
+  title = "WNT-Obesity Gene Co-occurrence (Clean)",
+  show_numbers = FALSE,
+  width = 12,
+  height = 10
+)
 ```
 
 ![Co-occurrence heatmap without numbers for better visual
@@ -246,19 +259,19 @@ Asymmetric lists
 
 A <- c("NCOR2", "NCSTN", "NKD1", "NOTCH1", "NOTCH4", "NUMB", "PPARD", "PSEN2", "PTCH1", "RBPJ", "SKP2", "TCF7", "TP53")
 
- 
+
 B <- c("EIF1", "EIF1AX", "EIF2B1", "EIF2B2", "EIF2B3", "EIF2B4", "EIF2B5", "EIF2S1", "EIF2S2", "EIF2S3", "ELAVL1")
 
 
 # Run actual PubMatrix analysis
 current_year <- format(Sys.Date(), "%Y")
-result <- PubMatrix(A = A,
-                    B = B,
-                   Database = "pubmed",
-                   daterange = c(2020, current_year),
-                   outfile = "pubmatrix_result")
-#> [1] "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=2020&maxdate=2025"
-#> [1] "<b><a href=\"https://www.ncbi.nlm.nih.gov/pubmed/?term=2020:2025[DP]+AND+"
+result <- PubMatrix(
+  A = A,
+  B = B,
+  Database = "pubmed",
+  daterange = c(2020, current_year),
+  outfile = "pubmatrix_result"
+)
 ```
 
 ### Results Table
@@ -268,14 +281,17 @@ each pair of genes:
 
 ``` r
 
-kable(result, 
-        caption = "Co-occurrence Matrix: Longer Lists (Publication Counts)",
-        align = "c",
-        format = "html") %>%
-    kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                             full_width = FALSE,
-                             position = "center") %>%
-    kableExtra::add_header_above(c(" " = 1, "Genes" = length(A)))
+kable(result,
+  caption = "Co-occurrence Matrix: Longer Lists (Publication Counts)",
+  align = "c",
+  format = "html"
+) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "center"
+  ) %>%
+  kableExtra::add_header_above(c(" " = 1, "A Genes" = length(A)))
 ```
 
 [TABLE]
@@ -297,9 +313,9 @@ a_genes_data2 <- data.frame(
 
 # Add color coding based on max overlap with B genes
 a_genes_data2$max_b_gene <- apply(result, 1, function(x) colnames(result)[which.max(x)])
-a_genes_data2$max_overlap <-  apply(result, 1, max)
+a_genes_data2$max_overlap <- apply(result, 1, max)
 
-# Create data frame for List B genes (columns) colored by List A genes (rows)  
+# Create data frame for List B genes (columns) colored by List A genes (rows)
 b_genes_data2 <- data.frame(
   gene = colnames(result),
   total_pubs = colSums(result),
@@ -314,27 +330,31 @@ b_genes_data2$max_overlap <- apply(result, 2, max)
 p3 <- ggplot(a_genes_data2, aes(x = reorder(gene, total_pubs), y = total_pubs, fill = max_b_gene)) +
   geom_bar(stat = "identity") +
   coord_flip() +
-  labs(title = "List A Genes by Publication Count (Asymmetric)",
-       subtitle = "Colored by strongest List B gene partner",
-       x = "Genes (List A)", 
-       y = "Total Publications",
-       fill = "Strongest B Partner") +
+  labs(
+    title = "List A Genes by Publication Count (Asymmetric)",
+    subtitle = "Colored by strongest List B gene partner",
+    x = "Genes (List A)",
+    y = "Total Publications",
+    fill = "Strongest B Partner"
+  ) +
   theme_minimal() +
-  theme(legend.position = "bottom")+
+  theme(legend.position = "bottom") +
   scale_fill_brewer(palette = "Set1")
 
 
-# Plot B genes colored by their strongest A gene partner  
+# Plot B genes colored by their strongest A gene partner
 p4 <- ggplot(b_genes_data2, aes(x = reorder(gene, total_pubs), y = total_pubs, fill = max_a_gene)) +
   geom_bar(stat = "identity") +
   coord_flip() +
-  labs(title = "List B Genes by Publication Count (Asymmetric)", 
-       subtitle = "Colored by strongest List A gene partner",
-       x = "Genes (List B)",
-       y = "Total Publications", 
-       fill = "Strongest A Partner") +
+  labs(
+    title = "List B Genes by Publication Count (Asymmetric)",
+    subtitle = "Colored by strongest List A gene partner",
+    x = "Genes (List B)",
+    y = "Total Publications",
+    fill = "Strongest A Partner"
+  ) +
   theme_minimal() +
-  theme(legend.position = "bottom")+
+  theme(legend.position = "bottom") +
   scale_fill_brewer(palette = "Set1")
 
 
@@ -357,11 +377,12 @@ co-occurrence counts:
 
 ``` r
 
-plot_pubmatrix_heatmap(result, 
-                       title = "Asymmetric Gene Lists Overlap Percentages",
-                       show_numbers = TRUE,
-                       width = 16,
-                       height = 14)
+plot_pubmatrix_heatmap(result,
+  title = "Asymmetric Gene Lists Overlap Percentages",
+  show_numbers = TRUE,
+  width = 12,
+  height = 10
+)
 ```
 
 ![Overlap percentage heatmap with values displayed in each
@@ -375,11 +396,12 @@ For a cleaner visualization without numbers, useful for presentations:
 
 ``` r
 
-plot_pubmatrix_heatmap(result, 
-                       title = "Asymmetric Gene Lists Co-occurrence (Clean)",
-                       show_numbers = FALSE,
-                       width = 16,
-                       height = 14)
+plot_pubmatrix_heatmap(result,
+  title = "Asymmetric Gene Lists Co-occurrence (Clean)",
+  show_numbers = FALSE,
+  width = 12,
+  height = 10
+)
 ```
 
 ![Co-occurrence heatmap without numbers for better visual
@@ -429,7 +451,7 @@ sessionInfo()
 #> 
 #> other attached packages:
 #> [1] ggplot2_4.0.1    pheatmap_1.0.13  msigdf_2025.1    dplyr_1.1.4     
-#> [5] kableExtra_1.4.0 knitr_1.50       PubMatrixR_2.0  
+#> [5] kableExtra_1.4.0 knitr_1.50       PubMatrixR_1.0.0
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] sass_0.4.10        generics_0.1.4     xml2_1.5.0         stringi_1.8.7     
@@ -445,19 +467,4 @@ sessionInfo()
 #> [41] tibble_3.3.0       tidyselect_1.2.1   rstudioapi_0.17.1  farver_2.1.2      
 #> [45] htmltools_0.5.8.1  labeling_0.4.3     rmarkdown_2.30     svglite_2.2.2     
 #> [49] compiler_4.5.2     S7_0.2.1
-```
-
-``` r
-
-# Additional system details
-cat("Date generated:", format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"), "\n")
-#> Date generated: 2025-11-21 20:50:12 GMT
-cat("R version:", R.version.string, "\n")
-#> R version: R version 4.5.2 (2025-10-31)
-cat("Platform:", R.version$platform, "\n")
-#> Platform: aarch64-apple-darwin20
-cat("Operating System:", Sys.info()["sysname"], Sys.info()["release"], "\n")
-#> Operating System: Darwin 25.1.0
-cat("User:", Sys.info()["user"], "\n")
-#> User: enrique
 ```
