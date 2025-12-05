@@ -76,6 +76,11 @@ plot_pubmatrix_heatmap(
   Optional numeric cell height for pheatmap (in pixels). Default \`NA\`
   lets pheatmap auto-size.
 
+- scale_font:
+
+  Logical value determining if font size should scale with cell size.
+  Default is TRUE
+
 ## Value
 
 A pheatmap object (invisible)

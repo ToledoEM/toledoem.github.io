@@ -3,7 +3,6 @@
 ![](https://toledoem.github.io/img/LogoPubmatrix.png)
 
 ``` r
-
 library(PubMatrixR)
 library(knitr)
 library(kableExtra)
@@ -46,7 +45,6 @@ To obtain your free NCBI API key, visit:
 Once you have your API key, you can use it in PubMatrixR like this:
 
 ``` r
-
 result <- PubMatrix(
   A = gene_set_1,
   B = gene_set_2,
@@ -63,7 +61,6 @@ For this example, we’ll extract genes related to WNT signaling and
 obesity from the MSigDB database:
 
 ``` r
-
 # Extract WNT-related genes
 A <- msigdf::msigdf.human %>%
   dplyr::filter(grepl(geneset, pattern = "wnt", ignore.case = TRUE)) %>%
@@ -86,7 +83,6 @@ B <- sample(B, 10, replace = FALSE)
 When MSigDB is not available, we use these representative gene sets:
 
 ``` r
-
 # WNT signaling pathway genes
 A <- c("WNT1", "WNT2", "WNT3A", "WNT5A", "WNT7B", "CTNNB1", "DVL1")
 
@@ -102,7 +98,6 @@ Now we’ll search for co-occurrences between our gene sets in PubMed
 literature:
 
 ``` r
-
 # Run actual PubMatrix analysis
 current_year <- format(Sys.Date(), "%Y")
 result <- PubMatrix(
@@ -120,7 +115,6 @@ The co-occurrence matrix shows the number of publications mentioning
 each pair of genes:
 
 ``` r
-
 kable(result,
   caption = "Co-occurrence Matrix: WNT Genes vs Obesity Genes (Publication Counts)",
   align = "c",
@@ -137,8 +131,6 @@ kable(result,
 [TABLE]
 
 Co-occurrence Matrix: WNT Genes vs Obesity Genes (Publication Counts)
-{.table .table .table-striped .table-hover .table-condensed
-style="width: auto !important; margin-left: auto; margin-right: auto;"}
 
 ## Visualization
 
@@ -147,7 +139,6 @@ style="width: auto !important; margin-left: auto; margin-right: auto;"}
 Let’s first examine which genes have the highest publication counts:
 
 ``` r
-
 # Create data frame for List A genes (rows) colored by List B genes (columns)
 a_genes_data <- data.frame(
   gene = rownames(result),
@@ -208,7 +199,6 @@ print(p1)
 ![](vignette_files/figure-html/bar_plots-1.png)
 
 ``` r
-
 print(p2)
 ```
 
@@ -220,7 +210,6 @@ The heatmap displays overlap percentages calculated from the publication
 co-occurrence counts:
 
 ``` r
-
 plot_pubmatrix_heatmap(result,
   title = "WNT-Obesity Gene Overlap Percentages",
   show_numbers = TRUE,
@@ -239,7 +228,6 @@ Overlap percentage heatmap with values displayed in each cell
 For a cleaner visualization without numbers, useful for presentations:
 
 ``` r
-
 plot_pubmatrix_heatmap(result,
   title = "WNT-Obesity Gene Co-occurrence (Clean)",
   show_numbers = FALSE,
@@ -256,7 +244,6 @@ Co-occurrence heatmap without numbers for better visual clarity
 Asymmetric lists
 
 ``` r
-
 A <- c("NCOR2", "NCSTN", "NKD1", "NOTCH1", "NOTCH4", "NUMB", "PPARD", "PSEN2", "PTCH1", "RBPJ", "SKP2", "TCF7", "TP53")
 
 
@@ -280,7 +267,6 @@ The co-occurrence matrix shows the number of publications mentioning
 each pair of genes:
 
 ``` r
-
 kable(result,
   caption = "Co-occurrence Matrix: Longer Lists (Publication Counts)",
   align = "c",
@@ -296,14 +282,11 @@ kable(result,
 
 [TABLE]
 
-Co-occurrence Matrix: Longer Lists (Publication Counts) {.table .table
-.table-striped .table-hover .table-condensed
-style="width: auto !important; margin-left: auto; margin-right: auto;"}
+Co-occurrence Matrix: Longer Lists (Publication Counts)
 
 ### Bar Plots for Asymmetric Lists
 
 ``` r
-
 # Create data frame for List A genes (rows) colored by List B genes (columns)
 a_genes_data2 <- data.frame(
   gene = rownames(result),
@@ -364,7 +347,6 @@ print(p3)
 ![](vignette_files/figure-html/bar_plots_asymmetric-1.png)
 
 ``` r
-
 print(p4)
 ```
 
@@ -376,7 +358,6 @@ The heatmap displays overlap percentages calculated from the publication
 co-occurrence counts:
 
 ``` r
-
 plot_pubmatrix_heatmap(result,
   title = "Asymmetric Gene Lists Overlap Percentages",
   show_numbers = TRUE,
@@ -395,7 +376,6 @@ Overlap percentage heatmap with values displayed in each cell
 For a cleaner visualization without numbers, useful for presentations:
 
 ``` r
-
 plot_pubmatrix_heatmap(result,
   title = "Asymmetric Gene Lists Co-occurrence (Clean)",
   show_numbers = FALSE,
@@ -430,7 +410,6 @@ studied genes and their strongest literature partners
 ## System Information
 
 ``` r
-
 sessionInfo()
 #> R version 4.5.2 (2025-10-31)
 #> Platform: aarch64-apple-darwin20
@@ -441,7 +420,7 @@ sessionInfo()
 #> LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
 #> 
 #> locale:
-#> [1] C.UTF-8/C.UTF-8/C.UTF-8/C/C.UTF-8/C.UTF-8
+#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 #> 
 #> time zone: Europe/London
 #> tzcode source: internal
@@ -459,12 +438,12 @@ sessionInfo()
 #>  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     viridisLite_0.4.2 
 #> [13] scales_1.4.0       pbapply_1.7-4      textshaping_1.0.4  jquerylib_0.1.4   
 #> [17] cli_3.6.5          rlang_1.1.6        withr_3.0.2        cachem_1.1.0      
-#> [21] yaml_2.3.10        tools_4.5.2        parallel_4.5.2     curl_7.0.0        
-#> [25] vctrs_0.6.5        R6_2.6.1           lifecycle_1.0.4    stringr_1.6.0     
-#> [29] fs_1.6.6           htmlwidgets_1.6.4  ragg_1.5.0         pkgconfig_2.0.3   
-#> [33] desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1      bslib_0.9.0       
-#> [37] gtable_0.3.6       glue_1.8.0         systemfonts_1.3.1  xfun_0.54         
-#> [41] tibble_3.3.0       tidyselect_1.2.1   rstudioapi_0.17.1  farver_2.1.2      
-#> [45] htmltools_0.5.8.1  labeling_0.4.3     rmarkdown_2.30     svglite_2.2.2     
-#> [49] compiler_4.5.2     S7_0.2.1
+#> [21] yaml_2.3.10        tools_4.5.2        parallel_4.5.2     readODS_2.3.2     
+#> [25] curl_7.0.0         vctrs_0.6.5        R6_2.6.1           lifecycle_1.0.4   
+#> [29] stringr_1.6.0      fs_1.6.6           htmlwidgets_1.6.4  ragg_1.5.0        
+#> [33] pkgconfig_2.0.3    desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1     
+#> [37] bslib_0.9.0        gtable_0.3.6       glue_1.8.0         systemfonts_1.3.1 
+#> [41] xfun_0.54          tibble_3.3.0       tidyselect_1.2.1   rstudioapi_0.17.1 
+#> [45] farver_2.1.2       htmltools_0.5.8.1  rmarkdown_2.30     svglite_2.2.2     
+#> [49] labeling_0.4.3     compiler_4.5.2     S7_0.2.1
 ```

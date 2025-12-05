@@ -3,7 +3,6 @@
 ![](https://toledoem.github.io/img/LogoPubmatrix.png)
 
 ``` r
-
 library(PubMatrixR)
 library(knitr)
 library(kableExtra)
@@ -27,13 +26,11 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ``` r
-
 library(pheatmap)
 library(ggplot2)
 ```
 
 ``` r
-
 A <- c(
   "WNT1", "WNT2", "WNT2B", "WNT3", "WNT3A", "WNT4", "WNT5A", "WNT5B",
   "WNT6", "WNT7A", "WNT7B", "WNT8A", "WNT8B", "WNT9A", "WNT9B",
@@ -62,7 +59,6 @@ result <- PubMatrix(
     ## <b><a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=1990:2025[DP]+AND+
 
 ``` r
-
 # Create data frame for List A genes (rows) colored by List B genes (columns)
 a_genes_data <- data.frame(
   gene = rownames(result),
@@ -123,14 +119,12 @@ print(p1)
 ![](WntExample_files/figure-html/bar_plots-1.png)
 
 ``` r
-
 print(p2)
 ```
 
 ![](WntExample_files/figure-html/bar_plots-2.png)
 
 ``` r
-
 kable(result,
   caption = "Co-occurrence Matrix: WNT Genes (Publication Counts)",
   align = "c",
@@ -146,12 +140,9 @@ kable(result,
 
 [TABLE]
 
-Co-occurrence Matrix: WNT Genes (Publication Counts) {.table .table
-.table-striped .table-hover .table-condensed
-style="width: auto !important; margin-left: auto; margin-right: auto;"}
+Co-occurrence Matrix: WNT Genes (Publication Counts)
 
 ``` r
-
 plot_pubmatrix_heatmap(
   matrix = result,
   title = "WNT - Ligands v/s Receptors",
@@ -162,7 +153,6 @@ plot_pubmatrix_heatmap(
 ![](WntExample_files/figure-html/heatmap_clean_asymmetric2-1.png)
 
 ``` r
-
 pubmatrix_heatmap(matrix = result)
 ```
 
@@ -170,7 +160,6 @@ pubmatrix_heatmap(matrix = result)
 Information
 
 ``` r
-
 sessionInfo()
 ```
 
@@ -183,7 +172,7 @@ sessionInfo()
     ## LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
     ## 
     ## locale:
-    ## [1] C.UTF-8/C.UTF-8/C.UTF-8/C/C.UTF-8/C.UTF-8
+    ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
     ## 
     ## time zone: Europe/London
     ## tzcode source: internal
@@ -196,16 +185,16 @@ sessionInfo()
     ## [5] knitr_1.50       PubMatrixR_1.0.0
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] sass_0.4.10        generics_0.1.4     xml2_1.5.0         stringi_1.8.7     
-    ##  [5] digest_0.6.39      magrittr_2.0.4     evaluate_1.0.5     grid_4.5.2        
-    ##  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     viridisLite_0.4.2 
-    ## [13] scales_1.4.0       pbapply_1.7-4      textshaping_1.0.4  jquerylib_0.1.4   
-    ## [17] cli_3.6.5          rlang_1.1.6        withr_3.0.2        cachem_1.1.0      
-    ## [21] yaml_2.3.10        tools_4.5.2        parallel_4.5.2     curl_7.0.0        
-    ## [25] vctrs_0.6.5        R6_2.6.1           lifecycle_1.0.4    stringr_1.6.0     
-    ## [29] fs_1.6.6           htmlwidgets_1.6.4  ragg_1.5.0         pkgconfig_2.0.3   
-    ## [33] desc_1.4.3         pkgdown_2.2.0      pillar_1.11.1      bslib_0.9.0       
-    ## [37] gtable_0.3.6       glue_1.8.0         systemfonts_1.3.1  xfun_0.54         
-    ## [41] tibble_3.3.0       tidyselect_1.2.1   rstudioapi_0.17.1  farver_2.1.2      
-    ## [45] htmltools_0.5.8.1  rmarkdown_2.30     svglite_2.2.2      labeling_0.4.3    
-    ## [49] compiler_4.5.2     S7_0.2.1
+    ##  [1] gtable_0.3.6       jsonlite_2.0.0     compiler_4.5.2     tidyselect_1.2.1  
+    ##  [5] xml2_1.5.0         stringr_1.6.0      parallel_4.5.2     jquerylib_0.1.4   
+    ##  [9] systemfonts_1.3.1  scales_1.4.0       textshaping_1.0.4  yaml_2.3.10       
+    ## [13] fastmap_1.2.0      R6_2.6.1           labeling_0.4.3     generics_0.1.4    
+    ## [17] curl_7.0.0         htmlwidgets_1.6.4  tibble_3.3.0       desc_1.4.3        
+    ## [21] svglite_2.2.2      bslib_0.9.0        pillar_1.11.1      RColorBrewer_1.1-3
+    ## [25] readODS_2.3.2      rlang_1.1.6        cachem_1.1.0       stringi_1.8.7     
+    ## [29] xfun_0.54          S7_0.2.1           fs_1.6.6           sass_0.4.10       
+    ## [33] viridisLite_0.4.2  cli_3.6.5          withr_3.0.2        pkgdown_2.2.0     
+    ## [37] magrittr_2.0.4     grid_4.5.2         digest_0.6.39      rstudioapi_0.17.1 
+    ## [41] pbapply_1.7-4      lifecycle_1.0.4    vctrs_0.6.5        evaluate_1.0.5    
+    ## [45] glue_1.8.0         farver_2.1.2       ragg_1.5.0         rmarkdown_2.30    
+    ## [49] pkgconfig_2.0.3    tools_4.5.2        htmltools_0.5.8.1

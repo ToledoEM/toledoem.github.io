@@ -2,7 +2,8 @@
 
 ![](https://toledoem.github.io/img/LogoPubmatrix.png)
 
-- Forked from: <https://github.com/tslaird/PubMatrixR>
+- Repository: <https://github.com/ToledoEM/PubMatrixR-v2>
+- Original code from: <https://github.com/tslaird/PubMatrixR>
 - Based on paper : [PubMatrix: a tool for multiplex literature
   mining](https://pmc.ncbi.nlm.nih.gov/articles/PMC317283/) of **Becker
   KG et al. BMC Bioinformatics. 2003 Dec 10;4:61. doi:
@@ -16,6 +17,9 @@ search terms. It creates co-occurrence matrices showing the number of
 publications that mention both terms from two different sets, enabling
 researchers to explore relationships between genes, diseases, pathways,
 or any other biomedical concepts.
+
+Original deprecated version from @tslaird. Current release v2 is updated
+to use tidyverse and incorporate graphical output of the analysis.
 
 ### Key Features
 
@@ -31,17 +35,23 @@ or any other biomedical concepts.
 - **Flexible Input**: Use vectors directly or read terms from a file
 - **Progress Tracking**: Built-in progress bars for long searches
 
+## Try it Online
+
+**Interactive Shiny App**:
+<https://toledoem.shinyapps.io/pubmatrix-app/>
+
+No installation required - just open the link and start analyzing!
+
 ## Installation
 
 You can install PubMatrixR from GitHub using:
 
 ``` r
-
 # Install devtools if you haven't already
 if (!require(devtools)) install.packages("devtools")
 
 # Install PubMatrixR
-devtools::install_github("ToledoEM/PubMatrixR")
+devtools::install_github("ToledoEM/PubMatrixR-v2")
 ```
 
 ### Dependencies
@@ -52,11 +62,12 @@ PubMatrixR requires the following R packages:
 - `stringr` - String manipulation
 - `pheatmap` - Static heatmap generation
 - `xml2` - XML parsing for API responses
+- `readODS` - To export results in OpenDocument Spreadsheet - Excel
+  compatible - for hyperlink export.
 
 ## Quick Start
 
 ``` r
-
 library(PubMatrixR)
 
 # Define two sets of search terms
@@ -69,7 +80,8 @@ result <- PubMatrix(
   B = genes_set2,
   Database = "pubmed",
   daterange = c(2010, 2024),
-  outfile = "my_results"
+  outfile = "my_results",
+  export_format = "csv"  # Options: NULL (no export), "csv", or "ods"
 )
 
 # Create a heatmap with Jaccard distance clustering
@@ -93,7 +105,8 @@ generates co-occurrence matrices.
 | `API.key` | character | NULL | NCBI E-utilities API key (optional, increases rate limits) |
 | `Database` | character | “pubmed” | Database to search: “pubmed” or “pmc” |
 | `daterange` | numeric vector | NULL | Date range as c(start_year, end_year) |
-| `outfile` | character | NULL | Base filename for outputs (without extension) |
+| `outfile` | character | NULL | Base filename for outputs (without extension). Required if export_format is specified. |
+| `export_format` | character | NULL | Export format for the hyperlinked results matrix. Options: NULL (default, no file export), ‘csv’ (Excel-compatible with HYPERLINK formulas), or ‘ods’ (LibreOffice/OpenOffice format). |
 
 #### Return Value
 
@@ -149,7 +162,6 @@ presence/absence patterns
 ##### Example
 
 ``` r
-
 # First generate a matrix
 result <- PubMatrix(A = c("gene1", "gene2"), B = c("disease1", "disease2"))
 
@@ -165,7 +177,6 @@ plot_pubmatrix_heatmap(result, filename = "my_heatmap.png")
 Alternative heatmap function with additional customization options.
 
 ``` r
-
 # Create customized heatmap
 pubmatrix_heatmap(result,
                   color_scheme = "viridis",
@@ -177,7 +188,6 @@ pubmatrix_heatmap(result,
 ### Basic Usage with Gene Symbols
 
 ``` r
-
 library(PubMatrixR)
 
 # Define gene sets
@@ -205,7 +215,6 @@ print(results)
 ### Using MSigDB Gene Sets
 
 ``` r
-
 library(PubMatrixR)
 library(msigdf)
 library(dplyr)
@@ -254,7 +263,6 @@ muscle
 Then run:
 
 ``` r
-
 results <- PubMatrix(
   file = "search_terms.txt",
   Database = "pubmed",
@@ -269,7 +277,6 @@ plot_pubmatrix_heatmap(results)
 ### Advanced Example with API Key
 
 ``` r
-
 # Get better rate limits with an API key
 results <- PubMatrix(
   A = c("CRISPR", "base editing", "prime editing"),
@@ -283,20 +290,58 @@ results <- PubMatrix(
 
 ## Output Files
 
-When `outfile` is specified, PubMatrixR generates:
+When `outfile` and `export_format` parameters are specified, PubMatrixR
+generates a results file with clickable hyperlinks:
 
-1.  **CSV Matrix** (`{outfile}_result.csv`): Contains the co-occurrence
-    counts with clickable hyperlinks to PubMed searches
+#### Export Format Options
 
-The CSV file includes Excel-compatible hyperlink formulas that link
-directly to the corresponding PubMed search results.
+| Format | Parameter Value | File Extension | Use Case |
+|----|----|----|----|
+| **No Export** | `export_format = NULL` (default) | \- | Results returned only to R environment, no file saved |
+| **CSV** | `export_format = "csv"` | `.csv` | Excel-compatible format with HYPERLINK formulas for direct linking to PubMed searches |
+| **ODS** | `export_format = "ods"` | `.ods` | LibreOffice/OpenOffice format with embedded hyperlinks, better for cross-platform compatibility |
+
+#### Output File Format
+
+The output filename follows the pattern: `{outfile}_result.{extension}`
+
+All formats include: - **Row names**: Terms from vector B - **Column
+names**: Terms from vector A - **Cell values**: Publication
+co-occurrence counts with clickable hyperlinks to the corresponding
+PubMed search
+
+#### Examples
+
+``` r
+# No file export - results only in R
+result <- PubMatrix(A = genes, B = diseases, Database = "pubmed")
+
+# Export as CSV with hyperlinks
+result <- PubMatrix(
+  A = genes, 
+  B = diseases, 
+  Database = "pubmed",
+  outfile = "my_results",
+  export_format = "csv"
+)
+# Creates: my_results_result.csv
+
+# Export as ODS (LibreOffice format)
+result <- PubMatrix(
+  A = genes, 
+  B = diseases, 
+  Database = "pubmed",
+  outfile = "my_results",
+  export_format = "ods"
+)
+# Creates: my_results_result.ods
+```
 
 ## Visualization
 
 Create heatmaps using the dedicated heatmap functions:
 
 ``` r
-
 # Basic heatmap with Jaccard distance clustering and red gradient colors
 plot_pubmatrix_heatmap(your_matrix)
 

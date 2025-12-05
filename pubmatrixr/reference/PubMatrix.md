@@ -10,13 +10,14 @@ plot_pubmatrix_heatmap() to visualize the results as a heatmap.
 
 ``` r
 PubMatrix(
-  file,
+  file = NULL,
   A = NULL,
   B = NULL,
   API.key = NULL,
   Database = "pubmed",
   daterange = NULL,
-  outfile = NULL
+  outfile = NULL,
+  export_format = NULL
 )
 ```
 
@@ -24,8 +25,8 @@ PubMatrix(
 
 - file:
 
-  A file containing search terms. If A and B are NULL, search terms will
-  be read from this file.
+  A file containing search terms (optional). If NULL, search terms will
+  be read from A and B vectors.
 
 - A:
 
@@ -52,8 +53,18 @@ PubMatrix(
 
 - outfile:
 
-  A file path to export the search dataframe as a .csv file. If NULL, no
-  file will be exported.
+  A file path to export the search dataframe with hyperlinks. If NULL
+  (default), no file will be exported. Ignored if export_format is not
+  specified.
+
+- export_format:
+
+  Format for exporting the hyperlinked dataframe with clickable links.
+  Options are: NULL (default, no export), 'csv', or 'ods'. When NULL,
+  only returns the dataframe to R without saving. 'csv' exports as
+  Excel-compatible format with HYPERLINK formulas; 'ods' exports as
+  OpenDocument Spreadsheet format compatible with
+  LibreOffice/OpenOffice. Requires outfile parameter when not NULL.
 
 ## Value
 

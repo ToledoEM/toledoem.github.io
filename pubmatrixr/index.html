@@ -53,7 +53,9 @@
 </h1></div>
 <p><img src="https://toledoem.github.io/img/LogoPubmatrix.png" align="right" width="150/"></p>
 <ul>
-<li>Forked from: <a href="https://github.com/tslaird/PubMatrixR" class="external-link">https://github.com/tslaird/PubMatrixR</a>
+<li>Repository: <a href="https://github.com/ToledoEM/PubMatrixR-v2" class="external-link">https://github.com/ToledoEM/PubMatrixR-v2</a>
+</li>
+<li>Original code from: <a href="https://github.com/tslaird/PubMatrixR" class="external-link">https://github.com/tslaird/PubMatrixR</a>
 </li>
 <li>Based on paper : <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC317283/" class="external-link">PubMatrix: a tool for multiplex literature mining</a> of <strong>Becker KG et al. BMC Bioinformatics. 2003 Dec 10;4:61. doi: 10.1186/1471-2105-4-61</strong>
 </li>
@@ -62,6 +64,7 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p><strong>PubMatrixR</strong> is an R package that performs systematic literature searches on PubMed and PMC databases using pairwise combinations of search terms. It creates co-occurrence matrices showing the number of publications that mention both terms from two different sets, enabling researchers to explore relationships between genes, diseases, pathways, or any other biomedical concepts.</p>
+<p>Original deprecated version from @tslaird. Current release v2 is updated to use tidyverse and incorporate graphical output of the analysis.</p>
 <div class="section level3">
 <h3 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
 </h3>
@@ -85,6 +88,12 @@
 </div>
 </div>
 <div class="section level2">
+<h2 id="try-it-online">Try it Online<a class="anchor" aria-label="anchor" href="#try-it-online"></a>
+</h2>
+<p><strong>Interactive Shiny App</strong>: <a href="https://toledoem.shinyapps.io/pubmatrix-app/" class="external-link">https://toledoem.shinyapps.io/pubmatrix-app/</a></p>
+<p>No installation required - just open the link and start analyzing!</p>
+</div>
+<div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install PubMatrixR from GitHub using:</p>
@@ -93,7 +102,7 @@
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Install PubMatrixR</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ToledoEM/PubMatrixR"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ToledoEM/PubMatrixR-v2"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
 </h3>
@@ -107,6 +116,8 @@
 <code>pheatmap</code> - Static heatmap generation</li>
 <li>
 <code>xml2</code> - XML parsing for API responses</li>
+<li>
+<code>readODS</code> - To export results in OpenDocument Spreadsheet - Excel compatible - for hyperlink export.</li>
 </ul>
 </div>
 </div>
@@ -126,7 +137,8 @@
 <span>  B <span class="op">=</span> <span class="va">genes_set2</span>,</span>
 <span>  Database <span class="op">=</span> <span class="st">"pubmed"</span>,</span>
 <span>  daterange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2010</span>, <span class="fl">2024</span><span class="op">)</span>,</span>
-<span>  outfile <span class="op">=</span> <span class="st">"my_results"</span></span>
+<span>  outfile <span class="op">=</span> <span class="st">"my_results"</span>,</span>
+<span>  export_format <span class="op">=</span> <span class="st">"csv"</span>  <span class="co"># Options: NULL (no export), "csv", or "ods"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create a heatmap with Jaccard distance clustering</span></span>
@@ -196,7 +208,13 @@
 <td><code>outfile</code></td>
 <td>character</td>
 <td>NULL</td>
-<td>Base filename for outputs (without extension)</td>
+<td>Base filename for outputs (without extension). Required if export_format is specified.</td>
+</tr>
+<tr>
+<td><code>export_format</code></td>
+<td>character</td>
+<td>NULL</td>
+<td>Export format for the hyperlinked results matrix. Options: NULL (default, no file export), ‘csv’ (Excel-compatible with HYPERLINK formulas), or ‘ods’ (LibreOffice/OpenOffice format).</td>
 </tr>
 </tbody>
 </table>
@@ -423,18 +441,85 @@ muscle</code></pre>
 <div class="section level2">
 <h2 id="output-files">Output Files<a class="anchor" aria-label="anchor" href="#output-files"></a>
 </h2>
-<p>When <code>outfile</code> is specified, PubMatrixR generates:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>CSV Matrix</strong> (<code>{outfile}_result.csv</code>): Contains the co-occurrence counts with clickable hyperlinks to PubMed searches</li>
-</ol>
-<p>The CSV file includes Excel-compatible hyperlink formulas that link directly to the corresponding PubMed search results.</p>
+<p>When <code>outfile</code> and <code>export_format</code> parameters are specified, PubMatrixR generates a results file with clickable hyperlinks:</p>
+<div class="section level4">
+<h4 id="export-format-options">Export Format Options<a class="anchor" aria-label="anchor" href="#export-format-options"></a>
+</h4>
+<table class="table">
+<colgroup>
+<col width="15%">
+<col width="32%">
+<col width="32%">
+<col width="19%">
+</colgroup>
+<thead><tr>
+<th>Format</th>
+<th>Parameter Value</th>
+<th>File Extension</th>
+<th>Use Case</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>No Export</strong></td>
+<td>
+<code>export_format = NULL</code> (default)</td>
+<td>-</td>
+<td>Results returned only to R environment, no file saved</td>
+</tr>
+<tr>
+<td><strong>CSV</strong></td>
+<td><code>export_format = "csv"</code></td>
+<td><code>.csv</code></td>
+<td>Excel-compatible format with HYPERLINK formulas for direct linking to PubMed searches</td>
+</tr>
+<tr>
+<td><strong>ODS</strong></td>
+<td><code>export_format = "ods"</code></td>
+<td><code>.ods</code></td>
+<td>LibreOffice/OpenOffice format with embedded hyperlinks, better for cross-platform compatibility</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="output-file-format">Output File Format<a class="anchor" aria-label="anchor" href="#output-file-format"></a>
+</h4>
+<p>The output filename follows the pattern: <code>{outfile}_result.{extension}</code></p>
+<p>All formats include: - <strong>Row names</strong>: Terms from vector B - <strong>Column names</strong>: Terms from vector A - <strong>Cell values</strong>: Publication co-occurrence counts with clickable hyperlinks to the corresponding PubMed search</p>
+</div>
+<div class="section level4">
+<h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a>
+</h4>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># No file export - results only in R</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PubMatrix.html">PubMatrix</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">genes</span>, B <span class="op">=</span> <span class="va">diseases</span>, Database <span class="op">=</span> <span class="st">"pubmed"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Export as CSV with hyperlinks</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PubMatrix.html">PubMatrix</a></span><span class="op">(</span></span>
+<span>  A <span class="op">=</span> <span class="va">genes</span>, </span>
+<span>  B <span class="op">=</span> <span class="va">diseases</span>, </span>
+<span>  Database <span class="op">=</span> <span class="st">"pubmed"</span>,</span>
+<span>  outfile <span class="op">=</span> <span class="st">"my_results"</span>,</span>
+<span>  export_format <span class="op">=</span> <span class="st">"csv"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># Creates: my_results_result.csv</span></span>
+<span></span>
+<span><span class="co"># Export as ODS (LibreOffice format)</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/PubMatrix.html">PubMatrix</a></span><span class="op">(</span></span>
+<span>  A <span class="op">=</span> <span class="va">genes</span>, </span>
+<span>  B <span class="op">=</span> <span class="va">diseases</span>, </span>
+<span>  Database <span class="op">=</span> <span class="st">"pubmed"</span>,</span>
+<span>  outfile <span class="op">=</span> <span class="st">"my_results"</span>,</span>
+<span>  export_format <span class="op">=</span> <span class="st">"ods"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co"># Creates: my_results_result.ods</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
 </h2>
 <p>Create heatmaps using the dedicated heatmap functions:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Basic heatmap with Jaccard distance clustering and red gradient colors</span></span>
 <span><span class="fu"><a href="reference/plot_pubmatrix_heatmap.html">plot_pubmatrix_heatmap</a></span><span class="op">(</span><span class="va">your_matrix</span><span class="op">)</span></span>
 <span></span>
