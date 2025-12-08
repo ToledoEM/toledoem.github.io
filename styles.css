@@ -51,19 +51,42 @@ h3 {
 }
 
 .quarto-container {
-  max-width: 1000px;
+  max-width: 100%;
+  width: 100%;
   background: var(--bg-white);
-  padding: 4rem 3rem;
+  padding: 2rem 1rem;
   margin-top: 0;
   margin-bottom: 0;
-  box-shadow: var(--box-shadow);
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .quarto-container {
+    padding: 3rem 2rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .quarto-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 3rem;
+    box-shadow: var(--box-shadow);
+  }
 }
 
 .navbar {
   box-shadow: 0 1px 3px rgba(43, 58, 69, 0.08);
   background: var(--bg-white) !important;
   border-bottom: 1px solid var(--border-color);
-  padding: 1rem 0;
+  padding: 0.75rem 1rem;
+}
+
+@media (min-width: 992px) {
+  .navbar {
+    padding: 1rem 0;
+  }
 }
 
 .navbar-brand {
@@ -77,11 +100,19 @@ h3 {
 .nav-link {
   font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.85rem;
+  letter-spacing: 1px;
+  font-size: 0.75rem;
   color: var(--medium-text) !important;
   transition: var(--transition);
-  padding: 0.5rem 1.5rem !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+@media (min-width: 768px) {
+  .nav-link {
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    padding: 0.5rem 1.5rem !important;
+  }
 }
 
 .nav-link:hover,
@@ -207,9 +238,9 @@ blockquote {
   background: var(--accent-color);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .quarto-container {
-    padding: 2rem 1.5rem;
+    padding: 3rem 2rem;
   }
   
   h1 {
@@ -217,8 +248,60 @@ blockquote {
   }
   
   .nav-link {
-    font-size: 0.8rem;
-    letter-spacing: 1.5px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 0.4rem 0.7rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  h3 {
+    font-size: 1.1rem;
+  }
+  
+  ol, ul {
+    padding-left: 1.5rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+}@media (max-width: 576px) {
+  .quarto-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  h1 {
+    font-size: 1.3rem;
+  }
+  
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  .nav-link {
+    font-size: 0.65rem;
+    letter-spacing: 0.3px;
+    padding: 0.3rem 0.4rem !important;
+  }
+  
+  .navbar-brand {
+    font-size: 0.9rem;
+  }
+  
+  .navbar {
+    padding: 1rem 0.75rem;
   }
 }
 
