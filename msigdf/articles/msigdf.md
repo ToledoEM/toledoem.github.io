@@ -26,7 +26,7 @@ is also provided.*
 
 ***Procedure:***
 
-*1. The current MSigDB v2025.1 gmt files were downloaded from Broad
+*1. The current MSigDB v2026.1 gmt files were downloaded from Broad
 ftp.*  
 *2. This was done with the human and mouse gene sets*  
 *3. Each collection was converted to a list in R, and written to a RData
@@ -125,22 +125,20 @@ msigdf.human %>%
   filter(geneset=="KEGG_NON_HOMOLOGOUS_END_JOINING")
 ```
 
-    ## # A tibble: 13 × 4
+    ## # A tibble: 26 × 4
     ##    category_code category_subcode geneset                         symbol 
     ##    <chr>         <chr>            <chr>                           <chr>  
-    ##  1 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING DCLRE1C
-    ##  2 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING DNTT   
-    ##  3 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING FEN1   
-    ##  4 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING LIG4   
-    ##  5 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING MRE11  
-    ##  6 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING NHEJ1  
-    ##  7 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING POLL   
-    ##  8 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING POLM   
-    ##  9 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING PRKDC  
-    ## 10 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING RAD50  
-    ## 11 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING XRCC4  
-    ## 12 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING XRCC5  
-    ## 13 c2            all              KEGG_NON_HOMOLOGOUS_END_JOINING XRCC6
+    ##  1 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING DCLRE1C
+    ##  2 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING DNTT   
+    ##  3 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING FEN1   
+    ##  4 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING LIG4   
+    ##  5 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING MRE11  
+    ##  6 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING NHEJ1  
+    ##  7 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING POLL   
+    ##  8 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING POLM   
+    ##  9 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING PRKDC  
+    ## 10 c2            cp.kegg_legacy   KEGG_NON_HOMOLOGOUS_END_JOINING RAD50  
+    ## # ℹ 16 more rows
 
 Some software, e.g., [fGSEA](https://github.com/ctlab/fgsea) might
 require gene sets to be a named list of genes identifiers, where the
@@ -196,26 +194,21 @@ msigdf.human %>%
   tally()
 ```
 
-    ## # A tibble: 16 × 3
-    ## # Groups:   category_code [16]
-    ##    category_code category_subcode       n
-    ##    <chr>         <chr>              <int>
-    ##  1 c1            all                43429
-    ##  2 c2            all               581467
-    ##  3 c3            all               818674
-    ##  4 c4            all                98548
-    ##  5 c5            all              1361645
-    ##  6 c6            all                30586
-    ##  7 c7            all               990349
-    ##  8 c8            all               157386
-    ##  9 h             all                 7322
-    ## 10 m1            all                41375
-    ## 11 m2            all               197902
-    ## 12 m3            all               396685
-    ## 13 m5            all               885544
-    ## 14 m7            all                70547
-    ## 15 m8            all                47967
-    ## 16 mh            all                 7191
+    ## # A tibble: 29 × 3
+    ## # Groups:   category_code [10]
+    ##    category_code category_subcode      n
+    ##    <chr>         <chr>             <int>
+    ##  1 c1            all               43707
+    ##  2 c2            cgp              408654
+    ##  3 c2            cp               179627
+    ##  4 c2            cp.biocarta        4814
+    ##  5 c2            cp.kegg_legacy    12801
+    ##  6 c2            cp.kegg_medicus    9662
+    ##  7 c2            cp.pid             8054
+    ##  8 c2            cp.reactome      102437
+    ##  9 c2            cp.wikipathways   41280
+    ## 10 c3            mir              406232
+    ## # ℹ 19 more rows
 
 **Mouse Collection of gene sets**
 <https://www.gsea-msigdb.org/gsea/msigdb/mouse/collections.jsp>
@@ -227,17 +220,26 @@ msigdf.mouse %>%
   tally()
 ```
 
-    ## # A tibble: 7 × 3
+    ## # A tibble: 16 × 3
     ## # Groups:   category_code [7]
-    ##   category_code category_subcode      n
-    ##   <chr>         <chr>             <int>
-    ## 1 m1            all               41375
-    ## 2 m2            all              197902
-    ## 3 m3            all              396685
-    ## 4 m5            all              885544
-    ## 5 m7            all               70547
-    ## 6 m8            all               47967
-    ## 7 mh            all                7191
+    ##    category_code category_subcode      n
+    ##    <chr>         <chr>             <int>
+    ##  1 m1            all               41400
+    ##  2 m2            cgp              116378
+    ##  3 m2            cp                89841
+    ##  4 m2            cp.biocarta        3959
+    ##  5 m2            cp.reactome       75097
+    ##  6 m2            cp.wikipathways   10785
+    ##  7 m3            gtrd             163326
+    ##  8 m3            mirdb            233370
+    ##  9 m5            go               878221
+    ## 10 m5            go.bp            651755
+    ## 11 m5            go.cc            112349
+    ## 12 m5            go.mf            114117
+    ## 13 m5            mpt                2606
+    ## 14 m7            all               70547
+    ## 15 m8            all               47976
+    ## 16 mh            all                7191
 
 Get the URL for the hallmark set with the fewest number of genes (Notch
 signaling). Optionally, `%>%` this to `browseURL` to open it up in your
@@ -255,7 +257,6 @@ msigdf.human %>%
 ```
 
     ## [1] "http://software.broadinstitute.org/gsea/msigdb/cards/HALLMARK_NOTCH_SIGNALING"
-    ## [2] "http://software.broadinstitute.org/gsea/msigdb/cards/HALLMARK_NOTCH_SIGNALING"
 
 Just look at the number of genes in each KEGG pathway (sorted descending
 by the number of genes in that pathway):
@@ -271,23 +272,23 @@ msigdf.human %>%
     ## # A tibble: 844 × 2
     ##    geneset                                          n
     ##    <chr>                                        <int>
-    ##  1 KEGG_OLFACTORY_TRANSDUCTION                    389
-    ##  2 KEGG_PATHWAYS_IN_CANCER                        325
-    ##  3 KEGG_NEUROACTIVE_LIGAND_RECEPTOR_INTERACTION   272
-    ##  4 KEGG_MAPK_SIGNALING_PATHWAY                    267
-    ##  5 KEGG_CYTOKINE_CYTOKINE_RECEPTOR_INTERACTION    264
-    ##  6 KEGG_REGULATION_OF_ACTIN_CYTOSKELETON          213
-    ##  7 KEGG_FOCAL_ADHESION                            199
-    ##  8 KEGG_CHEMOKINE_SIGNALING_PATHWAY               188
-    ##  9 KEGG_HUNTINGTONS_DISEASE                       183
-    ## 10 KEGG_ENDOCYTOSIS                               181
+    ##  1 KEGG_OLFACTORY_TRANSDUCTION                    778
+    ##  2 KEGG_PATHWAYS_IN_CANCER                        650
+    ##  3 KEGG_NEUROACTIVE_LIGAND_RECEPTOR_INTERACTION   544
+    ##  4 KEGG_MAPK_SIGNALING_PATHWAY                    534
+    ##  5 KEGG_CYTOKINE_CYTOKINE_RECEPTOR_INTERACTION    528
+    ##  6 KEGG_REGULATION_OF_ACTIN_CYTOSKELETON          426
+    ##  7 KEGG_FOCAL_ADHESION                            398
+    ##  8 KEGG_CHEMOKINE_SIGNALING_PATHWAY               376
+    ##  9 KEGG_HUNTINGTONS_DISEASE                       366
+    ## 10 KEGG_ENDOCYTOSIS                               362
     ## # ℹ 834 more rows
 
 ## Session info
 
     ## R version 4.5.2 (2025-10-31)
     ## Platform: aarch64-apple-darwin20
-    ## Running under: macOS Tahoe 26.1
+    ## Running under: macOS Tahoe 26.2
     ## 
     ## Matrix products: default
     ## BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
@@ -303,21 +304,22 @@ msigdf.human %>%
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ##  [1] msigdf_2025.1   lubridate_1.9.4 forcats_1.0.1   stringr_1.6.0  
-    ##  [5] dplyr_1.1.4     purrr_1.2.0     readr_2.1.6     tidyr_1.3.1    
-    ##  [9] tibble_3.3.0    ggplot2_4.0.1   tidyverse_2.0.0 knitr_1.50     
+    ##  [1] msigdf_2026.1   lubridate_1.9.4 forcats_1.0.1   stringr_1.6.0  
+    ##  [5] dplyr_1.1.4     purrr_1.2.1     readr_2.1.6     tidyr_1.3.2    
+    ##  [9] tibble_3.3.1    ggplot2_4.0.1   tidyverse_2.0.0 knitr_1.51     
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] gtable_0.3.6       jsonlite_2.0.0     compiler_4.5.2     tidyselect_1.2.1  
-    ##  [5] jquerylib_0.1.4    systemfonts_1.3.1  scales_1.4.0       textshaping_1.0.4 
-    ##  [9] yaml_2.3.10        fastmap_1.2.0      R6_2.6.1           generics_0.1.4    
-    ## [13] htmlwidgets_1.6.4  desc_1.4.3         tzdb_0.5.0         bslib_0.9.0       
-    ## [17] pillar_1.11.1      RColorBrewer_1.1-3 rlang_1.1.6        utf8_1.2.6        
-    ## [21] stringi_1.8.7      cachem_1.1.0       xfun_0.54          fs_1.6.6          
-    ## [25] sass_0.4.10        S7_0.2.1           timechange_0.3.0   cli_3.6.5         
-    ## [29] pkgdown_2.2.0      withr_3.0.2        magrittr_2.0.4     digest_0.6.39     
-    ## [33] grid_4.5.2         hms_1.1.4          lifecycle_1.0.4    vctrs_0.6.5       
-    ## [37] evaluate_1.0.5     glue_1.8.0         farver_2.1.2       ragg_1.5.0        
-    ## [41] rmarkdown_2.30     tools_4.5.2        pkgconfig_2.0.3    htmltools_0.5.8.1
+    ##  [1] sass_0.4.10        utf8_1.2.6         generics_0.1.4     stringi_1.8.7     
+    ##  [5] hms_1.1.4          digest_0.6.39      magrittr_2.0.4     evaluate_1.0.5    
+    ##  [9] grid_4.5.2         timechange_0.4.0   RColorBrewer_1.1-3 fastmap_1.2.0     
+    ## [13] jsonlite_2.0.0     scales_1.4.0       textshaping_1.0.4  jquerylib_0.1.4   
+    ## [17] cli_3.6.5          rlang_1.1.7        withr_3.0.2        cachem_1.1.0      
+    ## [21] yaml_2.3.12        otel_0.2.0         tools_4.5.2        tzdb_0.5.0        
+    ## [25] vctrs_0.7.1        R6_2.6.1           lifecycle_1.0.5    fs_1.6.6          
+    ## [29] htmlwidgets_1.6.4  ragg_1.5.0         pkgconfig_2.0.3    desc_1.4.3        
+    ## [33] pkgdown_2.2.0      pillar_1.11.1      bslib_0.10.0       gtable_0.3.6      
+    ## [37] glue_1.8.0         systemfonts_1.3.1  xfun_0.56          tidyselect_1.2.1  
+    ## [41] farver_2.1.2       htmltools_0.5.9    rmarkdown_2.30     compiler_4.5.2    
+    ## [45] S7_0.2.1
 
 [^1]: <http://www.broad.mit.edu/gsea/msigdb/index.jsp>
