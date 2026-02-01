@@ -18,12 +18,6 @@ Original data from the Broad Institute’s Molecular Signature Database
 
 ------------------------------------------------------------------------
 
-*The gene sets contained in the MSigDB are from a wide variety of
-sources, and relate to a variety of species, mostly human. To facilitate
-use of the MSigDB in our work, we have created a pure mouse version of
-the MSigDB by mapping all sets to mouse orthologs. A pure human version
-is also provided.*
-
 ***Procedure:***
 
 *1. The current MSigDB v2026.1 gmt files were downloaded from Broad
