@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STL Deformer Demo – Enrique M. Toledo</title>
+<title>STL Deformer – Enrique M. Toledo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -138,6 +138,11 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item">
+    <a class="nav-link" href="./scientifictools.html"> <i class="bi bi-flask" role="img">
+</i> 
+<span class="menu-text">Scientific Tools</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./gallery.html"> <i class="bi bi-images" role="img">
 </i> 
 <span class="menu-text">Gallery</span></a>
@@ -166,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">STL Deformer Demo</h1>
+<h1 class="title">STL Deformer</h1>
 </div>
 
 
@@ -202,7 +207,7 @@ Note
 <p>This project is under constant development.</p>
 </div>
 </div>
-<p>This project demonstrates a real-time STL deformation tool using Three.js and p5.js. It allows you to load an STL file, apply various deformation effects (Noise, Sine Wave, Pixelate), and visualize the deformed model. It’s a tool for pushing the boundaries of what you expect from a 3D model. The goal is to create subtly unsettling, oddly beautiful, and deliberately weird transformations of STL objects. Think of it as a digital sculpting playground.</p>
+<p>This project demonstrates a real-time STL deformation tool using Three.js. It allows you to load an STL file, apply various deformation effects (Noise, Sine Wave, Pixelate, IDW Shepard, plus advanced and topology-altering methods), and visualize the deformed model. It’s a tool for pushing the boundaries of what you expect from a 3D model. The goal is to create subtly unsettling, oddly beautiful, and deliberately weird transformations of STL objects. Think of it as a digital sculpting playground.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -220,7 +225,7 @@ Tip
 <h2 class="anchored" data-anchor-id="motivation-creative-exploration">Motivation &amp; Creative Exploration</h2>
 <ul>
 <li>Subversion of Form: This project isn’t about perfect realism. It’s about deliberately distorting the familiar, creating unsettling or intriguing shapes.</li>
-<li>Algorithmic Abstraction: Explore how mathematical functions (noise, sine waves) can be used to transform 3D geometry and change the practicality of 3d shapes.</li>
+<li>Algorithmic Abstraction: Explore how mathematical functions (noise, sine waves, inverse distance weighting) can be used to transform 3D geometry and change the practicality of 3d shapes.</li>
 <li>Visual Metaphors: Consider how different deformations might represent abstract concepts – chaos, tension, growth, decay.</li>
 </ul>
 </section>
@@ -233,10 +238,20 @@ Tip
 <li><strong>Noise</strong>: Applies a noise-based deformation, introducing chaotic movement and distortion.</li>
 <li><strong>Sine Wave</strong>: Generates a sinusoidal wave deformation, producing rhythmic, flowing changes – potentially creating mesmerizing, pulsating effects.</li>
 <li><strong>Pixelate</strong>: Pixelates the model by snapping vertices to a grid, offering a stark, fragmented aesthetic.</li>
+<li><strong>IDW Shepard</strong>: Advanced organic deformation using multiple control points distributed throughout the model’s volume via Poisson disk sampling.</li>
+<li><strong>Inflate / Twist / Bend / Ripple / Warp / Hyperbolic Stretch</strong>: Expressive surface operators for swelling, rotating, arcing, undulating, noise-based offsets, and elastic stretching.</li>
+<li><strong>Tessellate / Boundary Disruption / Menger Sponge</strong>: Topology-oriented transformations for subdividing, fraying edges, and carving porous structures.</li>
 </ul></li>
 <li><strong>Real-time Deformation</strong>: Updates the deformation in real-time, allowing for interactive experimentation.</li>
 <li><strong>Parameter Controls</strong>: Interactive sliders and checkboxes for adjusting deformation parameters.</li>
-<li><strong>Visual Feedback</strong>: Displays the deformed model in 3D space.</li>
+<li><strong>Adaptive Parameter Ranges</strong>: Parameters automatically scale based on model size to ensure consistent effects across different STL scales.</li>
+<li><strong>Visual Feedback</strong>: Displays the deformed model in 3D space with control point visualization for IDW deformation.</li>
+<li><strong>Axis Gizmo</strong>: On-screen X/Y/Z labels for orientation.</li>
+<li><strong>Multi-Axis Selection</strong>: Axis-based deformations (twist, bend, ripple, hyper) can target multiple axes.</li>
+<li><strong>Parallel Processing</strong>: Uses Web Workers for efficient processing of large STL files with thousands of vertices.</li>
+<li><strong>Preprocess Options</strong>: Optional cleanup before deformation (Decimate, Vertex Merge) for dense models or faster iteration.</li>
+<li><strong>Import/Export Settings</strong>: Reuse deformation presets across STLs; exported settings include preprocess parameters.</li>
+<li><strong>Stats HUD</strong>: Displays vertex/triangle counts and deformation time.</li>
 <li><strong>Export</strong>: Exports the deformed model as an STL file – save your weird creations!</li>
 </ul>
 </section>
@@ -268,6 +283,32 @@ Tip
 </div>
 <p><br><em>Pixelated Deformation</em></p>
 </section>
+<section id="idw-shepard-deformation" class="level2">
+<h2 class="anchored" data-anchor-id="idw-shepard-deformation">IDW Shepard Deformation</h2>
+<p>The IDW (Inverse Distance Weighting) Shepard deformation uses multiple control points placed throughout the model’s interior volume for organic, localized shaping.</p>
+<section id="key-features" class="level3">
+<h3 class="anchored" data-anchor-id="key-features">Key Features</h3>
+<ul>
+<li><strong>Poisson Disk Sampling</strong>: Evenly distributed control points to prevent clustering</li>
+<li><strong>Volume-Constrained Placement</strong>: Points are guaranteed inside the mesh volume</li>
+<li><strong>Seed-Based Generation</strong>: Deterministic point placement for reproducible results</li>
+<li><strong>Manual Control Points</strong>: Optional manual list of points (single or multi-point)</li>
+<li><strong>Sampling Rays Control</strong>: Adjustable inside-mesh sampling for speed/robustness</li>
+<li><strong>Adaptive Influence</strong>: Inverse distance weighting with customizable power falloff</li>
+<li><strong>Visual Feedback</strong>: Wireframe spheres show control point positions and influence</li>
+<li><strong>Scalable Effects</strong>: Parameter ranges scale to model size for consistent output</li>
+</ul>
+</section>
+<section id="technical-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="technical-implementation">Technical Implementation</h3>
+<ul>
+<li><strong>Multi-Point IDW</strong>: Each vertex is influenced by all control points</li>
+<li><strong>Parallel Processing</strong>: Web Workers handle heavy computation for large meshes</li>
+<li><strong>Real-time Visualization</strong>: Control points scale with model size (5% of largest dimension)</li>
+<li><strong>Robust Volume Detection</strong>: Advanced ray casting ensures points are truly inside the mesh</li>
+</ul>
+</section>
+</section>
 <section id="requirements" class="level2 panel-tabset">
 <h2 class="panel-tabset anchored" data-anchor-id="requirements">Requirements</h2>
 <section id="browser" class="level3">
@@ -280,9 +321,9 @@ Tip
 <section id="dependencies" class="level3">
 <h3 class="anchored" data-anchor-id="dependencies">Dependencies</h3>
 <ul>
-<li>Three.js (v128+)</li>
-<li>p5.js (v1.7.0+)</li>
+<li>Three.js (r121, bundled)</li>
 <li>FileSaver.js (included)</li>
+<li>Web Workers (required for parallel processing)</li>
 </ul>
 </section>
 </section>
@@ -309,8 +350,8 @@ Tip
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
 <ol type="1">
 <li><strong>Load STL:</strong> Click the “File Input” button to select an STL file.</li>
-<li><strong>Deformation Type:</strong> Choose the deformation type from the radio buttons (Noise, Sine Wave, Pixelate).</li>
-<li><strong>Adjust Parameters:</strong> Use the sliders and checkboxes to control the deformation parameters.</li>
+<li><strong>Deformation Type:</strong> Choose the deformation type from the radio buttons (Noise, Sine Wave, Pixelate, IDW Shepard).</li>
+<li><strong>Adjust Parameters:</strong> Use the sliders and inputs to control the deformation parameters. IDW parameters adapt automatically to model size.</li>
 <li><strong>Generate Deformation:</strong> Click the “Generate Deformation” button.</li>
 <li><strong>Visualize:</strong> The deformed model will be displayed in the 3D view.</li>
 <li><strong>Export (Optional):</strong> Click the “Export Current STL” button to save the deformed model as an STL file.</li>
@@ -320,17 +361,53 @@ Tip
 <h2 class="anchored" data-anchor-id="controls">Controls</h2>
 <ul>
 <li><strong>File Input:</strong> Select an STL file.</li>
-<li><strong>Radio Buttons:</strong> Choose the deformation effect.</li>
+<li><strong>Radio Buttons:</strong> Choose the deformation effect (Noise, Sine Wave, Pixelate, IDW Shepard).</li>
 <li><strong>Sliders:</strong> Adjust the parameters of the chosen effect.</li>
+</ul>
+<section id="noise-controls" class="level3">
+<h3 class="anchored" data-anchor-id="noise-controls">Noise Controls</h3>
+<ul>
+<li><strong>Intensity:</strong> Controls the strength of the noise deformation (0.1 - 5.0)</li>
+<li><strong>Scale:</strong> Controls the frequency/size of noise features (0.005 - 0.5)</li>
+<li><strong>Axis:</strong> Choose which axes to apply noise to (All, X, Y, Z, or combinations)</li>
+</ul>
+</section>
+<section id="sine-wave-controls" class="level3">
+<h3 class="anchored" data-anchor-id="sine-wave-controls">Sine Wave Controls</h3>
+<ul>
+<li><strong>Amplitude:</strong> Controls the height of the sine waves (1 - 100)</li>
+<li><strong>Frequency:</strong> Controls how many waves fit in the model (0.01 - 0.2)</li>
+<li><strong>Driver Axis:</strong> Which axis provides the input to the sine function (X, Y, Z)</li>
+<li><strong>Displacement Axis:</strong> Which axes the sine wave displaces (X, Y, Z, or combinations)</li>
+</ul>
+</section>
+<section id="pixelate-controls" class="level3">
+<h3 class="anchored" data-anchor-id="pixelate-controls">Pixelate Controls</h3>
+<ul>
+<li><strong>Voxel Size:</strong> Size of the pixelation grid (0.5 - 50)</li>
+<li><strong>Axis Lock:</strong> Which axes to pixelate (All, X, Y, Z, or combinations)</li>
+</ul>
+</section>
+<section id="idw-shepard-controls" class="level3">
+<h3 class="anchored" data-anchor-id="idw-shepard-controls">IDW Shepard Controls</h3>
+<ul>
+<li><strong>Number of Points:</strong> How many control points to generate (3 - 50)</li>
+<li><strong>Seed:</strong> Numeric seed for reproducible control point placement (0 - 10000)</li>
+<li><strong>Weight:</strong> Strength of attraction/repulsion at control points (adaptive range by model size)</li>
+<li><strong>Power:</strong> Influence falloff with distance (0.5 - 6.0)</li>
+<li><strong>Global Scale:</strong> Overall deformation scaling (adaptive range by model size)</li>
 <li><strong>Generate Deformation:</strong> Apply the deformation.</li>
 <li><strong>Export Current STL:</strong> Export the deformed model.</li>
 </ul>
+</section>
 </section>
 <section id="code-structure" class="level2">
 <h2 class="anchored" data-anchor-id="code-structure">Code Structure</h2>
 <ul>
 <li><strong><code>index.html</code>:</strong> The main HTML file that sets up the Three.js scene, UI elements, and event listeners.</li>
-<li><strong><code>main.js</code>:</strong> Contains the core logic for loading the STL, applying the deformation, rendering the model, and handling user interactions.</li>
+<li><strong><code>main.js</code>:</strong> Core logic for loading the STL, applying deformation, rendering, and UI. Includes Poisson disk sampling, volume detection, and adaptive parameter scaling.</li>
+<li><strong><code>worker.js</code>:</strong> Web Worker for parallel processing of vertex deformations (especially IDW).</li>
+<li><strong><code>libraries/</code>:</strong> Three.js, p5.js, and other required libraries.</li>
 </ul>
 </section>
 <section id="important-notes" class="level2">
@@ -348,6 +425,7 @@ Tip
 <ul>
 <li>The performance depends on the complexity of the STL model and chosen deformation algorithm</li>
 <li>The rendering process can be slow with complex models</li>
+<li>Web Workers improve responsiveness for large meshes and multi-point IDW</li>
 </ul>
 </div>
 </div>
@@ -382,6 +460,39 @@ Note
 <p>This is a basic demonstration that can be extended with more advanced features.</p>
 </div>
 </div>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<ul>
+<li>IDW Shepard deformation works best with solid, manifold meshes. Complex or thin-walled models may produce unexpected results.</li>
+<li>Some STLs may require normal regeneration to avoid black/incorrect shading (handled in recent builds).</li>
+</ul>
+</section>
+<section id="changelog" class="level2">
+<h2 class="anchored" data-anchor-id="changelog">Changelog</h2>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">0.6.0 (2026-02-10)</h3>
+<ul>
+<li>Added importable deformation settings and axis gizmo with X/Y/Z labels</li>
+<li>Added multi-axis selection for twist/bend/ripple/hyper</li>
+<li>Improved Menger sponge, tessellation range, settings export, and UI/camera performance</li>
+<li>Fixed shading issues by ensuring valid vertex normals, plus assorted robustness fixes</li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">0.5.0 (2026-02-08)</h3>
+<ul>
+<li>Updated GUI and camera behavior</li>
+<li>Fixed P0, P1, P3, and P4 issue sets</li>
+</ul>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">0.4.0 (2025-10-28)</h3>
+<ul>
+<li>Added settings workflow groundwork and Web Worker processing</li>
+<li>General refinements and cleanup</li>
+</ul>
+</section>
 </section>
 <section id="contributing" class="level2">
 <h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
