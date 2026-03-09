@@ -12,7 +12,7 @@ This is the updated version of the archived repo of
 Current version:
 [v2026.1](https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_Latest/).
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16815640.svg)](https://doi.org/10.5281/zenodo.16815639)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16815639.svg)](https://doi.org/10.5281/zenodo.16815639)
 
 **Important Notices** - MSigDB v2026.1 (Jan 2026) is based on gene
 annotation data from Ensembl Release 115 (September 2026). - Human
@@ -102,7 +102,17 @@ msigdf.human %>%
 
 ## Building
 
-Code for building this data is in folder data-raw
+Code for building this data is in `data-raw/`. Update
+`data-raw/data_url.yml` with the new MSigDB version and URLs (the
+top-level `version:` is now used by the scripts).
+
+1.  Download GMT files: `bash data-raw/get_gmt.sh`
+
+2.  Build the data frames and save to `data/`:
+    `Rscript data-raw/msigdf.R`
+
+The build script reads the version from `data-raw/data_url.yml`, so you
+no longer need to edit version strings inside the R code.
 
 See the [package
 vignette](https://toledoem.github.io/msigdf/articles/msigdf.html) for
@@ -114,8 +124,8 @@ more.
 [US](https://creativecommons.org) is marked [CC0
 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
 
-![CC logo](https://mirrors.creativecommons.org/presskit/icons/cc.svg)  
-![Zero
+![CC
+logo](https://mirrors.creativecommons.org/presskit/icons/cc.svg)![Zero
 logo](https://mirrors.creativecommons.org/presskit/icons/zero.svg)
 
 # Package index

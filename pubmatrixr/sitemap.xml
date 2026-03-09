@@ -1,14 +1,16 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/404.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/LICENSE-text.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/articles/WntExample.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/articles/index.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/articles/vignette.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/authors.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/index.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/reference/PubMatrix.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/reference/index.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/reference/plot_pubmatrix_heatmap.html</loc></url>
-<url><loc>https://toledoem.github.io/PubMatrixR-v2/reference/pubmatrix_heatmap.html</loc></url>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/vignette.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/PubMatrix.html</loc></url>
+<url><loc>/reference/PubMatrixR-package.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/plot_pubmatrix_heatmap.html</loc></url>
+<url><loc>/reference/pubmatrix_heatmap.html</loc></url>
 </urlset>
 

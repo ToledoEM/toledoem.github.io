@@ -21,8 +21,8 @@ Original data from the Broad Institute’s Molecular Signature Database
 ***Procedure:***
 
 *1. The current MSigDB v2026.1 gmt files were downloaded from Broad
-ftp.*  
-*2. This was done with the human and mouse gene sets*  
+ftp.*\
+*2. This was done with the human and mouse gene sets*\
 *3. Each collection was converted to a list in R, and written to a RData
 file using [`save()`](https://rdrr.io/r/base/save.html).*
 
@@ -282,7 +282,7 @@ msigdf.human %>%
 
     ## R version 4.5.2 (2025-10-31)
     ## Platform: aarch64-apple-darwin20
-    ## Running under: macOS Tahoe 26.2
+    ## Running under: macOS Tahoe 26.3.1
     ## 
     ## Matrix products: default
     ## BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
@@ -298,9 +298,9 @@ msigdf.human %>%
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ##  [1] msigdf_2026.1   lubridate_1.9.4 forcats_1.0.1   stringr_1.6.0  
-    ##  [5] dplyr_1.1.4     purrr_1.2.1     readr_2.1.6     tidyr_1.3.2    
-    ##  [9] tibble_3.3.1    ggplot2_4.0.1   tidyverse_2.0.0 knitr_1.51     
+    ##  [1] msigdf_2026.1   lubridate_1.9.5 forcats_1.0.1   stringr_1.6.0  
+    ##  [5] dplyr_1.2.0     purrr_1.2.1     readr_2.2.0     tidyr_1.3.2    
+    ##  [9] tibble_3.3.1    ggplot2_4.0.2   tidyverse_2.0.0 knitr_1.51     
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] sass_0.4.10        utf8_1.2.6         generics_0.1.4     stringi_1.8.7     

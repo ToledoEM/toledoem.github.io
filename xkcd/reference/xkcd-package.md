@@ -8,9 +8,8 @@ necessary 'XKCD' font.
 
 ## Details
 
-The DESCRIPTION file: This package was not yet installed at build
-time.  
-Index: This package was not yet installed at build time.  
+The DESCRIPTION file: This package was not yet installed at build time.\
+Index: This package was not yet installed at build time.\
 
 ## Author
 

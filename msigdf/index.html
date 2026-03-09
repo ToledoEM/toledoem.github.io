@@ -14,6 +14,7 @@
 <meta name="description" content="The Molecular Signatures Database (MSigDB) in a tidy data frame">
 <meta property="og:description" content="The Molecular Signatures Database (MSigDB) in a tidy data frame">
 <script data-goatcounter="https://etoledo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<link rel="canonical" href="https://toledoem.github.io/msigdf/" />
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -54,7 +55,7 @@
 <p>The <a href="https://www.gsea-msigdb.org/gsea/msigdb/index.jsp" class="external-link">Molecular Signatures Database (MSigDB)</a> in a tidy data frame.</p>
 <p>This is the updated version of the archived repo of <a href="https://github.com/stephenturner/msigdf/pull/1" class="external-link">@stephenturner</a></p>
 <p>Current version: <a href="https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_Latest/" class="external-link">v2026.1</a>.</p>
-<p><a href="https://doi.org/10.5281/zenodo.16815639" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.16815640.svg" alt="DOI"></a></p>
+<p><a href="https://doi.org/10.5281/zenodo.16815639" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.16815639.svg" alt="DOI"></a></p>
 <p><strong>Important Notices</strong> - MSigDB v2026.1 (Jan 2026) is based on gene annotation data from Ensembl Release 115 (September 2026). - Human realese notes: <a href="https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_2026.1.Hs/" class="external-link uri">https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_2026.1.Hs/</a> - Mouse release notes: <a href="https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_2026.1.Mm/" class="external-link uri">https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_2026.1.Mm/</a></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -124,14 +125,19 @@
 <div class="section level2">
 <h2 id="building">Building<a class="anchor" aria-label="anchor" href="#building"></a>
 </h2>
-<p>Code for building this data is in folder data-raw</p>
+<p>Code for building this data is in <code>data-raw/</code>. Update <code>data-raw/data_url.yml</code> with the new MSigDB version and URLs (the top-level <code>version:</code> is now used by the scripts).</p>
+<ol style="list-style-type: decimal">
+<li><p>Download GMT files: <code>bash data-raw/get_gmt.sh</code></p></li>
+<li><p>Build the data frames and save to <code>data/</code>: <code>Rscript data-raw/msigdf.R</code></p></li>
+</ol>
+<p>The build script reads the version from <code>data-raw/data_url.yml</code>, so you no longer need to edit version strings inside the R code.</p>
 <p>See the <a href="https://toledoem.github.io/msigdf/articles/msigdf.html">package vignette</a> for more.</p>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h2>
 <p><a href="https://creativecommons.org" class="external-link">MSigDF</a> by <a href="https://creativecommons.org" class="external-link">US</a> is marked <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="external-link">CC0 1.0</a></p>
-<p><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="CC logo"><br><img src="https://mirrors.creativecommons.org/presskit/icons/zero.svg" alt="Zero logo"></p>
+<p><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="CC logo" width="30"><img src="https://mirrors.creativecommons.org/presskit/icons/zero.svg" alt="Zero logo" width="30"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

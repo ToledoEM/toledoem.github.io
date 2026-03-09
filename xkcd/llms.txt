@@ -104,9 +104,7 @@ try({
 }, silent = TRUE)
 ```
 
-![test :-)](articles/font_check.png)
-
-test :-)
+![](articles/font_check.png)
 
 ### Load Fonts for Plotting
 
@@ -139,11 +137,7 @@ This is opt-in to avoid surprising side-effects during package attach.
 
 ## Example Images
 
-Below are three examples from the vignette:
-
-![Font availability check (font_check)](articles/font_check.png)
-
-Font availability check (font_check)
+Below are two examples from the vignette:
 
 ![Mother’s Day example (mommy_plot)](articles/mommy_plot.png)
 

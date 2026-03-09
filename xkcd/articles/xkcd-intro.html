@@ -11,6 +11,9 @@
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="xkcd: An R Package for Plotting XKCD Graphs">
+<meta name="description" content="A step-by-step introduction to the xkcd R package: how to install the XKCD font, create hand-drawn style ggplot2 charts, and use custom geoms for lines, circles, and stick figures.">
+<meta property="og:description" content="A step-by-step introduction to the xkcd R package: how to install the XKCD font, create hand-drawn style ggplot2 charts, and use custom geoms for lines, circles, and stick figures.">
+<link rel="canonical" href="https://toledoem.github.io/xkcd/articles/xkcd-intro.html" />
 <script data-goatcounter="https://etoledo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -55,7 +58,7 @@
       <h1>xkcd: An R Package for Plotting XKCD Graphs</h1>
                         <h4 data-toc-skip class="author">ToledoEM</h4>
             
-            <h4 data-toc-skip class="date">2025-11-21</h4>
+            <h4 data-toc-skip class="date">2026-03-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ToledoEM/xkcd/blob/HEAD/vignettes/xkcd-intro.Rmd" class="external-link"><code>vignettes/xkcd-intro.Rmd</code></a></small>
       <div class="d-none name"><code>xkcd-intro.Rmd</code></div>
@@ -144,7 +147,7 @@ results:</p>
 <span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/fonts-1.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/fonts-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># # Save initial font-check plot for README (if possible)</span></span>
 <span><span class="co"># try({</span></span>
@@ -211,7 +214,7 @@ specific function based on the ggplot2 framework was created,
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="../reference/xkcdaxis.html">xkcdaxis</a></span><span class="op">(</span><span class="va">xrange</span>, <span class="va">yrange</span><span class="op">)</span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/axis-1.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/axis-1.png" class="r-plt" alt="" width="700"></p>
 <p>Due to the fact that white random noise is used in the picture, it is
 convenient to fix a seed for reproducing the same figure
 (<code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>).</p>
@@ -282,7 +285,7 @@ figures.</p>
 <span>           label <span class="op">=</span> <span class="st">"Sure\nI can!"</span>, family <span class="op">=</span> <span class="st">"xkcd"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/caritas-1.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/caritas-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save a representative plot for README</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -361,7 +364,7 @@ style.</p>
 <span>  <span class="fu">timelabel</span><span class="op">(</span><span class="st">"zzz"</span>, <span class="fl">23.5</span>, <span class="fl">60</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/mommy-1.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/mommy-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save a PNG into the vignette folder so it can be used in the README</span></span>
 <span><span class="va">out_png</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"mommy_plot.png"</span><span class="op">)</span></span>
@@ -467,7 +470,7 @@ different visualization needs.</p>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">$</span><span class="va">year</span><span class="op">)</span>, label <span class="op">=</span> <span class="va">mydata</span><span class="op">$</span><span class="va">label</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="../reference/xkcdman.html">xkcdman</a></span><span class="op">(</span><span class="va">mapping</span>, <span class="va">dataman</span><span class="op">)</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/help-1.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/help-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Grouping example: provide a group aesthetic to geom_xkcdpath() when</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, xend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>, yend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.2</span>, <span class="fl">0.8</span><span class="op">)</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -475,7 +478,7 @@ different visualization needs.</p>
 <span>  <span class="fu"><a href="../reference/geom_xkcdpath.html">geom_xkcdpath</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, xend <span class="op">=</span> <span class="va">xend</span>, yend <span class="op">=</span> <span class="va">yend</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span>,</span>
 <span>                data <span class="op">=</span> <span class="va">df</span>, linewidth <span class="op">=</span> <span class="fl">1</span>, xjitteramount <span class="op">=</span> <span class="fl">0.05</span>, yjitteramount <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/xkcdaxis.html">xkcdaxis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/theme_xkcd.html">theme_xkcd</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/help-2.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/help-2.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="economic-projections">Economic Projections<a class="anchor" aria-label="anchor" href="#economic-projections"></a>
@@ -525,7 +528,7 @@ different visualization needs.</p>
 <span>           family <span class="op">=</span> <span class="st">"xkcd"</span>, size <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p2</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/homosapiens-1.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/homosapiens-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="regional-migration-pyramid">Regional Migration Pyramid<a class="anchor" aria-label="anchor" href="#regional-migration-pyramid"></a>
@@ -616,7 +619,7 @@ different visualization needs.</p>
 <span>           vjust <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span>, family <span class="op">=</span> <span class="st">"xkcd"</span>, angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">kk4</span> <span class="op">+</span> <span class="fu"><a href="../reference/xkcdman.html">xkcdman</a></span><span class="op">(</span><span class="va">mapping</span>, <span class="va">dataman</span><span class="op">)</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/sevan-1.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/sevan-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="mothers-day-schedule">Mother’s Day Schedule<a class="anchor" aria-label="anchor" href="#mothers-day-schedule"></a>
@@ -650,7 +653,7 @@ different visualization needs.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Times mothers are called by children"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span></span></code></pre></div>
-<p><img src="xkcd-intro_files/figure-html/motherday-1.png" class="r-plt" width="700"></p>
+<p><img src="xkcd-intro_files/figure-html/motherday-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
 <div class="section level2">
