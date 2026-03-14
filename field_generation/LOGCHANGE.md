@@ -1,6 +1,22 @@
 # Log Change
 
-Versioning starts at `0.1` and increments per historical commit (oldest to newest).
+## v0.10 - 2026-03-09
+- Implemented step-based UX pipeline (Step 1 → Field, Step 2 → Color, Step 3 → Perturb):
+  - sidebar tabs show only the active step's controls
+  - each step has its own Apply/Regenerate button
+- Implemented `IMP-04` Barnes-Hut quadtree repulsion mode (`fast` vs `classic` selector in Path Interactions)
+- Added procedural color system (`color-methods.js`):
+  - 5 color methods: HSL Gradient, Solid Palette, Field Angle, Density Map, Position
+  - per-path color, alpha, background (white/black) controls
+  - SVG export now emits per-polyline stroke colors when color is enabled
+  - CSV export adds optional `color` column
+  - JSON export includes `color` params block
+- Added field perturbation system (`perturbation-methods.js`):
+  - 3 post-generation perturbation types: Radial Impulse, Gravity Well, Rolling Ball
+  - perturbations applied after field generation, before path tracing
+  - JSON export includes `perturbation` params block
+- CLI moved to separate repository (`../field_generation_cli`)
+- Updated `CLAUDE.md` and `README.md` to reflect CLI relocation and new architecture
 
 ## v0.9 - 2026-02-10
 - Commit: pending (current working changes)
