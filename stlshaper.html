@@ -240,8 +240,8 @@ Tip
 <li><strong>Sine Wave</strong>: Generates a sinusoidal wave deformation, producing rhythmic, flowing changes – potentially creating mesmerizing, pulsating effects.</li>
 <li><strong>Pixelate</strong>: Pixelates the model by snapping vertices to a grid, offering a stark, fragmented aesthetic.</li>
 <li><strong>IDW Shepard</strong>: Advanced organic deformation using multiple control points distributed throughout the model’s volume via Poisson disk sampling.</li>
-<li><strong>Inflate / Twist / Bend / Ripple / Warp / Hyperbolic Stretch</strong>: Expressive surface operators for swelling, rotating, arcing, undulating, noise-based offsets, and elastic stretching.</li>
-<li><strong>Tessellate / Boundary Disruption / Menger Sponge</strong>: Topology-oriented transformations for subdividing, fraying edges, and carving porous structures.</li>
+<li><strong>Inflate / Twist / Bend / Ripple / Warp / Hyperbolic Stretch</strong>: A suite of expressive surface operators. Inflate swells outward by distance from center, Twist rotates along a chosen axis, Bend arcs the mesh over a controllable range, Ripple adds wave-like undulation, Warp introduces spatial noise-based offsets, and Hyperbolic Stretch exaggerates form along an axis for elastic, pulled silhouettes.</li>
+<li><strong>Tessellate / Boundary Disruption / Menger Sponge</strong>: Topology-oriented transformations. Tessellate subdivides triangles to add geometric density, Boundary Disruption jitters near edges for torn or frayed contours, and Menger Sponge carves repeating voids for porous, lattice-like structures.</li>
 </ul></li>
 <li><strong>Real-time Deformation</strong>: Updates the deformation in real-time, allowing for interactive experimentation.</li>
 <li><strong>Parameter Controls</strong>: Interactive sliders and checkboxes for adjusting deformation parameters.</li>
@@ -250,7 +250,7 @@ Tip
 <li><strong>Axis Gizmo</strong>: On-screen X/Y/Z labels for orientation.</li>
 <li><strong>Multi-Axis Selection</strong>: Axis-based deformations (twist, bend, ripple, hyper) can target multiple axes.</li>
 <li><strong>Parallel Processing</strong>: Uses Web Workers for efficient processing of large STL files with thousands of vertices.</li>
-<li><strong>Preprocess Options</strong>: Optional cleanup before deformation (Decimate, Vertex Merge) for dense models or faster iteration.</li>
+<li><strong>Preprocess Options</strong>: Optional cleanup before deformation. Decimate keeps a percentage of triangles (faster but less detail), and Vertex Merge collapses near-identical vertices within an epsilon (reduces duplicates and can stabilize deformations). Not required for most models, but helpful for very dense STLs or when you need faster iteration.</li>
 <li><strong>Import/Export Settings</strong>: Reuse deformation presets across STLs; exported settings include preprocess parameters.</li>
 <li><strong>Stats HUD</strong>: Displays vertex/triangle counts and deformation time.</li>
 <li><strong>Export</strong>: Exports the deformed model as an STL file – save your weird creations!</li>
@@ -286,7 +286,7 @@ Tip
 </section>
 <section id="idw-shepard-deformation" class="level2">
 <h2 class="anchored" data-anchor-id="idw-shepard-deformation">IDW Shepard Deformation</h2>
-<p>The IDW (Inverse Distance Weighting) Shepard deformation uses multiple control points placed throughout the model’s interior volume for organic, localized shaping.</p>
+<p>The IDW (Inverse Distance Weighting) Shepard deformation represents a significant advancement in organic 3D manipulation. Unlike traditional single-point deformations, this method uses multiple control points strategically placed throughout the model’s interior volume.</p>
 <section id="key-features" class="level3">
 <h3 class="anchored" data-anchor-id="key-features">Key Features</h3>
 <ul>
@@ -310,42 +310,29 @@ Tip
 </ul>
 </section>
 </section>
-<section id="requirements" class="level2 panel-tabset">
-<h2 class="panel-tabset anchored" data-anchor-id="requirements">Requirements</h2>
-<section id="browser" class="level3">
-<h3 class="anchored" data-anchor-id="browser">Browser</h3>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
 <ul>
-<li>Modern web browser (Chrome, Firefox, Safari, Edge)</li>
-<li>JavaScript enabled</li>
-</ul>
-</section>
-<section id="dependencies" class="level3">
-<h3 class="anchored" data-anchor-id="dependencies">Dependencies</h3>
-<ul>
-<li>Three.js (r121, bundled)</li>
+<li>Modern web browser with Web Worker support (Chrome 4+, Firefox 3.5+, Safari 4+, Edge)</li>
+<li>JavaScript ES6+ features supported by your browser</li>
+<li>Three.js r121 (bundled)</li>
 <li>FileSaver.js (included)</li>
-<li>Web Workers (required for parallel processing)</li>
+<li>Web Workers (required for parallel processing of large deformations)</li>
 </ul>
 </section>
-</section>
-<section id="setup" class="level2 panel-tabset">
-<h2 class="panel-tabset anchored" data-anchor-id="setup">Setup</h2>
-<section id="files" class="level3">
-<h3 class="anchored" data-anchor-id="files">Files</h3>
-<p>The project consists of:</p>
-<ul>
-<li><code>index.html</code></li>
-<li><code>sketch.js</code></li>
-<li>Required JavaScript libraries</li>
-</ul>
-</section>
-<section id="installation" class="level3">
-<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<section id="run-options" class="level2">
+<h2 class="anchored" data-anchor-id="run-options">Run Options</h2>
 <ol type="1">
-<li>Place all files in a directory</li>
-<li>Open <code>index.html</code> in your web browser</li>
+<li><strong>Run locally:</strong> Clone the repository and open <code>index.html</code> in a modern browser.</li>
+<li><strong>Run online:</strong> Open the hosted version at <a href="https://toledoem.github.io/stlshaper/">https://toledoem.github.io/stlshaper/</a>.</li>
 </ol>
 </section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<ol type="1">
+<li>Place all files (<code>index.html</code>, <code>main.js</code>, libraries) in a directory.</li>
+<li>Open <code>index.html</code> in your web browser.</li>
+</ol>
 </section>
 <section id="usage" class="level2">
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
@@ -474,8 +461,9 @@ Note
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section">0.6.0 (2026-02-10)</h3>
 <ul>
-<li>Added importable deformation settings and axis gizmo with X/Y/Z labels</li>
-<li>Added multi-axis selection for twist/bend/ripple/hyper</li>
+<li>Added importable deformation settings to reuse presets across STLs</li>
+<li>Added on-screen axis gizmo with X/Y/Z labels</li>
+<li>Added multi-axis selection for axis-based deformations (twist, bend, ripple, hyper)</li>
 <li>Improved Menger sponge, tessellation range, settings export, and UI/camera performance</li>
 <li>Fixed shading issues by ensuring valid vertex normals, plus assorted robustness fixes</li>
 </ul>
@@ -492,6 +480,24 @@ Note
 <ul>
 <li>Added settings workflow groundwork and Web Worker processing</li>
 <li>General refinements and cleanup</li>
+</ul>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">0.3.0 (2025-10-27)</h3>
+<ul>
+<li>Initial autoloader workflow</li>
+</ul>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">0.2.0 (2025-10-06)</h3>
+<ul>
+<li>Bug fixes and iterative improvements</li>
+</ul>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">0.1.0 (2025-10-04)</h3>
+<ul>
+<li>Initial project scaffold and documentation</li>
 </ul>
 </section>
 </section>
