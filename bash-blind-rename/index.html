@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Gallery – Enrique M. Toledo</title>
+<title>Bash Blind Rename documentation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,164 +23,82 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./www/favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a58ef6c866849ad42c14fb3240bb57e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-750ae5842338a7e5772a1b50ee368bb0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="quarto-light">
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Enrique M. Toledo</span>
-    </a>
-  </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> <i class="bi bi-house-fill" role="img">
-</i> 
-<span class="menu-text">About Me</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./code.html"> <i class="bi bi-terminal" role="img">
-</i> 
-<span class="menu-text">Hardware &amp; Code</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./scientifictools.html"> <i class="bi bi-flask" role="img">
-</i> 
-<span class="menu-text">Scientific Tools</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects-details" role="link" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="bi bi-code-square" role="img">
-</i> 
- <span class="menu-text">Projects Details</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects-details">    
-        <li>
-    <a class="dropdown-item" href="./field_generation/index.html" target="_blank">
- <span class="dropdown-text">Field Generation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./stlshaper/index.html" target="_blank">
- <span class="dropdown-text">STLShaper</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./xkcd/index.html" target="_blank">
- <span class="dropdown-text">XKCD ggplot2 Theme</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./msigdf/index.html" target="_blank">
- <span class="dropdown-text">MSigDF</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./pubmatrixr/index.html" target="_blank">
- <span class="dropdown-text">PubMatrixR</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./espduckdns/index.html" target="_blank">
- <span class="dropdown-text">ESP32 DuckDNS</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./NTPGPSHomeBridge/index.html" target="_blank">
- <span class="dropdown-text">NTP GPS HomeBridge</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./bash-blind-rename/index.html" target="_blank">
- <span class="dropdown-text">Bash Blind Rename</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" href="./gallery.html" aria-current="page"> <i class="bi bi-images" role="img">
-</i> 
-<span class="menu-text">Gallery</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./papers.html"> <i class="bi bi-person-circle" role="img">
-</i> 
-<span class="menu-text">Papers</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-    <a href="https://github.com/ToledoEM/" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-    <a href="https://www.linkedin.com/in/enrique-toledo/" title="LinkedIn" class="quarto-navigation-tool px-1" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#what-it-does" id="toc-what-it-does" class="nav-link active" data-scroll-target="#what-it-does">What it does</a></li>
+  <li><a href="#macos-app" id="toc-macos-app" class="nav-link" data-scroll-target="#macos-app">macOS App</a></li>
+  <li><a href="#bash-scripts" id="toc-bash-scripts" class="nav-link" data-scroll-target="#bash-scripts">Bash Scripts</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#safety-rules" id="toc-safety-rules" class="nav-link" data-scroll-target="#safety-rules">Safety rules</a></li>
+  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
+  </ul>
+</nav>
 </div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    
-<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Gallery</h1>
+<h1 class="title">Blind Rename Files</h1>
+<p class="subtitle lead">Obfuscate filenames for unbiased analysis — macOS App &amp; Bash Scripts</p>
 </div>
 
 
@@ -197,94 +115,158 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="generative-art-toys-examples" class="level2">
-<h2 class="anchored" data-anchor-id="generative-art-toys-examples">Generative Art Toys-Examples</h2>
-<div class="gallery-grid">
-<div class="gallery-item">
+<p><a href="https://doi.org/10.5281/zenodo.16878966"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.16878966.svg" class="img-fluid" alt="DOI"></a> <a href="https://github.com/ToledoEM/Bash-blind-rename"><img src="https://img.shields.io/badge/GitHub-ToledoEM%2FBash--blind--rename-181717?logo=github.png" class="img-fluid" alt="GitHub"></a></p>
+<p>A macOS app and Bash scripts to blind-rename files in a folder for unbiased analysis. Original filenames are saved in a dictionary so they can be restored at any time.</p>
+<hr>
+<section id="what-it-does" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-does">What it does</h2>
+<p>Each file in a folder is renamed to a 20-character uppercase hash derived from its original filename. A <code>name_dictionary.csv</code> mapping is saved alongside the files. Running the revert restores all original names and archives the dictionary.</p>
+<p>Files created in the folder:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>name_dictionary.csv</code></td>
+<td>Maps original names to obfuscated names</td>
+</tr>
+<tr class="even">
+<td><code>Analysis_file.csv</code></td>
+<td>List of obfuscated names only, for use during blind analysis</td>
+</tr>
+<tr class="odd">
+<td><code>name_dictionary_DEPRECATED.csv</code></td>
+<td>Renamed from dictionary after a successful revert</td>
+</tr>
+</tbody>
+</table>
+<p>Subfolders are never touched.</p>
+<hr>
+</section>
+<section id="macos-app" class="level2">
+<h2 class="anchored" data-anchor-id="macos-app">macOS App</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="www/circles_grid_plot_fixed_scale_stroke_075_final_color.png" target="_blank"><img src="www/circles_grid_plot_fixed_scale_stroke_075_final_color.png" class="gallery-image img-fluid figure-img" alt="Geometric pattern of colored circles in a grid"></a></p>
-<figcaption>Color circles arrangement</figcaption>
+<p><img src="app.png" class="img-fluid figure-img"></p>
+<figcaption>BashBlindRename App</figcaption>
 </figure>
 </div>
-<p class="gallery-caption">
-</p>
+<p>Download <code>BashBlindRename.app</code> from the <a href="https://github.com/ToledoEM/Bash-blind-rename/releases">releases page</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="gallery-item">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/linepatters_spiral.png" target="_blank"><img src="www/linepatters_spiral.png" class="gallery-image img-fluid figure-img" alt="Intricate spiral line patterns"></a></p>
-<figcaption>Spiral line patterns</figcaption>
-</figure>
-</div>
-<p class="gallery-caption">
-</p>
-</div>
-<div class="gallery-item">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/canvas.png" target="_blank"><img src="www/canvas.png" class="gallery-image img-fluid figure-img" alt="Black and white abstract canvas"></a></p>
-<figcaption>Abstract canvas composition</figcaption>
-</figure>
-</div>
-<p class="gallery-caption">
-</p>
-</div>
-<div class="gallery-item">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/plotter_flow_field_colors.png" target="_blank"><img src="www/plotter_flow_field_colors.png" class="gallery-image img-fluid figure-img" alt="Colorful flowing patterns"></a></p>
-<figcaption>Vibrant flow field</figcaption>
-</figure>
-</div>
-<p class="gallery-caption">
-</p>
-</div>
-<div class="gallery-item">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/plotter_flow_field_v2.png" target="_blank"><img src="www/plotter_flow_field_v2.png" class="gallery-image img-fluid figure-img" alt="Colorful flowing patterns"></a></p>
-<figcaption>Flow field</figcaption>
-</figure>
-</div>
-<p class="gallery-caption">
-</p>
-</div>
-<div class="gallery-item">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/plotter_flow_field_colors_big.png" target="_blank"><img src="www/plotter_flow_field_colors_big.png" class="gallery-image img-fluid figure-img" alt="Colorful flowing patterns"></a></p>
-<figcaption>Another flow field</figcaption>
-</figure>
-</div>
-<p class="gallery-caption">
-</p>
-</div>
-<div class="gallery-item">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/quant_perlin_canvas.png" target="_blank"><img src="www/quant_perlin_canvas.png" class="gallery-image img-fluid figure-img" alt="Quantize Perlin Field with angle noise, bin at 90 degrees"></a></p>
-<figcaption>Quantize Perlin Field with angle noise, bin at 90 degrees</figcaption>
-</figure>
-</div>
-<p class="gallery-caption">
-</p>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
-<div class="video-gallery">
-<div class="video-item">
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title="Brownian bridge on a circle with iterative parameters"><source src="www/brownian_steps_resized.mp4"></video></div>
-<p class="video-caption">
-</p><p>Brownian Bridges - Parametric animation exploring random walks on circular paths</p>
-<p></p>
+<div class="callout-body-container callout-body">
+<p>Requires macOS 12 or later. No installation — double-click and run.</p>
 </div>
 </div>
-<p><strong><em>Details in the repositories <a href="code.html">link</a></em></strong></p>
-
-
+<ol type="1">
+<li>Open the app.</li>
+<li>Drag and drop your folder onto the drop zone.</li>
+<li>Click <strong>Blind Rename</strong> to obfuscate filenames.</li>
+<li>Click <strong>Revert Rename</strong> to restore original names.</li>
+</ol>
+<hr>
+</section>
+<section id="bash-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="bash-scripts">Bash Scripts</h2>
+<section id="requirements" class="level3">
+<h3 class="anchored" data-anchor-id="requirements">Requirements</h3>
+<ul>
+<li>Bash (macOS or Linux)</li>
+<li><code>shasum</code> — pre-installed on macOS and most Linux systems</li>
+</ul>
+</section>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x bash_blind_rename.sh revert_rename.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="blind-rename-a-folder" class="level3">
+<h3 class="anchored" data-anchor-id="blind-rename-a-folder">Blind rename a folder</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./bash_blind_rename.sh</span> path/to/folder</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="revert-to-original-names" class="level3">
+<h3 class="anchored" data-anchor-id="revert-to-original-names">Revert to original names</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./revert_rename.sh</span> path/to/folder</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="example" class="level2">
+<h2 class="anchored" data-anchor-id="example">Example</h2>
+<p><strong>Starting folder:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">temp/</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">foo_1.txt</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">foo_2.txt</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">foo_3.txt</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">subfolder/</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">bar_1.txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>After <code>./bash_blind_rename.sh temp/</code>:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">temp/</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">007937B3F4F4D9F58B7D.txt</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">3C27A89C60DE090DE1F6.txt</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">760A83AE04023DD099FC.txt</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">name_dictionary.csv</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Analysis_file.csv</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">subfolder/</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">bar_1.txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>subfolder/</code> and its contents are untouched.</p>
+<p><strong><code>name_dictionary.csv</code>:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Oldname,Newname</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foo_1.txt,007937B3F4F4D9F58B7D.txt</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">foo_2.txt,3C27A89C60DE090DE1F6.txt</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">foo_3.txt,760A83AE04023DD099FC.txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>After <code>./revert_rename.sh temp/</code>:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">temp/</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">foo_1.txt</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">foo_2.txt</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">foo_3.txt</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">name_dictionary_DEPRECATED.csv</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">subfolder/</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">bar_1.txt</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="safety-rules" class="level2">
+<h2 class="anchored" data-anchor-id="safety-rules">Safety rules</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Will not run if <code>name_dictionary.csv</code> or <code>Analysis_file.csv</code> already exist in the folder.</li>
+<li>Will not run if <code>name_dictionary_DEPRECATED.csv</code> exists — delete it first to re-run.</li>
+<li>Does not run as root/superuser.</li>
+<li>Does not recurse into subfolders.</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">License</h2>
+<p>See <a href="../LICENSE">LICENSE</a>.</p>
 </section>
 
-</main> <!-- /main -->
+</main>
+<!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -372,13 +354,6 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -693,48 +668,8 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-      &nbsp;
-    </div>   
-    <div class="nav-footer-center">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/ToledoEM/">
-      <i class="bi bi-github" role="img" aria-label="GitHub Profile">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/enrique-toledo/">
-      <i class="bi bi-linkedin" role="img" aria-label="LinkedIn Profile">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://scholar.google.com/citations?user=tQvU5PIAAAAJ&amp;hl=en">
-      <i class="bi bi-book-fill" role="img" aria-label="Google Scholar">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="mailto:enriquetoledom@outlook.com">
-      <i class="bi bi-envelope" role="img" aria-label="Email">
-</i> 
-    </a>
-  </li>  
-</ul>
-    </div>
-    <div class="nav-footer-right">
-      &nbsp;
-    </div>
-  </div>
-</footer>
-<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
