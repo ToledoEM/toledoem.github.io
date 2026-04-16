@@ -2,7 +2,10 @@
 <url><loc>https://toledoem.github.io/xkcd/404.html</loc></url>
 <url><loc>https://toledoem.github.io/xkcd/LICENSE-text.html</loc></url>
 <url><loc>https://toledoem.github.io/xkcd/articles/index.html</loc></url>
+<url><loc>https://toledoem.github.io/xkcd/articles/xkcd-figure.html</loc></url>
 <url><loc>https://toledoem.github.io/xkcd/articles/xkcd-intro.html</loc></url>
+<url><loc>https://toledoem.github.io/xkcd/articles/xkcd-man.html</loc></url>
+<url><loc>https://toledoem.github.io/xkcd/articles/xkcd-penguins.html</loc></url>
 <url><loc>https://toledoem.github.io/xkcd/authors.html</loc></url>
 <url><loc>https://toledoem.github.io/xkcd/index.html</loc></url>
 <url><loc>https://toledoem.github.io/xkcd/reference/geom_xkcdpath.html</loc></url>
@@ -13,5 +16,6 @@
 <url><loc>https://toledoem.github.io/xkcd/reference/xkcdline.html</loc></url>
 <url><loc>https://toledoem.github.io/xkcd/reference/xkcdman.html</loc></url>
 <url><loc>https://toledoem.github.io/xkcd/reference/xkcdrect.html</loc></url>
+<url><loc>https://toledoem.github.io/xkcd/stickfigurehelper/index.html</loc></url>
 </urlset>
 

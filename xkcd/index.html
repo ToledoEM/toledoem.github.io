@@ -14,7 +14,6 @@
 <meta name="description" content="Provides custom geoms and themes to create charts and graphics in the distinctive, hand-drawn XKCD webcomic style using the ggplot2 framework. The package utilizes custom layers for jittered lines, segments, circles, and figures, and includes a theme that supports the necessary XKCD font.">
 <meta property="og:description" content="Provides custom geoms and themes to create charts and graphics in the distinctive, hand-drawn XKCD webcomic style using the ggplot2 framework. The package utilizes custom layers for jittered lines, segments, circles, and figures, and includes a theme that supports the necessary XKCD font.">
 <script data-goatcounter="https://etoledo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<link rel="canonical" href="https://toledoem.github.io/xkcd/" />
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -36,6 +35,7 @@
 <li class="active nav-item"><a class="nav-link" href="index.html">Home</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
+<li class="nav-item"><a class="nav-link" href="stickfigurehelper/index.html">Figure Pose Helper</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -52,7 +52,9 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="xkcd">xkcd<a class="anchor" aria-label="anchor" href="#xkcd"></a>
 </h1></div>
-<p><img src="https://toledoem.github.io/img/xkcd_logo.png"></p>
+<div class="float">
+<img src="https://toledoem.github.io/img/xkcd_logo.png" alt="xkcd package logo"><div class="figcaption">xkcd package logo</div>
+</div>
 <p>An R package to create hand-drawn (xkcd-style) plots and elements for ggplot2.</p>
 <p>This repository contains the source for the <code>xkcd</code> package (development version). Originally from <a href="https://r-forge.r-project.org/projects/xkcd/" class="external-link uri">https://r-forge.r-project.org/projects/xkcd/</a> which is deprecated and now maintained independently.</p>
 <div class="section level2">
@@ -67,7 +69,7 @@
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ToledoEM/xkcd"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># or using devtools</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ToledoEM/xkcd"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ToledoEM/xkcd"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
@@ -133,7 +135,9 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"vignettes"</span>, <span class="st">"font_check.png"</span><span class="op">)</span>, plot <span class="op">=</span> <span class="va">p</span>, width <span class="op">=</span> <span class="fl">6</span>, height <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">}</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="articles/font_check.png"></p>
+<div class="float">
+<img src="reference/figures/font_check.png" alt="Font check example plot"><div class="figcaption">Font check example plot</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="load-fonts-for-plotting">Load Fonts for Plotting<a class="anchor" aria-label="anchor" href="#load-fonts-for-plotting"></a>
@@ -159,6 +163,12 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ToledoEM/xkcd" class="external-link">xkcd</a></span><span class="op">)</span></span></code></pre></div>
 <p>This is opt-in to avoid surprising side-effects during package attach.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="figure-pose-helper">Figure Pose Helper<a class="anchor" aria-label="anchor" href="#figure-pose-helper"></a>
+</h2>
+<p>An interactive browser tool to design <code><a href="reference/xkcdman.html">xkcdman()</a></code> poses visually — drag limbs, adjust sliders, and copy the generated R code directly into your script.</p>
+<p><strong><a href="https://toledoem.github.io/xkcd/stickfigurehelper/index.html">Open the Figure Pose Helper</a></strong></p>
 </div>
 <div class="section level2">
 <h2 id="example-images">Example Images<a class="anchor" aria-label="anchor" href="#example-images"></a>
@@ -191,10 +201,21 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/build_vignettes.html" class="external-link">build_vignettes</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Install from local source</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_local.html" class="external-link">install_local</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>To render the vignette directly:</p>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_local</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>To render the vignettes directly:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"vignettes/xkcd-intro.Rmd"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"vignettes/xkcd-intro.Rmd"</span><span class="op">)</span></span>
+<span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"vignettes/xkcd-figure.Rmd"</span><span class="op">)</span></span>
+<span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"vignettes/xkcd-penguins.Rmd"</span><span class="op">)</span></span></code></pre></div>
+<p>Three vignettes are available:</p>
+<ul>
+<li>
+<strong>xkcd-intro</strong> — Introduction and basic usage</li>
+<li>
+<strong>xkcd-figure</strong> — Drawing xkcd-style stick figures</li>
+<li>
+<strong>xkcd-penguins</strong> — Example with the Palmer Penguins dataset</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>

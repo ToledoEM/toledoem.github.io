@@ -7,17 +7,17 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/espduckdns/index.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/scientifictools.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -157,12 +157,12 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/stlshaper.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/gallery.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -172,7 +172,7 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/NTPGPSHomeBridge/index.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -232,17 +232,17 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/papers.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/code.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/bash-blind-rename/index.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -252,82 +252,107 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/index.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/xkcd/stickfigurehelper/index.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/xkcd/articles/xkcd-penguins.html</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/articles/index.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/xkcd/articles/xkcd-figure.html</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/xkcd/articles/xkcd-man.html</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/articles/xkcd-intro.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/404.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/LICENSE-text.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/authors.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/index.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/xkcd.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/xkcdaxis.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/xkcdrect.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/geom_xkcdpath.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/xkcdline.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/xkcdman.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/theme_xkcd.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/xkcd/reference/xkcd-package.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/BrandSTL/index.html</loc>
-    <lastmod>2026-03-26</lastmod>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/pubmatrixp/index.html</loc>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
