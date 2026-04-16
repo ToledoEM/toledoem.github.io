@@ -177,7 +177,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#wifi-configuration" id="toc-wifi-configuration" class="nav-link" data-scroll-target="#wifi-configuration">WiFi Configuration</a></li>
   <li><a href="#device-configuration" id="toc-device-configuration" class="nav-link" data-scroll-target="#device-configuration">Device Configuration</a></li>
   </ul></li>
-  <li><a href="#web-interface" id="toc-web-interface" class="nav-link" data-scroll-target="#web-interface">Web Interface</a></li>
+  <li><a href="#web-interface" id="toc-web-interface" class="nav-link" data-scroll-target="#web-interface">Web Interface</a>
+  <ul class="collapse">
+  <li><a href="#status-page" id="toc-status-page" class="nav-link" data-scroll-target="#status-page">Status Page</a></li>
+  <li><a href="#settings-page" id="toc-settings-page" class="nav-link" data-scroll-target="#settings-page">Settings Page</a></li>
+  <li><a href="#json-api" id="toc-json-api" class="nav-link" data-scroll-target="#json-api">JSON API</a></li>
+  </ul></li>
   <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a>
   <ul class="collapse">
   <li><a href="#eeprom-layout" id="toc-eeprom-layout" class="nav-link" data-scroll-target="#eeprom-layout">EEPROM Layout</a></li>
@@ -342,19 +347,18 @@ Note
 </section>
 <section id="web-interface" class="level2">
 <h2 class="anchored" data-anchor-id="web-interface">Web Interface</h2>
+<section id="status-page" class="level3">
+<h3 class="anchored" data-anchor-id="status-page">Status Page</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/stableuptime.png" class="screenshot img-fluid figure-img"></p>
 <figcaption>Status page showing uptime and last sync</figcaption>
 </figure>
 </div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Status Page</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Settings Page</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">JSON API</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Shows current IP, last update time, next update countdown, NTP sync status, WiFi RSSI, and the in-memory log ring.</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+</section>
+<section id="settings-page" class="level3">
+<h3 class="anchored" data-anchor-id="settings-page">Settings Page</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/webclient_3.png" class="screenshot img-fluid figure-img"></p>
@@ -368,8 +372,9 @@ Note
 </figure>
 </div>
 <p>Basic Auth protected (<code>user</code> / <code>pass</code> by default — change <code>ADMIN_USERNAME</code> / <code>ADMIN_PASSWORD</code> in the sketch before flashing).</p>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+</section>
+<section id="json-api" class="level3">
+<h3 class="anchored" data-anchor-id="json-api">JSON API</h3>
 <p><code>GET /api/status</code> — no authentication required.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -407,10 +412,8 @@ Note
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
 <hr>
+</section>
 </section>
 <section id="architecture" class="level2">
 <h2 class="anchored" data-anchor-id="architecture">Architecture</h2>
