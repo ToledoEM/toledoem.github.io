@@ -11,7 +11,7 @@
     "href": "readme.html#overview",
     "title": "ESP32 DuckDNS Client",
     "section": "Overview",
-    "text": "Overview\nThis project keeps your DuckDNS domain pointed at your home’s dynamic IP address using an ESP32 as a dedicated, always-on device. Two firmware flavours are available:\n\n\nArduino Sketch\nFull-featured firmware with web UI, EEPROM persistence, NTP sync, and a JSON API. Runs standalone — no Home Assistant required.\nfirmware/esp32duckdns.ino\n\n\nESPHome YAML\nMinimal configuration for Home Assistant users. Exposes entities to HA for dashboard control and logging.\nfirmware/esp32_ESPHome.yaml"
+    "text": "Overview\nThis project keeps your DuckDNS domain pointed at your home’s dynamic IP address using an ESP32 as a dedicated, always-on device. Full-featured firmware with web UI, EEPROM persistence, NTP sync, and a JSON API — runs standalone, no Home Assistant required.\nFirmware: firmware/esp32duckdns.ino"
   },
   {
     "objectID": "readme.html#getting-started",
@@ -60,7 +60,7 @@
     "href": "readme.html#home-assistant-integration",
     "title": "ESP32 DuckDNS Client",
     "section": "Home Assistant Integration",
-    "text": "Home Assistant Integration\nThe ESPHome variant (firmware/esp32_ESPHome.yaml) exposes HA entities that replace standalone features:\n\n\n\n\n\n\n\nEntity type\nPurpose\n\n\n\n\ntext / number\nRuntime config (domain, token, interval) — editable from HA dashboard, persisted in NVS flash\n\n\nsensor\nLast update status, RSSI, uptime, free heap → HA History / Logbook\n\n\nbutton\nForce DDNS update from HA\n\n\ntime\nNTP via HA platform (syncs from HA)\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nsecrets.yaml is gitignored. It lives at /config/esphome/secrets.yaml on the HA host and must be edited manually on the device — never overwrite it via scp or SSH pipe."
+    "text": "Home Assistant Integration\nThe /api/status JSON endpoint can be polled by a Home Assistant REST sensor to bring device state into HA dashboards and automations.\nAdd to configuration.yaml:\nrest:\n  - resource: http://DEVICE_IP/api/status\n    scan_interval: 60\n    sensor:\n      - name: \"DuckDNS Status\"\n        value_template: \"{{ value_json.status }}\"\n      - name: \"DuckDNS IP\"\n        value_template: \"{{ value_json.ip }}\"\n      - name: \"DuckDNS Last Update\"\n        value_template: \"{{ value_json.last_update }}\"\n        device_class: timestamp\n      - name: \"DuckDNS RSSI\"\n        value_template: \"{{ value_json.rssi }}\"\n        unit_of_measurement: dBm\n      - name: \"DuckDNS Uptime\"\n        value_template: \"{{ value_json.uptime }}\"\n        unit_of_measurement: s\n      - name: \"DuckDNS Free Heap\"\n        value_template: \"{{ value_json.free_heap }}\"\n        unit_of_measurement: bytes\nForce a DDNS update from HA with a REST command button:\nrest_command:\n  duckdns_force_sync:\n    url: http://DEVICE_IP/forcesync\n    method: GET\n  duckdns_force_ntp:\n    url: http://DEVICE_IP/forcentp\n    method: GET\nReplace DEVICE_IP with your device’s IP address or testduckNNN.local hostname."
   },
   {
     "objectID": "readme.html#key-constants",
