@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="A robust, feature-rich ESP32 firmware to keep your DuckDNS domain pointed to your home’s dynamic IP address.">
 
-<title>espduckdns documentation</title>
+<title>ESP32 DuckDNS Client – ESP32 DuckDNS</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,6 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./https://toledoem.github.io/www/ducky_icon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -77,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-385b40070cd2f0a15ba1d10b41efce49.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,6 +107,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script data-goatcounter="https://etoledo.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -117,6 +121,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://toledoem.github.io/www/ducky_icon.png" alt="DuckDNS duck icon" class="navbar-logo light-content">
+    <img src="https://toledoem.github.io/www/ducky_icon.png" alt="DuckDNS duck icon" class="navbar-logo dark-content">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">ESP32 DuckDNS</span>
     </a>
@@ -128,8 +136,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/ToledoEM/duckdns_esp32"> 
-<span class="menu-text">Repository</span></a>
+    <a class="nav-link active" href="./readme.html" aria-current="page"> 
+<span class="menu-text">Docs</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/ToledoEM/duckdns_esp32/tree/main/firmware"> 
+<span class="menu-text">Firmware</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ToledoEM/duckdns_esp32"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -146,27 +165,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#esp32-duckdns-client-enhanced" id="toc-esp32-duckdns-client-enhanced" class="nav-link active" data-scroll-target="#esp32-duckdns-client-enhanced">ESP32 DuckDNS Client (Enhanced) <img src="https://toledoem.github.io/www/ducky_icon.png" alt="ducky icon" width="80" height="80"></a>
-  <ul>
-  <li><a href="#configuration-stored-in-eeprom" id="toc-configuration-stored-in-eeprom" class="nav-link" data-scroll-target="#configuration-stored-in-eeprom">Configuration Stored in EEPROM</a></li>
-  <li><a href="#security-notes" id="toc-security-notes" class="nav-link" data-scroll-target="#security-notes">Security Notes</a></li>
-  <li><a href="#led-status" id="toc-led-status" class="nav-link" data-scroll-target="#led-status">LED Status</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
-  <li><a href="#changelog" id="toc-changelog" class="nav-link" data-scroll-target="#changelog">Changelog</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a>
   <ul class="collapse">
-  <li><a href="#software-libraries" id="toc-software-libraries" class="nav-link" data-scroll-target="#software-libraries">2. Software &amp; Libraries</a></li>
-  <li><a href="#flashing-the-code" id="toc-flashing-the-code" class="nav-link" data-scroll-target="#flashing-the-code">3. Flashing the Code</a></li>
+  <li><a href="#hardware" id="toc-hardware" class="nav-link" data-scroll-target="#hardware">Hardware</a></li>
+  <li><a href="#software-libraries" id="toc-software-libraries" class="nav-link" data-scroll-target="#software-libraries">Software &amp; Libraries</a></li>
+  <li><a href="#flashing" id="toc-flashing" class="nav-link" data-scroll-target="#flashing">Flashing</a></li>
   </ul></li>
-  <li><a href="#how-to-use" id="toc-how-to-use" class="nav-link" data-scroll-target="#how-to-use">How to Use</a>
+  <li><a href="#first-time-setup" id="toc-first-time-setup" class="nav-link" data-scroll-target="#first-time-setup">First-Time Setup</a>
   <ul class="collapse">
-  <li><a href="#first-time-wifi-setup" id="toc-first-time-wifi-setup" class="nav-link" data-scroll-target="#first-time-wifi-setup">First-Time WiFi Setup</a></li>
+  <li><a href="#wifi-configuration" id="toc-wifi-configuration" class="nav-link" data-scroll-target="#wifi-configuration">WiFi Configuration</a></li>
   <li><a href="#device-configuration" id="toc-device-configuration" class="nav-link" data-scroll-target="#device-configuration">Device Configuration</a></li>
   </ul></li>
-  <li><a href="#home-assistant-integration" id="toc-home-assistant-integration" class="nav-link" data-scroll-target="#home-assistant-integration">Home Assistant Integration</a>
+  <li><a href="#web-interface" id="toc-web-interface" class="nav-link" data-scroll-target="#web-interface">Web Interface</a></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a>
   <ul class="collapse">
+  <li><a href="#eeprom-layout" id="toc-eeprom-layout" class="nav-link" data-scroll-target="#eeprom-layout">EEPROM Layout</a></li>
+  <li><a href="#logging" id="toc-logging" class="nav-link" data-scroll-target="#logging">Logging</a></li>
+  <li><a href="#ntp" id="toc-ntp" class="nav-link" data-scroll-target="#ntp">NTP</a></li>
+  <li><a href="#web-endpoints" id="toc-web-endpoints" class="nav-link" data-scroll-target="#web-endpoints">Web Endpoints</a></li>
+  </ul></li>
+  <li><a href="#led-status" id="toc-led-status" class="nav-link" data-scroll-target="#led-status">LED Status</a></li>
+  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security</a></li>
+  <li><a href="#home-assistant-integration" id="toc-home-assistant-integration" class="nav-link" data-scroll-target="#home-assistant-integration">Home Assistant Integration</a></li>
+  <li><a href="#key-constants" id="toc-key-constants" class="nav-link" data-scroll-target="#key-constants">Key Constants</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
+  <li><a href="#changelog" id="toc-changelog" class="nav-link" data-scroll-target="#changelog">Changelog</a></li>
   <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
-  </ul></li>
-  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -175,158 +200,192 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ESP32 DuckDNS Client</h1>
+<p class="subtitle lead">Standalone Dynamic DNS client for DuckDNS.org</p>
+</div>
+
+<div>
+  <div class="description">
+    A robust, feature-rich ESP32 firmware to keep your DuckDNS domain pointed to your home’s dynamic IP address.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="esp32-duckdns-client-enhanced" class="level1">
-<h1>ESP32 DuckDNS Client (Enhanced) <img src="https://toledoem.github.io/www/ducky_icon.png" alt="ducky icon" width="80" height="80"></h1>
-<p>This project is an open-source, standalone Dynamic DNS (DDNS) client for <strong>DuckDNS.org</strong> that runs on an <strong>ESP32</strong> microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.</p>
-<p><strong>Version with NTP and persistent logging</strong> <em>Current Version stable stable with uptime of &gt;month</em> <img src="images/stableuptime.png" class="img-fluid" alt="Web Interface Status Page"></p>
-<section id="configuration-stored-in-eeprom" class="level2">
-<h2 class="anchored" data-anchor-id="configuration-stored-in-eeprom">Configuration Stored in EEPROM</h2>
-<p>Config fields: * Device ID (0–999) * DuckDNS domain * DuckDNS token * Update interval (minutes) * Optional custom NTP server * Persistent logging flag</p>
-<p>EEPROM details: * Size: 512 bytes; init marker <code>0x10</code> * Persistent log ring (20 entries) stored after the config block * Batched commits (every 30s or on critical failure) to reduce wear</p>
-<p>Defaults on first boot: * <code>deviceid = 1</code>, <code>domain = "your-domain"</code>, <code>token = "your-token"</code>, <code>updateinterval = 10</code>, <code>ntpServer = "time.local"</code>, <code>persistentLogging = false</code></p>
+</header>
+
+
+<div class="hero-banner">
+<p><img src="https://toledoem.github.io/www/ducky_icon.png" alt="DuckDNS duck icon" class="hero-icon"></p>
+<p><strong>Standalone DDNS client</strong> for <a href="https://www.duckdns.org">DuckDNS.org</a> running on an <strong>ESP32</strong> microcontroller — no cloud service, no router dependency.</p>
+</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This project keeps your DuckDNS domain pointed at your home’s dynamic IP address using an ESP32 as a dedicated, always-on device. Two firmware flavours are available:</p>
+<div class="grid">
+<section id="arduino-sketch" class="level3 g-col-6">
+<h3 class="anchored" data-anchor-id="arduino-sketch">Arduino Sketch</h3>
+<p>Full-featured firmware with web UI, EEPROM persistence, NTP sync, and a JSON API. Runs standalone — no Home Assistant required.</p>
+<p><code>firmware/esp32duckdns.ino</code></p>
+</section>
+<section id="esphome-yaml" class="level3 g-col-6">
+<h3 class="anchored" data-anchor-id="esphome-yaml">ESPHome YAML</h3>
+<p>Minimal configuration for Home Assistant users. Exposes entities to HA for dashboard control and logging.</p>
+<p><code>firmware/esp32_ESPHome.yaml</code></p>
+</section>
+</div>
 <hr>
 </section>
-<section id="security-notes" class="level2">
-<h2 class="anchored" data-anchor-id="security-notes">Security Notes</h2>
-<ul>
-<li>Settings page protected with HTTP Basic Auth
-<ul>
-<li>Defaults: <code>user</code> / <code>pass</code></li>
-<li>Change in code: <code>ADMIN_USERNAME</code> / <code>ADMIN_PASSWORD</code></li>
-</ul></li>
-<li>HTTPS to DuckDNS uses <code>setInsecure()</code> (no cert validation). For strict TLS, add certificate pinning to <code>WiFiClientSecure</code>.</li>
-</ul>
-<hr>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
+<section id="hardware" class="level3">
+<h3 class="anchored" data-anchor-id="hardware">Hardware</h3>
+<p>Any ESP32 development board works. GPIO 2 is used for status LED output.</p>
 </section>
-<section id="led-status" class="level2">
-<h2 class="anchored" data-anchor-id="led-status">LED Status</h2>
-<p>GPIO 2 is used for status LEDs: * WiFiManager AP mode: fast blink * WiFi connecting: slow blink * WiFi connected: steady on * DDNS failure: DDNS LED blinks until next success</p>
-<hr>
-</section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<ul>
-<li>If NTP fails at boot, the system proceeds after ~2 minutes and retries via health checks (every 30 minutes).</li>
-<li>Ensure DuckDNS domain and token are correct on the Settings page.</li>
-<li>If mDNS (<code>.local</code>) doesn’t resolve, use the device IP.</li>
-<li>Use the Serial Monitor for detailed logs (baud 115200).</li>
-</ul>
-<hr>
-</section>
-<section id="changelog" class="level2">
-<h2 class="anchored" data-anchor-id="changelog">Changelog</h2>
-<ul>
-<li>Reduced EEPROM data sizes; total EEPROM size = 512 bytes</li>
-<li>Optional persistent logging to EEPROM with batched commits (30s or on critical failure)</li>
-<li>In-memory log ring (8 entries) and timestamp backfill after NTP sync</li>
-<li>NTP multi-server fallback and periodic health checks</li>
-<li>Memory pressure monitoring with defensive restart on very low heap</li>
-<li>Safer string handling and bounded buffers</li>
-<li>Simplified web UI and handlers; Basic Auth on Settings page</li>
-<li>Hostname derived from device ID: <code>testduckNNN</code></li>
-<li>Fixed EEPROM overflow and corruption risk: firmware now computes required EEPROM capacity at startup, calls <code>EEPROM.begin()</code> with a safe size (capped), tracks <code>g_eepromCapacity</code>, and validates persistent-log write addresses to avoid out-of-bounds writes.</li>
-<li>Fixed timestamp backfill bug: <code>updatePendingTimestamps()</code> now correctly marks corrected timestamps as valid (prevents repeated log churn and excessive EEPROM writes).</li>
-<li>Centralized EEPROM commit state and log indexing: replaced per-function static commit flags with a shared commit state and <code>g_persistentLogCount</code>, improving commit batching reliability and preventing duplicate/unsynchronized commits.</li>
-<li>Safer persistent logging fallback: if computed EEPROM requirements exceed a safe cap, persistent logging is disabled with a logged warning to avoid EEPROM corruption.</li>
-</ul>
 <section id="software-libraries" class="level3">
-<h3 class="anchored" data-anchor-id="software-libraries">2. Software &amp; Libraries</h3>
-<ol type="1">
-<li>Make sure you have the <strong>Arduino IDE</strong> installed with the <strong>ESP32 board support package</strong>.</li>
-<li>Install the following libraries through the Arduino Library Manager (<code>Sketch</code> &gt; <code>Include Library</code> &gt; <code>Manage Libraries...</code>):
-<ul>
-<li><code>WiFiManager</code> by tzapu</li>
-<li><code>Ticker</code> by sstaub</li>
-</ul></li>
-</ol>
+<h3 class="anchored" data-anchor-id="software-libraries">Software &amp; Libraries</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Requires <strong>Arduino IDE</strong> with the <strong>ESP32 board support package</strong> installed.</p>
+</div>
+</div>
+<p>Install via Arduino Library Manager (<code>Sketch › Include Library › Manage Libraries…</code>):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Library</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>WiFiManager</code></td>
+<td>tzapu</td>
+</tr>
+<tr class="even">
+<td><code>Ticker</code></td>
+<td>sstaub</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="flashing-the-code" class="level3">
-<h3 class="anchored" data-anchor-id="flashing-the-code">3. Flashing the Code</h3>
+<section id="flashing" class="level3">
+<h3 class="anchored" data-anchor-id="flashing">Flashing</h3>
 <ol type="1">
-<li>Open <code>firmware/esp32duckdns.ino</code> in the Arduino IDE or a compatible editor like VS Code.</li>
-<li>Select your ESP32 board from the <code>Tools</code> &gt; <code>Board</code> menu.</li>
-<li>Select the correct COM port under the <code>Tools</code> &gt; <code>Port</code> menu.</li>
-<li>Click the “Upload” button.</li>
+<li>Open <code>firmware/esp32duckdns.ino</code> in Arduino IDE</li>
+<li><code>Tools › Board</code> → select your ESP32 board</li>
+<li><code>Tools › Port</code> → select the correct COM port</li>
+<li>Click <strong>Upload</strong></li>
+<li>Open Serial Monitor at <strong>115200 baud</strong></li>
 </ol>
 <hr>
 </section>
 </section>
-<section id="how-to-use" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use">How to Use</h2>
-<section id="first-time-wifi-setup" class="level3">
-<h3 class="anchored" data-anchor-id="first-time-wifi-setup">First-Time WiFi Setup</h3>
-<p>The first time you power on the ESP32, it will automatically enter configuration mode.</p>
+<section id="first-time-setup" class="level2">
+<h2 class="anchored" data-anchor-id="first-time-setup">First-Time Setup</h2>
+<section id="wifi-configuration" class="level3">
+<h3 class="anchored" data-anchor-id="wifi-configuration">WiFi Configuration</h3>
+<p>On first boot the ESP32 starts a captive portal:</p>
 <ol type="1">
-<li>Using your phone or computer, scan for new Wi-Fi networks.</li>
-<li>Connect to the network named <strong><code>ESP32-DuckDNS</code></strong>.</li>
-<li>A captive portal page should automatically open in your browser. If not, open a browser and navigate to <code>192.168.4.1</code>.</li>
-<li>Click on <strong>“Configure WiFi”</strong>, select your home network (SSID), and enter its password.</li>
-<li>Click <strong>“Save”</strong>. The ESP32 will save the credentials, reboot, and automatically connect to your home network.</li>
+<li>Connect to the WiFi network <strong><code>ESP32-DuckDNS</code></strong> from any device</li>
+<li>The captive portal opens automatically (or navigate to <code>192.168.4.1</code>)</li>
+<li>Click <strong>Configure WiFi</strong>, select your network, enter the password</li>
+<li>Click <strong>Save</strong> — the device reboots and connects</li>
 </ol>
 </section>
 <section id="device-configuration" class="level3">
 <h3 class="anchored" data-anchor-id="device-configuration">Device Configuration</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/webclient_3.png" class="img-fluid figure-img"></p>
-<figcaption>Settings Page</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/webclient_4.png" class="img-fluid figure-img"></p>
-<figcaption>Settings Page</figcaption>
-</figure>
-</div>
-<p>Once the device is connected to your network, you need to configure it.</p>
-<ol type="1">
-<li>Find the device’s IP address by:
+<p>After connecting, find the device on your network:</p>
 <ul>
-<li>Checking the “Connected Devices” list on your router’s admin page. The hostname will be <strong><code>testduckXXX</code></strong> (where <code>XXX</code> is the Device ID).</li>
-<li>Monitoring the Serial Output in the Arduino IDE when the device boots up.</li>
-</ul></li>
-<li>Open a web browser and enter the ESP32’s IP address.</li>
-<li>You’ll see the status page. Click the <strong>“Settings”</strong> link.</li>
-<li>You will be prompted for a username and password. Enter the defaults:
-<ul>
-<li><strong>Username</strong>: <code>user</code> (these are configurable within the first 20 lines of code)</li>
-<li><strong>Password</strong>: <code>pass</code></li>
-</ul></li>
-<li>On the settings page, you can configure:</li>
-</ol>
+<li>Router admin page: look for hostname <strong><code>testduckXXX</code></strong> (where <code>XXX</code> = Device ID)</li>
+<li>Serial monitor shows the assigned IP on boot</li>
+</ul>
+<p>Open the IP in a browser → click <strong>Settings</strong> → log in with:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Username</td>
+<td><code>user</code></td>
+</tr>
+<tr class="even">
+<td>Password</td>
+<td><code>pass</code></td>
+</tr>
+</tbody>
+</table>
+<p>Configure on the settings page:</p>
 <ul>
 <li><strong>DuckDNS Domain</strong> and <strong>Token</strong></li>
 <li><strong>Update Interval</strong> (minutes)</li>
-<li><strong>NTP Server</strong> (optional; falls back to built-in servers)</li>
-<li><strong>Persistent Logging</strong> toggle</li>
-<li><strong>Device ID</strong> (used for hostname <code>testduckNNN</code>)</li>
+<li><strong>NTP Server</strong> (optional; falls back to built-in pool)</li>
+<li><strong>Persistent Logging</strong> (EEPROM ring buffer, 20 entries)</li>
+<li><strong>Device ID</strong> (0–999; sets hostname <code>testduckNNN</code>)</li>
 </ul>
-<ol start="6" type="1">
-<li>Click <strong>“Save Settings”</strong>. The device will save your settings and reboot.</li>
-</ol>
-<p>That’s it! The ESP32 is now fully configured.</p>
+<p>Click <strong>Save Settings</strong> — device reboots and starts updating.</p>
 <hr>
 </section>
 </section>
-<section id="home-assistant-integration" class="level2">
-<h2 class="anchored" data-anchor-id="home-assistant-integration">Home Assistant Integration</h2>
-<ul>
-<li><code>/</code> — Status page (no authentication)</li>
-<li><code>/settings</code> — Settings page (Basic Auth: <code>user</code> / <code>pass</code>)</li>
-<li><code>/forcesync</code> — Force DDNS update (302 redirect to <code>/</code>)</li>
-<li><code>/forcentp</code> — Force NTP sync (302 redirect to <code>/</code>)</li>
-<li><code>/api/status</code> — JSON API endpoint (no authentication)</li>
-</ul>
-<hr>
+<section id="web-interface" class="level2">
+<h2 class="anchored" data-anchor-id="web-interface">Web Interface</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/apijson.png" class="img-fluid figure-img"></p>
-<figcaption>Json</figcaption>
+<p><img src="images/stableuptime.png" class="screenshot img-fluid figure-img"></p>
+<figcaption>Status page showing uptime and last sync</figcaption>
+</figure>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Status Page</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Settings Page</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">JSON API</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Shows current IP, last update time, next update countdown, NTP sync status, WiFi RSSI, and the in-memory log ring.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/webclient_3.png" class="screenshot img-fluid figure-img"></p>
+<figcaption>Settings form</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/webclient_4.png" class="screenshot img-fluid figure-img"></p>
+<figcaption>Settings form (continued)</figcaption>
+</figure>
+</div>
+<p>Basic Auth protected (<code>user</code> / <code>pass</code> by default — change <code>ADMIN_USERNAME</code> / <code>ADMIN_PASSWORD</code> in the sketch before flashing).</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><code>GET /api/status</code> — no authentication required.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/apijson.png" class="screenshot img-fluid figure-img"></p>
+<figcaption>API JSON response</figcaption>
 </figure>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
@@ -359,13 +418,303 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="license" class="level3">
-<h3 class="anchored" data-anchor-id="license">License</h3>
-<p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details. It was adapted from the original ESP8266 DuckDNS client created by Davide Gironi <span class="citation" data-cites="davidegironi">@davidegironi</span> (https://davidegironi.blogspot.com/2017/02/duck-dns-esp8266-mini-wifi-client.html).</p>
-
-
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="architecture" class="level2">
+<h2 class="anchored" data-anchor-id="architecture">Architecture</h2>
+<section id="eeprom-layout" class="level3">
+<h3 class="anchored" data-anchor-id="eeprom-layout">EEPROM Layout</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Offset</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>0</code></td>
+<td><code>ddnsConfig</code> struct (~128 bytes), init marker <code>0x10</code></td>
+</tr>
+<tr class="even">
+<td><code>128</code></td>
+<td>Persistent log count (<code>int</code>) + <code>PersistentLogEntry[20]</code> ring</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>EEPROM capacity computed at runtime in <code>ddnsEEPROMinit()</code> and stored in <code>g_eepromCapacity</code></li>
+<li>Writes are bounds-checked; if computed requirements exceed safe cap, persistent logging is disabled with a warning</li>
+<li>Commits are <strong>batched every 30 s</strong> via <code>g_pendingEEPROMCommit</code>; DDNS failures trigger an immediate commit</li>
+</ul>
+</section>
+<section id="logging" class="level3">
+<h3 class="anchored" data-anchor-id="logging">Logging</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Buffer</th>
+<th>Location</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>In-memory ring</td>
+<td>RAM</td>
+<td>8 entries</td>
+</tr>
+<tr class="even">
+<td>Persistent ring</td>
+<td>EEPROM</td>
+<td>20 entries (optional)</td>
+</tr>
+</tbody>
+</table>
+<p>Logs created before NTP sync have <code>timestamp_valid=false</code>. After sync, <code>updatePendingTimestamps()</code> backfills them using the <code>millis()</code> delta.</p>
+</section>
+<section id="ntp" class="level3">
+<h3 class="anchored" data-anchor-id="ntp">NTP</h3>
+<ul>
+<li>Tries <code>ddnsConfiguration.ntpServer</code> first, then round-robins <code>ntpServers[]</code></li>
+<li>Health check runs every <strong>30 minutes</strong> via <code>ntp_health_check_timer</code></li>
+<li>If NTP fails at boot, system proceeds after ~2 min and retries via health checks</li>
+</ul>
+</section>
+<section id="web-endpoints" class="level3">
+<h3 class="anchored" data-anchor-id="web-endpoints">Web Endpoints</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Route</th>
+<th>Auth</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/</code></td>
+<td>None</td>
+<td>Status page</td>
+</tr>
+<tr class="even">
+<td><code>/settings</code></td>
+<td>Basic Auth</td>
+<td>GET <code>?save=1</code> saves config + reboots</td>
+</tr>
+<tr class="odd">
+<td><code>/forcesync</code></td>
+<td>None</td>
+<td>Triggers DDNS update → 302 <code>/</code></td>
+</tr>
+<tr class="even">
+<td><code>/forcentp</code></td>
+<td>None</td>
+<td>Triggers NTP sync → 302 <code>/</code></td>
+</tr>
+<tr class="odd">
+<td><code>/api/status</code></td>
+<td>None</td>
+<td>JSON status blob</td>
+</tr>
+</tbody>
+</table>
+<hr>
 </section>
 </section>
+<section id="led-status" class="level2">
+<h2 class="anchored" data-anchor-id="led-status">LED Status</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fast blink</td>
+<td>WiFiManager AP mode (config portal active)</td>
+</tr>
+<tr class="even">
+<td>Slow blink</td>
+<td>WiFi connecting</td>
+</tr>
+<tr class="odd">
+<td>Steady on</td>
+<td>WiFi connected</td>
+</tr>
+<tr class="even">
+<td>Blink on failure</td>
+<td>DDNS update failed (until next success)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="security" class="level2">
+<h2 class="anchored" data-anchor-id="security">Security</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The default credentials are <code>user</code> / <code>pass</code>. Change <code>ADMIN_USERNAME</code> and <code>ADMIN_PASSWORD</code> in the sketch before flashing to a production device.</p>
+</div>
+</div>
+<ul>
+<li>Settings page is protected with HTTP Basic Auth</li>
+<li>HTTPS to DuckDNS uses <code>setInsecure()</code> (no cert validation). For strict TLS, add certificate pinning to <code>WiFiClientSecure</code></li>
+</ul>
+<hr>
+</section>
+<section id="home-assistant-integration" class="level2">
+<h2 class="anchored" data-anchor-id="home-assistant-integration">Home Assistant Integration</h2>
+<p>The ESPHome variant (<code>firmware/esp32_ESPHome.yaml</code>) exposes HA entities that replace standalone features:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 59%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Entity type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>text</code> / <code>number</code></td>
+<td>Runtime config (domain, token, interval) — editable from HA dashboard, persisted in NVS flash</td>
+</tr>
+<tr class="even">
+<td><code>sensor</code></td>
+<td>Last update status, RSSI, uptime, free heap → HA History / Logbook</td>
+</tr>
+<tr class="odd">
+<td><code>button</code></td>
+<td>Force DDNS update from HA</td>
+</tr>
+<tr class="even">
+<td><code>time</code></td>
+<td>NTP via HA platform (syncs from HA)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>secrets.yaml</code> is gitignored. It lives at <code>/config/esphome/secrets.yaml</code> on the HA host and must be edited manually on the device — never overwrite it via <code>scp</code> or SSH pipe.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="key-constants" class="level2">
+<h2 class="anchored" data-anchor-id="key-constants">Key Constants</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 29%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>EEPROM_SIZE</code></td>
+<td><code>512</code></td>
+<td>Base; actual capacity computed at runtime</td>
+</tr>
+<tr class="even">
+<td><code>DDNS_LOG_SIZE</code></td>
+<td><code>8</code></td>
+<td>RAM log ring entries</td>
+</tr>
+<tr class="odd">
+<td><code>PERSISTENT_LOG_SIZE</code></td>
+<td><code>20</code></td>
+<td>EEPROM ring entries</td>
+</tr>
+<tr class="even">
+<td><code>MIN_FREE_HEAP</code></td>
+<td><code>8192</code></td>
+<td>Triggers <code>ESP.restart()</code> on memory pressure</td>
+</tr>
+<tr class="odd">
+<td><code>NTP_TIMEZONE</code></td>
+<td>UK (<code>GMT0BST,…</code>)</td>
+<td>Change for other regions</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<dl>
+<dt><strong>NTP fails at boot</strong></dt>
+<dd>
+System proceeds after ~2 minutes and retries every 30 min via health checks.
+</dd>
+<dt><strong>DuckDNS not updating</strong></dt>
+<dd>
+Verify domain and token on the Settings page. Check Serial Monitor for error logs.
+</dd>
+<dt><strong><code>.local</code> hostname not resolving</strong></dt>
+<dd>
+Use the device’s IP address instead. mDNS may not work on all routers.
+</dd>
+<dt><strong>Persistent log disabled after boot</strong></dt>
+<dd>
+Computed EEPROM footprint exceeded safe cap — firmware logged a warning and disabled persistent logging to avoid corruption.
+</dd>
+</dl>
+<hr>
+</section>
+<section id="changelog" class="level2">
+<h2 class="anchored" data-anchor-id="changelog">Changelog</h2>
+<ul>
+<li>Reduced EEPROM data sizes; total EEPROM size = 512 bytes</li>
+<li>Optional persistent logging to EEPROM with batched commits (30s or on critical failure)</li>
+<li>In-memory log ring (8 entries) and timestamp backfill after NTP sync</li>
+<li>NTP multi-server fallback and periodic health checks</li>
+<li>Memory pressure monitoring with defensive restart on very low heap</li>
+<li>Safer string handling and bounded buffers</li>
+<li>Simplified web UI; Basic Auth on Settings page</li>
+<li>Hostname derived from device ID: <code>testduckNNN</code></li>
+<li>Fixed EEPROM overflow and corruption risk: firmware computes required EEPROM capacity at startup, calls <code>EEPROM.begin()</code> with a safe size (capped), tracks <code>g_eepromCapacity</code>, and validates persistent-log write addresses</li>
+<li>Fixed timestamp backfill bug: <code>updatePendingTimestamps()</code> now correctly marks corrected timestamps as valid</li>
+<li>Centralized EEPROM commit state and log indexing via shared <code>g_persistentLogCount</code></li>
+<li>Safer persistent logging fallback: disables with warning if EEPROM requirements exceed safe cap</li>
+</ul>
+<hr>
+</section>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">License</h2>
+<p>MIT License — see <a href="LICENSE">LICENSE</a>.</p>
+<p>Adapted from the original ESP8266 DuckDNS client by Davide Gironi (<a href="https://davidegironi.blogspot.com/2017/02/duck-dns-esp8266-mini-wifi-client.html">davidegironi.blogspot.com</a>).</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -770,8 +1119,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>MIT License · <a href="https://github.com/ToledoEM">ToledoEM</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
 
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

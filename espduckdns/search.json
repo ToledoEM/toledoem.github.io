@@ -2,57 +2,92 @@
   {
     "objectID": "readme.html",
     "href": "readme.html",
-    "title": "ESP32 DuckDNS Client (Enhanced) ",
+    "title": "ESP32 DuckDNS Client",
     "section": "",
-    "text": "This project is an open-source, standalone Dynamic DNS (DDNS) client for DuckDNS.org that runs on an ESP32 microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.\nVersion with NTP and persistent logging Current Version stable stable with uptime of &gt;month \n\n\nConfig fields: * Device ID (0–999) * DuckDNS domain * DuckDNS token * Update interval (minutes) * Optional custom NTP server * Persistent logging flag\nEEPROM details: * Size: 512 bytes; init marker 0x10 * Persistent log ring (20 entries) stored after the config block * Batched commits (every 30s or on critical failure) to reduce wear\nDefaults on first boot: * deviceid = 1, domain = \"your-domain\", token = \"your-token\", updateinterval = 10, ntpServer = \"time.local\", persistentLogging = false\n\n\n\n\n\nSettings page protected with HTTP Basic Auth\n\nDefaults: user / pass\nChange in code: ADMIN_USERNAME / ADMIN_PASSWORD\n\nHTTPS to DuckDNS uses setInsecure() (no cert validation). For strict TLS, add certificate pinning to WiFiClientSecure.\n\n\n\n\n\nGPIO 2 is used for status LEDs: * WiFiManager AP mode: fast blink * WiFi connecting: slow blink * WiFi connected: steady on * DDNS failure: DDNS LED blinks until next success\n\n\n\n\n\nIf NTP fails at boot, the system proceeds after ~2 minutes and retries via health checks (every 30 minutes).\nEnsure DuckDNS domain and token are correct on the Settings page.\nIf mDNS (.local) doesn’t resolve, use the device IP.\nUse the Serial Monitor for detailed logs (baud 115200).\n\n\n\n\n\n\nReduced EEPROM data sizes; total EEPROM size = 512 bytes\nOptional persistent logging to EEPROM with batched commits (30s or on critical failure)\nIn-memory log ring (8 entries) and timestamp backfill after NTP sync\nNTP multi-server fallback and periodic health checks\nMemory pressure monitoring with defensive restart on very low heap\nSafer string handling and bounded buffers\nSimplified web UI and handlers; Basic Auth on Settings page\nHostname derived from device ID: testduckNNN\nFixed EEPROM overflow and corruption risk: firmware now computes required EEPROM capacity at startup, calls EEPROM.begin() with a safe size (capped), tracks g_eepromCapacity, and validates persistent-log write addresses to avoid out-of-bounds writes.\nFixed timestamp backfill bug: updatePendingTimestamps() now correctly marks corrected timestamps as valid (prevents repeated log churn and excessive EEPROM writes).\nCentralized EEPROM commit state and log indexing: replaced per-function static commit flags with a shared commit state and g_persistentLogCount, improving commit batching reliability and preventing duplicate/unsynchronized commits.\nSafer persistent logging fallback: if computed EEPROM requirements exceed a safe cap, persistent logging is disabled with a logged warning to avoid EEPROM corruption.\n\n\n\n\nMake sure you have the Arduino IDE installed with the ESP32 board support package.\nInstall the following libraries through the Arduino Library Manager (Sketch &gt; Include Library &gt; Manage Libraries...):\n\nWiFiManager by tzapu\nTicker by sstaub\n\n\n\n\n\n\nOpen firmware/esp32duckdns.ino in the Arduino IDE or a compatible editor like VS Code.\nSelect your ESP32 board from the Tools &gt; Board menu.\nSelect the correct COM port under the Tools &gt; Port menu.\nClick the “Upload” button.\n\n\n\n\n\n\n\n\nThe first time you power on the ESP32, it will automatically enter configuration mode.\n\nUsing your phone or computer, scan for new Wi-Fi networks.\nConnect to the network named ESP32-DuckDNS.\nA captive portal page should automatically open in your browser. If not, open a browser and navigate to 192.168.4.1.\nClick on “Configure WiFi”, select your home network (SSID), and enter its password.\nClick “Save”. The ESP32 will save the credentials, reboot, and automatically connect to your home network.\n\n\n\n\n\n\n\nSettings Page\n\n\n\n\n\nSettings Page\n\n\nOnce the device is connected to your network, you need to configure it.\n\nFind the device’s IP address by:\n\nChecking the “Connected Devices” list on your router’s admin page. The hostname will be testduckXXX (where XXX is the Device ID).\nMonitoring the Serial Output in the Arduino IDE when the device boots up.\n\nOpen a web browser and enter the ESP32’s IP address.\nYou’ll see the status page. Click the “Settings” link.\nYou will be prompted for a username and password. Enter the defaults:\n\nUsername: user (these are configurable within the first 20 lines of code)\nPassword: pass\n\nOn the settings page, you can configure:\n\n\nDuckDNS Domain and Token\nUpdate Interval (minutes)\nNTP Server (optional; falls back to built-in servers)\nPersistent Logging toggle\nDevice ID (used for hostname testduckNNN)\n\n\nClick “Save Settings”. The device will save your settings and reboot.\n\nThat’s it! The ESP32 is now fully configured.\n\n\n\n\n\n\n/ — Status page (no authentication)\n/settings — Settings page (Basic Auth: user / pass)\n/forcesync — Force DDNS update (302 redirect to /)\n/forcentp — Force NTP sync (302 redirect to /)\n/api/status — JSON API endpoint (no authentication)\n\n\n\n\n\nJson\n\n\n{\n  \"status\": \"success\",\n  \"last_update\": 1754857330,\n  \"next_update\": 458,\n  \"ip\": \"192.168.0.7\",\n  \"rssi\": -54,\n  \"uptime\": 142,\n  \"time_synced\": true,\n  \"ntp_attempts\": 1,\n  \"ntp_last_sync\": 23000,\n  \"persistent_logging\": true,\n  \"log\": [\n    {\n      \"time\": 1754857211,\n      \"local_time\": 21345,\n      \"status\": \"success\",\n      \"type\": \"SYS\",\n      \"timestamp_valid\": true,\n      \"error\": \"Web server started on port 80\"\n    },\n    {\n      \"time\": 1754857330,\n      \"local_time\": 140123,\n      \"status\": \"success\",\n      \"type\": \"DDNS\",\n      \"timestamp_valid\": true,\n      \"error\": \"DDNS update successful\"\n    }\n  ]\n}\n\n\nThis project is licensed under the MIT License. See the LICENSE file for details. It was adapted from the original ESP8266 DuckDNS client created by Davide Gironi @davidegironi (https://davidegironi.blogspot.com/2017/02/duck-dns-esp8266-mini-wifi-client.html)."
+    "text": "Standalone DDNS client for DuckDNS.org running on an ESP32 microcontroller — no cloud service, no router dependency."
   },
   {
-    "objectID": "readme.html#configuration-stored-in-eeprom",
-    "href": "readme.html#configuration-stored-in-eeprom",
-    "title": "ESP32 DuckDNS Client (Enhanced) ",
-    "section": "",
-    "text": "Config fields: * Device ID (0–999) * DuckDNS domain * DuckDNS token * Update interval (minutes) * Optional custom NTP server * Persistent logging flag\nEEPROM details: * Size: 512 bytes; init marker 0x10 * Persistent log ring (20 entries) stored after the config block * Batched commits (every 30s or on critical failure) to reduce wear\nDefaults on first boot: * deviceid = 1, domain = \"your-domain\", token = \"your-token\", updateinterval = 10, ntpServer = \"time.local\", persistentLogging = false"
+    "objectID": "readme.html#overview",
+    "href": "readme.html#overview",
+    "title": "ESP32 DuckDNS Client",
+    "section": "Overview",
+    "text": "Overview\nThis project keeps your DuckDNS domain pointed at your home’s dynamic IP address using an ESP32 as a dedicated, always-on device. Two firmware flavours are available:\n\n\nArduino Sketch\nFull-featured firmware with web UI, EEPROM persistence, NTP sync, and a JSON API. Runs standalone — no Home Assistant required.\nfirmware/esp32duckdns.ino\n\n\nESPHome YAML\nMinimal configuration for Home Assistant users. Exposes entities to HA for dashboard control and logging.\nfirmware/esp32_ESPHome.yaml"
   },
   {
-    "objectID": "readme.html#security-notes",
-    "href": "readme.html#security-notes",
-    "title": "ESP32 DuckDNS Client (Enhanced) ",
-    "section": "",
-    "text": "Settings page protected with HTTP Basic Auth\n\nDefaults: user / pass\nChange in code: ADMIN_USERNAME / ADMIN_PASSWORD\n\nHTTPS to DuckDNS uses setInsecure() (no cert validation). For strict TLS, add certificate pinning to WiFiClientSecure."
+    "objectID": "readme.html#getting-started",
+    "href": "readme.html#getting-started",
+    "title": "ESP32 DuckDNS Client",
+    "section": "Getting Started",
+    "text": "Getting Started\n\nHardware\nAny ESP32 development board works. GPIO 2 is used for status LED output.\n\n\nSoftware & Libraries\n\n\n\n\n\n\nNote\n\n\n\nRequires Arduino IDE with the ESP32 board support package installed.\n\n\nInstall via Arduino Library Manager (Sketch › Include Library › Manage Libraries…):\n\n\n\nLibrary\nAuthor\n\n\n\n\nWiFiManager\ntzapu\n\n\nTicker\nsstaub\n\n\n\n\n\nFlashing\n\nOpen firmware/esp32duckdns.ino in Arduino IDE\nTools › Board → select your ESP32 board\nTools › Port → select the correct COM port\nClick Upload\nOpen Serial Monitor at 115200 baud"
+  },
+  {
+    "objectID": "readme.html#first-time-setup",
+    "href": "readme.html#first-time-setup",
+    "title": "ESP32 DuckDNS Client",
+    "section": "First-Time Setup",
+    "text": "First-Time Setup\n\nWiFi Configuration\nOn first boot the ESP32 starts a captive portal:\n\nConnect to the WiFi network ESP32-DuckDNS from any device\nThe captive portal opens automatically (or navigate to 192.168.4.1)\nClick Configure WiFi, select your network, enter the password\nClick Save — the device reboots and connects\n\n\n\nDevice Configuration\nAfter connecting, find the device on your network:\n\nRouter admin page: look for hostname testduckXXX (where XXX = Device ID)\nSerial monitor shows the assigned IP on boot\n\nOpen the IP in a browser → click Settings → log in with:\n\n\n\nField\nDefault\n\n\n\n\nUsername\nuser\n\n\nPassword\npass\n\n\n\nConfigure on the settings page:\n\nDuckDNS Domain and Token\nUpdate Interval (minutes)\nNTP Server (optional; falls back to built-in pool)\nPersistent Logging (EEPROM ring buffer, 20 entries)\nDevice ID (0–999; sets hostname testduckNNN)\n\nClick Save Settings — device reboots and starts updating."
+  },
+  {
+    "objectID": "readme.html#web-interface",
+    "href": "readme.html#web-interface",
+    "title": "ESP32 DuckDNS Client",
+    "section": "Web Interface",
+    "text": "Web Interface\n\n\n\nStatus page showing uptime and last sync\n\n\n\nStatus PageSettings PageJSON API\n\n\nShows current IP, last update time, next update countdown, NTP sync status, WiFi RSSI, and the in-memory log ring.\n\n\n\n\n\nSettings form\n\n\n\n\n\nSettings form (continued)\n\n\nBasic Auth protected (user / pass by default — change ADMIN_USERNAME / ADMIN_PASSWORD in the sketch before flashing).\n\n\nGET /api/status — no authentication required.\n\n\n\nAPI JSON response\n\n\n{\n  \"status\": \"success\",\n  \"last_update\": 1754857330,\n  \"next_update\": 458,\n  \"ip\": \"192.168.0.7\",\n  \"rssi\": -54,\n  \"uptime\": 142,\n  \"time_synced\": true,\n  \"ntp_attempts\": 1,\n  \"ntp_last_sync\": 23000,\n  \"persistent_logging\": true,\n  \"log\": [\n    {\n      \"time\": 1754857211,\n      \"local_time\": 21345,\n      \"status\": \"success\",\n      \"type\": \"SYS\",\n      \"timestamp_valid\": true,\n      \"error\": \"Web server started on port 80\"\n    },\n    {\n      \"time\": 1754857330,\n      \"local_time\": 140123,\n      \"status\": \"success\",\n      \"type\": \"DDNS\",\n      \"timestamp_valid\": true,\n      \"error\": \"DDNS update successful\"\n    }\n  ]\n}"
+  },
+  {
+    "objectID": "readme.html#architecture",
+    "href": "readme.html#architecture",
+    "title": "ESP32 DuckDNS Client",
+    "section": "Architecture",
+    "text": "Architecture\n\nEEPROM Layout\n\n\n\nOffset\nContent\n\n\n\n\n0\nddnsConfig struct (~128 bytes), init marker 0x10\n\n\n128\nPersistent log count (int) + PersistentLogEntry[20] ring\n\n\n\n\nEEPROM capacity computed at runtime in ddnsEEPROMinit() and stored in g_eepromCapacity\nWrites are bounds-checked; if computed requirements exceed safe cap, persistent logging is disabled with a warning\nCommits are batched every 30 s via g_pendingEEPROMCommit; DDNS failures trigger an immediate commit\n\n\n\nLogging\n\n\n\nBuffer\nLocation\nSize\n\n\n\n\nIn-memory ring\nRAM\n8 entries\n\n\nPersistent ring\nEEPROM\n20 entries (optional)\n\n\n\nLogs created before NTP sync have timestamp_valid=false. After sync, updatePendingTimestamps() backfills them using the millis() delta.\n\n\nNTP\n\nTries ddnsConfiguration.ntpServer first, then round-robins ntpServers[]\nHealth check runs every 30 minutes via ntp_health_check_timer\nIf NTP fails at boot, system proceeds after ~2 min and retries via health checks\n\n\n\nWeb Endpoints\n\n\n\nRoute\nAuth\nAction\n\n\n\n\n/\nNone\nStatus page\n\n\n/settings\nBasic Auth\nGET ?save=1 saves config + reboots\n\n\n/forcesync\nNone\nTriggers DDNS update → 302 /\n\n\n/forcentp\nNone\nTriggers NTP sync → 302 /\n\n\n/api/status\nNone\nJSON status blob"
   },
   {
     "objectID": "readme.html#led-status",
     "href": "readme.html#led-status",
-    "title": "ESP32 DuckDNS Client (Enhanced) ",
-    "section": "",
-    "text": "GPIO 2 is used for status LEDs: * WiFiManager AP mode: fast blink * WiFi connecting: slow blink * WiFi connected: steady on * DDNS failure: DDNS LED blinks until next success"
+    "title": "ESP32 DuckDNS Client",
+    "section": "LED Status",
+    "text": "LED Status\n\n\n\nPattern\nMeaning\n\n\n\n\nFast blink\nWiFiManager AP mode (config portal active)\n\n\nSlow blink\nWiFi connecting\n\n\nSteady on\nWiFi connected\n\n\nBlink on failure\nDDNS update failed (until next success)"
   },
   {
-    "objectID": "readme.html#troubleshooting",
-    "href": "readme.html#troubleshooting",
-    "title": "ESP32 DuckDNS Client (Enhanced) ",
-    "section": "",
-    "text": "If NTP fails at boot, the system proceeds after ~2 minutes and retries via health checks (every 30 minutes).\nEnsure DuckDNS domain and token are correct on the Settings page.\nIf mDNS (.local) doesn’t resolve, use the device IP.\nUse the Serial Monitor for detailed logs (baud 115200)."
-  },
-  {
-    "objectID": "readme.html#changelog",
-    "href": "readme.html#changelog",
-    "title": "ESP32 DuckDNS Client (Enhanced) ",
-    "section": "",
-    "text": "Reduced EEPROM data sizes; total EEPROM size = 512 bytes\nOptional persistent logging to EEPROM with batched commits (30s or on critical failure)\nIn-memory log ring (8 entries) and timestamp backfill after NTP sync\nNTP multi-server fallback and periodic health checks\nMemory pressure monitoring with defensive restart on very low heap\nSafer string handling and bounded buffers\nSimplified web UI and handlers; Basic Auth on Settings page\nHostname derived from device ID: testduckNNN\nFixed EEPROM overflow and corruption risk: firmware now computes required EEPROM capacity at startup, calls EEPROM.begin() with a safe size (capped), tracks g_eepromCapacity, and validates persistent-log write addresses to avoid out-of-bounds writes.\nFixed timestamp backfill bug: updatePendingTimestamps() now correctly marks corrected timestamps as valid (prevents repeated log churn and excessive EEPROM writes).\nCentralized EEPROM commit state and log indexing: replaced per-function static commit flags with a shared commit state and g_persistentLogCount, improving commit batching reliability and preventing duplicate/unsynchronized commits.\nSafer persistent logging fallback: if computed EEPROM requirements exceed a safe cap, persistent logging is disabled with a logged warning to avoid EEPROM corruption.\n\n\n\n\nMake sure you have the Arduino IDE installed with the ESP32 board support package.\nInstall the following libraries through the Arduino Library Manager (Sketch &gt; Include Library &gt; Manage Libraries...):\n\nWiFiManager by tzapu\nTicker by sstaub\n\n\n\n\n\n\nOpen firmware/esp32duckdns.ino in the Arduino IDE or a compatible editor like VS Code.\nSelect your ESP32 board from the Tools &gt; Board menu.\nSelect the correct COM port under the Tools &gt; Port menu.\nClick the “Upload” button."
-  },
-  {
-    "objectID": "readme.html#how-to-use",
-    "href": "readme.html#how-to-use",
-    "title": "ESP32 DuckDNS Client (Enhanced) ",
-    "section": "",
-    "text": "The first time you power on the ESP32, it will automatically enter configuration mode.\n\nUsing your phone or computer, scan for new Wi-Fi networks.\nConnect to the network named ESP32-DuckDNS.\nA captive portal page should automatically open in your browser. If not, open a browser and navigate to 192.168.4.1.\nClick on “Configure WiFi”, select your home network (SSID), and enter its password.\nClick “Save”. The ESP32 will save the credentials, reboot, and automatically connect to your home network.\n\n\n\n\n\n\n\nSettings Page\n\n\n\n\n\nSettings Page\n\n\nOnce the device is connected to your network, you need to configure it.\n\nFind the device’s IP address by:\n\nChecking the “Connected Devices” list on your router’s admin page. The hostname will be testduckXXX (where XXX is the Device ID).\nMonitoring the Serial Output in the Arduino IDE when the device boots up.\n\nOpen a web browser and enter the ESP32’s IP address.\nYou’ll see the status page. Click the “Settings” link.\nYou will be prompted for a username and password. Enter the defaults:\n\nUsername: user (these are configurable within the first 20 lines of code)\nPassword: pass\n\nOn the settings page, you can configure:\n\n\nDuckDNS Domain and Token\nUpdate Interval (minutes)\nNTP Server (optional; falls back to built-in servers)\nPersistent Logging toggle\nDevice ID (used for hostname testduckNNN)\n\n\nClick “Save Settings”. The device will save your settings and reboot.\n\nThat’s it! The ESP32 is now fully configured."
+    "objectID": "readme.html#security",
+    "href": "readme.html#security",
+    "title": "ESP32 DuckDNS Client",
+    "section": "Security",
+    "text": "Security\n\n\n\n\n\n\nWarning\n\n\n\nThe default credentials are user / pass. Change ADMIN_USERNAME and ADMIN_PASSWORD in the sketch before flashing to a production device.\n\n\n\nSettings page is protected with HTTP Basic Auth\nHTTPS to DuckDNS uses setInsecure() (no cert validation). For strict TLS, add certificate pinning to WiFiClientSecure"
   },
   {
     "objectID": "readme.html#home-assistant-integration",
     "href": "readme.html#home-assistant-integration",
-    "title": "ESP32 DuckDNS Client (Enhanced) ",
-    "section": "",
-    "text": "/ — Status page (no authentication)\n/settings — Settings page (Basic Auth: user / pass)\n/forcesync — Force DDNS update (302 redirect to /)\n/forcentp — Force NTP sync (302 redirect to /)\n/api/status — JSON API endpoint (no authentication)\n\n\n\n\n\nJson\n\n\n{\n  \"status\": \"success\",\n  \"last_update\": 1754857330,\n  \"next_update\": 458,\n  \"ip\": \"192.168.0.7\",\n  \"rssi\": -54,\n  \"uptime\": 142,\n  \"time_synced\": true,\n  \"ntp_attempts\": 1,\n  \"ntp_last_sync\": 23000,\n  \"persistent_logging\": true,\n  \"log\": [\n    {\n      \"time\": 1754857211,\n      \"local_time\": 21345,\n      \"status\": \"success\",\n      \"type\": \"SYS\",\n      \"timestamp_valid\": true,\n      \"error\": \"Web server started on port 80\"\n    },\n    {\n      \"time\": 1754857330,\n      \"local_time\": 140123,\n      \"status\": \"success\",\n      \"type\": \"DDNS\",\n      \"timestamp_valid\": true,\n      \"error\": \"DDNS update successful\"\n    }\n  ]\n}\n\n\nThis project is licensed under the MIT License. See the LICENSE file for details. It was adapted from the original ESP8266 DuckDNS client created by Davide Gironi @davidegironi (https://davidegironi.blogspot.com/2017/02/duck-dns-esp8266-mini-wifi-client.html)."
+    "title": "ESP32 DuckDNS Client",
+    "section": "Home Assistant Integration",
+    "text": "Home Assistant Integration\nThe ESPHome variant (firmware/esp32_ESPHome.yaml) exposes HA entities that replace standalone features:\n\n\n\n\n\n\n\nEntity type\nPurpose\n\n\n\n\ntext / number\nRuntime config (domain, token, interval) — editable from HA dashboard, persisted in NVS flash\n\n\nsensor\nLast update status, RSSI, uptime, free heap → HA History / Logbook\n\n\nbutton\nForce DDNS update from HA\n\n\ntime\nNTP via HA platform (syncs from HA)\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nsecrets.yaml is gitignored. It lives at /config/esphome/secrets.yaml on the HA host and must be edited manually on the device — never overwrite it via scp or SSH pipe."
+  },
+  {
+    "objectID": "readme.html#key-constants",
+    "href": "readme.html#key-constants",
+    "title": "ESP32 DuckDNS Client",
+    "section": "Key Constants",
+    "text": "Key Constants\n\n\n\n\n\n\n\n\nConstant\nValue\nNotes\n\n\n\n\nEEPROM_SIZE\n512\nBase; actual capacity computed at runtime\n\n\nDDNS_LOG_SIZE\n8\nRAM log ring entries\n\n\nPERSISTENT_LOG_SIZE\n20\nEEPROM ring entries\n\n\nMIN_FREE_HEAP\n8192\nTriggers ESP.restart() on memory pressure\n\n\nNTP_TIMEZONE\nUK (GMT0BST,…)\nChange for other regions"
+  },
+  {
+    "objectID": "readme.html#troubleshooting",
+    "href": "readme.html#troubleshooting",
+    "title": "ESP32 DuckDNS Client",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\nNTP fails at boot\n\nSystem proceeds after ~2 minutes and retries every 30 min via health checks.\n\nDuckDNS not updating\n\nVerify domain and token on the Settings page. Check Serial Monitor for error logs.\n\n.local hostname not resolving\n\nUse the device’s IP address instead. mDNS may not work on all routers.\n\nPersistent log disabled after boot\n\nComputed EEPROM footprint exceeded safe cap — firmware logged a warning and disabled persistent logging to avoid corruption."
+  },
+  {
+    "objectID": "readme.html#changelog",
+    "href": "readme.html#changelog",
+    "title": "ESP32 DuckDNS Client",
+    "section": "Changelog",
+    "text": "Changelog\n\nReduced EEPROM data sizes; total EEPROM size = 512 bytes\nOptional persistent logging to EEPROM with batched commits (30s or on critical failure)\nIn-memory log ring (8 entries) and timestamp backfill after NTP sync\nNTP multi-server fallback and periodic health checks\nMemory pressure monitoring with defensive restart on very low heap\nSafer string handling and bounded buffers\nSimplified web UI; Basic Auth on Settings page\nHostname derived from device ID: testduckNNN\nFixed EEPROM overflow and corruption risk: firmware computes required EEPROM capacity at startup, calls EEPROM.begin() with a safe size (capped), tracks g_eepromCapacity, and validates persistent-log write addresses\nFixed timestamp backfill bug: updatePendingTimestamps() now correctly marks corrected timestamps as valid\nCentralized EEPROM commit state and log indexing via shared g_persistentLogCount\nSafer persistent logging fallback: disables with warning if EEPROM requirements exceed safe cap"
+  },
+  {
+    "objectID": "readme.html#license",
+    "href": "readme.html#license",
+    "title": "ESP32 DuckDNS Client",
+    "section": "License",
+    "text": "License\nMIT License — see LICENSE.\nAdapted from the original ESP8266 DuckDNS client by Davide Gironi (davidegironi.blogspot.com)."
   }
 ]
