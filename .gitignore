@@ -8,3 +8,4 @@ sitemap.options
 .DS_Store
 /.quarto/
 **/*.quarto_ipynb
+stlshaper/newgui/
