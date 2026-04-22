@@ -7,7 +7,7 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -17,11 +17,21 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/scientifictools.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/stlshaper/documentation.html</loc>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/stlshaper/index.html</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/stlshaper/newgui/STLShaper GUI.html</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>weekly</changefreq>
   </url>
@@ -156,13 +166,8 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://toledoem.github.io/stlshaper.html</loc>
-    <lastmod>2026-04-21</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
     <loc>https://toledoem.github.io/gallery.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -172,7 +177,7 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/NTPGPSHomeBridge/index.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -232,17 +237,17 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/papers.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/code.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/bash-blind-rename/index.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -347,7 +352,7 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/BrandSTL/index.html</loc>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>

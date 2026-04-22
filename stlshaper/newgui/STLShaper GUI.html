@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>STLShaper — Deformation Workbench</title>
+<meta name="viewport" content="width=1440"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ------------ TOKENS ------------ */
+:root{
+  /* Light (default) */
+  --paper:        oklch(0.985 0.004 85);
+  --paper-2:      oklch(0.965 0.006 85);
+  --paper-3:      oklch(0.935 0.008 85);
+  --rule:         oklch(0.86  0.008 80);
+  --rule-soft:    oklch(0.92  0.006 80);
+  --ink:          oklch(0.18  0.012 60);
+  --ink-2:        oklch(0.36  0.012 60);
+  --ink-3:        oklch(0.55  0.010 70);
+  --accent:       oklch(0.52  0.19  25);
+  --accent-ink:   oklch(0.98  0.01  85);
+  --accent-soft:  oklch(0.92  0.06  25);
+  --live:         oklch(0.62  0.21  25);
+  --grid-ink:     oklch(0.90  0.006 80);
+
+  --fs: "IBM Plex Sans", system-ui, sans-serif;
+  --fm: "IBM Plex Mono", ui-monospace, monospace;
+  --ff-display: "Instrument Serif", Georgia, serif;
+}
+[data-theme="dark"]{
+  --paper:        oklch(0.165 0.006 80);
+  --paper-2:      oklch(0.195 0.006 80);
+  --paper-3:      oklch(0.235 0.008 80);
+  --rule:         oklch(0.32  0.008 80);
+  --rule-soft:    oklch(0.26  0.006 80);
+  --ink:          oklch(0.96  0.006 85);
+  --ink-2:        oklch(0.78  0.008 80);
+  --ink-3:        oklch(0.58  0.010 75);
+  --accent:       oklch(0.70  0.17  25);
+  --accent-ink:   oklch(0.12  0.01  60);
+  --accent-soft:  oklch(0.32  0.09  25);
+  --live:         oklch(0.72  0.20  25);
+  --grid-ink:     oklch(0.26  0.006 80);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--fs);
+  font-size:13px;
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"ss01","cv11";
+}
+button{font:inherit;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+
+/* ------------ APP SHELL ------------ */
+.app{
+  min-height:100vh;
+  display:grid;
+  grid-template-rows: 44px 1fr 26px;
+  grid-template-columns: 296px 1fr 332px;
+  grid-template-areas:
+    "top top top"
+    "left main right"
+    "status status status";
+}
+.top{grid-area:top; border-bottom:1px solid var(--rule); background:var(--paper); display:flex; align-items:stretch; padding:0 14px; gap:0; z-index:10;}
+.left{grid-area:left; border-right:1px solid var(--rule); background:var(--paper-2); overflow-y:auto;}
+.main{grid-area:main; position:relative; overflow:hidden; background:var(--paper);}
+.right{grid-area:right; border-left:1px solid var(--rule); background:var(--paper-2); overflow-y:auto;}
+.status{grid-area:status; border-top:1px solid var(--rule); background:var(--paper-2); display:flex; align-items:center; padding:0 14px; gap:18px; font-family:var(--fm); font-size:11px; color:var(--ink-3); letter-spacing:0.02em;}
+
+/* ------------ TOP BAR ------------ */
+.brand{display:flex; align-items:center; gap:10px; padding-right:16px; border-right:1px solid var(--rule);}
+.brand-mark{
+  width:22px; height:22px; position:relative;
+  border:1px solid var(--ink); background:var(--paper);
+}
+.brand-mark::before, .brand-mark::after{
+  content:""; position:absolute; inset:0;
+}
+.brand-mark::before{
+  background:
+    linear-gradient(135deg, transparent 46%, var(--ink) 46%, var(--ink) 54%, transparent 54%),
+    linear-gradient(45deg, transparent 46%, var(--ink) 46%, var(--ink) 54%, transparent 54%);
+}
+.brand-mark::after{
+  border:1px solid var(--ink);
+  transform: rotate(45deg) scale(0.5);
+  background:var(--paper);
+}
+.brand-name{ font-family:var(--ff-display); font-size:22px; font-weight:400; letter-spacing:-0.01em; line-height:1;}
+.brand-name em{ font-style:italic; color:var(--accent);}
+.brand-sub{ font-family:var(--fm); font-size:10px; color:var(--ink-3); letter-spacing:0.08em; text-transform:uppercase; margin-left:2px;}
+
+.menubar{ display:flex; align-items:stretch;}
+.menubar button{
+  background:none; border:0; border-right:1px solid var(--rule-soft);
+  padding:0 14px; height:100%; color:var(--ink-2); cursor:pointer;
+  font-size:12.5px;
+}
+.menubar button:hover{ background:var(--paper-3); color:var(--ink);}
+
+.top-spacer{flex:1}
+
+.top-actions{display:flex; align-items:center; gap:8px; padding-left:10px; border-left:1px solid var(--rule);}
+.btn{
+  height:28px; padding:0 12px;
+  background:var(--paper); color:var(--ink);
+  border:1px solid var(--rule);
+  display:inline-flex; align-items:center; gap:8px;
+  cursor:pointer; font-size:12px;
+}
+.btn:hover{ background:var(--paper-3);}
+.btn.primary{
+  background:var(--ink); color:var(--paper);
+  border-color:var(--ink);
+}
+.btn.primary:hover{ background:oklch(from var(--ink) calc(l + 0.08) c h);}
+.btn.accent{
+  background:var(--accent); color:var(--accent-ink); border-color:var(--accent);
+}
+.btn kbd{
+  font-family:var(--fm); font-size:10px; padding:1px 4px;
+  border:1px solid var(--rule); color:var(--ink-3); background:var(--paper-2);
+  border-radius:2px;
+}
+
+.theme-toggle{
+  height:28px; width:auto; padding:0 6px;
+  display:inline-flex; align-items:center;
+  border:1px solid var(--rule); background:var(--paper);
+  cursor:pointer; position:relative; gap:2px;
+}
+.theme-toggle span{
+  width:26px; height:18px; display:grid; place-items:center;
+  font-family:var(--fm); font-size:10px; letter-spacing:0.08em;
+  color:var(--ink-3); border-radius:2px;
+}
+.theme-toggle span.on{ background:var(--ink); color:var(--paper);}
+
+/* ------------ LEFT RAIL ------------ */
+.panel{ border-bottom:1px solid var(--rule); padding:14px 16px;}
+.panel h3{
+  margin:0 0 10px; font-family:var(--fm);
+  font-size:10.5px; font-weight:500; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--ink-3);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.panel h3 .n{ color:var(--ink-2); letter-spacing:0; text-transform:none; font-weight:500;}
+
+/* Specimen card */
+.specimen{
+  border:1px solid var(--rule);
+  background:var(--paper);
+  padding:0;
+}
+.specimen-img{
+  aspect-ratio: 16/11;
+  background:
+    linear-gradient(var(--rule-soft) 1px, transparent 1px) 0 0/14px 14px,
+    linear-gradient(90deg, var(--rule-soft) 1px, transparent 1px) 0 0/14px 14px,
+    var(--paper-2);
+  border-bottom:1px solid var(--rule);
+  position:relative; overflow:hidden;
+}
+.specimen-img::after{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(60% 60% at 50% 55%, oklch(from var(--ink) l c h / 0.10), transparent 70%);
+}
+.specimen-img svg{
+  position:absolute; inset:0; width:100%; height:100%;
+  stroke:var(--ink); stroke-width:0.6; fill:none; opacity:0.85;
+}
+.specimen-img .tag{
+  position:absolute; left:8px; top:8px;
+  font-family:var(--fm); font-size:9.5px; letter-spacing:0.1em;
+  color:var(--ink-2); background:var(--paper);
+  padding:2px 6px; border:1px solid var(--rule);
+}
+.specimen-meta{ padding:10px 12px 12px;}
+.specimen-name{ font-size:13px; font-weight:500; letter-spacing:-0.01em;}
+.specimen-path{ font-family:var(--fm); font-size:10.5px; color:var(--ink-3); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.specimen-stats{
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+  margin-top:10px; border-top:1px solid var(--rule-soft);
+}
+.stat{ padding:8px 0; border-right:1px solid var(--rule-soft);}
+.stat:last-child{ border-right:0; text-align:right;}
+.stat .k{ font-family:var(--fm); font-size:9.5px; letter-spacing:0.1em; color:var(--ink-3); text-transform:uppercase;}
+.stat .v{ font-family:var(--fm); font-size:14px; color:var(--ink); margin-top:2px; font-variant-numeric: tabular-nums;}
+
+/* File row */
+.file-row{
+  display:flex; gap:8px; margin-top:10px;
+}
+.file-row .btn{ flex:1; justify-content:center;}
+
+/* Presets list */
+.presets{ display:flex; flex-direction:column;}
+.preset{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 10px; border:1px solid var(--rule); background:var(--paper);
+  margin-bottom:-1px; cursor:pointer;
+}
+.preset:hover{ background:var(--paper-3);}
+.preset.active{ border-color:var(--ink); background:var(--paper);}
+.preset-name{ font-size:12.5px;}
+.preset-meta{ font-family:var(--fm); font-size:10px; color:var(--ink-3);}
+.preset .dot{
+  width:6px; height:6px; background:var(--accent); display:inline-block; margin-right:6px; vertical-align:middle;
+}
+
+/* Checklist */
+.checklist{ padding:0; margin:0; list-style:none;}
+.checklist li{
+  display:flex; gap:10px; align-items:flex-start; padding:6px 0;
+  border-bottom:1px dashed var(--rule-soft);
+}
+.checklist li:last-child{ border-bottom:0;}
+.checklist .mark{
+  width:14px; height:14px; border:1px solid var(--rule); flex:0 0 auto; margin-top:1px;
+  display:grid; place-items:center; color:var(--accent); font-family:var(--fm); font-size:10px;
+}
+.checklist li.done .mark{ border-color:var(--ink); background:var(--ink); color:var(--paper);}
+.checklist li .t{ font-size:12px;}
+.checklist li .s{ font-family:var(--fm); font-size:10.5px; color:var(--ink-3); margin-top:1px;}
+
+/* ------------ MAIN VIEWPORT ------------ */
+.view{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(var(--grid-ink) 1px, transparent 1px) 0 0/48px 48px,
+    linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px) 0 0/48px 48px,
+    radial-gradient(90% 70% at 50% 60%, var(--paper-2), var(--paper) 75%);
+  overflow:hidden;
+}
+.view::before{
+  content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(var(--rule-soft) 1px, transparent 1px) 0 0/12px 12px,
+    linear-gradient(90deg, var(--rule-soft) 1px, transparent 1px) 0 0/12px 12px;
+  opacity:0.4; pointer-events:none;
+}
+
+/* viewport toolbar top-left */
+.vp-toolbar{
+  position:absolute; top:14px; left:14px;
+  display:flex; gap:0; border:1px solid var(--rule);
+  background:var(--paper); z-index:3;
+}
+.vp-toolbar button{
+  width:30px; height:30px; background:none; border:0; border-right:1px solid var(--rule-soft);
+  display:grid; place-items:center; cursor:pointer; color:var(--ink-2);
+}
+.vp-toolbar button:last-child{ border-right:0;}
+.vp-toolbar button:hover{ background:var(--paper-3); color:var(--ink);}
+.vp-toolbar button.on{ background:var(--ink); color:var(--paper);}
+
+/* view mode top-right */
+.vp-mode{
+  position:absolute; top:14px; right:14px;
+  display:flex; border:1px solid var(--rule); background:var(--paper); z-index:3;
+}
+.vp-mode button{
+  background:none; border:0; padding:0 10px; height:30px;
+  font-family:var(--fm); font-size:10.5px; letter-spacing:0.08em; color:var(--ink-2);
+  border-right:1px solid var(--rule-soft); cursor:pointer; text-transform:uppercase;
+}
+.vp-mode button:last-child{border-right:0}
+.vp-mode button.on{ background:var(--ink); color:var(--paper);}
+
+/* 3D specimen placeholder */
+.specimen-3d{
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+}
+.specimen-3d svg{ width:min(62%, 720px); height:auto;}
+
+/* HUD: axis gizmo bottom left */
+.gizmo{
+  position:absolute; bottom:18px; left:18px;
+  width:78px; height:78px;
+  border:1px solid var(--rule); background:oklch(from var(--paper) l c h / 0.88);
+  backdrop-filter: blur(6px); padding:8px; z-index:3;
+  font-family:var(--fm); font-size:10px; letter-spacing:0.08em;
+}
+.gizmo svg{ width:100%; height:100%;}
+
+/* HUD: live readout bottom right */
+.readout{
+  position:absolute; bottom:18px; right:18px;
+  border:1px solid var(--rule); background:oklch(from var(--paper) l c h / 0.88);
+  backdrop-filter: blur(6px); font-family:var(--fm); z-index:3;
+  display:grid; grid-template-columns: repeat(4, auto); gap:0;
+}
+.readout .cell{ padding:8px 14px; border-right:1px solid var(--rule-soft);}
+.readout .cell:last-child{ border-right:0;}
+.readout .k{ font-size:9px; letter-spacing:0.14em; color:var(--ink-3); text-transform:uppercase;}
+.readout .v{ font-size:13px; color:var(--ink); font-variant-numeric:tabular-nums; margin-top:2px;}
+.readout .v.live{ color:var(--accent);}
+
+/* HUD: crosshair center */
+.crosshair{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:20px; height:20px; pointer-events:none; opacity:0.4; z-index:2;
+}
+.crosshair::before,.crosshair::after{
+  content:""; position:absolute; background:var(--ink);
+}
+.crosshair::before{ left:50%; top:0; bottom:0; width:1px; transform:translateX(-50%);}
+.crosshair::after{ top:50%; left:0; right:0; height:1px; transform:translateY(-50%);}
+
+/* HUD: corner brackets */
+.frame-bracket{ position:absolute; width:14px; height:14px; border:1px solid var(--ink-2); opacity:0.5; pointer-events:none;}
+.frame-bracket.tl{ top:60px; left:60px; border-right:0; border-bottom:0;}
+.frame-bracket.tr{ top:60px; right:60px; border-left:0; border-bottom:0;}
+.frame-bracket.bl{ bottom:110px; left:60px; border-right:0; border-top:0;}
+.frame-bracket.br{ bottom:110px; right:60px; border-left:0; border-top:0;}
+
+/* LIVE pill */
+.live-pill{
+  position:absolute; top:14px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:8px;
+  font-family:var(--fm); font-size:10px; letter-spacing:0.14em; text-transform:uppercase;
+  padding:6px 12px; background:var(--paper); border:1px solid var(--rule); z-index:3;
+}
+.live-pill .dot{
+  width:6px; height:6px; border-radius:50%; background:var(--live);
+  animation: pulse 1.4s infinite;
+}
+@keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:0.25} }
+.live-pill .sep{ width:1px; height:10px; background:var(--rule);}
+
+/* ------------ RIGHT RAIL ------------ */
+
+/* Deformation family picker */
+.fam-tabs{
+  display:grid; grid-template-columns: repeat(3, 1fr);
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+}
+.fam-tabs button{
+  background:none; border:0; border-right:1px solid var(--rule-soft);
+  padding:10px 6px; cursor:pointer; text-align:center;
+  font-family:var(--fm); font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--ink-3);
+}
+.fam-tabs button:last-child{ border-right:0;}
+.fam-tabs button.on{ color:var(--ink); background:var(--paper); box-shadow: inset 0 -2px 0 0 var(--accent);}
+
+/* effects grid */
+.effects{
+  display:grid; grid-template-columns: 1fr 1fr;
+  border-bottom:1px solid var(--rule);
+}
+.effect{
+  display:flex; flex-direction:column; gap:4px; padding:10px 12px;
+  border-right:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft);
+  cursor:pointer; background:var(--paper-2);
+}
+.effect:nth-child(2n){ border-right:0;}
+.effect:hover{ background:var(--paper);}
+.effect.on{ background:var(--paper); box-shadow: inset 3px 0 0 0 var(--accent);}
+.effect .name{ font-size:12.5px; font-weight:500;}
+.effect .code{ font-family:var(--fm); font-size:10px; color:var(--ink-3); letter-spacing:0.06em;}
+
+/* Parameter rows */
+.params{ padding:4px 0;}
+.param{
+  display:grid; grid-template-columns: 92px 1fr 58px;
+  align-items:center; gap:10px;
+  padding:8px 16px;
+  border-bottom:1px solid var(--rule-soft);
+}
+.param:last-child{border-bottom:0}
+.param .label{ font-size:12px; color:var(--ink-2);}
+.param .slider{
+  position:relative; height:22px;
+  background:
+    linear-gradient(var(--rule-soft), var(--rule-soft)) left 50% / 100% 1px no-repeat;
+}
+.param .slider .tick{ position:absolute; top:calc(50% - 4px); width:1px; height:8px; background:var(--rule);}
+.param .slider .fill{
+  position:absolute; top:calc(50% - 1px); left:0; height:2px; background:var(--ink);
+}
+.param .slider .thumb{
+  position:absolute; top:calc(50% - 6px); width:12px; height:12px;
+  background:var(--paper); border:1.5px solid var(--ink); transform:translateX(-50%);
+}
+.param .val{
+  font-family:var(--fm); font-size:12px; text-align:right;
+  color:var(--ink); font-variant-numeric:tabular-nums;
+  border:1px solid var(--rule); padding:3px 6px; background:var(--paper);
+}
+
+/* axis selector */
+.axis-row{
+  display:grid; grid-template-columns: 92px 1fr;
+  gap:10px; align-items:center;
+  padding:10px 16px;
+  border-bottom:1px solid var(--rule-soft);
+}
+.axis-pills{ display:flex; gap:6px;}
+.axis-pill{
+  flex:1; text-align:center; padding:5px 0;
+  border:1px solid var(--rule); background:var(--paper);
+  font-family:var(--fm); font-size:11px; letter-spacing:0.08em; cursor:pointer;
+  color:var(--ink-2);
+}
+.axis-pill.on{ background:var(--ink); color:var(--paper); border-color:var(--ink);}
+
+/* toggle */
+.toggle-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:9px 16px; border-bottom:1px solid var(--rule-soft);
+  font-size:12px; color:var(--ink-2);
+}
+.switch{
+  width:30px; height:16px; border:1px solid var(--rule); background:var(--paper-3); position:relative; cursor:pointer;
+}
+.switch::after{ content:""; position:absolute; top:1px; left:1px; width:12px; height:12px; background:var(--ink-3); transition:all .15s;}
+.switch.on{ background:var(--ink); border-color:var(--ink);}
+.switch.on::after{ left:15px; background:var(--paper);}
+
+/* process section header */
+.sect-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 16px 8px;
+  font-family:var(--fm); font-size:10px; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--ink-3);
+  border-top:1px solid var(--rule);
+  background:var(--paper-2);
+}
+.sect-head .chip{
+  font-family:var(--fm); font-size:9.5px; letter-spacing:0.08em;
+  padding:1px 6px; border:1px solid var(--rule); color:var(--ink-2);
+}
+
+/* Generate bar */
+.generate{
+  position:sticky; bottom:0;
+  padding:12px 16px; background:var(--paper-2); border-top:1px solid var(--rule);
+  display:flex; gap:8px; align-items:center;
+}
+.generate .btn{ height:34px;}
+.generate .btn.accent{ flex:1; justify-content:center; font-weight:500;}
+
+/* ------------ STATUS BAR ------------ */
+.status .sep{ width:1px; height:14px; background:var(--rule);}
+.status .ok{ color:oklch(0.55 0.14 150);}
+.status .key{ color:var(--ink-2);}
+
+/* ------------ TWEAKS PANEL ------------ */
+.tweaks{
+  position:fixed; right:14px; bottom:40px; width:260px; z-index:50;
+  border:1px solid var(--ink); background:var(--paper);
+  box-shadow: 0 18px 40px -20px oklch(from var(--ink) l c h / 0.5), 0 2px 0 var(--ink);
+  display:none;
+}
+.tweaks.on{ display:block;}
+.tweaks header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:9px 12px; border-bottom:1px solid var(--rule);
+  font-family:var(--fm); font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+  background:var(--ink); color:var(--paper);
+}
+.tweaks header button{ background:none; border:0; color:var(--paper); cursor:pointer; font-size:14px; line-height:1;}
+.tw-row{ padding:10px 12px; border-bottom:1px solid var(--rule-soft);}
+.tw-row:last-child{ border-bottom:0;}
+.tw-row label{ display:block; font-family:var(--fm); font-size:10px; letter-spacing:0.1em; color:var(--ink-3); text-transform:uppercase; margin-bottom:6px;}
+.tw-seg{ display:grid; grid-auto-flow:column; grid-auto-columns:1fr; border:1px solid var(--rule);}
+.tw-seg button{
+  background:var(--paper); border:0; border-right:1px solid var(--rule-soft);
+  padding:6px 4px; cursor:pointer; font-size:11px; color:var(--ink-2);
+}
+.tw-seg button:last-child{border-right:0}
+.tw-seg button.on{ background:var(--ink); color:var(--paper);}
+.tw-swatches{ display:flex; gap:6px;}
+.tw-sw{
+  flex:1; height:26px; border:1px solid var(--rule); cursor:pointer; position:relative;
+}
+.tw-sw.on{ outline:2px solid var(--ink); outline-offset:2px;}
+
+/* Scrollbars */
+.left::-webkit-scrollbar, .right::-webkit-scrollbar{ width:8px; height:8px;}
+.left::-webkit-scrollbar-thumb, .right::-webkit-scrollbar-thumb{ background:var(--rule); border-radius:0;}
+
+/* Subtle text selection */
+::selection{ background:var(--accent); color:var(--accent-ink);}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="top">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div>
+        <div class="brand-name">stl<em>shaper</em></div>
+        <div class="brand-sub">Deformation Workbench · v0.7</div>
+      </div>
+    </div>
+    <nav class="menubar">
+      <button>File</button>
+      <button>Edit</button>
+      <button>View</button>
+      <button>Preset</button>
+      <button>Workers</button>
+      <button>Help</button>
+    </nav>
+    <div class="top-spacer"></div>
+    <div class="top-actions">
+      <button class="btn" title="Light / Dark theme" id="themeToggle">
+        <span class="theme-toggle" aria-hidden="true">
+          <span class="on" id="thLight">LT</span>
+          <span id="thDark">DK</span>
+        </span>
+      </button>
+      <button class="btn">Import STL <kbd>⌘O</kbd></button>
+      <button class="btn primary">Export STL <kbd>⌘E</kbd></button>
+    </div>
+  </header>
+
+  <!-- ============ LEFT RAIL ============ -->
+  <aside class="left">
+
+    <!-- Specimen -->
+    <section class="panel">
+      <h3>Specimen <span class="n">01 / 01</span></h3>
+      <div class="specimen">
+        <div class="specimen-img">
+          <span class="tag">STL · BINARY</span>
+          <!-- Wireframe placeholder (abstract polyhedron) -->
+          <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(120,86)">
+              <polygon points="-60,-36 0,-62 60,-36 60,32 0,58 -60,32"/>
+              <polygon points="-60,-36 0,-10 60,-36"/>
+              <polygon points="-60,32 0,58 60,32 0,-10"/>
+              <line x1="0" y1="-62" x2="0" y2="-10"/>
+              <line x1="-60" y1="-36" x2="0" y2="-10"/>
+              <line x1="60" y1="-36" x2="0" y2="-10"/>
+              <line x1="-60" y1="32" x2="0" y2="-10"/>
+              <line x1="60" y1="32" x2="0" y2="-10"/>
+              <circle cx="0" cy="-10" r="1.6" fill="currentColor" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+        <div class="specimen-meta">
+          <div class="specimen-name">falcon_millennium.stl</div>
+          <div class="specimen-path">~/models/hero/falcon_millennium.stl</div>
+          <div class="specimen-stats">
+            <div class="stat"><div class="k">Vertices</div><div class="v">48,312</div></div>
+            <div class="stat"><div class="k">Triangles</div><div class="v">96,104</div></div>
+            <div class="stat"><div class="k">Bounds mm</div><div class="v">84·52·38</div></div>
+            <div class="stat"><div class="k">File</div><div class="v">4.71 MB</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="file-row">
+        <button class="btn">Reload</button>
+        <button class="btn">Swap</button>
+        <button class="btn">Center</button>
+      </div>
+    </section>
+
+    <!-- Presets -->
+    <section class="panel">
+      <h3>Presets <span class="n">4 saved</span></h3>
+      <div class="presets">
+        <div class="preset active"><span><span class="dot"></span>Sine · falcon rhythm</span><span class="preset-meta">0.6k</span></div>
+        <div class="preset"><span><span class="dot" style="background:var(--ink-3)"></span>Noise · gentle erosion</span><span class="preset-meta">0.4k</span></div>
+        <div class="preset"><span><span class="dot" style="background:var(--ink-3)"></span>IDW · 12-point inflate</span><span class="preset-meta">1.1k</span></div>
+        <div class="preset"><span><span class="dot" style="background:var(--ink-3)"></span>Pixelate · 4mm voxel</span><span class="preset-meta">0.2k</span></div>
+      </div>
+      <div class="file-row" style="margin-top:8px">
+        <button class="btn">Import .json</button>
+        <button class="btn">Save Preset</button>
+      </div>
+    </section>
+
+    <!-- Post-process checklist -->
+    <section class="panel" style="border-bottom:0">
+      <h3>Post-process · Meshlab</h3>
+      <ul class="checklist">
+        <li class="done"><div class="mark">✓</div><div><div class="t">Remove zero-area faces</div><div class="s">Run twice · Cleaning & Repairing</div></div></li>
+        <li class="done"><div class="mark">✓</div><div><div class="t">Repair non-manifold edges</div><div class="s">Mode · split</div></div></li>
+        <li><div class="mark"></div><div><div class="t">Regenerate normals</div><div class="s">Auto · on export</div></div></li>
+      </ul>
+    </section>
+  </aside>
+
+  <!-- ============ MAIN VIEWPORT ============ -->
+  <main class="main">
+    <div class="view">
+      <!-- corner brackets -->
+      <div class="frame-bracket tl"></div>
+      <div class="frame-bracket tr"></div>
+      <div class="frame-bracket bl"></div>
+      <div class="frame-bracket br"></div>
+
+      <!-- 3D specimen (placeholder: sine-deformed wireframe silhouette) -->
+      <div class="specimen-3d" aria-label="3D viewport placeholder">
+        <svg viewBox="0 0 720 480" preserveAspectRatio="xMidYMid meet" id="specimenSvg">
+          <defs>
+            <pattern id="dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="0.6" fill="oklch(from var(--ink) l c h / 0.35)"/>
+            </pattern>
+          </defs>
+          <g id="mesh"
+             stroke="var(--ink)"
+             stroke-width="0.55"
+             fill="none"
+             style="opacity:0.85"
+             transform="translate(360,250)">
+            <!-- mesh drawn by JS -->
+          </g>
+          <!-- ground shadow -->
+          <ellipse cx="360" cy="400" rx="180" ry="8" fill="var(--ink)" opacity="0.08"/>
+          <!-- annotation callouts -->
+          <g font-family="IBM Plex Mono" font-size="9" fill="var(--ink-3)">
+            <g transform="translate(140,90)">
+              <line x1="0" y1="0" x2="28" y2="0" stroke="var(--ink-3)" stroke-width="0.5"/>
+              <circle cx="0" cy="0" r="2" fill="var(--accent)"/>
+              <text x="-6" y="-6" text-anchor="end">CP·03</text>
+            </g>
+            <g transform="translate(560,200)">
+              <line x1="0" y1="0" x2="-32" y2="0" stroke="var(--ink-3)" stroke-width="0.5"/>
+              <circle cx="0" cy="0" r="2" fill="var(--accent)"/>
+              <text x="8" y="3">CP·08 · w 0.42</text>
+            </g>
+            <g transform="translate(300,380)">
+              <text text-anchor="middle" letter-spacing="1.5">Δ 0.84 mm avg · 3.21 mm max</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- crosshair -->
+      <div class="crosshair"></div>
+
+      <!-- LIVE pill -->
+      <div class="live-pill">
+        <span class="dot"></span>
+        <span>Live deformation</span>
+        <span class="sep"></span>
+        <span style="color:var(--ink-2)">Sine · driver Y · displ XZ</span>
+      </div>
+
+      <!-- viewport toolbar -->
+      <div class="vp-toolbar" role="toolbar" aria-label="Viewport">
+        <button title="Orbit" class="on" aria-label="Orbit">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <ellipse cx="12" cy="12" rx="9" ry="4"/><ellipse cx="12" cy="12" rx="4" ry="9"/>
+          </svg>
+        </button>
+        <button title="Pan" aria-label="Pan">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M12 3v18M3 12h18M8 7l-5 5 5 5M16 7l5 5-5 5"/>
+          </svg>
+        </button>
+        <button title="Zoom" aria-label="Zoom">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="10" cy="10" r="6"/><path d="M15 15l5 5M7 10h6M10 7v6"/>
+          </svg>
+        </button>
+        <button title="Home" aria-label="Home">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-4v-6h-8v6H4a1 1 0 0 1-1-1z"/>
+          </svg>
+        </button>
+        <button title="Wireframe toggle" aria-label="Wireframe">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M3 6l9-3 9 3v12l-9 3-9-3zM3 6l9 3 9-3M12 9v15"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- shading mode -->
+      <div class="vp-mode" role="tablist" aria-label="Shading">
+        <button class="on">Shaded</button>
+        <button>Wire</button>
+        <button>Points</button>
+        <button>X-ray</button>
+      </div>
+
+      <!-- gizmo -->
+      <div class="gizmo" aria-label="Axis gizmo">
+        <svg viewBox="-40 -40 80 80">
+          <line x1="0" y1="0" x2="28" y2="0" stroke="oklch(0.55 0.18 25)" stroke-width="1.4"/>
+          <line x1="0" y1="0" x2="0" y2="-28" stroke="oklch(0.60 0.18 140)" stroke-width="1.4"/>
+          <line x1="0" y1="0" x2="-20" y2="16" stroke="oklch(0.55 0.18 250)" stroke-width="1.4"/>
+          <text x="32" y="3" fill="oklch(0.55 0.18 25)" font-family="IBM Plex Mono" font-size="9" font-weight="600">X</text>
+          <text x="-2" y="-32" fill="oklch(0.60 0.18 140)" font-family="IBM Plex Mono" font-size="9" font-weight="600">Y</text>
+          <text x="-30" y="22" fill="oklch(0.55 0.18 250)" font-family="IBM Plex Mono" font-size="9" font-weight="600">Z</text>
+          <circle cx="0" cy="0" r="2" fill="var(--ink)"/>
+        </svg>
+      </div>
+
+      <!-- live readout -->
+      <div class="readout">
+        <div class="cell"><div class="k">FPS</div><div class="v">60</div></div>
+        <div class="cell"><div class="k">Solve</div><div class="v live">142 ms</div></div>
+        <div class="cell"><div class="k">Workers</div><div class="v">4 / 8</div></div>
+        <div class="cell"><div class="k">Camera</div><div class="v">35.2°</div></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ RIGHT RAIL ============ -->
+  <aside class="right">
+
+    <!-- Family tabs -->
+    <div class="fam-tabs" role="tablist">
+      <button class="on" data-fam="base">Base</button>
+      <button data-fam="surface">Surface</button>
+      <button data-fam="topology">Topology</button>
+    </div>
+
+    <!-- Effects grid -->
+    <div class="effects" id="effects">
+      <div class="effect on" data-effect="sine"><span class="name">Sine Wave</span><span class="code">B · 02</span></div>
+      <div class="effect" data-effect="noise"><span class="name">Noise</span><span class="code">B · 01</span></div>
+      <div class="effect" data-effect="pixelate"><span class="name">Pixelate</span><span class="code">B · 03</span></div>
+      <div class="effect" data-effect="idw"><span class="name">IDW Shepard</span><span class="code">B · 04</span></div>
+    </div>
+
+    <!-- Parameters section header -->
+    <div class="sect-head">
+      <span>Parameters · Sine Wave</span>
+      <span class="chip">Adaptive</span>
+    </div>
+
+    <div class="params">
+      <div class="param">
+        <div class="label">Amplitude</div>
+        <div class="slider">
+          <span class="tick" style="left:0%"></span>
+          <span class="tick" style="left:25%"></span>
+          <span class="tick" style="left:50%"></span>
+          <span class="tick" style="left:75%"></span>
+          <span class="tick" style="left:100%"></span>
+          <span class="fill" style="width:34%"></span>
+          <span class="thumb" style="left:34%"></span>
+        </div>
+        <div class="val">34.2</div>
+      </div>
+      <div class="param">
+        <div class="label">Frequency</div>
+        <div class="slider">
+          <span class="tick" style="left:0%"></span>
+          <span class="tick" style="left:50%"></span>
+          <span class="tick" style="left:100%"></span>
+          <span class="fill" style="width:62%"></span>
+          <span class="thumb" style="left:62%"></span>
+        </div>
+        <div class="val">0.118</div>
+      </div>
+      <div class="param">
+        <div class="label">Phase</div>
+        <div class="slider">
+          <span class="tick" style="left:0%"></span>
+          <span class="tick" style="left:50%"></span>
+          <span class="tick" style="left:100%"></span>
+          <span class="fill" style="width:18%"></span>
+          <span class="thumb" style="left:18%"></span>
+        </div>
+        <div class="val">0.18π</div>
+      </div>
+    </div>
+
+    <!-- axes -->
+    <div class="axis-row">
+      <div class="label" style="font-family:var(--fm);font-size:10.5px;letter-spacing:0.1em;color:var(--ink-3);text-transform:uppercase">Driver</div>
+      <div class="axis-pills">
+        <div class="axis-pill" data-axis="drv-x">X</div>
+        <div class="axis-pill on" data-axis="drv-y">Y</div>
+        <div class="axis-pill" data-axis="drv-z">Z</div>
+      </div>
+    </div>
+    <div class="axis-row">
+      <div class="label" style="font-family:var(--fm);font-size:10.5px;letter-spacing:0.1em;color:var(--ink-3);text-transform:uppercase">Displace</div>
+      <div class="axis-pills">
+        <div class="axis-pill on" data-axis="dsp-x">X</div>
+        <div class="axis-pill" data-axis="dsp-y">Y</div>
+        <div class="axis-pill on" data-axis="dsp-z">Z</div>
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <span>Real-time update</span>
+      <span class="switch on" data-toggle="rt"></span>
+    </div>
+    <div class="toggle-row">
+      <span>Show control points</span>
+      <span class="switch" data-toggle="cp"></span>
+    </div>
+
+    <!-- Preprocess -->
+    <div class="sect-head"><span>Preprocess</span><span class="chip">Optional</span></div>
+    <div class="toggle-row">
+      <span>Decimate (keep 80%)</span>
+      <span class="switch" data-toggle="dec"></span>
+    </div>
+    <div class="toggle-row">
+      <span>Vertex merge · ε 0.001</span>
+      <span class="switch on" data-toggle="vm"></span>
+    </div>
+
+    <!-- Generate bar -->
+    <div class="generate">
+      <button class="btn">Reset</button>
+      <button class="btn accent">Generate Deformation</button>
+    </div>
+  </aside>
+
+  <!-- ============ STATUS BAR ============ -->
+  <footer class="status">
+    <span class="key">READY</span><span class="sep"></span>
+    <span>falcon_millennium.stl · loaded</span><span class="sep"></span>
+    <span>Workers <span class="ok">● 4 / 8 active</span></span><span class="sep"></span>
+    <span>Last solve <span style="color:var(--ink-2)">142 ms</span></span>
+    <span style="flex:1"></span>
+    <span>mm · right-handed · Z-up</span><span class="sep"></span>
+    <span>v0.7 · build 2026.04.21</span>
+  </footer>
+</div>
+
+<!-- Tweaks -->
+<aside class="tweaks" id="tweaks">
+  <header>
+    <span>Tweaks</span>
+    <button id="tweaksClose" aria-label="Close">×</button>
+  </header>
+  <div class="tw-row">
+    <label>Theme</label>
+    <div class="tw-seg" data-tw="theme">
+      <button class="on" data-v="light">Light</button>
+      <button data-v="dark">Dark</button>
+    </div>
+  </div>
+  <div class="tw-row">
+    <label>Accent</label>
+    <div class="tw-swatches" data-tw="accent">
+      <div class="tw-sw on" data-v="red"    style="background:oklch(0.52 0.19 25)"></div>
+      <div class="tw-sw"    data-v="ink"    style="background:oklch(0.22 0.01 60)"></div>
+      <div class="tw-sw"    data-v="blue"   style="background:oklch(0.52 0.15 250)"></div>
+      <div class="tw-sw"    data-v="green"  style="background:oklch(0.55 0.14 150)"></div>
+      <div class="tw-sw"    data-v="amber"  style="background:oklch(0.68 0.15 65)"></div>
+    </div>
+  </div>
+  <div class="tw-row">
+    <label>Density</label>
+    <div class="tw-seg" data-tw="density">
+      <button class="on" data-v="cozy">Cozy</button>
+      <button data-v="compact">Compact</button>
+    </div>
+  </div>
+  <div class="tw-row">
+    <label>Viewport grid</label>
+    <div class="tw-seg" data-tw="grid">
+      <button class="on" data-v="on">On</button>
+      <button data-v="off">Off</button>
+    </div>
+  </div>
+</aside>
+
+<script>
+// ====== tweak defaults ======
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "light",
+  "accent": "blue",
+  "density": "cozy",
+  "grid": "on"
+}/*EDITMODE-END*/;
+
+let state = { ...TWEAK_DEFAULTS };
+
+const ACCENTS = {
+  red:    { a:"oklch(0.52 0.19 25)",  d:"oklch(0.70 0.17 25)"  },
+  ink:    { a:"oklch(0.22 0.01 60)",  d:"oklch(0.85 0.01 60)"  },
+  blue:   { a:"oklch(0.52 0.15 250)", d:"oklch(0.72 0.15 250)" },
+  green:  { a:"oklch(0.52 0.14 150)", d:"oklch(0.72 0.14 150)" },
+  amber:  { a:"oklch(0.60 0.16 65)",  d:"oklch(0.78 0.15 65)"  }
+};
+
+function applyState(s){
+  state = {...state, ...s};
+  const root = document.documentElement;
+  root.setAttribute("data-theme", state.theme);
+  const acc = ACCENTS[state.accent] || ACCENTS.red;
+  root.style.setProperty("--accent", state.theme==="dark" ? acc.d : acc.a);
+  // density
+  document.body.style.fontSize = state.density==="compact" ? "12px" : "13px";
+  // grid
+  document.querySelector(".view").style.setProperty(
+    "background-image",
+    state.grid==="on"
+      ? `linear-gradient(var(--grid-ink) 1px, transparent 1px), linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px), radial-gradient(90% 70% at 50% 60%, var(--paper-2), var(--paper) 75%)`
+      : `radial-gradient(90% 70% at 50% 60%, var(--paper-2), var(--paper) 75%)`
+  );
+  // theme toggle visual
+  document.getElementById("thLight").classList.toggle("on", state.theme==="light");
+  document.getElementById("thDark").classList.toggle("on", state.theme==="dark");
+  // reflect in tweak buttons
+  document.querySelectorAll("[data-tw]").forEach(seg=>{
+    const k = seg.getAttribute("data-tw");
+    seg.querySelectorAll("[data-v]").forEach(b=>{
+      b.classList.toggle("on", b.getAttribute("data-v")===state[k]);
+    });
+  });
+}
+
+// Initial
+applyState(TWEAK_DEFAULTS);
+
+// Theme toggle button
+document.getElementById("themeToggle").addEventListener("click", ()=>{
+  const next = state.theme==="light" ? "dark":"light";
+  applyState({theme: next});
+  window.parent.postMessage({type:"__edit_mode_set_keys", edits:{theme: next}}, "*");
+});
+
+// Tweak wiring
+document.querySelectorAll("[data-tw]").forEach(seg=>{
+  const key = seg.getAttribute("data-tw");
+  seg.querySelectorAll("[data-v]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      const v = b.getAttribute("data-v");
+      applyState({[key]: v});
+      window.parent.postMessage({type:"__edit_mode_set_keys", edits:{[key]: v}}, "*");
+    });
+  });
+});
+
+// Edit mode protocol
+window.addEventListener("message", (e)=>{
+  if(!e.data) return;
+  if(e.data.type === "__activate_edit_mode") document.getElementById("tweaks").classList.add("on");
+  if(e.data.type === "__deactivate_edit_mode") document.getElementById("tweaks").classList.remove("on");
+});
+document.getElementById("tweaksClose").addEventListener("click", ()=>{
+  document.getElementById("tweaks").classList.remove("on");
+});
+window.parent.postMessage({type:"__edit_mode_available"}, "*");
+
+// ====== Effect + family tab wiring ======
+const EFFECTS = {
+  base: [
+    {id:"sine",     name:"Sine Wave",   code:"B · 02", params:"Sine Wave"},
+    {id:"noise",    name:"Noise",       code:"B · 01", params:"Noise"},
+    {id:"pixelate", name:"Pixelate",    code:"B · 03", params:"Pixelate"},
+    {id:"idw",      name:"IDW Shepard", code:"B · 04", params:"IDW Shepard"},
+  ],
+  surface: [
+    {id:"inflate", name:"Inflate",   code:"S · 01", params:"Inflate"},
+    {id:"twist",   name:"Twist",     code:"S · 02", params:"Twist"},
+    {id:"bend",    name:"Bend",      code:"S · 03", params:"Bend"},
+    {id:"ripple",  name:"Ripple",    code:"S · 04", params:"Ripple"},
+    {id:"warp",    name:"Warp",      code:"S · 05", params:"Warp"},
+    {id:"hyper",   name:"Hyperbolic",code:"S · 06", params:"Hyperbolic Stretch"},
+  ],
+  topology: [
+    {id:"tess",    name:"Tessellate",     code:"T · 01", params:"Tessellate"},
+    {id:"bound",   name:"Boundary Disrupt", code:"T · 02", params:"Boundary Disruption"},
+    {id:"menger",  name:"Menger Sponge",  code:"T · 03", params:"Menger Sponge"},
+  ]
+};
+document.querySelectorAll(".fam-tabs button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll(".fam-tabs button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    const fam = b.getAttribute("data-fam");
+    const grid = document.getElementById("effects");
+    grid.innerHTML = "";
+    EFFECTS[fam].forEach((e, i)=>{
+      const el = document.createElement("div");
+      el.className = "effect" + (i===0 ? " on":"");
+      el.innerHTML = `<span class="name">${e.name}</span><span class="code">${e.code}</span>`;
+      el.addEventListener("click", ()=>{
+        grid.querySelectorAll(".effect").forEach(x=>x.classList.remove("on"));
+        el.classList.add("on");
+        document.querySelector(".sect-head span").textContent = "Parameters · " + e.params;
+        document.querySelector(".live-pill span:nth-child(4)").textContent = e.name + " · live";
+      });
+      grid.appendChild(el);
+    });
+    // set first effect header
+    document.querySelector(".sect-head span").textContent = "Parameters · " + EFFECTS[fam][0].params;
+  });
+});
+
+// Effect clicks on initial render
+document.querySelectorAll("#effects .effect").forEach(el=>{
+  el.addEventListener("click", ()=>{
+    document.querySelectorAll("#effects .effect").forEach(x=>x.classList.remove("on"));
+    el.classList.add("on");
+    document.querySelector(".sect-head span").textContent = "Parameters · " + el.querySelector(".name").textContent;
+  });
+});
+
+// Axis pill + switch toggles
+document.querySelectorAll(".axis-pill").forEach(p=>{
+  p.addEventListener("click", ()=> p.classList.toggle("on"));
+});
+document.querySelectorAll(".switch").forEach(s=>{
+  s.addEventListener("click", ()=> s.classList.toggle("on"));
+});
+
+// Slider drag (simple)
+document.querySelectorAll(".param .slider").forEach(sl=>{
+  sl.addEventListener("mousedown", (e)=>{
+    const r = sl.getBoundingClientRect();
+    const update = (ev)=>{
+      const x = Math.max(0, Math.min(1, (ev.clientX - r.left)/r.width));
+      sl.querySelector(".fill").style.width = (x*100)+"%";
+      sl.querySelector(".thumb").style.left = (x*100)+"%";
+      const val = sl.parentElement.querySelector(".val");
+      const cur = parseFloat(val.textContent);
+      if(!isNaN(cur)){
+        // scale to something reasonable for the label
+        const scale = val.textContent.includes("π") ? 2 :
+                      val.textContent.includes(".") && cur < 1 ? 0.2 : 100;
+        const nv = (x * scale);
+        val.textContent = val.textContent.includes("π")
+          ? nv.toFixed(2)+"π"
+          : (scale<1 ? nv.toFixed(3) : nv.toFixed(1));
+      }
+    };
+    update(e);
+    const mv = (ev)=>update(ev);
+    const up = ()=>{ document.removeEventListener("mousemove",mv); document.removeEventListener("mouseup",up); };
+    document.addEventListener("mousemove", mv);
+    document.addEventListener("mouseup", up);
+  });
+});
+
+// ====== Draw a sine-deformed wireframe silhouette in the viewport ======
+function drawMesh(){
+  const g = document.getElementById("mesh");
+  if(!g) return;
+  g.innerHTML = "";
+  const W = 440, H = 260;
+  const cols = 34, rows = 18;
+  const t = Date.now()/1400;
+  const pts = [];
+  for(let j=0;j<=rows;j++){
+    pts[j] = [];
+    for(let i=0;i<=cols;i++){
+      const u = i/cols - 0.5, v = j/rows - 0.5;
+      // base ellipsoid projected isometrically
+      const r = Math.sqrt(u*u*1.6 + v*v*2.2);
+      const z = Math.sqrt(Math.max(0, 0.25 - r*r));
+      // sine displacement along y
+      const amp = 10;
+      const freq = 6;
+      const dx = Math.sin(v*Math.PI*freq + t) * amp * (1 - r*1.4);
+      const dz = Math.cos(v*Math.PI*freq + t*0.8) * amp * (1 - r*1.4);
+      // iso projection
+      const x = u*W + dx - v*H*0.15;
+      const y = v*H - z*90 + dz*0.3;
+      pts[j][i] = [x, y];
+    }
+  }
+  // draw quads as two polylines
+  const NS = "http://www.w3.org/2000/svg";
+  for(let j=0;j<=rows;j++){
+    let d = "M";
+    for(let i=0;i<=cols;i++){
+      d += (i===0?"":"L") + pts[j][i][0].toFixed(1) + " " + pts[j][i][1].toFixed(1) + " ";
+    }
+    const p = document.createElementNS(NS,"path");
+    p.setAttribute("d", d);
+    // fade outer rows
+    const edge = Math.abs(j - rows/2)/(rows/2);
+    p.setAttribute("opacity", (0.9 - edge*0.55).toFixed(2));
+    g.appendChild(p);
+  }
+  for(let i=0;i<=cols;i++){
+    let d = "M";
+    for(let j=0;j<=rows;j++){
+      d += (j===0?"":"L") + pts[j][i][0].toFixed(1) + " " + pts[j][i][1].toFixed(1) + " ";
+    }
+    const p = document.createElementNS(NS,"path");
+    p.setAttribute("d", d);
+    const edge = Math.abs(i - cols/2)/(cols/2);
+    p.setAttribute("opacity", (0.75 - edge*0.5).toFixed(2));
+    g.appendChild(p);
+  }
+}
+drawMesh();
+setInterval(drawMesh, 120);
+
+</script>
+</body>
+</html>

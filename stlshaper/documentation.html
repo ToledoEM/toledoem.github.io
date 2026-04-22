@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STL Deformer – Enrique M. Toledo</title>
+<title>STLShaper</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,159 +26,30 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./www/favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a58ef6c866849ad42c14fb3240bb57e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
+<script src="documentation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="documentation_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="documentation_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="documentation_files/libs/quarto-html/popper.min.js"></script>
+<script src="documentation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="documentation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="documentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="documentation_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="documentation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="documentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="documentation_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="fullcontent quarto-light">
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Enrique M. Toledo</span>
-    </a>
-  </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./index.html"> <i class="bi bi-house-fill" role="img">
-</i> 
-<span class="menu-text">About Me</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./code.html"> <i class="bi bi-terminal" role="img">
-</i> 
-<span class="menu-text">Hardware &amp; Code</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./scientifictools.html"> <i class="bi bi-flask" role="img">
-</i> 
-<span class="menu-text">Scientific Tools</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects-details" role="link" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="bi bi-code-square" role="img">
-</i> 
- <span class="menu-text">Projects Details</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects-details">    
-        <li>
-    <a class="dropdown-item" href="./field_generation/index.html" target="_blank">
- <span class="dropdown-text">Field Generation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./stlshaper/index.html" target="_blank">
- <span class="dropdown-text">STLShaper</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./xkcd/index.html" target="_blank">
- <span class="dropdown-text">XKCD ggplot2 Theme</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./msigdf/index.html" target="_blank">
- <span class="dropdown-text">MSigDF</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./pubmatrixr/index.html" target="_blank">
- <span class="dropdown-text">PubMatrixR</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./espduckdns/index.html" target="_blank">
- <span class="dropdown-text">ESP32 DuckDNS</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./NTPGPSHomeBridge/index.html" target="_blank">
- <span class="dropdown-text">NTP GPS HomeBridge</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./bash-blind-rename/index.html" target="_blank">
- <span class="dropdown-text">Bash Blind Rename</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./gallery.html"> <i class="bi bi-images" role="img">
-</i> 
-<span class="menu-text">Gallery</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./papers.html"> <i class="bi bi-person-circle" role="img">
-</i> 
-<span class="menu-text">Papers</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-    <a href="https://github.com/ToledoEM/" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
-    <a href="https://www.linkedin.com/in/enrique-toledo/" title="LinkedIn" class="quarto-navigation-tool px-1" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    
-<!-- main -->
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">STL Deformer</h1>
+<h1 class="title">STLShaper</h1>
 </div>
 
 
@@ -197,7 +68,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="www/STLDeformer_1.png" class="img-fluid figure-img" width="800"></p>
+<p><img src="img/STL_Deformer_FM.png" class="img-fluid figure-img" width="800"></p>
 <figcaption>A Sine Falcon Millennium</figcaption>
 </figure>
 </div>
@@ -214,7 +85,7 @@ Note
 <p>This project is under constant development.</p>
 </div>
 </div>
-<p>This project demonstrates a real-time STL deformation tool using Three.js. It allows you to load an STL file, apply various deformation effects (Noise, Sine Wave, Pixelate, IDW Shepard, plus advanced and topology-altering methods), and visualize the deformed model. It’s a tool for pushing the boundaries of what you expect from a 3D model. The goal is to create subtly unsettling, oddly beautiful, and deliberately weird transformations of STL objects. Think of it as a digital sculpting playground.</p>
+<p>This project demonstrates a real-time STL deformation tool using Three.js. It allows you to load an STL file, apply various deformation effects (Noise, Sine Wave, Pixelate, IDW Shepard, Perspective Distortion, plus advanced and topology-altering methods), and visualize the deformed model. It’s a tool for pushing the boundaries of what you expect from a 3D model. The goal is to create subtly unsettling, oddly beautiful, and deliberately weird transformations of STL objects. Think of it as a digital sculpting playground.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -247,6 +118,7 @@ Tip
 <li><strong>Pixelate</strong>: Pixelates the model by snapping vertices to a grid, offering a stark, fragmented aesthetic.</li>
 <li><strong>IDW Shepard</strong>: Advanced organic deformation using multiple control points distributed throughout the model’s volume via Poisson disk sampling.</li>
 <li><strong>Inflate / Twist / Bend / Ripple / Warp / Hyperbolic Stretch</strong>: A suite of expressive surface operators. Inflate swells outward by distance from center, Twist rotates along a chosen axis, Bend arcs the mesh over a controllable range, Ripple adds wave-like undulation, Warp introduces spatial noise-based offsets, and Hyperbolic Stretch exaggerates form along an axis for elastic, pulled silhouettes.</li>
+<li><strong>Perspective Distortion</strong>: Projects geometry through a configurable vanishing point. An interactive canvas widget lets you drag a dot to set the distortion direction; the center means no effect. Supports 1-point and 2-point modes (second orange dot adds an independent vanishing point), a plane selector (XY / XZ / YZ) to map widget axes to model space, linear and exponential falloff modes, and touch input on mobile.</li>
 <li><strong>Tessellate / Boundary Disruption / Menger Sponge</strong>: Topology-oriented transformations. Tessellate subdivides triangles to add geometric density, Boundary Disruption jitters near edges for torn or frayed contours, and Menger Sponge carves repeating voids for porous, lattice-like structures.</li>
 </ul></li>
 <li><strong>Real-time Deformation</strong>: Updates the deformation in real-time, allowing for interactive experimentation.</li>
@@ -266,25 +138,25 @@ Tip
 <h2 class="anchored" data-anchor-id="deformation-examples">Deformation Examples</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="www/STL_Deformer_Demo.png" class="img-fluid figure-img" width="800"></p>
+<p><img src="img/STL_Deformer_Demo.png" class="img-fluid figure-img" width="800"></p>
 <figcaption>Original</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="www/noise_STL_Deformer_Demo.png" class="img-fluid figure-img" width="800"></p>
+<p><img src="img/noise_STL_Deformer_Demo.png" class="img-fluid figure-img" width="800"></p>
 <figcaption>Noise Deformation</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="www/sine_STL_Deformer_Demo.png" class="img-fluid figure-img" width="800"></p>
+<p><img src="img/sine_STL_Deformer_Demo.png" class="img-fluid figure-img" width="800"></p>
 <figcaption>Sine Wave Deformation</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="www/pixelated_STL_Deformer_Demo.png" class="img-fluid figure-img" width="800"></p>
+<p><img src="img/pixelated_STL_Deformer_Demo.png" class="img-fluid figure-img" width="800"></p>
 <figcaption>Pixelated Deformation</figcaption>
 </figure>
 </div>
@@ -316,6 +188,21 @@ Tip
 </ul>
 </section>
 </section>
+<section id="perspective-distortion" class="level2">
+<h2 class="anchored" data-anchor-id="perspective-distortion">Perspective Distortion</h2>
+<p>Perspective Distortion simulates the geometric projection of a vanishing point applied directly to mesh vertices — not a camera trick, but an actual vertex transformation.</p>
+<section id="key-features-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-features-1">Key Features</h3>
+<ul>
+<li><strong>Interactive canvas widget</strong>: Drag a dot inside a circle; dot position = stretch direction, center = no effect</li>
+<li><strong>1-point mode</strong>: Single vanishing point for classic perspective exaggeration</li>
+<li><strong>2-point mode</strong>: Second orange dot adds an independent vanishing point for complex projections</li>
+<li><strong>Plane selector</strong>: XY / XZ / YZ maps the 2D widget axes to the correct model-space plane</li>
+<li><strong>Falloff modes</strong>: Linear (uniform gradient) or Exponential (strong near vanishing point, soft far away)</li>
+<li><strong>Touch support</strong>: Works on mobile and tablet</li>
+</ul>
+</section>
+</section>
 <section id="requirements" class="level2">
 <h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
 <ul>
@@ -344,7 +231,7 @@ Tip
 <h2 class="anchored" data-anchor-id="usage">Usage</h2>
 <ol type="1">
 <li><strong>Load STL:</strong> Click the “File Input” button to select an STL file.</li>
-<li><strong>Deformation Type:</strong> Choose the deformation type from the radio buttons (Noise, Sine Wave, Pixelate, IDW Shepard).</li>
+<li><strong>Deformation Type:</strong> Choose the deformation type from the radio buttons (Noise, Sine Wave, Pixelate, IDW Shepard, etc.).</li>
 <li><strong>Adjust Parameters:</strong> Use the sliders and inputs to control the deformation parameters. IDW parameters adapt automatically to model size.</li>
 <li><strong>Generate Deformation:</strong> Click the “Generate Deformation” button.</li>
 <li><strong>Visualize:</strong> The deformed model will be displayed in the 3D view.</li>
@@ -355,7 +242,7 @@ Tip
 <h2 class="anchored" data-anchor-id="controls">Controls</h2>
 <ul>
 <li><strong>File Input:</strong> Select an STL file.</li>
-<li><strong>Radio Buttons:</strong> Choose the deformation effect (Noise, Sine Wave, Pixelate, IDW Shepard).</li>
+<li><strong>Radio Buttons:</strong> Choose the deformation effect.</li>
 <li><strong>Sliders:</strong> Adjust the parameters of the chosen effect.</li>
 </ul>
 <section id="noise-controls" class="level3">
@@ -394,6 +281,16 @@ Tip
 <li><strong>Export Current STL:</strong> Export the deformed model.</li>
 </ul>
 </section>
+<section id="perspective-distortion-controls" class="level3">
+<h3 class="anchored" data-anchor-id="perspective-distortion-controls">Perspective Distortion Controls</h3>
+<ul>
+<li><strong>Canvas widget:</strong> Drag dot to set vanishing point direction and magnitude</li>
+<li><strong>Mode:</strong> 1-point or 2-point</li>
+<li><strong>Plane:</strong> XY / XZ / YZ</li>
+<li><strong>Strength:</strong> Overall distortion magnitude</li>
+<li><strong>Falloff:</strong> Linear or Exponential</li>
+</ul>
+</section>
 </section>
 <section id="code-structure" class="level2">
 <h2 class="anchored" data-anchor-id="code-structure">Code Structure</h2>
@@ -401,7 +298,7 @@ Tip
 <li><strong><code>index.html</code>:</strong> The main HTML file that sets up the Three.js scene, UI elements, and event listeners.</li>
 <li><strong><code>main.js</code>:</strong> Core logic for loading the STL, applying deformation, rendering, and UI. Includes Poisson disk sampling, volume detection, and adaptive parameter scaling.</li>
 <li><strong><code>worker.js</code>:</strong> Web Worker for parallel processing of vertex deformations (especially IDW).</li>
-<li><strong><code>libraries/</code>:</strong> Three.js, p5.js, and other required libraries.</li>
+<li><strong><code>libraries/</code>:</strong> Three.js, FileSaver.js, and other required libraries.</li>
 </ul>
 </section>
 <section id="important-notes" class="level2">
@@ -465,7 +362,18 @@ Note
 <section id="changelog" class="level2">
 <h2 class="anchored" data-anchor-id="changelog">Changelog</h2>
 <section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">0.6.0 (2026-02-10)</h3>
+<h3 class="anchored" data-anchor-id="section">0.7.0 (2026-04-21)</h3>
+<ul>
+<li>Added Perspective Distortion deformation with interactive vanishing-point picker widget</li>
+<li>Circle canvas widget with draggable dot to set distortion direction; center = no effect</li>
+<li>1-point and 2-point mode: second orange dot adds independent vanishing point</li>
+<li>Plane selector (XY / XZ / YZ) maps widget axes to model space</li>
+<li>Linear and exponential falloff modes</li>
+<li>Touch support for the canvas widget</li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">0.6.0 (2026-02-10)</h3>
 <ul>
 <li>Added importable deformation settings to reuse presets across STLs</li>
 <li>Added on-screen axis gizmo with X/Y/Z labels</li>
@@ -474,34 +382,34 @@ Note
 <li>Fixed shading issues by ensuring valid vertex normals, plus assorted robustness fixes</li>
 </ul>
 </section>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">0.5.0 (2026-02-08)</h3>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">0.5.0 (2026-02-08)</h3>
 <ul>
 <li>Updated GUI and camera behavior</li>
 <li>Fixed P0, P1, P3, and P4 issue sets</li>
 </ul>
 </section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">0.4.0 (2025-10-28)</h3>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">0.4.0 (2025-10-28)</h3>
 <ul>
 <li>Added settings workflow groundwork and Web Worker processing</li>
 <li>General refinements and cleanup</li>
 </ul>
 </section>
-<section id="section-3" class="level3">
-<h3 class="anchored" data-anchor-id="section-3">0.3.0 (2025-10-27)</h3>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">0.3.0 (2025-10-27)</h3>
 <ul>
 <li>Initial autoloader workflow</li>
 </ul>
 </section>
-<section id="section-4" class="level3">
-<h3 class="anchored" data-anchor-id="section-4">0.2.0 (2025-10-06)</h3>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">0.2.0 (2025-10-06)</h3>
 <ul>
 <li>Bug fixes and iterative improvements</li>
 </ul>
 </section>
-<section id="section-5" class="level3">
-<h3 class="anchored" data-anchor-id="section-5">0.1.0 (2025-10-04)</h3>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">0.1.0 (2025-10-04)</h3>
 <ul>
 <li>Initial project scaffold and documentation</li>
 </ul>
@@ -519,11 +427,10 @@ Note
 <section id="license" class="level2">
 <h2 class="anchored" data-anchor-id="license">License</h2>
 <p>This project is licensed under the MIT License.</p>
-
-
 </section>
 
-</main> <!-- /main -->
+</main>
+<!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -611,13 +518,6 @@ Note
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -932,47 +832,8 @@ Note
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-      &nbsp;
-    </div>   
-    <div class="nav-footer-center">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/ToledoEM/">
-      <i class="bi bi-github" role="img" aria-label="GitHub Profile">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/enrique-toledo/">
-      <i class="bi bi-linkedin" role="img" aria-label="LinkedIn Profile">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://scholar.google.com/citations?user=tQvU5PIAAAAJ&amp;hl=en">
-      <i class="bi bi-book-fill" role="img" aria-label="Google Scholar">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="mailto:enriquetoledom@outlook.com">
-      <i class="bi bi-envelope" role="img" aria-label="Email">
-</i> 
-    </a>
-  </li>  
-</ul>
-    </div>
-    <div class="nav-footer-right">
-      &nbsp;
-    </div>
-  </div>
-</footer>
 
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
