@@ -36,9 +36,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="documentation_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="documentation_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="documentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="documentation_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="documentation_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans|Merriweather" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<script data-goatcounter="https://etoledo.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="fullcontent quarto-light">
@@ -518,6 +523,13 @@ Note
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -836,4 +848,5 @@ Note
 
 
 
+<script src="documentation_files/libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
