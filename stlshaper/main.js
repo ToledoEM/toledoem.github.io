@@ -889,17 +889,22 @@ function init() {
 
   // SCENE
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x1a1a1a);
+  window.scene = scene;
+  const theme = localStorage.getItem('stlshaper_theme') || 'dark';
+  const bgColor = theme === 'light' ? 0xd0d0d0 : 0x333333;
+  scene.background = new THREE.Color(bgColor);
 
   // CAMERA
   camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
   camera.position.set(0, 0, 200);
+  window.camera = camera;
 
   // RENDERER
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(width, height);
   renderer.autoClear = false;
   container.appendChild(renderer.domElement);
+  window.renderer = renderer;
 
   // CONTROLS FIX: Check for global OrbitControls or THREE.OrbitControls
   const OrbitControlsClass = window.OrbitControls || THREE.OrbitControls;
