@@ -4,7 +4,7 @@
     "href": "readme.html",
     "title": "Ollama Chat History Cleaner",
     "section": "",
-    "text": "I made these scripts to clean only the chat history and the logs from Ollama GUI and server. It does not remove models, users, or app settings.\nMotivation: order and privacy. But is not only me, (issue)[https://github.com/ollama/ollama/issues/13926], (issue)[https://github.com/ollama/ollama/issues/15099], (issue)[https://github.com/ollama/ollama/issues/14313], (and another)[https://github.com/ollama/ollama/issues/14908]\nScripts are available for macOS, Linux, and Windows.\nOn macOS and Windows it checks common Ollama database paths automatically. It also checks if sqlite3 is installed and if the needed tables exist.\nWhen you run it, it asks if you want a backup. Default answer is No."
+    "text": "I made these scripts to clean only the chat history and the logs from Ollama GUI and server. It does not remove models, users, or app settings.\nMotivation: order and privacy. But is not only me, issue, issue, issue, and another\nScripts are available for macOS, Linux, and Windows.\nOn macOS and Windows it checks common Ollama database paths automatically. It also checks if sqlite3 is installed and if the needed tables exist.\nWhen you run it, it asks if you want a backup. Default answer is No."
   },
   {
     "objectID": "readme.html#before-and-after",
