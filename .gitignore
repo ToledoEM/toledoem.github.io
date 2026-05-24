@@ -9,3 +9,4 @@ sitemap.options
 /.quarto/
 **/*.quarto_ipynb
 stlshaper/newgui/
+field_generation/
