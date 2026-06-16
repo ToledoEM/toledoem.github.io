@@ -7,46 +7,32 @@
     "text": "1. MSigDF Package\n\nMSigDF: Molecular Signatures Database in Tidy Format\n\n\n\n\nMSigDF Logo\n\n\nAn up-to-date fork of the Molecular Signatures Database (MSigDB) into a tibble format originally created by Stephen Turner, this updated version is up to date with MSigDB 2025.1 .\nApplications: Gene set enrichment analysis - Pathway analysis - Functional genomics research - Bioinformatics workflows\nTech Stack: R, tidyverse, bioinformatics, tidy-data, msigdb\nVignette View on GitHub\n\n\n\n2. PubMatrixR Package\n\nPubMatrixR: Systematic Literature Search\n\n(PubMatrixR) is an R package that performs systematic literature searches on PubMed and PMC databases using pairwise combinations of search terms. It creates co-occurrence matrices showing the number of publications that mention both terms from two different sets, enabling researchers to explore relationships between genes, diseases, pathways.\n\n\n\nPubMatrix Logo\n\n\nApplications: Biomedical Data Exploration\nNow available on CRAN.\nBased on paper : PubMatrix: a tool for multiplex literature mining of Becker KG et al. BMC Bioinformatics. 2003 Dec 10;4:61. doi: 10.1186/1471-2105-4-61\nFirst forked from: https://github.com/tslaird/PubMatrixR\nVignette View on GitHub CRAN ShinyApp\n\n\n\n3. Blind Rename Files\n\nBlind Rename Files Swift macOS App & Bash Scripts\n\nRename files on folder for manual image blind analysis to avoid bias.\n\nA swift OSX app or a bash-script to rename file, thinking in avoiding bias in manual image quantification. From the times I was doing this with ImageJ/Fiji.\nApplications: Semi-automatic/manual image quantification.\nView on Github Documentation"
   },
   {
-    "objectID": "gallery.html",
-    "href": "gallery.html",
-    "title": "Gallery",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Enrique M. Toledo",
     "section": "",
-    "text": "Color circles arrangement\n\n\n\n\n\n\n\n\n\nSpiral line patterns\n\n\n\n\n\n\n\n\n\nAbstract canvas composition\n\n\n\n\n\n\n\n\n\nVibrant flow field\n\n\n\n\n\n\n\n\n\nFlow field\n\n\n\n\n\n\n\n\n\nAnother flow field\n\n\n\n\n\n\n\n\n\nQuantize Perlin Field with angle noise, bin at 90 degrees\n\n\n\n\n\n\n\n\n\n\nBrownian Bridges - Parametric animation exploring random walks on circular paths\n\n\n\nDetails in the repositories link"
+    "text": "Computational biology · genomics · creative coding\n\n\n\n\nScientist working at the intersection of genomics, computational biology, and target discovery — with a standing foot in creative coding."
   },
   {
-    "objectID": "gallery.html#generative-art-toys-examples",
-    "href": "gallery.html#generative-art-toys-examples",
-    "title": "Gallery",
-    "section": "",
-    "text": "Color circles arrangement\n\n\n\n\n\n\n\n\n\nSpiral line patterns\n\n\n\n\n\n\n\n\n\nAbstract canvas composition\n\n\n\n\n\n\n\n\n\nVibrant flow field\n\n\n\n\n\n\n\n\n\nFlow field\n\n\n\n\n\n\n\n\n\nAnother flow field\n\n\n\n\n\n\n\n\n\nQuantize Perlin Field with angle noise, bin at 90 degrees\n\n\n\n\n\n\n\n\n\n\nBrownian Bridges - Parametric animation exploring random walks on circular paths\n\n\n\nDetails in the repositories link"
+    "objectID": "index.html#interests",
+    "href": "index.html#interests",
+    "title": "Enrique M. Toledo",
+    "section": "Interests",
+    "text": "Interests\nMy research bridges multiple domains:\n\nCellular & Molecular Biology, Genomics & Biomedicine\nData Science: Extracting meaningful patterns from complex biological datasets\nCreative Coding: Exploring the potential of computational tools"
   },
   {
-    "objectID": "code.html",
-    "href": "code.html",
-    "title": "Projects of Hardware and Code",
-    "section": "",
-    "text": "ESP32 DuckDNS Client\n\n\n\nDuckDNS Logo\n\n\nThis project is an open-source, standalone Dynamic DNS (DDNS) client for DuckDNS.org that runs on an ESP32 microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.\nWhy?… because I can.\nGithub Project\n\nLooking for time and space to make more of these plans a reality."
+    "objectID": "index.html#work",
+    "href": "index.html#work",
+    "title": "Enrique M. Toledo",
+    "section": "Work",
+    "text": "Work\n\nScientist in Cellular and Molecular Biology, most of the time with a flavour of neurobiology, developmental neurobiology, and cardio-metabolism in many tissues.\nGenomics methodologies practitioner, previously at the bench and then on the computational side.\nComputational Biology + Systems Biology + Genomics are my principles.\nWorked in academia, and in early research within pharma.\nAlways keeping a foot in academic collaborations - papers, student internships and rotations, supervision… et al."
   },
   {
-    "objectID": "code.html#hardware-work",
-    "href": "code.html#hardware-work",
-    "title": "Projects of Hardware and Code",
-    "section": "",
-    "text": "ESP32 DuckDNS Client\n\n\n\nDuckDNS Logo\n\n\nThis project is an open-source, standalone Dynamic DNS (DDNS) client for DuckDNS.org that runs on an ESP32 microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.\nWhy?… because I can.\nGithub Project\n\nLooking for time and space to make more of these plans a reality."
-  },
-  {
-    "objectID": "code.html#creative-work",
-    "href": "code.html#creative-work",
-    "title": "Projects of Hardware and Code",
-    "section": "Creative Work",
-    "text": "Creative Work\nImages\n\n\n\n\n\n\ncolor circles\n\n\n\n\n\n\n\nLines\n\n\n\n\n\n\n\nfirst lines\n\n\n\n\n\n\n\n\n\nColorful flow field composition\n\n\n\n\n\n\nBrownian Bridges"
-  },
-  {
-    "objectID": "code.html#creative-tools-and-coding-projects",
-    "href": "code.html#creative-tools-and-coding-projects",
-    "title": "Projects of Hardware and Code",
-    "section": "Creative Tools and Coding Projects",
-    "text": "Creative Tools and Coding Projects\n\n1. Field Generation\n\nGenerative Art Through Flow Fields\nTransform mathematical fields into visual harmony. This tool uses flowing patterns to guide virtual particles across your canvas, creating organic curves and paths that feel both natural and otherworldly. Nothing very original in here but at least was fun and allows the integration of other tools\n\n\n\n\n\n\nBlack & white flow field visualization\n\n\n\n\n\nFeatures: - Export as SVG for pen plotters and laser cutters - Save as JSON/CSV for further manipulation - Real-time parameter adjustment\nView Project Github\n\n\n\n2. STL Shaper\n\nReal-Time 3D Model Deformation\nA playground for 3D experimentation. Apply noise, sine waves, and pixelation effects to STL models in real-time using Three.js.\n\n\n\nDeformed Millennium Falcon model showing creative distortion effects\n\n\nCapabilities: - Live deformation preview - Multiple effect layers - Noise and wave transformations - Export modified meshes - Interactive 3D manipulation\nDocumentation Test Project Github\n\n\n\n3. Parametric Designs openSCAD\n\n\nCollection of designs made with Open Scad for parametric 3D printing.\n\n\n Thingiverse Profile\n\n\n\n4. XKCD - ggplot2 theme\n\nThemes of XKCD for ggplot2\n\n\n\n\nPenguins Data with XKCD Theme\n\n\nAn R package for creating hand-drawn, XKCD-style plots and graphics using ggplot2. Features custom geoms for jittered lines, segments, circles, and figures with the distinctive XKCD aesthetic.\nVignette View on Github\n\n\n\n5. NTP & GPS Home Bridge\n\nNTP and GPS monitoring systems for Home Assistant integration on Raspberry Pi.\n\n\n\n\nLogo\n\n\nAPI for GPS and NTP server. Designed to be feed into Home Assistant\nProject View on Github\n\n\n\n6. Zigbee ZHA Mesh Graph Export\n\nMaking a graph from a Zigbee mesh network\n\n\n\n\nLogo\n\n\nExport ZHA devices and neighbor edges from Home Assistant to CSV files.\nApplications: none, but nerd out about the mesh made by zigbee devices using igraph, cytoscape, gephi or any other software for networks/graph analysis.\nTech Stack: Home Assistant, mesh network, graph\nView on GitHub\n\n\n\n7. Manyfold Home Assistant Add-on\n\nManyfold on Home Assistant\n\n\n\nManyfold Logo\n\n\nA Home Assistant OS add-on that runs Manyfold, a self-hosted 3D model manager, with persistent storage and configurable host-backed media paths. No external PostgreSQL or Redis required.\nFeatures: - Runs on port 3214 - Persists app data, database, and settings under /config - Configurable library and thumbnails paths on HA host storage - Supports amd64 and aarch64 - Multiuser mode toggle\nView on GitHub\n\n\n\n8. BentoPDF Home Assistant Add-on\n\nBentoPDF on Home Assistant\n\n\n\nBentoPDF Logo\n\n\nA Home Assistant OS add-on that packages BentoPDF — a privacy-first, client-side PDF toolkit with 50+ tools. All PDF processing happens in the browser; files never leave your device.\nFeatures: - 50+ PDF tools: merge, split, compress, convert, OCR, sign, redact - Fully client-side — no data sent to any server - HTTPS on port 8443 (enables LibreOffice WASM for office file conversion) - Supports amd64 and aarch64\nView on GitHub\n\n\n\n9. Ollama Chat History Cleaner\n\nClean Ollama Chat History and Logs\nScripts to clean only the chat history and logs from Ollama GUI and server. Does not remove models, users, or app settings. Solves the gap in Ollama’s native chat history deletion.\nFeatures: - Delete chat history from Ollama database - Delete Ollama logs - Automatic database path detection (macOS/Windows) - Optional backup before deletion - Cross-platform support: macOS, Linux, Windows\nView Project View on GitHub"
+    "objectID": "index.html#connect",
+    "href": "index.html#connect",
+    "title": "Enrique M. Toledo",
+    "section": "Connect",
+    "text": "Connect\n\n\n GitHub\n LinkedIn\n Google Scholar\n Email"
   },
   {
     "objectID": "papers.html",
@@ -63,25 +49,39 @@
     "text": "Highlighted publications from the last years\n\n\n2026\n\nHuman-derived cardiac-neural microtissues reveal catecholaminergic polymorphic ventricular tachycardia is also a disease of the sympathetic neuron\nNi Li, Chenchen Zhang, Mengying Xu, YoonYoung Choi, Davi Sidarta-Oliveira, Ruirui Dong, Xinyu Hu, Enrique M. Toledo, Cesar A. Prada-Medina, Finbar Argus, Kun Liu, Mingyu Li, Linna Zhou, Hagan Bayley, Corey Smith, Chris Denning, Ana I. Domingos, Guoliang Hao, Dan Li, David J. Paterson\nThe Journal of Physiology (2026)\n\npaper\n\n\n\nMidbrain dopaminergic neurons arise from two molecularly distinct radial glia-like progenitors\nEmilia Sif Asgrimsdottir, Luca Fusar Bassini, Pia Rivetti di Val Cervo, Daniel Gyllborg, Claudia Puigsallosas-Pastor, Kawai Lee, Christopher Grigsby, Saiful Islam, Peter Lonneberg, Carlos Villaescusa, Carmen Salto, Sten Linnarsson, Gioele La Manno, Enrique M Toledo, Ernest Arenas\nNature Neuroscience (2026)\n\npubmed paper press release\n\n\n\nFunctionally Mature Bioengineered Human Skeletal Muscle Tissues Capture Essential Aspects of Glucose Metabolism\nCarlos Henriquez-Olguin, Martina Kubec Højfeldt, Christopher Thomas Andrew Lewis, Jesper B. Birk, Tianfang Wang, Zelin Li, Pia Jensen, Pauline Blomquist, Bo Falck Hansen, Roberto Meneses-Valdes, Enrique Toledo, Jeb Hogan, Zhe Wang, Charis-Patricia Segeritz, Jørgen Frank Pind Wojtaszewski, Thomas Elbenhardt Jensen, Anna Blois, Christian Pehmøller, Jonas Roland Knudsen\nbioRxiv (2026)\n\nlink\n\n\n\n\n2024\n\nMidbrain Dopaminergic Neuron Development is Regulated by Two Molecularly Distinct Subtypes of Radial Glia Cells\nEmilía Sif Ásgrímsdóttir, Luca Fusar Bassini, Pia Rivetti di Val Cervo, Daniel Gyllborg, Clàudia Puigsasllosas Pastor, Kawai Lee, Christopher Grigsby, Saiful Islam, Peter Lönneberg, Carlos Villaescusa, Carmen Saltó, Sten Linnarsson, Gioele La Manno, Enrique M Toledo, Ernest Arenas\nbioRxiv (2024) Now published in Nature Neuroscience\n\nlink\n\n\n\nThe perineurium integrates leptin with its sympathetic outflow to protect against obesity\nSarker G, Habermann E, Chandran A, Monfeuga T, Maroteau C, Lundh S, Raimondi A, Martínez Sánchez N, Arús B, Iannacone M, et al.\nbioRxiv (2024)\n\nlink\n\n\n\n\n2023\n\nHepatocyte mARC1 promotes fatty liver disease\nLewis LC, Chen L, Hameed LS, Kitchen RR, Maroteau C, Nagarajan SR, Norlin J, Daly CE, Szczerbinska I, Hjuler ST, et al.\nJHEP Reports 5(5) (2023)\n\nlink\n\n\n\n\n2022\n\nTCF7L2 plays a complex role in human adipose progenitor biology, which might contribute to genetic susceptibility to type 2 diabetes\nVerma M, Loh NY, Sabaratnam R, Vasan SK, van Dam AD, Todorčević M, Neville MJ, Toledo E, Karpe F, Christodoulides C, et al.\nMetabolism 133 (2022)\n\nlink\n\n\n\n\n2020\n\nSrebf1 controls midbrain dopaminergic neurogenesis\nToledo EM, Yang S, Gyllborg D, Van Wijk KE, Sinha I, Varas-Godoy M, Grigsby CL, Lönnerberg P, Islam S, Steffensen KR, et al.\nCell Reports 31(5) (2020)\n\nlink\n\n\n\n\n2018\n\nA Zeb2-miR-200c loop controls midbrain dopaminergic neuron neurogenesis and migration\nYang S, Toledo EM, Rosmaninho P, Peng C, Uhlén P, Castro DS, Arenas E\nCommunications Biology 1(1) (2018)\n\nlink\n\n\n\n\n2017\n\nInduction of functional dopamine neurons from human astrocytes in vitro and mouse astrocytes in a Parkinson’s disease model\nRivetti Di Val Cervo P, Romanov RA, Spigolon G, Masini D, Martín-Montañez E, Toledo EM, La Manno G, Feyder M, Pifl C, Ng YH, et al.\nNature Biotechnology 35(5) (2017)\n\nlink\n\n\n\nMapping genes for calcium signaling and their associated human genetic disorders\nHörtenhuber M, Toledo EM, Smedler E, Arenas E, Malmersjö S, Louhivuori L, Uhlén P\nBioinformatics 33(16) (2017)\n\nlink\n\n\n\nNiche-derived laminin-511 promotes midbrain dopaminergic neuron survival and differentiation through YAP\nZhang D, Yang S, Toledo EM, Gyllborg D, Saltó C, Carlos Villaescusa J, Arenas E\nScience Signaling 10(493) (2017)\n\nlink\n\n\n\n\n2016\n\nA PBX1 transcriptional network controls dopaminergic neuron development and is impaired in Parkinson’s disease\nVillaescusa JC, Li B, Toledo EM, Rivetti di Val Cervo P, Yang S, Stott SRW, Kaiser K, Islam S, Gyllborg D, Laguna-Goya R, et al.\nThe EMBO Journal 35(18) (2016)\n\nlink\n\n\n\nMolecular diversity of midbrain development in mouse, human, and stem cells\nLa Manno G, Gyllborg D, Codeluppi S, Nishimura K, Salto C, Zeisel A, Borm LE, Stott SRW, Toledo EM, Villaescusa JC, et al.\nCell 167(2) (2016)\n\nlink\n\n\n\n\n2015\n\nAnti-ribosomal P protein autoantibodies from patients with neuropsychiatric lupus impair memory in mice\nBravo-Zehnder M, Toledo EM, Segovia-Miranda F, Serrano FG, Benito MJ, Metz C, Retamal C, Alvarez A, Massardo L, Inestrosa NC, et al.\nArthritis & Rheumatology 67(1) (2015)\n\nlink"
   },
   {
-    "objectID": "index.html#interests",
-    "href": "index.html#interests",
-    "title": "About Me",
-    "section": "Interests",
-    "text": "Interests\nMy research bridges multiple domains:\n\nCellular & Molecular Biology, Genomics & Biomedicine\nData Science: Extracting meaningful patterns from complex biological datasets\nCreative Coding: Exploring the potential of computational tools"
+    "objectID": "code.html",
+    "href": "code.html",
+    "title": "Projects",
+    "section": "",
+    "text": "A working collection across three threads: hardware, Home Assistant add-ons, and creative & generative tools."
   },
   {
-    "objectID": "index.html#work",
-    "href": "index.html#work",
-    "title": "About Me",
-    "section": "Work",
-    "text": "Work\n\nScientist in Cellular and Molecular Biology, most of the time with a flavour of neurobiology, developmental neurobiology, and cardio-metabolism in many tissues.\nGenomics methodologies practitioner, previously at the bench and then on the computational side.\nComputational Biology + Systems Biology + Genomics are my principles.\nWorked in academia, and in early research within pharma.\nAlways keeping a foot in academic collaborations - papers, student internships and rotations, supervision… et al."
+    "objectID": "code.html#hardware",
+    "href": "code.html#hardware",
+    "title": "Projects",
+    "section": "Hardware",
+    "text": "Hardware\n\nESP32 DuckDNS Client\n\nMicrocontroller dynDNS client with an ESP32\n\n\n\nDuckDNS Logo\n\n\nThis project is an open-source, standalone Dynamic DNS (DDNS) client for DuckDNS.org that runs on an ESP32 microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.\nWhy?… because I can.\nGithub Project\n\n\n\nNTP & GPS Home Bridge\n\nNTP and GPS monitoring systems for Home Assistant integration on Raspberry Pi.\n\n\n\n\nLogo\n\n\nAPI for GPS and NTP server. Designed to be feed into Home Assistant\nProject View on Github\n\nLooking for time and space to make more of these plans a reality."
   },
   {
-    "objectID": "index.html#connect",
-    "href": "index.html#connect",
-    "title": "About Me",
-    "section": "Connect",
-    "text": "Connect\n\n\n GitHub\n LinkedIn\n Google Scholar\n Email\n\n\n\n\n\n\n\n\n\n\n\n\nD\n\n\nScience\n\nScience\n\n\n\nBiomedicine\n\nBiomedicine\n\n\n\nScience-&gt;Biomedicine\n\n\n\n\n\nData Science\n\nData Science\n\n\n\nScience-&gt;Data Science\n\n\n\n\n\nCellular & \\n Molecular Biology\n\nCellular & \n Molecular Biology\n\n\n\nScience-&gt;Cellular & \\n Molecular Biology\n\n\n\n\n\nGenomics\n\nGenomics\n\n\n\nScience-&gt;Genomics\n\n\n\n\n\nData\n\nData\n\n\n\nScience-&gt;Data\n\n\n\n\n\nProgramming\n\nProgramming\n\n\n\nScience-&gt;Programming\n\n\n\n\n\nWork\n\nWork\n\n\n\nBiomedicine-&gt;Work\n\n\n\n\n\nData Science-&gt;Work\n\n\n\n\n\nCellular & \\n Molecular Biology-&gt;Work\n\n\n\n\n\nGenomics-&gt;Work\n\n\n\n\n\nData-&gt;Science\n\n\n\n\n\nData-&gt;Data Science\n\n\n\n\n\nData-&gt;Programming\n\n\n\n\n\nProgramming-&gt;Data Science\n\n\n\n\n\nFun\n\nFun\n\n\n\nProgramming-&gt;Fun"
+    "objectID": "code.html#home-assistant-add-ons",
+    "href": "code.html#home-assistant-add-ons",
+    "title": "Projects",
+    "section": "Home Assistant add-ons",
+    "text": "Home Assistant add-ons\n\nManyfold\n\nManyfold on Home Assistant\n\n\n\nManyfold Logo\n\n\nA Home Assistant OS add-on that runs Manyfold, a self-hosted 3D model manager, with persistent storage and configurable host-backed media paths. No external PostgreSQL or Redis required.\nFeatures: - Runs on port 3214 - Persists app data, database, and settings under /config - Configurable library and thumbnails paths on HA host storage - Supports amd64 and aarch64 - Multiuser mode toggle\nView on GitHub\n\n\n\nBentoPDF\n\nBentoPDF on Home Assistant\n\n\n\nBentoPDF Logo\n\n\nA Home Assistant OS add-on that packages BentoPDF — a privacy-first, client-side PDF toolkit with 50+ tools. All PDF processing happens in the browser; files never leave your device.\nFeatures: - 50+ PDF tools: merge, split, compress, convert, OCR, sign, redact - Fully client-side — no data sent to any server - HTTPS on port 8443 (enables LibreOffice WASM for office file conversion) - Supports amd64 and aarch64\nView on GitHub\n\n\n\nZigbee ZHA Mesh Graph Export\n\nMaking a graph from a Zigbee mesh network\n\n\n\n\nLogo\n\n\nExport ZHA devices and neighbor edges from Home Assistant to CSV files.\nApplications: none, but nerd out about the mesh made by zigbee devices using igraph, cytoscape, gephi or any other software for networks/graph analysis.\nTech Stack: Home Assistant, mesh network, graph\nView on GitHub"
+  },
+  {
+    "objectID": "code.html#creative-generative-tools",
+    "href": "code.html#creative-generative-tools",
+    "title": "Projects",
+    "section": "Creative & generative tools",
+    "text": "Creative & generative tools\n\nField Generation\n\nGenerative Art Through Flow Fields\nTransform mathematical fields into visual harmony. This tool uses flowing patterns to guide virtual particles across your canvas, creating organic curves and paths that feel both natural and otherworldly. Nothing very original in here but at least was fun and allows the integration of other tools\n\n\n\n\n\n\nBlack & white flow field visualization\n\n\n\n\n\nFeatures: - Export as SVG for pen plotters and laser cutters - Save as JSON/CSV for further manipulation - Real-time parameter adjustment\nView Project Github\n\n\n\nSTL Shaper\n\nReal-Time 3D Model Deformation\nA playground for 3D experimentation. Apply noise, sine waves, and pixelation effects to STL models in real-time using Three.js.\n\n\n\nDeformed Millennium Falcon model showing creative distortion effects\n\n\nCapabilities: - Live deformation preview - Multiple effect layers - Noise and wave transformations - Export modified meshes - Interactive 3D manipulation\nDocumentation Test Project Github\n\n\n\nParametric Designs openSCAD\n\n\nCollection of designs made with Open Scad for parametric 3D printing.\n\n\n Thingiverse Profile\n\n\n\nXKCD - ggplot2 theme\n\nThemes of XKCD for ggplot2\n\n\n\n\nPenguins Data with XKCD Theme\n\n\nAn R package for creating hand-drawn, XKCD-style plots and graphics using ggplot2. Features custom geoms for jittered lines, segments, circles, and figures with the distinctive XKCD aesthetic.\nVignette View on Github"
+  },
+  {
+    "objectID": "code.html#utilities-scripts",
+    "href": "code.html#utilities-scripts",
+    "title": "Projects",
+    "section": "Utilities & scripts",
+    "text": "Utilities & scripts\n\nOllama Chat History Cleaner\n\nClean Ollama Chat History and Logs\nScripts to clean only the chat history and logs from Ollama GUI and server. Does not remove models, users, or app settings. Solves the gap in Ollama’s native chat history deletion.\nFeatures: - Delete chat history from Ollama database - Delete Ollama logs - Automatic database path detection (macOS/Windows) - Optional backup before deletion - Cross-platform support: macOS, Linux, Windows\nView Project View on GitHub"
   },
   {
     "objectID": "readme.html",

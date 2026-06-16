@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Projects of Hardware and Code – Enrique M. Toledo</title>
+<title>Projects – Enrique M. Toledo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -40,12 +40,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-6a50bd621f08fdc5c26e43d254df0a90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-9bfc61b20ce54e18ae6b25bf56d136e1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-6a50bd621f08fdc5c26e43d254df0a90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a58ef6c866849ad42c14fb3240bb57e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-761ea1797b0e92f3ef86a27cb1dc68c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-00e00163ecd7e852a6ccba9cd36ed039.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-761ea1797b0e92f3ef86a27cb1dc68c3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,9 +76,12 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<!-- GoatCounter analytics - privacy friendly, no cookies -->
+<script data-goatcounter="https://etoledo.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+
+<meta name="google-site-verification" content="8K_7LQhG1ygRHfgrVvoVMC1wH0zBCesn_UsSAMxnwAo">
 
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -98,12 +103,12 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> <i class="bi bi-house-fill" role="img">
 </i> 
-<span class="menu-text">About Me</span></a>
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./code.html" aria-current="page"> <i class="bi bi-terminal" role="img">
 </i> 
-<span class="menu-text">Hardware &amp; Code</span></a>
+<span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./scientifictools.html"> <i class="bi bi-flask" role="img">
@@ -138,6 +143,10 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">PubMatrixR</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="./pubmatrixp/index.html" target="_blank">
+ <span class="dropdown-text">PubMatrix Python</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="./espduckdns/index.html" target="_blank">
  <span class="dropdown-text">ESP32 DuckDNS</span></a>
   </li>  
@@ -151,11 +160,6 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./gallery.html"> <i class="bi bi-images" role="img">
-</i> 
-<span class="menu-text">Gallery</span></a>
-  </li>  
   <li class="nav-item">
     <a class="nav-link" href="./papers.html"> <i class="bi bi-person-circle" role="img">
 </i> 
@@ -180,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects of Hardware and Code</h1>
+<h1 class="title">Projects</h1>
 </div>
 
 
@@ -197,12 +201,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="hardware-work" class="level2">
-<h2 class="anchored" data-anchor-id="hardware-work">Hardware Work</h2>
-<section id="microcontroller-dyndns-client-with-a-esp32" class="level3">
-<h3 class="anchored" data-anchor-id="microcontroller-dyndns-client-with-a-esp32">1. Microcontroller dynDNS client with a ESP32</h3>
+<p>A working collection across three threads: <strong>hardware</strong>, <strong>Home Assistant add-ons</strong>, and <strong>creative &amp; generative tools</strong>.</p>
+<section id="hardware" class="level2">
+<h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
+<section id="esp32-duckdns-client" class="level3">
+<h3 class="anchored" data-anchor-id="esp32-duckdns-client">ESP32 DuckDNS Client</h3>
 <div class="project-card">
-<p><strong>ESP32 DuckDNS Client</strong></p>
+<p><strong>Microcontroller dynDNS client with an ESP32</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="www/ducky_icon.png" class="img-fluid figure-img" style="width:10.0%"></p>
@@ -213,122 +218,9 @@ ul.task-list li input[type="checkbox"] {
 <p>Why?… because I can.</p>
 <p><a href="https://github.com/ToledoEM/duckdns_esp32" class="btn" style="margin-top: 1rem;">Github</a> <a href="espduckdns/index.html" class="btn" style="margin-top: 1rem;">Project</a></p>
 </div>
-<p><em>Looking for time and space to make more of these plans a reality</em>.</p>
-</section>
-</section>
-<section id="creative-work" class="level2">
-<h2 class="anchored" data-anchor-id="creative-work">Creative Work</h2>
-<p><a href="image.html">Images</a></p>
-<div class="quarto-layout-panel" data-layout-ncol="3">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/circles_grid_plot_fixed_scale_stroke_075_final_color.png"><img src="www/circles_grid_plot_fixed_scale_stroke_075_final_color.png" class="img-fluid figure-img" style="width:50.0%" alt="points"></a></p>
-<figcaption>color circles</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/linepatters_spiral.png"><img src="www/linepatters_spiral.png" class="img-fluid figure-img" style="width:50.0%" alt="Spirals"></a></p>
-<figcaption>Lines</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/canvas.png"><img src="www/canvas.png" class="img-fluid figure-img" style="width:50.0%" alt="canvas"></a></p>
-<figcaption>first lines</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="www/plotter_flow_field_colors.png"><img src="www/plotter_flow_field_colors.png" class="img-fluid figure-img" style="width:50.0%" alt="Vibrant colored flow patterns"></a></p>
-<figcaption>Colorful flow field composition</figcaption>
-</figure>
-</div>
-</div>
-<div class="video-wrapper quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title="Brownian bridge on a circle with iterative parameters"><source src="www/brownian_steps_resized.mp4"></video></div>
-<p class="video-caption">
-</p><p>Brownian Bridges</p>
-<p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="creative-tools-and-coding-projects" class="level2">
-<h2 class="anchored" data-anchor-id="creative-tools-and-coding-projects">Creative Tools and Coding Projects</h2>
-<section id="field-generation" class="level3">
-<h3 class="anchored" data-anchor-id="field-generation">1. Field Generation</h3>
-<div class="project-card">
-<p><strong>Generative Art Through Flow Fields</strong></p>
-<p>Transform mathematical fields into visual harmony. This tool uses flowing patterns to guide virtual particles across your canvas, creating organic curves and paths that feel both natural and otherworldly. Nothing very original in here but at least was fun and allows the integration of other tools</p>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="www/canvas.png" class="img-fluid figure-img" style="width:100.0%" alt="Monochrome flow field pattern"></p>
-<figcaption>Black &amp; white flow field visualization</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<p><strong>Features:</strong> - Export as SVG for pen plotters and laser cutters - Save as JSON/CSV for further manipulation - Real-time parameter adjustment</p>
-<p><a href="field_generation/index.html" class="btn" style="margin-top: 1rem;">View Project</a> <a href="https://github.com/ToledoEM/field_generation" class="btn" style="margin-top: 1rem;" target="_blank">Github</a></p>
-</div>
-</section>
-<section id="stl-shaper" class="level3">
-<h3 class="anchored" data-anchor-id="stl-shaper">2. STL Shaper</h3>
-<div class="project-card">
-<p><strong>Real-Time 3D Model Deformation</strong></p>
-<p>A playground for 3D experimentation. Apply noise, sine waves, and pixelation effects to STL models in real-time using Three.js.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="www/STLDeformer_1.png" class="img-fluid figure-img" style="width:90.0%" alt="3D model with applied deformation effects"></p>
-<figcaption>Deformed Millennium Falcon model showing creative distortion effects</figcaption>
-</figure>
-</div>
-<p><strong>Capabilities:</strong> - Live deformation preview - Multiple effect layers - Noise and wave transformations - Export modified meshes - Interactive 3D manipulation</p>
-<p><a href="stlshaper/documentation.html" class="btn" style="margin-top: 1rem;">Documentation</a> <a href="stlshaper/index.html" class="btn" style="margin-top: 1rem;">Test Project</a> <a href="https://github.com/ToledoEM/stlshaper" class="btn" style="margin-top: 1rem;" target="_blank">Github</a></p>
-</div>
-</section>
-<section id="parametric-designs-openscad" class="level3">
-<h3 class="anchored" data-anchor-id="parametric-designs-openscad">3. Parametric Designs openSCAD</h3>
-<div class="project-card">
-<ul>
-<li>Collection of designs made with <a href="#0" target="_blank">Open Scad</a> for parametric 3D printing.<br>
-</li>
-</ul>
-<p><img src="www/gridfinity_tray.MP.webp" class="img-fluid quarto-figure quarto-figure-center" alt="gridfinitytray" width="500"> <a href="https://www.thingiverse.com/WouldYouLike/designs" class="btn" style="margin-top: 1rem;" target="_blank">Thingiverse Profile</a></p>
-</div>
-</section>
-<section id="xkcd---ggplot2-theme" class="level3">
-<h3 class="anchored" data-anchor-id="xkcd---ggplot2-theme">4. XKCD - ggplot2 theme</h3>
-<div class="project-card">
-<p><strong>Themes of XKCD for ggplot2</strong><br>
-</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="www/xkcd_penguin.png" class="img-fluid figure-img"></p>
-<figcaption>Penguins Data with XKCD Theme</figcaption>
-</figure>
-</div>
-<p>An R package for creating hand-drawn, XKCD-style plots and graphics using ggplot2. Features custom geoms for jittered lines, segments, circles, and figures with the distinctive XKCD aesthetic.</p>
-<p><a href="xkcd/index.html" class="btn" style="margin-top: 1rem;">Vignette</a> <a href="https://github.com/ToledoEM/xkcd" class="btn" style="margin-top: 1rem;" target="_blank">View on Github</a></p>
-</div>
 </section>
 <section id="ntp-gps-home-bridge" class="level3">
-<h3 class="anchored" data-anchor-id="ntp-gps-home-bridge">5. NTP &amp; GPS Home Bridge</h3>
+<h3 class="anchored" data-anchor-id="ntp-gps-home-bridge">NTP &amp; GPS Home Bridge</h3>
 <div class="project-card">
 <p><strong>NTP and GPS monitoring systems for Home Assistant integration on Raspberry Pi.</strong><br>
 </p>
@@ -341,9 +233,43 @@ ul.task-list li input[type="checkbox"] {
 <p>API for GPS and NTP server. Designed to be feed into Home Assistant</p>
 <p><a href="NTPGPSHomeBridge/index.html" class="btn" style="margin-top: 1rem;">Project</a> <a href="https://github.com/ToledoEM/GPSNTPHomeBridge" class="btn" style="margin-top: 1rem;" target="_blank">View on Github</a></p>
 </div>
+<p><em>Looking for time and space to make more of these plans a reality</em>.</p>
+</section>
+</section>
+<section id="home-assistant-add-ons" class="level2">
+<h2 class="anchored" data-anchor-id="home-assistant-add-ons">Home Assistant add-ons</h2>
+<section id="manyfold" class="level3">
+<h3 class="anchored" data-anchor-id="manyfold">Manyfold</h3>
+<div class="project-card">
+<p><strong>Manyfold on Home Assistant</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="www/manyfold_logo.png" class="img-fluid figure-img" style="width:15.0%"></p>
+<figcaption>Manyfold Logo</figcaption>
+</figure>
+</div>
+<p>A Home Assistant OS add-on that runs <a href="https://manyfold.app/">Manyfold</a>, a self-hosted 3D model manager, with persistent storage and configurable host-backed media paths. No external PostgreSQL or Redis required.</p>
+<p><strong>Features:</strong> - Runs on port 3214 - Persists app data, database, and settings under <code>/config</code> - Configurable library and thumbnails paths on HA host storage - Supports <code>amd64</code> and <code>aarch64</code> - Multiuser mode toggle</p>
+<p><a href="https://github.com/ToledoEM/ManyFoldHA_app" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
+</div>
+</section>
+<section id="bentopdf" class="level3">
+<h3 class="anchored" data-anchor-id="bentopdf">BentoPDF</h3>
+<div class="project-card">
+<p><strong>BentoPDF on Home Assistant</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="www/bentopdf_logo.png" class="img-fluid figure-img" style="width:15.0%"></p>
+<figcaption>BentoPDF Logo</figcaption>
+</figure>
+</div>
+<p>A Home Assistant OS add-on that packages <a href="https://github.com/alam00000/bentopdf">BentoPDF</a> — a privacy-first, client-side PDF toolkit with 50+ tools. All PDF processing happens in the browser; files never leave your device.</p>
+<p><strong>Features:</strong> - 50+ PDF tools: merge, split, compress, convert, OCR, sign, redact - Fully client-side — no data sent to any server - HTTPS on port 8443 (enables LibreOffice WASM for office file conversion) - Supports <code>amd64</code> and <code>aarch64</code></p>
+<p><a href="https://github.com/ToledoEM/BentoPDF_HA_app" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
+</div>
 </section>
 <section id="zigbee-zha-mesh-graph-export" class="level3">
-<h3 class="anchored" data-anchor-id="zigbee-zha-mesh-graph-export">6. Zigbee ZHA Mesh Graph Export</h3>
+<h3 class="anchored" data-anchor-id="zigbee-zha-mesh-graph-export">Zigbee ZHA Mesh Graph Export</h3>
 <div class="project-card">
 <p><strong>Making a graph from a Zigbee mesh network</strong><br>
 </p>
@@ -359,38 +285,75 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://github.com/ToledoEM/zigbee_mesh_network" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
 </div>
 </section>
-<section id="manyfold-home-assistant-add-on" class="level3">
-<h3 class="anchored" data-anchor-id="manyfold-home-assistant-add-on">7. Manyfold Home Assistant Add-on</h3>
+</section>
+<section id="creative-generative-tools" class="level2">
+<h2 class="anchored" data-anchor-id="creative-generative-tools">Creative &amp; generative tools</h2>
+<section id="field-generation" class="level3">
+<h3 class="anchored" data-anchor-id="field-generation">Field Generation</h3>
 <div class="project-card">
-<p><strong>Manyfold on Home Assistant</strong></p>
+<p><strong>Generative Art Through Flow Fields</strong></p>
+<p>Transform mathematical fields into visual harmony. This tool uses flowing patterns to guide virtual particles across your canvas, creating organic curves and paths that feel both natural and otherworldly. Nothing very original in here but at least was fun and allows the integration of other tools</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="www/manyfold_logo.png" class="img-fluid figure-img" style="width:15.0%"></p>
-<figcaption>Manyfold Logo</figcaption>
+<p><img src="www/canvas.webp" class="img-fluid figure-img" style="width:100.0%" alt="Monochrome flow field pattern"></p>
+<figcaption>Black &amp; white flow field visualization</figcaption>
 </figure>
 </div>
-<p>A Home Assistant OS add-on that runs <a href="https://manyfold.app/">Manyfold</a>, a self-hosted 3D model manager, with persistent storage and configurable host-backed media paths. No external PostgreSQL or Redis required.</p>
-<p><strong>Features:</strong> - Runs on port 3214 - Persists app data, database, and settings under <code>/config</code> - Configurable library and thumbnails paths on HA host storage - Supports <code>amd64</code> and <code>aarch64</code> - Multiuser mode toggle</p>
-<p><a href="https://github.com/ToledoEM/ManyFoldHA_app" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
+</div>
+</div>
+</div>
+<p><strong>Features:</strong> - Export as SVG for pen plotters and laser cutters - Save as JSON/CSV for further manipulation - Real-time parameter adjustment</p>
+<p><a href="field_generation/index.html" class="btn" style="margin-top: 1rem;">View Project</a> <a href="https://github.com/ToledoEM/field_generation" class="btn" style="margin-top: 1rem;" target="_blank">Github</a></p>
 </div>
 </section>
-<section id="bentopdf-home-assistant-add-on" class="level3">
-<h3 class="anchored" data-anchor-id="bentopdf-home-assistant-add-on">8. BentoPDF Home Assistant Add-on</h3>
+<section id="stl-shaper" class="level3">
+<h3 class="anchored" data-anchor-id="stl-shaper">STL Shaper</h3>
 <div class="project-card">
-<p><strong>BentoPDF on Home Assistant</strong></p>
+<p><strong>Real-Time 3D Model Deformation</strong></p>
+<p>A playground for 3D experimentation. Apply noise, sine waves, and pixelation effects to STL models in real-time using Three.js.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="www/bentopdf_logo.png" class="img-fluid figure-img" style="width:15.0%"></p>
-<figcaption>BentoPDF Logo</figcaption>
+<p><img src="www/STLDeformer_1.webp" class="img-fluid figure-img" style="width:90.0%" alt="3D model with applied deformation effects"></p>
+<figcaption>Deformed Millennium Falcon model showing creative distortion effects</figcaption>
 </figure>
 </div>
-<p>A Home Assistant OS add-on that packages <a href="https://github.com/alam00000/bentopdf">BentoPDF</a> — a privacy-first, client-side PDF toolkit with 50+ tools. All PDF processing happens in the browser; files never leave your device.</p>
-<p><strong>Features:</strong> - 50+ PDF tools: merge, split, compress, convert, OCR, sign, redact - Fully client-side — no data sent to any server - HTTPS on port 8443 (enables LibreOffice WASM for office file conversion) - Supports <code>amd64</code> and <code>aarch64</code></p>
-<p><a href="https://github.com/ToledoEM/BentoPDF_HA_app" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
+<p><strong>Capabilities:</strong> - Live deformation preview - Multiple effect layers - Noise and wave transformations - Export modified meshes - Interactive 3D manipulation</p>
+<p><a href="stlshaper/documentation.html" class="btn" style="margin-top: 1rem;">Documentation</a> <a href="stlshaper/index.html" class="btn" style="margin-top: 1rem;">Test Project</a> <a href="https://github.com/ToledoEM/stlshaper" class="btn" style="margin-top: 1rem;" target="_blank">Github</a></p>
 </div>
 </section>
+<section id="parametric-designs-openscad" class="level3">
+<h3 class="anchored" data-anchor-id="parametric-designs-openscad">Parametric Designs openSCAD</h3>
+<div class="project-card">
+<ul>
+<li>Collection of designs made with <a href="#0" target="_blank">Open Scad</a> for parametric 3D printing.<br>
+</li>
+</ul>
+<p><img src="www/gridfinity_tray.MP.webp" class="img-fluid quarto-figure quarto-figure-center" alt="gridfinitytray" width="500"> <a href="https://www.thingiverse.com/WouldYouLike/designs" class="btn" style="margin-top: 1rem;" target="_blank">Thingiverse Profile</a></p>
+</div>
+</section>
+<section id="xkcd---ggplot2-theme" class="level3">
+<h3 class="anchored" data-anchor-id="xkcd---ggplot2-theme">XKCD - ggplot2 theme</h3>
+<div class="project-card">
+<p><strong>Themes of XKCD for ggplot2</strong><br>
+</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="www/xkcd_penguin.png" class="img-fluid figure-img"></p>
+<figcaption>Penguins Data with XKCD Theme</figcaption>
+</figure>
+</div>
+<p>An R package for creating hand-drawn, XKCD-style plots and graphics using ggplot2. Features custom geoms for jittered lines, segments, circles, and figures with the distinctive XKCD aesthetic.</p>
+<p><a href="xkcd/index.html" class="btn" style="margin-top: 1rem;">Vignette</a> <a href="https://github.com/ToledoEM/xkcd" class="btn" style="margin-top: 1rem;" target="_blank">View on Github</a></p>
+</div>
+</section>
+</section>
+<section id="utilities-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="utilities-scripts">Utilities &amp; scripts</h2>
 <section id="ollama-chat-history-cleaner" class="level3">
-<h3 class="anchored" data-anchor-id="ollama-chat-history-cleaner">9. Ollama Chat History Cleaner</h3>
+<h3 class="anchored" data-anchor-id="ollama-chat-history-cleaner">Ollama Chat History Cleaner</h3>
 <div class="project-card">
 <p><strong>Clean Ollama Chat History and Logs</strong></p>
 <p>Scripts to clean only the chat history and logs from Ollama GUI and server. Does not remove models, users, or app settings. Solves the gap in Ollama’s native chat history deletion.</p>
@@ -849,7 +812,6 @@ ul.task-list li input[type="checkbox"] {
     </div>
   </div>
 </footer>
-<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 
