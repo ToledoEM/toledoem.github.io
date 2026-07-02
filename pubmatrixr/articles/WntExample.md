@@ -47,65 +47,52 @@ call and uses a synthetic matrix instead, so the page builds without
 depending on NCBI being reachable. Swap in your own gene lists and run
 the live version for real numbers.
 
+### NCBI API Key (Recommended)
+
+For better performance and higher rate limits, we recommend obtaining an
+NCBI API key:
+
+- **Without API key**: 3 requests per second
+- **With API key**: 10 requests per second
+
+To obtain your free NCBI API key, visit:
+<https://support.nlm.nih.gov/kbArticle/?pn=KA-05317>
+
+Once you have your API key, pass it to
+[`PubMatrix()`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)
+like this:
+
+``` r
+
+result <- PubMatrix(
+  A = A,
+  B = B,
+  API.key = "your_api_key_here",
+  Database = "pubmed"
+)
+```
+
+For live rendering, this vignette picks up the key from the
+`NCBI_API_KEY` environment variable instead of hardcoding it, so no key
+is stored in the file:
+
+``` bash
+NCBI_API_KEY=your_api_key_here PUBMATRIX_LIVE_VIGNETTE=true \
+  Rscript -e 'pkgdown::build_site()'
+```
+
 ``` r
 
 current_year <- as.integer(format(Sys.Date(), "%Y"))
 result <- PubMatrix(
   A = A,
   B = B,
+  API.key = ncbi_api_key,
   Database = "pubmed",
   daterange = c(1990, current_year),
   outfile = "pubmatrix_result"
 )
 ```
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT3%20AND%20FZD3&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT3A%20AND%20FZD3&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT5A%20AND%20LRP6&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT5B%20AND%20FZD8&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT7A%20AND%20FZD3&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT7B%20AND%20FZD2&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT7B%20AND%20RYK&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT8A%20AND%20LRP6&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT8A%20AND%20RYK&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT8B%20AND%20FZD4&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT10A%20AND%20FZD1&usehistory=y':
-    ## The requested URL returned error: 429
-
-    ## Warning: Failed to open
-    ## 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&datetype=pdat&mindate=1990&maxdate=2026&term=WNT10A%20AND%20FZD6&usehistory=y':
-    ## The requested URL returned error: 429
 
 ``` r
 
