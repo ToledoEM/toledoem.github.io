@@ -51,6 +51,8 @@
         typeof opts.shouldAbort === "function" ? opts.shouldAbort : () => false;
       const onPathComplete =
         typeof opts.onPathComplete === "function" ? opts.onPathComplete : null;
+      const perStepPerturbations = Array.isArray(opts.perStepPerturbations)
+        ? opts.perStepPerturbations : [];
 
       if (endIdx <= startIdx) return [];
 
@@ -83,15 +85,19 @@
             const fy = fieldData[baseIndex + 1];
             if (!Number.isFinite(fx) || !Number.isFinite(fy)) break;
 
-            const length = Math.hypot(fx, fy);
+            let sfx = fx, sfy = fy;
+            for (const ps of perStepPerturbations) {
+              if (typeof ps.applyStep === "function") {
+                const r = ps.applyStep(currentX, currentY, sfx, sfy, width, height, ps.cfg || {});
+                sfx = r.fx; sfy = r.fy;
+              }
+            }
+
+            const length = Math.hypot(sfx, sfy);
             if (length === 0) break;
 
-            currentX += (fx / length) * stepSize;
-            currentY += (fy / length) * stepSize;
-
-            coords[pointCount * 2] = currentX;
-            coords[pointCount * 2 + 1] = currentY;
-            pointCount++;
+            currentX += (sfx / length) * stepSize;
+            currentY += (sfy / length) * stepSize;
 
             if (
               currentX < 0 ||
@@ -101,6 +107,10 @@
             ) {
               break;
             }
+
+            coords[pointCount * 2] = currentX;
+            coords[pointCount * 2 + 1] = currentY;
+            pointCount++;
           }
         }
 

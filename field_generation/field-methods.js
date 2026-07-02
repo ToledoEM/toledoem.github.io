@@ -134,9 +134,10 @@ function buildFieldMethods() {
         const n2 = noise(xoff, yoff - e);
         const n3 = noise(xoff + e, yoff);
         const n4 = noise(xoff - e, yoff);
-        const dx = (n1 - n2) / (2 * e);
-        const dy = (n3 - n4) / (2 * e);
-        let v = createVector(-dy, dx);
+        // dFdy = ∂f/∂y, dFdx = ∂f/∂x; curl = (-∂f/∂y, ∂f/∂x)
+        const dFdy = (n1 - n2) / (2 * e);
+        const dFdx = (n3 - n4) / (2 * e);
+        let v = createVector(-dFdy, dFdx);
         v.normalize().mult(METHOD_PARAMS.curlLike.strength);
         return v;
       },

@@ -6,8 +6,8 @@ const vm = require("vm");
 
 const ROOT = path.resolve(__dirname, "..");
 
-const traceCore = require(path.join(ROOT, "path-trace-core.js"));
-const exportUtils = require(path.join(ROOT, "export-utils.js"));
+const traceCore = require(path.join(ROOT, "libraries", "path-trace-core.js"));
+const exportUtils = require(path.join(ROOT, "libraries", "export-utils.js"));
 
 function runTest(name, fn) {
   try {
@@ -96,7 +96,7 @@ function loadFieldMethods() {
     window: {},
   };
   vm.createContext(context);
-  const source = fs.readFileSync(path.join(ROOT, "field-methods.js"), "utf8");
+  const source = fs.readFileSync(path.join(ROOT, "libraries", "field-methods.js"), "utf8");
   vm.runInContext(source, context, { filename: "field-methods.js" });
   const build =
     typeof context.buildFieldMethods === "function"
@@ -146,14 +146,14 @@ function emulateWorker(payload) {
     for (const script of scripts) {
       const absolutePath = path.isAbsolute(script)
         ? script
-        : path.join(ROOT, script);
+        : path.join(ROOT, "libraries", script);
       const source = fs.readFileSync(absolutePath, "utf8");
       vm.runInContext(source, context, { filename: script });
     }
   };
 
   vm.createContext(context);
-  const workerSource = fs.readFileSync(path.join(ROOT, "path-worker.js"), "utf8");
+  const workerSource = fs.readFileSync(path.join(ROOT, "libraries", "path-worker.js"), "utf8");
   vm.runInContext(workerSource, context, { filename: "path-worker.js" });
   assert.strictEqual(typeof context.onmessage, "function", "worker handler missing");
   context.onmessage({ data: payload });
@@ -165,6 +165,7 @@ runTest("Method availability matches expected registry", () => {
   const methods = loadFieldMethods();
   const keys = Object.keys(methods).sort();
   const expected = [
+    "circuitTrace",
     "curlLike",
     "lineIntegralConvolution",
     "perlin",

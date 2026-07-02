@@ -11,6 +11,9 @@ let RESOLUTION = 30;
 let NUM_PATHS = 500;
 let STEP_SIZE = 4;
 let STROKE_WEIGHT = 0.5;
+let OFFSET_X = 0.0;            // fraction of canvas width,  -1..1
+let OFFSET_Y = 0.0;            // fraction of canvas height, -1..1
+let FIELD_SCALE_FACTOR = 1.0;  // zoom multiplier applied at render time
 let CURRENT_SEED = null;
 let ACTUAL_SEED = null;
 let FIELD_METHOD = "quantizedPerlin";
@@ -48,21 +51,26 @@ let CURRENT_STEP = 1;
 
 let COLOR_PARAMS = {
   enabled: false,
-  method: "hslGradient",
-  background: "white",   // "white" | "black"
-  assignMode: "perPath",
+  background: "#ffffff",  // hex color string
   alpha: 1.0,
-  sortMode: "none",
-  palette: [],
+  paletteId: "",
+  method: "index",      // "random"|"fieldAngle"|"fieldMagnitude"|"perlinNoise"|"pathLength"|"index"
+  scale: 1.0,           // stretches t across the palette (0.1–3.0)
+  offset: 0.0,          // shifts t cyclically (0–1)
+  coverage: 1.0,        // fraction of lines that receive color (random method)
+  fixedColor: "",       // hex — overrides palette for all lines when non-empty
+  perPoint: false,      // when true, color is assigned per-point rather than per-path
 };
 
 let PERTURBATION_PARAMS = {
   enabled: false,
   activeTypes: [],
   configs: {
-    radialImpulse: { strength: 1.5, radius: 0.25, cx: 0.5, cy: 0.5 },
-    gravityWell:   { strength: 1.0, cx: 0.5, cy: 0.5, minDist: 0.01 },
-    rollingBall:   { radius: 0.15, springK: 0.4, cx: 0.5, cy: 0.5 },
+    radialImpulse:      { strength: 1.5, radius: 0.25, cx: 0.5, cy: 0.5 },
+    gravityWell:        { strength: 1.0, cx: 0.5, cy: 0.5, minDist: 0.01 },
+    rollingBall:        { radius: 0.15, springK: 0.4, cx: 0.5, cy: 0.5 },
+    freezeZone:         { cx: 0.5, cy: 0.5, radius: 0.2, angle: 0, edgeWidth: 0.1 },
+    obstacleDeflection: { cx: 0.5, cy: 0.5, radius: 0.15, strength: 1.0 },
   }
 };
 
@@ -79,13 +87,25 @@ let pathSeedBase = 0;
 
 // New: Aspect Ratio Definitions
 const ASPECT_RATIOS = [
-  { name: "Square (1:1)", w: 800, h: 800, value: "1:1" },
-  { name: "HD 16:9 Landscape", w: 960, h: 540, value: "16:9L" },
-  { name: "HD 16:9 Portrait", w: 540, h: 960, value: "16:9P" },
-  { name: "4:3 Landscape", w: 800, h: 600, value: "4:3L" },
-  { name: "4:3 Portrait", w: 600, h: 800, value: "4:3P" },
-  { name: "A4/Letter Portrait (~1:1.41)", w: 600, h: 848, value: "A4P" },
+  { name: "Square (1:1)",        rw: 1,    rh: 1,    value: "1:1"  },
+  { name: "ISO Landscape (√2:1)", rw: 1.4142, rh: 1, value: "ISOL" },
+  { name: "ISO Portrait (1:√2)", rw: 1,    rh: 1.4142, value: "ISOP" },
 ];
+
+function computeCanvasSize(rw, rh) {
+  const leftPanel  = document.querySelector(".controls-panel");
+  const rightPanel = document.getElementById("methodPanel");
+  const leftW  = leftPanel  ? (leftPanel.offsetWidth  + 20) : 320;
+  const rightW = (rightPanel && rightPanel.offsetWidth > 0) ? (rightPanel.offsetWidth + 20) : 0;
+  const pad = 40;
+  const availW = Math.max(100, window.innerWidth  - leftW - rightW - pad);
+  const availH = Math.max(100, window.innerHeight - pad);
+  const scale  = Math.min(availW / rw, availH / rh);
+  return {
+    w: Math.max(1, Math.floor(rw * scale)),
+    h: Math.max(1, Math.floor(rh * scale)),
+  };
+}
 
 // Registry of field generation strategies (defined in field-methods.js)
 const FIELD_METHODS = buildFieldMethods();
@@ -188,7 +208,7 @@ function simulateReactionDiffusion(cols, rows, params, seed) {
     }
   }
 
-  const dt = 1.0;
+  const dt = 0.5;
   const totalIterations = Math.max(1, Math.floor(iterations));
   for (let iter = 0; iter < totalIterations; iter++) {
     for (let y = 0; y < rows; y++) {
@@ -490,9 +510,9 @@ function ensureLineIntegralConvolutionData(cols, rows, params) {
 }
 
 function setup() {
-  const defaultRatio =
-    ASPECT_RATIOS.find((r) => r.w === 800 && r.h === 800) || ASPECT_RATIOS[0];
-  let canvas = createCanvas(defaultRatio.w, defaultRatio.h);
+  const defaultRatio = ASPECT_RATIOS[0];
+  const { w, h } = computeCanvasSize(defaultRatio.rw, defaultRatio.rh);
+  let canvas = createCanvas(w, h);
   canvas.parent("canvasContainer");
   columns = floor(width / STEP_SIZE);
   rows = floor(height / STEP_SIZE);
@@ -502,12 +522,26 @@ function setup() {
     setupSliders();
     setupAspectRatioControl();
     setupGlobalListeners();
-    buildColorUI(document.getElementById("controls"));
-    buildPerturbationUI(document.getElementById("controls"));
+    buildColorUI(document.getElementById("colorUIContainer"));
+    buildPerturbationUI(document.getElementById("perturbUIContainer"));
     showProgressBar(false);
     regenerateSourcesForCurrent();
     regenerate();
   }, 100);
+}
+
+let _resizeTimer = null;
+function windowResized() {
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => {
+    const select = document.getElementById("aspectRatioSelect");
+    const valueDisplay = document.getElementById("aspectRatioValue");
+    const selectedValue = select ? select.value : ASPECT_RATIOS[0].value;
+    const ratio = ASPECT_RATIOS.find((r) => r.value === selectedValue) || ASPECT_RATIOS[0];
+    const { w, h } = computeCanvasSize(ratio.rw, ratio.rh);
+    if (valueDisplay) valueDisplay.textContent = `${w}x${h}`;
+    resizeCanvasAndRegenerate(w, h);
+  }, 150);
 }
 
 // NEW: Progress Bar and Cancellation Handlers
@@ -620,11 +654,11 @@ function setupAspectRatioControl() {
   }
 
   // Populate the dropdown
-  ASPECT_RATIOS.forEach((ratio) => {
+  ASPECT_RATIOS.forEach((ratio, i) => {
     const opt = document.createElement("option");
     opt.value = ratio.value;
     opt.textContent = ratio.name;
-    if (ratio.w === width && ratio.h === height) opt.selected = true; // Default to current size
+    if (i === 0) opt.selected = true;
     select.appendChild(opt);
   });
 
@@ -635,32 +669,14 @@ function setupAspectRatioControl() {
   select.addEventListener("change", (e) => {
     const selectedValue = e.target.value;
     const ratio = ASPECT_RATIOS.find((r) => r.value === selectedValue);
-
     if (ratio) {
-      // Update display
-      if (valueDisplay) valueDisplay.textContent = `${ratio.w}x${ratio.h}`;
-
-      // Resize and regenerate
-      resizeCanvasAndRegenerate(ratio.w, ratio.h);
+      const { w, h } = computeCanvasSize(ratio.rw, ratio.rh);
+      if (valueDisplay) valueDisplay.textContent = `${w}x${h}`;
+      resizeCanvasAndRegenerate(w, h);
     }
   });
 }
 
-// --- UI Functions (kept the same) ---
-
-function toggleSidebar() {
-  const sidebar = document.getElementById("sidebar");
-  const toggleBtn = document.getElementById("toggleBtn");
-
-  sidebar.classList.toggle("hidden");
-  toggleBtn.classList.toggle("hidden");
-
-  if (sidebar.classList.contains("hidden")) {
-    toggleBtn.innerHTML = "▶";
-  } else {
-    toggleBtn.innerHTML = "◀";
-  }
-}
 
 function setupSliders() {
   const fieldScale = document.getElementById("fieldScale");
@@ -735,6 +751,36 @@ function setupSliders() {
       STROKE_WEIGHT.toFixed(1);
     maybeAutoRegenerate();
   });
+
+  // Scale factor
+  const scaleFactorEl = document.getElementById("fieldScaleFactor");
+  if (scaleFactorEl) {
+    scaleFactorEl.addEventListener("input", (e) => {
+      FIELD_SCALE_FACTOR = parseFloat(e.target.value);
+      document.getElementById("fieldScaleFactorValue").textContent = FIELD_SCALE_FACTOR.toFixed(2);
+      renderPaths(paths);
+    });
+  }
+
+  // Offset X
+  const offsetXEl = document.getElementById("offsetX");
+  if (offsetXEl) {
+    offsetXEl.addEventListener("input", (e) => {
+      OFFSET_X = parseFloat(e.target.value);
+      document.getElementById("offsetXValue").textContent = OFFSET_X.toFixed(2);
+      renderPaths(paths);
+    });
+  }
+
+  // Offset Y
+  const offsetYEl = document.getElementById("offsetY");
+  if (offsetYEl) {
+    offsetYEl.addEventListener("input", (e) => {
+      OFFSET_Y = parseFloat(e.target.value);
+      document.getElementById("offsetYValue").textContent = OFFSET_Y.toFixed(2);
+      renderPaths(paths);
+    });
+  }
 
   // Seed Input
   const seedInput = document.getElementById("seedInput");
@@ -868,10 +914,11 @@ function buildParamsUI() {
     const btn = document.createElement("button");
     btn.textContent = "Randomize Sources";
     btn.style.padding = "8px 10px";
-    btn.style.background = "var(--accent-color)";
+    btn.className = "action";
+    btn.style.background = "#6B9BB0";
     btn.style.color = "#fff";
     btn.style.border = "none";
-    btn.style.borderRadius = "4px";
+    btn.style.borderRadius = "6px";
     btn.style.cursor = "pointer";
     btn.style.fontSize = "12px";
     btn.addEventListener("click", () => {
@@ -1012,21 +1059,65 @@ function applyColorPalette(processedPaths) {
   if (!COLOR_PARAMS.enabled || !Array.isArray(processedPaths) || !processedPaths.length) {
     return [];
   }
+
+  // Fixed color shortcut — all paths get the same hex
+  if (COLOR_PARAMS.fixedColor) {
+    return processedPaths.map(() => COLOR_PARAMS.fixedColor);
+  }
+
   const methods = typeof COLOR_METHODS !== "undefined" ? COLOR_METHODS : null;
   const method = methods && methods[COLOR_PARAMS.method];
   if (!method || typeof method.assignPath !== "function") return [];
 
-  const colors = [];
   const count = processedPaths.length;
+  const params = { ...COLOR_PARAMS, seed: ACTUAL_SEED ?? 0 };
+
+  // Pre-compute normalization stats for magnitude and length methods
+  let maxMag = 0;
+  let maxPathLen = 0;
+  for (let i = 0; i < count; i++) {
+    const path = processedPaths[i];
+    if (path.length > maxPathLen) maxPathLen = path.length;
+  }
+
+  const usePerPoint = COLOR_PARAMS.perPoint && typeof method.assignPoint === "function";
+  const colors = [];
+
   for (let i = 0; i < count; i++) {
     const path = processedPaths[i];
     const startX = path[0] ? path[0].x : 0;
     const startY = path[0] ? path[0].y : 0;
-    colors.push(method.assignPath(i, count, {
+    const baseCtx = {
       startX, startY,
+      pathIndex: i,
+      pathCount: count,
+      pathLength: path.length,
+      maxPathLen,
+      maxMag,
+      canvasW: width,
+      canvasH: height,
       field, columns, rows, STEP_SIZE,
-      params: COLOR_PARAMS,
-    }));
+      params,
+    };
+
+    if (usePerPoint) {
+      const pointColors = [];
+      for (let j = 0; j < path.length; j++) {
+        const pt = path[j];
+        const c = method.assignPoint({
+          ...baseCtx,
+          x: pt ? pt.x : startX,
+          y: pt ? pt.y : startY,
+          pointIndex: j,
+          pointT: path.length > 1 ? j / (path.length - 1) : 0,
+        });
+        pointColors.push(c || null);
+      }
+      colors.push(pointColors);
+    } else {
+      const result = method.assignPath(baseCtx);
+      colors.push(result || null);
+    }
   }
   return colors;
 }
@@ -1040,111 +1131,169 @@ function buildColorUI(container) {
 
   const title = document.createElement("div");
   title.textContent = "Color Settings";
-  title.style.fontSize = "12px";
-  title.style.fontWeight = "700";
-  title.style.marginBottom = "8px";
+  title.style.cssText = "font-size:12px;font-weight:700;margin-bottom:8px;";
   section.appendChild(title);
 
-  // Enabled toggle
+  function row(label) {
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "display:flex;align-items:center;gap:8px;margin-bottom:6px;";
+    const lbl = document.createElement("label");
+    lbl.textContent = label;
+    lbl.style.cssText = "font-size:11px;font-weight:600;min-width:72px;";
+    wrap.appendChild(lbl);
+    return { wrap, lbl };
+  }
+
+  function sliderRow(label, min, max, step, value, onInput) {
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "display:flex;flex-direction:column;gap:3px;margin-bottom:6px;";
+    const head = document.createElement("div");
+    head.style.cssText = "display:flex;justify-content:space-between;font-size:11px;font-weight:600;";
+    const lbl = document.createElement("span"); lbl.textContent = label;
+    const val = document.createElement("span"); val.textContent = value.toFixed(2);
+    head.appendChild(lbl); head.appendChild(val);
+    const input = document.createElement("input");
+    input.type = "range"; input.min = min; input.max = max; input.step = step; input.value = value;
+    input.addEventListener("input", () => { val.textContent = parseFloat(input.value).toFixed(2); onInput(parseFloat(input.value)); });
+    wrap.appendChild(head); wrap.appendChild(input);
+    return { wrap, input, val };
+  }
+
+  // ── Enable toggle ──────────────────────────────────────────────────────────
   const enableWrap = document.createElement("div");
   enableWrap.style.cssText = "display:flex;align-items:center;gap:8px;margin-bottom:8px;";
-  const enableCb = document.createElement("input");
-  enableCb.type = "checkbox";
+  const enableCb = document.createElement("input"); enableCb.type = "checkbox";
   enableCb.checked = COLOR_PARAMS.enabled;
-  enableCb.addEventListener("change", () => {
-    COLOR_PARAMS.enabled = enableCb.checked;
-    regenerate();
-  });
+  enableCb.addEventListener("change", () => { COLOR_PARAMS.enabled = enableCb.checked; applyColor(); });
   const enableLbl = document.createElement("label");
   enableLbl.textContent = "Enable Color";
   enableLbl.style.cssText = "font-size:11px;font-weight:600;";
-  enableWrap.appendChild(enableCb);
-  enableWrap.appendChild(enableLbl);
+  enableWrap.appendChild(enableCb); enableWrap.appendChild(enableLbl);
   section.appendChild(enableWrap);
 
-  // Method selector
-  const methodWrap = document.createElement("div");
-  methodWrap.style.cssText = "display:flex;align-items:center;gap:8px;margin-bottom:6px;";
-  const methodLbl = document.createElement("label");
-  methodLbl.textContent = "Method";
-  methodLbl.style.cssText = "font-size:11px;font-weight:600;min-width:60px;";
-  const methodSel = document.createElement("select");
-  methodSel.style.cssText = "font-size:11px;flex:1;";
-  const methodNames = typeof COLOR_METHODS !== "undefined"
-    ? Object.keys(COLOR_METHODS)
-    : ["hslGradient", "solidPalette", "fieldAngle"];
-  methodNames.forEach(key => {
-    const opt = document.createElement("option");
-    opt.value = key;
-    opt.textContent = (typeof COLOR_METHODS !== "undefined" && COLOR_METHODS[key])
-      ? COLOR_METHODS[key].name
-      : key;
+  // ── Background ─────────────────────────────────────────────────────────────
+  const bgR = row("Background");
+  const bgPicker = document.createElement("input"); bgPicker.type = "color";
+  bgPicker.value = COLOR_PARAMS.background;
+  bgPicker.style.cssText = "width:48px;height:28px;border:none;background:none;cursor:pointer;padding:0;";
+  bgPicker.addEventListener("input", () => { COLOR_PARAMS.background = bgPicker.value; applyColor(); });
+  bgR.wrap.appendChild(bgPicker); section.appendChild(bgR.wrap);
+
+  // ── Palette ────────────────────────────────────────────────────────────────
+  const palWrap = document.createElement("div");
+  palWrap.style.cssText = "display:flex;flex-direction:column;gap:3px;margin-bottom:6px;";
+  const palLbl = document.createElement("label"); palLbl.textContent = "Palette";
+  palLbl.style.cssText = "font-size:11px;font-weight:600;";
+  const palSel = document.createElement("select"); palSel.style.cssText = "font-size:11px;width:100%;";
+  palWrap.appendChild(palLbl); palWrap.appendChild(palSel); section.appendChild(palWrap);
+
+  function populatePaletteSelect() {
+    const all = typeof FIELD_PALETTES !== "undefined" ? FIELD_PALETTES.get() : [];
+    palSel.innerHTML = "";
+    const none = document.createElement("option"); none.value = ""; none.textContent = "— select palette —";
+    palSel.appendChild(none);
+    all.forEach(p => {
+      const opt = document.createElement("option"); opt.value = p.id; opt.textContent = p.name;
+      if (p.id === COLOR_PARAMS.paletteId) opt.selected = true;
+      palSel.appendChild(opt);
+    });
+  }
+  populatePaletteSelect();
+  if (typeof FIELD_PALETTES !== "undefined") FIELD_PALETTES.load().then(() => populatePaletteSelect());
+  palSel.addEventListener("change", () => { COLOR_PARAMS.paletteId = palSel.value; applyColor(); });
+
+  // ── Mapping method ─────────────────────────────────────────────────────────
+  const methR = row("Mapping");
+  const methSel = document.createElement("select"); methSel.style.cssText = "font-size:11px;flex:1;";
+  const methodDefs = typeof COLOR_METHODS !== "undefined" ? COLOR_METHODS : {};
+  Object.entries(methodDefs).forEach(([key, m]) => {
+    const opt = document.createElement("option"); opt.value = key; opt.textContent = m.name;
     if (key === COLOR_PARAMS.method) opt.selected = true;
-    methodSel.appendChild(opt);
+    methSel.appendChild(opt);
   });
-  methodSel.addEventListener("change", () => {
-    COLOR_PARAMS.method = methodSel.value;
-    maybeAutoRegenerate();
+  methSel.addEventListener("change", () => {
+    COLOR_PARAMS.method = methSel.value;
+    coverageWrap.style.display = COLOR_PARAMS.method === "random" ? "" : "none";
+    applyColor();
   });
-  methodWrap.appendChild(methodLbl);
-  methodWrap.appendChild(methodSel);
-  section.appendChild(methodWrap);
+  methR.wrap.appendChild(methSel); section.appendChild(methR.wrap);
 
-  // Background
-  const bgWrap = document.createElement("div");
-  bgWrap.style.cssText = "display:flex;align-items:center;gap:8px;margin-bottom:6px;";
-  const bgLbl = document.createElement("label");
-  bgLbl.textContent = "Background";
-  bgLbl.style.cssText = "font-size:11px;font-weight:600;min-width:60px;";
-  const bgSel = document.createElement("select");
-  bgSel.style.cssText = "font-size:11px;flex:1;";
-  ["white", "black"].forEach(v => {
-    const opt = document.createElement("option");
-    opt.value = v; opt.textContent = v.charAt(0).toUpperCase() + v.slice(1);
-    if (v === COLOR_PARAMS.background) opt.selected = true;
-    bgSel.appendChild(opt);
-  });
-  bgSel.addEventListener("change", () => {
-    COLOR_PARAMS.background = bgSel.value;
-    maybeAutoRegenerate();
-  });
-  bgWrap.appendChild(bgLbl);
-  bgWrap.appendChild(bgSel);
-  section.appendChild(bgWrap);
+  // ── Per-point toggle ───────────────────────────────────────────────────────
+  const ppWrap = document.createElement("div");
+  ppWrap.style.cssText = "display:flex;align-items:center;gap:8px;margin-bottom:6px;";
+  const ppCb = document.createElement("input"); ppCb.type = "checkbox";
+  ppCb.checked = COLOR_PARAMS.perPoint;
+  ppCb.addEventListener("change", () => { COLOR_PARAMS.perPoint = ppCb.checked; applyColor(); });
+  const ppLbl = document.createElement("label");
+  ppLbl.textContent = "Per-point color";
+  ppLbl.style.cssText = "font-size:11px;font-weight:600;";
+  ppWrap.appendChild(ppCb); ppWrap.appendChild(ppLbl);
+  section.appendChild(ppWrap);
 
-  // Alpha slider
-  const alphaWrap = document.createElement("div");
-  alphaWrap.style.cssText = "display:flex;flex-direction:column;gap:4px;margin-bottom:4px;";
-  const alphaLbl = document.createElement("label");
-  alphaLbl.style.cssText = "display:flex;justify-content:space-between;font-size:11px;font-weight:600;";
-  alphaLbl.textContent = "Alpha";
-  const alphaSpan = document.createElement("span");
-  alphaSpan.style.cssText = "font-size:11px;margin-left:6px;";
-  alphaSpan.textContent = COLOR_PARAMS.alpha.toFixed(2);
-  alphaLbl.appendChild(alphaSpan);
-  const alphaInput = document.createElement("input");
-  alphaInput.type = "range"; alphaInput.min = 0.05; alphaInput.max = 1; alphaInput.step = 0.05;
-  alphaInput.value = COLOR_PARAMS.alpha;
-  alphaInput.addEventListener("input", () => {
-    COLOR_PARAMS.alpha = parseFloat(alphaInput.value);
-    alphaSpan.textContent = COLOR_PARAMS.alpha.toFixed(2);
-    maybeAutoRegenerate();
+  // ── Scale ──────────────────────────────────────────────────────────────────
+  const scaleS = sliderRow("Scale", 0.1, 3.0, 0.05, COLOR_PARAMS.scale, v => {
+    COLOR_PARAMS.scale = v; applyColor();
   });
-  alphaWrap.appendChild(alphaLbl);
-  alphaWrap.appendChild(alphaInput);
-  section.appendChild(alphaWrap);
+  section.appendChild(scaleS.wrap);
 
-  // Apply Color button
-  const applyBtn = document.createElement("button");
-  applyBtn.textContent = "Apply Color";
-  applyBtn.style.cssText = "margin-top:10px;width:100%;padding:9px;background:var(--accent-color);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;";
-  applyBtn.addEventListener("click", applyColor);
-  section.appendChild(applyBtn);
+  // ── Offset ─────────────────────────────────────────────────────────────────
+  const offsetS = sliderRow("Offset", 0.0, 1.0, 0.01, COLOR_PARAMS.offset, v => {
+    COLOR_PARAMS.offset = v; applyColor();
+  });
+  section.appendChild(offsetS.wrap);
+
+  // ── Coverage (random method only) ──────────────────────────────────────────
+  const coverageWrap = document.createElement("div");
+  const coverageS = sliderRow("Coverage", 0.0, 1.0, 0.01, COLOR_PARAMS.coverage, v => {
+    COLOR_PARAMS.coverage = v; applyColor();
+  });
+  coverageWrap.appendChild(coverageS.wrap);
+  coverageWrap.style.display = COLOR_PARAMS.method === "random" ? "" : "none";
+  section.appendChild(coverageWrap);
+
+  // ── Alpha ──────────────────────────────────────────────────────────────────
+  const alphaS = sliderRow("Alpha", 0.05, 1.0, 0.05, COLOR_PARAMS.alpha, v => {
+    COLOR_PARAMS.alpha = v; applyColor();
+  });
+  section.appendChild(alphaS.wrap);
+
+  // ── Fixed color ────────────────────────────────────────────────────────────
+  const fixR = row("Fixed");
+  const fixPicker = document.createElement("input"); fixPicker.type = "color";
+  fixPicker.style.cssText = "width:36px;height:24px;padding:0;border:none;cursor:pointer;";
+  fixPicker.value = COLOR_PARAMS.fixedColor || "#000000";
+  const fixCheck = document.createElement("input"); fixCheck.type = "checkbox";
+  fixCheck.checked = !!COLOR_PARAMS.fixedColor;
+  fixCheck.title = "Override all lines with a single color";
+  fixPicker.style.display = fixCheck.checked ? "" : "none";
+  fixCheck.addEventListener("change", () => {
+    COLOR_PARAMS.fixedColor = fixCheck.checked ? fixPicker.value : "";
+    fixPicker.style.display = fixCheck.checked ? "" : "none";
+    applyColor();
+  });
+  fixPicker.addEventListener("input", () => {
+    if (fixCheck.checked) { COLOR_PARAMS.fixedColor = fixPicker.value; applyColor(); }
+  });
+  fixR.wrap.appendChild(fixCheck); fixR.wrap.appendChild(fixPicker);
+  section.appendChild(fixR.wrap);
 
   container.appendChild(section);
 }
 
 // ─── Perturbation pass ────────────────────────────────────────────────────────
+
+function buildPerStepPerturbations() {
+  if (!PERTURBATION_PARAMS.enabled || !PERTURBATION_PARAMS.activeTypes.length) return [];
+  const methods = typeof PERTURBATION_METHODS !== "undefined" ? PERTURBATION_METHODS : null;
+  if (!methods) return [];
+  const result = [];
+  for (const type of PERTURBATION_PARAMS.activeTypes) {
+    const m = methods[type];
+    if (!m || m.timing !== "perStep" || typeof m.applyStep !== "function") continue;
+    result.push({ applyStep: m.applyStep, cfg: PERTURBATION_PARAMS.configs[type] || {} });
+  }
+  return result;
+}
 
 function applyFieldPerturbations(typedField, cols, rows) {
   if (!PERTURBATION_PARAMS.enabled || !PERTURBATION_PARAMS.activeTypes.length) return;
@@ -1232,7 +1381,7 @@ function buildPerturbationUI(container) {
       const inp = document.createElement("input");
       inp.type = "range";
       // Determine sensible range from key name
-      const ranges = { strength:[0.1,5,0.1], radius:[0.02,0.8,0.01], cx:[0,1,0.01], cy:[0,1,0.01], minDist:[0.001,0.1,0.001], springK:[0.1,1,0.05] };
+      const ranges = { strength:[0.1,5,0.1], radius:[0.02,0.8,0.01], cx:[0,1,0.01], cy:[0,1,0.01], minDist:[0.001,0.1,0.001], springK:[0.1,1,0.05], angle:[0,6.28,0.05], edgeWidth:[0,0.5,0.01] };
       const [rMin, rMax, rStep] = ranges[pKey] || [0, 2, 0.05];
       inp.min = rMin; inp.max = rMax; inp.step = rStep;
       inp.value = pVal;
@@ -1252,7 +1401,8 @@ function buildPerturbationUI(container) {
   // Apply Perturbations button
   const applyPBtn = document.createElement("button");
   applyPBtn.textContent = "Apply Perturbations";
-  applyPBtn.style.cssText = "margin-top:10px;width:100%;padding:9px;background:var(--accent-color);color:#fff;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;";
+  applyPBtn.className = "action";
+  applyPBtn.style.cssText = "margin-top:10px;width:100%;";
   applyPBtn.addEventListener("click", regenerate);
   section.appendChild(applyPBtn);
 
@@ -1329,6 +1479,22 @@ function setupGlobalListeners() {
     if ((e.key === "r" || e.key === "R") && !e.ctrlKey && !e.metaKey && !e.altKey) {
       e.preventDefault();
       regenerate();
+    }
+
+    // A / S — step through palettes
+    if ((e.key === "a" || e.key === "A" || e.key === "s" || e.key === "S") && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      const palettes = typeof FIELD_PALETTES !== "undefined" ? FIELD_PALETTES.get() : [];
+      if (!palettes.length) return;
+      const ids = palettes.map(p => p.id);
+      const cur = ids.indexOf(COLOR_PARAMS.paletteId);
+      const dir = (e.key === "a" || e.key === "A") ? -1 : 1;
+      const next = (cur + dir + ids.length) % ids.length;
+      COLOR_PARAMS.paletteId = ids[next];
+      // Sync the palette select element if it exists
+      const palSel = document.querySelector("#colorUIContainer select");
+      if (palSel) palSel.value = COLOR_PARAMS.paletteId;
+      e.preventDefault();
+      applyColor();
     }
   });
   const autoBox = document.getElementById("autoRegenerate");
@@ -1412,6 +1578,18 @@ function dispatchWorkers(fieldBuffer, generationToken) {
     worker.onmessage = (event) => handleWorkerMessage(event, generationToken);
     worker.onerror = (err) => handleWorkerError(err, generationToken);
 
+    // Serialize per-step perturbation configs for the worker (functions can't cross threads)
+    const perStepConfigs = [];
+    if (PERTURBATION_PARAMS.enabled) {
+      const methods = typeof PERTURBATION_METHODS !== "undefined" ? PERTURBATION_METHODS : null;
+      for (const type of PERTURBATION_PARAMS.activeTypes) {
+        const m = methods && methods[type];
+        if (m && m.timing === "perStep") {
+          perStepConfigs.push({ type, cfg: PERTURBATION_PARAMS.configs[type] || {} });
+        }
+      }
+    }
+
     const payload = {
       token: generationToken,
       startIdx,
@@ -1425,6 +1603,7 @@ function dispatchWorkers(fieldBuffer, generationToken) {
         rows,
         seed: pathSeedBase >>> 0,
         offset: startIdx,
+        perStepConfigs,
       },
     };
 
@@ -1544,8 +1723,7 @@ function convertBufferToPath(buffer) {
 }
 
 function renderPaths(pathCollection) {
-  const bgVal = (COLOR_PARAMS.enabled && COLOR_PARAMS.background === "black") ? 0 : 255;
-  background(bgVal);
+  background(COLOR_PARAMS.background);
   noFill();
 
   if (!Array.isArray(pathCollection) || pathCollection.length === 0) return;
@@ -1553,19 +1731,45 @@ function renderPaths(pathCollection) {
   const useAlpha = COLOR_PARAMS.enabled && COLOR_PARAMS.alpha < 1.0;
   if (useAlpha) drawingContext.globalAlpha = COLOR_PARAMS.alpha;
 
+  drawingContext.imageSmoothingEnabled = false;
+
+  // Scale around canvas centre, then apply offset
+  if (FIELD_SCALE_FACTOR !== 1.0 || OFFSET_X !== 0 || OFFSET_Y !== 0) {
+    translate(width / 2 + OFFSET_X * width, height / 2 + OFFSET_Y * height);
+    scale(FIELD_SCALE_FACTOR);
+    translate(-width / 2, -height / 2);
+  }
+
+  const defaultStroke = COLOR_PARAMS.enabled ? COLOR_PARAMS.background : (COLOR_PARAMS.background === "black" ? "#ffffff" : "#000000");
+
   for (let i = 0; i < pathCollection.length; i++) {
     const path = pathCollection[i];
     if (!path || path.length < 2) continue;
-    const col = (pathColors && pathColors[i]) ? pathColors[i] : "#000000";
-    stroke(col);
     strokeWeight(STROKE_WEIGHT);
-    beginShape();
-    for (const point of path) {
-      vertex(point.x, point.y);
+
+    const colEntry = pathColors && pathColors[i];
+    const isPerPoint = Array.isArray(colEntry);
+
+    if (isPerPoint) {
+      // Draw segment-by-segment with per-point colors
+      for (let j = 0; j < path.length - 1; j++) {
+        const c = colEntry[j] || defaultStroke;
+        stroke(c);
+        line(path[j].x, path[j].y, path[j + 1].x, path[j + 1].y);
+      }
+    } else {
+      const c = colEntry || defaultStroke;
+      stroke(c);
+      noFill();
+      beginShape();
+      for (const point of path) {
+        vertex(point.x, point.y);
+      }
+      endShape();
     }
-    endShape();
   }
 
+  if (FIELD_SCALE_FACTOR !== 1.0 || OFFSET_X !== 0 || OFFSET_Y !== 0) resetMatrix();
   if (useAlpha) drawingContext.globalAlpha = 1.0;
 }
 
@@ -1586,7 +1790,7 @@ class BHQuadNode {
       return;
     }
     if (!this.children) {
-      // Subdivide
+      // Subdivide — reset CoM so we can recount both points correctly
       const hw = this.w / 2, hh = this.h / 2;
       this.children = [
         new BHQuadNode(this.x,      this.y,      hw, hh),
@@ -1594,13 +1798,16 @@ class BHQuadNode {
         new BHQuadNode(this.x,      this.y + hh, hw, hh),
         new BHQuadNode(this.x + hw, this.y + hh, hw, hh),
       ];
-      if (this.point) {
-        this._insertIntoChild(this.point);
-        this.point = null;
-      }
+      const existing = this.point;
+      this.point = null;
+      // Relocate existing point — update parent CoM for it
+      this._insertIntoChild(existing);
+      this.cx = existing.x;
+      this.cy = existing.y;
+      this.mass = 1;
     }
     this._insertIntoChild(p);
-    // Update centre of mass
+    // Update centre of mass for the new point
     this.cx = (this.cx * this.mass + p.x) / (this.mass + 1);
     this.cy = (this.cy * this.mass + p.y) / (this.mass + 1);
     this.mass++;
@@ -1770,6 +1977,7 @@ function tracePathsSerial(fieldBuffer, generationToken) {
     onPathComplete: (_pathIndex, completedCount) => {
       updateProgressBar((completedCount / NUM_PATHS) * 100);
     },
+    perStepPerturbations: buildPerStepPerturbations(),
     resolution: RESOLUTION,
     rows,
     seed: pathSeedBase >>> 0,
@@ -1883,6 +2091,12 @@ function buildSVGFallback(pathCollection) {
   return svg;
 }
 
+function exportFileStem() {
+  const method = (FIELD_METHOD || "field").replace(/[^a-z0-9]/gi, "_");
+  const seed   = ACTUAL_SEED !== null ? `_s${ACTUAL_SEED}` : "";
+  return `plotter_flow_field_${method}${seed}`;
+}
+
 function downloadCSV() {
   const exportUtils =
     typeof FlowFieldExportUtils !== "undefined" ? FlowFieldExportUtils : null;
@@ -1895,24 +2109,24 @@ function downloadCSV() {
   let url = URL.createObjectURL(blob);
   let a = document.createElement("a");
   a.href = url;
-  a.download = "plotter_flow_field.csv";
+  a.download = exportFileStem() + ".csv";
   a.click();
   URL.revokeObjectURL(url);
 }
 
 function downloadJSON() {
   let data = {
-    metadata: {
-      timestamp: new Date().toISOString(),
+    parameters: {
       canvas_width: width,
       canvas_height: height,
-    },
-    parameters: {
       field_scale: FIELD_SCALE,
       resolution: RESOLUTION,
       num_paths: NUM_PATHS,
       step_size: STEP_SIZE,
       stroke_weight: STROKE_WEIGHT,
+      scale_factor: FIELD_SCALE_FACTOR,
+      offset_x: OFFSET_X,
+      offset_y: OFFSET_Y,
       seed: ACTUAL_SEED,
       columns: columns,
       rows: rows,
@@ -1925,12 +2139,17 @@ function downloadJSON() {
         angleDampen: INTERACTION_PARAMS.angleDampen,
       },
       color: { ...COLOR_PARAMS },
+      palette: COLOR_PARAMS.paletteId,
+      colorMode: COLOR_PARAMS.method,
+      colorOffset: COLOR_PARAMS.offset,
       perturbation: {
         enabled: PERTURBATION_PARAMS.enabled,
         activeTypes: [...PERTURBATION_PARAMS.activeTypes],
         configs: JSON.parse(JSON.stringify(PERTURBATION_PARAMS.configs)),
       },
     },
+    generatedAt: new Date().toISOString(),
+    note: "",
   };
 
   const exportUtils =
@@ -1943,7 +2162,7 @@ function downloadJSON() {
   let url = URL.createObjectURL(blob);
   let a = document.createElement("a");
   a.href = url;
-  a.download = "plotter_flow_field.json";
+  a.download = exportFileStem() + ".json";
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -1959,7 +2178,7 @@ function downloadSVG() {
           strokeWeight: STROKE_WEIGHT,
           paths,
           pathColors: pathColors.length ? pathColors : null,
-          background: COLOR_PARAMS.enabled ? COLOR_PARAMS.background : "white",
+          background: COLOR_PARAMS.enabled ? COLOR_PARAMS.background : "#ffffff",
         })
       : buildSVGFallback(paths);
 
@@ -1967,7 +2186,144 @@ function downloadSVG() {
   let url = URL.createObjectURL(blob);
   let a = document.createElement("a");
   a.href = url;
-  a.download = "plotter_flow_field.svg";
+  a.download = exportFileStem() + ".svg";
   a.click();
   URL.revokeObjectURL(url);
+}
+
+function downloadPNG() {
+  const canvas = document.querySelector("canvas");
+  if (!canvas) return;
+  const a = document.createElement("a");
+  a.href = canvas.toDataURL("image/png");
+  a.download = exportFileStem() + ".png";
+  a.click();
+}
+
+function downloadZIP() {
+  if (typeof fflate === "undefined") {
+    alert("ZIP library not loaded. Check your internet connection.");
+    return;
+  }
+
+  const exportUtils = typeof FlowFieldExportUtils !== "undefined" ? FlowFieldExportUtils : null;
+  const stem = exportFileStem();
+
+  // Build CSV
+  const csv = exportUtils && exportUtils.buildCSV
+    ? exportUtils.buildCSV(paths, { pathColors: pathColors.length ? pathColors : null })
+    : buildCSVFallback(paths);
+
+  // Build JSON
+  const jsonData = {
+    parameters: {
+      canvas_width: width, canvas_height: height,
+      field_scale: FIELD_SCALE, resolution: RESOLUTION,
+      num_paths: NUM_PATHS, step_size: STEP_SIZE,
+      stroke_weight: STROKE_WEIGHT, scale_factor: FIELD_SCALE_FACTOR,
+      offset_x: OFFSET_X, offset_y: OFFSET_Y,
+      seed: ACTUAL_SEED, columns, rows,
+      interaction: { ...INTERACTION_PARAMS },
+      color: { ...COLOR_PARAMS },
+      palette: COLOR_PARAMS.paletteId,
+      colorMode: COLOR_PARAMS.method,
+      colorOffset: COLOR_PARAMS.offset,
+      perturbation: {
+        enabled: PERTURBATION_PARAMS.enabled,
+        activeTypes: [...PERTURBATION_PARAMS.activeTypes],
+        configs: JSON.parse(JSON.stringify(PERTURBATION_PARAMS.configs)),
+      },
+    },
+    generatedAt: new Date().toISOString(),
+    note: "",
+  };
+  const json = exportUtils && exportUtils.stringifyJSON
+    ? exportUtils.stringifyJSON(jsonData)
+    : JSON.stringify(jsonData, null, 2);
+
+  // Build SVG
+  const svg = exportUtils && exportUtils.buildSVG
+    ? exportUtils.buildSVG({
+        width, height, strokeWeight: STROKE_WEIGHT, paths,
+        pathColors: pathColors.length ? pathColors : null,
+        background: COLOR_PARAMS.enabled ? COLOR_PARAMS.background : "#ffffff",
+      })
+    : buildSVGFallback(paths);
+
+  const enc = new TextEncoder();
+  const files = {
+    [`${stem}.csv`]: enc.encode(csv),
+    [`${stem}.json`]: enc.encode(json),
+    [`${stem}.svg`]: enc.encode(svg),
+  };
+
+  fflate.zip(files, { level: 6 }, (err, data) => {
+    if (err) { alert("Failed to create ZIP: " + err.message); return; }
+    const blob = new Blob([data], { type: "application/zip" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = stem + ".zip";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
+function uploadJSON() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json,application/json";
+  input.addEventListener("change", () => {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      let data;
+      try { data = JSON.parse(e.target.result); } catch (_) { alert("Invalid JSON file."); return; }
+      const p = data && data.parameters;
+      if (!p) { alert("Unrecognized settings format."); return; }
+
+      // Restore field params
+      if (Number.isFinite(p.field_scale))   FIELD_SCALE        = p.field_scale;
+      if (Number.isFinite(p.resolution))    RESOLUTION         = p.resolution;
+      if (Number.isFinite(p.num_paths))     NUM_PATHS          = p.num_paths;
+      if (Number.isFinite(p.step_size))     STEP_SIZE          = p.step_size;
+      if (Number.isFinite(p.stroke_weight)) STROKE_WEIGHT      = p.stroke_weight;
+      if (Number.isFinite(p.scale_factor))  FIELD_SCALE_FACTOR = p.scale_factor;
+      if (Number.isFinite(p.offset_x))      OFFSET_X           = p.offset_x;
+      if (Number.isFinite(p.offset_y))      OFFSET_Y           = p.offset_y;
+      if (Number.isFinite(p.seed)) {
+        CURRENT_SEED = p.seed;
+        updateSeedUI(p.seed, "manual");
+      }
+
+      // Restore color params (support both nested and flat formats)
+      if (p.color && typeof p.color === "object") {
+        Object.assign(COLOR_PARAMS, p.color);
+      }
+      if (p.palette) COLOR_PARAMS.paletteId = p.palette;
+      if (p.colorMode) COLOR_PARAMS.method = p.colorMode;
+      if (Number.isFinite(p.colorOffset)) COLOR_PARAMS.offset = p.colorOffset;
+
+      // Restore perturbation params
+      if (p.perturbation && typeof p.perturbation === "object") {
+        if (typeof p.perturbation.enabled === "boolean") PERTURBATION_PARAMS.enabled = p.perturbation.enabled;
+        if (Array.isArray(p.perturbation.activeTypes)) PERTURBATION_PARAMS.activeTypes = [...p.perturbation.activeTypes];
+        if (p.perturbation.configs && typeof p.perturbation.configs === "object") {
+          Object.assign(PERTURBATION_PARAMS.configs, JSON.parse(JSON.stringify(p.perturbation.configs)));
+        }
+      }
+
+      // Resize canvas to saved dimensions, then regenerate
+      const savedW = Number.isFinite(p.canvas_width)  ? Math.round(p.canvas_width)  : width;
+      const savedH = Number.isFinite(p.canvas_height) ? Math.round(p.canvas_height) : height;
+      if (savedW !== width || savedH !== height) {
+        resizeCanvasAndRegenerate(savedW, savedH);
+      } else {
+        regenerate();
+      }
+    };
+    reader.readAsText(file);
+  });
+  input.click();
 }

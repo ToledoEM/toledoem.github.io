@@ -40,10 +40,10 @@
       const pathCollection = Array.isArray(opts.paths) ? opts.paths : [];
       const pathColors = Array.isArray(opts.pathColors) ? opts.pathColors : null;
       const hasPerPathColor = pathColors && pathColors.length > 0;
-      const bg = opts.background === "black" ? "black" : "white";
+      const bg = opts.background || "white";
 
       const groupAttr = hasPerPathColor
-        ? `fill="none"`
+        ? ``
         : `stroke="black" stroke-width="${strokeWeight}" fill="none"`;
 
       let svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -56,7 +56,7 @@
         const path = pathCollection[i];
         if (!Array.isArray(path) || path.length < 2) continue;
         const strokeAttr = hasPerPathColor
-          ? ` stroke="${pathColors[i] || "black"}" stroke-width="${strokeWeight}"`
+          ? ` stroke="${pathColors[i] || "black"}" stroke-width="${strokeWeight}" fill="${pathColors[i] || "black"}"`
           : "";
         svg += `    <polyline${strokeAttr} points="`;
         for (let j = 0; j < path.length; j++) {

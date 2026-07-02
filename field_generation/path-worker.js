@@ -3,6 +3,7 @@
  * Uses path-trace-core.js so worker and serial tracing follow the same logic.
  */
 importScripts("path-trace-core.js");
+importScripts("perturbation-methods.js");
 
 self.onmessage = function (event) {
   const data = event.data || {};
@@ -45,7 +46,19 @@ self.onmessage = function (event) {
     rows = 0,
     seed = 0,
     offset = 0,
+    perStepConfigs = [],
   } = params;
+
+  // Rebuild applyStep functions from serialized configs
+  const perturbMethods = self.PERTURBATION_METHODS || {};
+  const perStepPerturbations = perStepConfigs
+    .map(({ type, cfg }) => {
+      const m = perturbMethods[type];
+      return m && m.timing === "perStep" && typeof m.applyStep === "function"
+        ? { applyStep: m.applyStep, cfg }
+        : null;
+    })
+    .filter(Boolean);
 
   const paths = traceCore.tracePathBatch({
     columns,
@@ -53,6 +66,7 @@ self.onmessage = function (event) {
     fieldData: field,
     height,
     offset,
+    perStepPerturbations,
     resolution,
     rows,
     seed,
