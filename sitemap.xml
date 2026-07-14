@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://toledoem.github.io/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -12,12 +12,12 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/scientifictools.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/stlshaper/documentation.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -37,72 +37,82 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/ollama-cleaner/index.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/index.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/LICENSE.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/articles/index.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/articles/vignette.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/pubmatrixr/articles/WntExample.html</loc>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/404.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/LICENSE-text.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/news/index.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/authors.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/reference/PubMatrix.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/reference/PubMatrixR-package.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/reference/pubmatrix_heatmap.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/reference/index.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.html</loc>
-    <lastmod>2026-03-09</lastmod>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/pubmatrixr/reference/PubMatrixR.html</loc>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -177,22 +187,22 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/NTPGPSHomeBridge/index.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/papers.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/code.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/bash-blind-rename/index.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -312,12 +322,12 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/BrandSTL/index.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixp/index.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
