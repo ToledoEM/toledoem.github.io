@@ -206,26 +206,6 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://toledoem.github.io/field_generation/index.html</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://toledoem.github.io/field_generation/triangle-fields/index.html</loc>
-    <lastmod>2026-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://toledoem.github.io/field_generation/triangle-fields/wasm/verify-determinism.html</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://toledoem.github.io/field_generation/doc/field_generation_math.html</loc>
-    <lastmod>2026-05-05</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
     <loc>https://toledoem.github.io/xkcd/index.html</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
