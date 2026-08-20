@@ -1,4 +1,3 @@
 # License
 
-    YEAR: 2025
-    COPYRIGHT HOLDER: Emilio Torres-Manzanera and Enrique Toledo
+YEAR: 2025 COPYRIGHT HOLDER: Emilio Torres-Manzanera and Enrique Toledo

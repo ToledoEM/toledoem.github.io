@@ -1,6 +1,9 @@
 # Draw lines or circles
 
-Draw lines or circles
+Deprecated in favour of \[geom_xkcdpath()\], which integrates with
+ggplot2's aesthetic machinery instead of rebuilding mappings by hand.
+Migrate segments to \`geom_xkcdpath(aes(x = x, y = y, xend = xend, yend
+= yend), ...)\` and circles to the \`diameter\` aesthetic.
 
 ## Usage
 
@@ -29,3 +32,7 @@ xkcdline(mapping, data, typexkcdline = "segment", mask = TRUE, ...)
 - ...:
 
   Additional arguments
+
+## See also
+
+\[geom_xkcdpath()\]

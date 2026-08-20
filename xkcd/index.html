@@ -7,13 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Plotting ggplot2 Graphics in an XKCD Style • xkcd</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Plotting ggplot2 Graphics in an XKCD Style">
 <meta name="description" content="Provides custom geoms and themes to create charts and graphics in the distinctive, hand-drawn XKCD webcomic style using the ggplot2 framework. The package utilizes custom layers for jittered lines, segments, circles, and figures, and includes a theme that supports the necessary XKCD font.">
 <meta property="og:description" content="Provides custom geoms and themes to create charts and graphics in the distinctive, hand-drawn XKCD webcomic style using the ggplot2 framework. The package utilizes custom layers for jittered lines, segments, circles, and figures, and includes a theme that supports the necessary XKCD font.">
 <script data-goatcounter="https://etoledo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<link rel="canonical" href="https://toledoem.github.io/xkcd/" />
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -23,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">xkcd</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +53,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="xkcd">xkcd<a class="anchor" aria-label="anchor" href="#xkcd"></a>
 </h1></div>
+<p><a href="https://CRAN.R-project.org/package=xkcd" class="external-link"><img src="https://www.r-pkg.org/badges/version/xkcd" alt="CRAN status"></a> <a href="https://CRAN.R-project.org/package=xkcd" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/xkcd" alt="CRAN downloads"></a> <a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></p>
 <div class="float">
 <img src="https://toledoem.github.io/img/xkcd_logo.png" alt="xkcd package logo"><div class="figcaption">xkcd package logo</div>
 </div>
@@ -92,6 +94,31 @@
 <li>Uses <code>linewidth</code> (ggplot2 &gt;= 3.4.0) for line thickness; older code using <code>size</code> is supported where possible.</li>
 <li>Requires xkcd fonts to be installed; see <strong>Fonts</strong> section below.</li>
 </ul>
+<div class="section level3">
+<h3 id="new-in-011">New in 0.1.1<a class="anchor" aria-label="anchor" href="#new-in-011"></a>
+</h3>
+<ul>
+<li>
+<p><strong>Reproducible plots.</strong> <code><a href="reference/geom_xkcdpath.html">geom_xkcdpath()</a></code>, <code><a href="reference/xkcdrect.html">xkcdrect()</a></code> and <code><a href="reference/xkcdman.html">xkcdman()</a></code> take a <code>seed</code> argument, so the same plot renders identically every time. The global random state is left untouched.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/geom_xkcdpath.html">geom_xkcdpath</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="fl">42</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/theme_xkcd.html">theme_xkcd</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</li>
+<li><p><strong><code>wobble</code> argument</strong> scales how much the lines wander. <code>1</code> is the default look, <code>0</code> draws them straight.</p></li>
+<li>
+<p><strong><code><a href="reference/xkcdrect.html">xkcdrect()</a></code> is now a standard geom</strong> (breaking change). It returns a single layer and uses the usual <code>fill</code>, <code>colour</code> and <code>linewidth</code> aesthetics, which can be mapped to variables. Faceting and plot-level aesthetics now work.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># before</span></span>
+<span><span class="fu"><a href="reference/xkcdrect.html">xkcdrect</a></span><span class="op">(</span><span class="va">mapping</span>, <span class="va">data</span>, fillcolour <span class="op">=</span> <span class="st">"pink"</span>, borderlinewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># now</span></span>
+<span><span class="fu"><a href="reference/xkcdrect.html">xkcdrect</a></span><span class="op">(</span><span class="va">mapping</span>, <span class="va">data</span>, fill <span class="op">=</span> <span class="st">"pink"</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p>The old <code>fillcolour</code> / <code>bordercolour</code> / <code>borderlinewidth</code> arguments still work for one release but warn.</p>
+</li>
+<li><p><strong><code><a href="reference/xkcdline.html">xkcdline()</a></code> is deprecated</strong> in favour of <code><a href="reference/geom_xkcdpath.html">geom_xkcdpath()</a></code> and warns when used.</p></li>
+</ul>
+</div>
 </div>
 <div class="section level2">
 <h2 id="fonts">Fonts<a class="anchor" aria-label="anchor" href="#fonts"></a>
@@ -101,7 +128,7 @@
 <h3 id="install-xkcd-fonts">Install xkcd Fonts<a class="anchor" aria-label="anchor" href="#install-xkcd-fonts"></a>
 </h3>
 <p>If xkcd fonts are not already installed on your system:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fbertran/extrafont" class="external-link">extrafont</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Download and install the font</span></span>
@@ -116,7 +143,7 @@
 <h3 id="quick-font-check-fundamental">Quick font-check (fundamental)<a class="anchor" aria-label="anchor" href="#quick-font-check-fundamental"></a>
 </h3>
 <p>Run this small example to verify the <code>xkcd</code> font is available and to produce a quick check plot. This should be run locally after installing the font and registering it with <code>extrafont</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Font availability check and example plot</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fbertran/extrafont" class="external-link">extrafont</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -143,7 +170,7 @@
 <h3 id="load-fonts-for-plotting">Load Fonts for Plotting<a class="anchor" aria-label="anchor" href="#load-fonts-for-plotting"></a>
 </h3>
 <p>Before plotting, register fonts with your graphics device:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ToledoEM/xkcd" class="external-link">xkcd</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fbertran/extrafont" class="external-link">extrafont</a></span><span class="op">)</span></span>
 <span></span>
@@ -157,7 +184,7 @@
 <h3 id="automatic-font-loading-opt-in">Automatic Font Loading (opt-in)<a class="anchor" aria-label="anchor" href="#automatic-font-loading-opt-in"></a>
 </h3>
 <p>To automatically load fonts when the package is attached (opt-in):</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set before loading the package</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>xkcd.auto_load_fonts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ToledoEM/xkcd" class="external-link">xkcd</a></span><span class="op">)</span></span></code></pre></div>
@@ -186,11 +213,11 @@
 </h2>
 <p>Set up a development workflow with:</p>
 <p><strong>Note:</strong> A TeX distribution (for example, MacTeX or TinyTeX) is required to compile vignettes or to build the PDF manual during development. If LaTeX is not available you can either skip the manual with <code>--no-manual</code> when checking or install TinyTeX from R:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># from R: install tinytex and the TinyTeX distribution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tinytex"</span><span class="op">)</span></span>
 <span><span class="fu">tinytex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html" class="external-link">install_tinytex</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Regenerate documentation from roxygen comments</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -203,7 +230,7 @@
 <span><span class="co"># Install from local source</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_local</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To render the vignettes directly:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"vignettes/xkcd-intro.Rmd"</span><span class="op">)</span></span>
 <span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"vignettes/xkcd-figure.Rmd"</span><span class="op">)</span></span>
 <span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">render</a></span><span class="op">(</span><span class="st">"vignettes/xkcd-penguins.Rmd"</span><span class="op">)</span></span></code></pre></div>
@@ -227,13 +254,13 @@
 <li>
 <strong>Hmisc</strong> — Bezier curve interpolation</li>
 <li>
-<strong>grid</strong> — Low-level graphics primitives</li>
+<strong>grid</strong> — Low-level graphics primitives (ships with R, no install needed)</li>
 <li>
 <strong>extrafont</strong> — Font management</li>
 </ul>
 <p>Install dependencies with:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, <span class="st">"Hmisc"</span>, <span class="st">"grid"</span>, <span class="st">"extrafont"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ggplot2"</span>, <span class="st">"Hmisc"</span>, <span class="st">"extrafont"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
@@ -291,7 +318,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

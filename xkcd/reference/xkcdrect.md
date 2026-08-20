@@ -6,14 +6,21 @@ It draws fuzzy rectangles.
 
 ``` r
 xkcdrect(
-  mapping,
-  data,
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
   ...,
-  fillcolour = "grey90",
-  bordercolour = "black",
-  borderlinewidth = 0.5,
   borderxjitteramount = 0.005,
-  borderyjitteramount = 0.005
+  borderyjitteramount = 0.005,
+  wobble = 1,
+  seed = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fillcolour,
+  bordercolour,
+  borderlinewidth
 )
 ```
 
@@ -29,22 +36,18 @@ xkcdrect(
 
   Dataset used in this layer.
 
+- stat:
+
+  The statistical transformation to use on the data for this layer.
+
+- position:
+
+  Position adjustment.
+
 - ...:
 
-  Optional arguments.
-
-- fillcolour:
-
-  The fill colour of the rectangle.
-
-- bordercolour:
-
-  The colour of the fuzzy border lines.
-
-- borderlinewidth:
-
-  The thickness of the fuzzy border lines. This is the package's
-  implementation of the `linewidth` aesthetic.
+  Other arguments passed on to
+  [`layer`](https://ggplot2.tidyverse.org/reference/layer.html).
 
 - borderxjitteramount:
 
@@ -54,15 +57,49 @@ xkcdrect(
 
   Vertical jitter amount for the border.
 
+- wobble:
+
+  Scalar multiplier applied to both jitter amounts. `1` leaves them
+  unchanged; `0` draws straight borders.
+
+- seed:
+
+  Optional integer for a reproducible border. See
+  [`geom_xkcdpath`](https://toledoem.github.io/xkcd/reference/geom_xkcdpath.md).
+
+- na.rm:
+
+  If `FALSE`, missing values are removed with a warning.
+
+- show.legend:
+
+  Show legend.
+
+- inherit.aes:
+
+  Whether to inherit aesthetics from the plot.
+
+- fillcolour:
+
+  Deprecated. Use the `fill` aesthetic.
+
+- bordercolour:
+
+  Deprecated. Use the `colour` aesthetic.
+
+- borderlinewidth:
+
+  Deprecated. Use the `linewidth` aesthetic.
+
 ## Value
 
 A layer.
 
 ## Details
 
-This function draws fuzzy rectangles.
+This function draws rectangles with hand-drawn, wobbly borders.
 
-It plots rectangles. The following aesthetics are required:
+The following aesthetics are required:
 
 1.  xmin
 
@@ -72,15 +109,14 @@ It plots rectangles. The following aesthetics are required:
 
 4.  ymax
 
-Additionally, you can use the aesthetics of
-[`geom_path`](https://ggplot2.tidyverse.org/reference/geom_path.html)
-and
-[`geom_rect`](https://ggplot2.tidyverse.org/reference/geom_tile.html).
+The fill and border are controlled with the standard `fill`, `colour`
+and `linewidth` aesthetics, so they may be mapped to variables in the
+usual way.
 
 ## See also
 
 [`aes`](https://ggplot2.tidyverse.org/reference/aes.html),
-[`geom_path`](https://ggplot2.tidyverse.org/reference/geom_path.html)
+[`geom_xkcdpath`](https://toledoem.github.io/xkcd/reference/geom_xkcdpath.md)
 
 ## Examples
 
@@ -92,14 +128,14 @@ volunteers <- data.frame(year = c(2007:2011),
 xrange <- range(volunteers$year)
 yrange <- range(volunteers$number)
 
-p <- ggplot() + 
-     xkcdrect(aes(xmin = year - 0.2, 
+p <- ggplot() +
+     xkcdrect(aes(xmin = year - 0.2,
                   xmax = year + 0.2,
                   ymin = number - 500,
                   ymax = number + 500),
-              data = volunteers, 
-              fillcolour = "pink",
-              borderlinewidth = 1.2) +
+              data = volunteers,
+              fill = "pink",
+              linewidth = 1.2) +
      geom_point(aes(x = year, y = number), data = volunteers) +
      xkcdaxis(xrange, yrange) +
      theme_xkcd()

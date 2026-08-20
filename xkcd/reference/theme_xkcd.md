@@ -15,8 +15,9 @@ A [`theme`](https://ggplot2.tidyverse.org/reference/theme.html) object.
 
 ## Note
 
-The "xkcd" font must be installed and registered with `extrafont` for
-the full effect. See the vignette
+The "xkcd" font must be installed on your system for the full effect.
+Modern graphics devices pick it up directly; registering it with
+`extrafont` is only needed for pdf/postscript output. See the vignette
 [`vignette("xkcd-intro")`](https://toledoem.github.io/xkcd/articles/xkcd-intro.md)
 for installation instructions.
 

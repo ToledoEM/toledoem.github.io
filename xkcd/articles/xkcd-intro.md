@@ -46,60 +46,13 @@ The package xkcd uses the XKCD fonts, so you must install them on your
 computer. An easy way to check whether these fonts are installed on the
 computer or not is typing the following code and comparing the results:
 
-``` r
+`# Download xkcd font to a temporary location (do not ship the font with the package)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`extrafont`](https://github.com/fbertran/extrafont)`)`` `[`tryCatch`](https://rdrr.io/r/base/conditions.html)`(``{`` `` ``temp_font`` ``<-`` `[`file.path`](https://rdrr.io/r/base/file.path.html)`(`[`tempdir`](https://rdrr.io/r/base/tempfile.html)`(``)``, ``"xkcd.ttf"``)`` `` `[`download.file`](https://rdrr.io/r/utils/download.file.html)`(``"https://toledoem.github.io/img/xkcd.ttf"``,`` `` destfile ``=`` ``temp_font``, mode ``=`` ``"wb"``, timeout ``=`` ``60``)`` ``}``, error ``=`` ``function``(``e``)`` ``{`` `` `[`warning`](https://rdrr.io/r/base/warning.html)`(``"Failed to download xkcd font. See https://github.com/ipython/xkcd-font"``)`` ``}``)`` `` ``# If downloaded, copy into the user's fonts directory for registration (not packaged)`` ``fonts_dir`` ``<-`` `[`path.expand`](https://rdrr.io/r/base/path.expand.html)`(``"~/.fonts"``)`` ``if`` ``(``!`[`dir.exists`](https://rdrr.io/r/base/files2.html)`(``fonts_dir``)``)`` `[`dir.create`](https://rdrr.io/r/base/files2.html)`(``fonts_dir``, recursive ``=`` ``TRUE``)`` ``if`` ``(`[`exists`](https://rdrr.io/r/base/exists.html)`(``"temp_font"``)`` ``&&`` `[`file.exists`](https://rdrr.io/r/base/files.html)`(``temp_font``)``)`` ``{`` `` `[`file.copy`](https://rdrr.io/r/base/files.html)`(``temp_font``, `[`file.path`](https://rdrr.io/r/base/file.path.html)`(``fonts_dir``, ``"xkcd.ttf"``)``, overwrite ``=`` ``TRUE``)`` ``}`` `` ``# Register fonts (import only when needed)`` `[`font_import`](https://rdrr.io/pkg/extrafont/man/font_import.html)`(``pattern ``=`` ``"[X/x]kcd"``, prompt ``=`` ``FALSE``)`` `[`fonts`](https://rdrr.io/pkg/extrafont/man/fonts.html)`(``)`` `[`fonttable`](https://rdrr.io/pkg/extrafont/man/fonttable.html)`(``)`` ``if`` ``(``.Platform``$``OS.type`` ``!=`` ``"unix"``)`` ``{`` `` `[`loadfonts`](https://rdrr.io/pkg/extrafont/man/loadfonts.html)`(``device ``=`` ``"win"``)`` ``}`` ``else`` ``{`` `` `[`loadfonts`](https://rdrr.io/pkg/extrafont/man/loadfonts.html)`(``)`` ``}`
 
-# Download xkcd font to a temporary location (do not ship the font with the package)
-library(extrafont)
-tryCatch({
-  temp_font <- file.path(tempdir(), "xkcd.ttf")
-  download.file("https://toledoem.github.io/img/xkcd.ttf",
-                destfile = temp_font, mode = "wb", timeout = 60)
-}, error = function(e) {
-  warning("Failed to download xkcd font. See https://github.com/ipython/xkcd-font")
-})
-
-# If downloaded, copy into the user's fonts directory for registration (not packaged)
-fonts_dir <- path.expand("~/.fonts")
-if (!dir.exists(fonts_dir)) dir.create(fonts_dir, recursive = TRUE)
-if (exists("temp_font") && file.exists(temp_font)) {
-  file.copy(temp_font, file.path(fonts_dir, "xkcd.ttf"), overwrite = TRUE)
-}
-
-# Register fonts (import only when needed)
-font_import(pattern = "[X/x]kcd", prompt = FALSE)
-fonts()
-fonttable()
-if (.Platform$OS.type != "unix") {
-  loadfonts(device = "win")
-} else {
-  loadfonts()
-}
-```
-
-``` r
-
-# Small font-check plot: uses installed xkcd font if available
-library(extrafont)
-library(ggplot2)
-if ('xkcd' %in% extrafont::fonts()) {
-  p <- ggplot() + geom_point(aes(x = mpg, y = wt), data = mtcars) +
-    theme(text = element_text(size = 16, family = "xkcd"))
-} else {
-  warning("Not xkcd fonts installed!")
-  p <- ggplot() + geom_point(aes(x = mpg, y = wt), data = mtcars)
-}
-p
-```
+`# Small font-check plot: uses installed xkcd font if available`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`extrafont`](https://github.com/fbertran/extrafont)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`` ``if`` ``(``'xkcd'`` `[`%in%`](https://rdrr.io/r/base/match.html)` ``extrafont``::`[`fonts`](https://rdrr.io/pkg/extrafont/man/fonts.html)`(``)``)`` ``{`` `` ``p`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``mpg``, y ``=`` ``wt``)``, data ``=`` ``mtcars``)`` ``+`` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``text ``=`` `[`element_text`](https://ggplot2.tidyverse.org/reference/element.html)`(``size ``=`` ``16``, family ``=`` ``"xkcd"``)``)`` ``}`` ``else`` ``{`` `` `[`warning`](https://rdrr.io/r/base/warning.html)`(``"Not xkcd fonts installed!"``)`` `` ``p`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``mpg``, y ``=`` ``wt``)``, data ``=`` ``mtcars``)`` ``}`` ``p`
 
 ![](xkcd-intro_files/figure-html/fonts-1.png)
 
-``` r
-
-# # Save initial font-check plot for README (if possible)
-# try({
-#   ggsave(filename = file.path("vignettes", "font_check.png"), plot = p, width = 6, height = 4)
-# }, silent = TRUE)
-```
+`# # Save initial font-check plot for README (if possible)`` ``# try({`` ``# ggsave(filename = file.path("vignettes", "font_check.png"), plot = p, width = 6, height = 4)`` ``# }, silent = TRUE)`
 
 If you want to modify these fonts, you may use the spline font database
 file format (sfd), the official xkcd font created by the IPython project
@@ -112,10 +65,7 @@ License, which can be opened with FontForge, an open-source font editor.
 preferred function for saving a ggplot2 plot. For instance, the
 following instruction saves the graph as a bitmap file:
 
-``` r
-
-ggsave("gr1.png", p)
-```
+[`ggsave`](https://ggplot2.tidyverse.org/reference/ggsave.html)`(``"gr1.png"``, ``p``)`
 
 If you want to save this chart as PDF you should embed the fonts into
 the PDF file, using
@@ -123,16 +73,7 @@ the PDF file, using
 First, if you are running Windows, you may need to tell it where the
 Ghostscript program is, for embedding fonts.
 
-``` r
-
-ggsave("gr1.pdf", plot = p, width = 12, height = 4)
-if (.Platform$OS.type != "unix") {
-  ## Needed for Windows. Make sure you have the correct path
-  Sys.setenv(R_GSCMD =
-              "C:\\Program Files (x86)\\gs\\gs9.06\\bin\\gswin32c.exe")
-}
-embed_fonts("gr1.pdf")
-```
+[`ggsave`](https://ggplot2.tidyverse.org/reference/ggsave.html)`(``"gr1.pdf"``, plot ``=`` ``p``, width ``=`` ``12``, height ``=`` ``4``)`` ``if`` ``(``.Platform``$``OS.type`` ``!=`` ``"unix"``)`` ``{`` `` ``## Needed for Windows. Make sure you have the correct path`` `` `[`Sys.setenv`](https://rdrr.io/r/base/Sys.setenv.html)`(``R_GSCMD ``=`` `` ``"C:\\Program Files (x86)\\gs\\gs9.06\\bin\\gswin32c.exe"``)`` ``}`` `[`embed_fonts`](https://rdrr.io/pkg/extrafont/man/embed_fonts.html)`(``"gr1.pdf"``)`
 
 See the development site of extrafont for additional instructions and
 examples of using fonts other than the standard PostScript fonts.
@@ -142,17 +83,11 @@ examples of using fonts other than the standard PostScript fonts.
 The package xkcd is available on CRAN. From within R, you can install it
 with the following instruction:
 
-``` r
-
-install.packages("xkcd", dependencies = TRUE)
-```
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"xkcd"``, dependencies ``=`` ``TRUE``)`
 
 Once the package has been installed, it can be loaded by typing:
 
-``` r
-
-library(xkcd)
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`xkcd`](https://github.com/ToledoEM/xkcd)`)`
 
 Automatically, it loads the packages ggplot2 and extrafont. The most
 relevant functions are
@@ -174,15 +109,7 @@ In order to get a handmade drawing of the axis and an XKCD theme, a
 specific function based on the ggplot2 framework was created,
 [`xkcdaxis()`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md):
 
-``` r
-
-xrange <- range(mtcars$mpg)
-yrange <- range(mtcars$wt)
-set.seed(123)
-p <- ggplot() + geom_point(aes(mpg, wt), data = mtcars) +
-      xkcdaxis(xrange, yrange)
-p
-```
+`xrange`` ``<-`` `[`range`](https://rdrr.io/r/base/range.html)`(``mtcars``$``mpg``)`` ``yrange`` ``<-`` `[`range`](https://rdrr.io/r/base/range.html)`(``mtcars``$``wt``)`` `[`set.seed`](https://rdrr.io/r/base/Random.html)`(``123``)`` ``p`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``mpg``, ``wt``)``, data ``=`` ``mtcars``)`` ``+`` `` `[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(``xrange``, ``yrange``)`` ``p`
 
 ![](xkcd-intro_files/figure-html/axis-1.png)
 
@@ -196,22 +123,12 @@ that draws a stick figure with different positions, angles, and lengths:
 
 ightleg, angleleftleg = angleleftleg, angleofneck = angleofneck)
 
-``` r
-
-set.seed(123)
-p <- ggplot() + geom_point(aes(x = mpg, y = wt, colour = as.character(vs)), data = mtcars) +
-  xkcdaxis(xrange, yrange) +
-  xkcdman(mapping, dataman)
-p
-```
+[`set.seed`](https://rdrr.io/r/base/Random.html)`(``123``)`` ``p`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``mpg``, y ``=`` ``wt``, colour ``=`` `[`as.character`](https://rdrr.io/r/base/character.html)`(``vs``)``)``, data ``=`` ``mtcars``)`` ``+`` `` `[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(``xrange``, ``yrange``)`` ``+`` `` `[`xkcdman`](https://toledoem.github.io/xkcd/reference/xkcdman.md)`(``mapping``, ``dataman``)`` ``p`
 
 Additionally, you may use the facet option of ggplot2 to split up your
 data by one or more variables and plot the subsets of data together.
 
-``` r
-
-p + facet_grid( ~ vs)
-```
+`p`` ``+`` `[`facet_grid`](https://ggplot2.tidyverse.org/reference/facet_grid.html)`(`` ``~`` ``vs``)`
 
 ## Some Basic Examples
 
@@ -221,61 +138,11 @@ figures.
 
 ### Line chart with stick figures
 
-``` r
-
-volunteers <- data.frame(year = c(2007:2011),
-                         number = c(56470, 56998, 59686, 61783, 64251))
-xrange <- range(volunteers$year)
-yrange <- range(volunteers$number)
-ratioxy <- diff(xrange) / diff(yrange)
-
-dataman <- data.frame(x = c(2008, 2010), 
-                      y = c(63000, 58850),
-                      scale = 1000,
-                      ratioxy = ratioxy,
-                      angleofspine = -pi / 2,
-                      anglerighthumerus = c(-pi / 6, -pi / 6),
-                      anglelefthumerus = c(-pi / 2 - pi / 6, -pi / 2 - pi / 6),
-                      anglerightradius = c(pi / 5, -pi / 5),
-                      angleleftradius = c(pi / 5, -pi / 5),
-                      anglerightleg = 3 * pi / 2 - pi / 12,
-                      angleleftleg = 3 * pi / 2 + pi / 12,
-                      angleofneck = -pi / 2)
-
-mapping <- aes(x = x, y = y, scale = scale, ratioxy = ratioxy, 
-               angleofspine = angleofspine,
-               anglerighthumerus = anglerighthumerus, 
-               anglelefthumerus = anglelefthumerus,
-               anglerightradius = anglerightradius, 
-               angleleftradius = angleleftradius,
-               anglerightleg = anglerightleg, 
-               angleleftleg = angleleftleg, 
-               angleofneck = angleofneck)
-
-set.seed(123)
-p <- ggplot() + 
-  geom_smooth(mapping = aes(x = year, y = number),
-              data = volunteers, method = "loess", se = FALSE) +
-  xkcdaxis(xrange, yrange) +
-  ylab("Volunteers at Caritas Spain") +
-  xkcdman(mapping, dataman) +
-  annotate("text", x = 2008.7, y = 63700,
-           label = "We Need\nVolunteers!", family = "xkcd") +
-  annotate("text", x = 2010.5, y = 60000,
-           label = "Sure\nI can!", family = "xkcd")
-
-p
-```
+`volunteers`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(``year ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2007``:``2011``)``,`` `` number ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``56470``, ``56998``, ``59686``, ``61783``, ``64251``)``)`` ``xrange`` ``<-`` `[`range`](https://rdrr.io/r/base/range.html)`(``volunteers``$``year``)`` ``yrange`` ``<-`` `[`range`](https://rdrr.io/r/base/range.html)`(``volunteers``$``number``)`` ``ratioxy`` ``<-`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``xrange``)`` ``/`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``yrange``)`` `` ``dataman`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(``x ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2008``, ``2010``)``, `` `` y ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``63000``, ``58850``)``,`` `` scale ``=`` ``1000``,`` `` ratioxy ``=`` ``ratioxy``,`` `` angleofspine ``=`` ``-``pi`` ``/`` ``2``,`` `` anglerighthumerus ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``pi`` ``/`` ``6``, ``-``pi`` ``/`` ``6``)``,`` `` anglelefthumerus ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``6``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``6``)``,`` `` anglerightradius ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``pi`` ``/`` ``5``, ``-``pi`` ``/`` ``5``)``,`` `` angleleftradius ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``pi`` ``/`` ``5``, ``-``pi`` ``/`` ``5``)``,`` `` anglerightleg ``=`` ``3`` ``*`` ``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``12``,`` `` angleleftleg ``=`` ``3`` ``*`` ``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``12``,`` `` angleofneck ``=`` ``-``pi`` ``/`` ``2``)`` `` ``mapping`` ``<-`` `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``x``, y ``=`` ``y``, scale ``=`` ``scale``, ratioxy ``=`` ``ratioxy``, `` `` angleofspine ``=`` ``angleofspine``,`` `` anglerighthumerus ``=`` ``anglerighthumerus``, `` `` anglelefthumerus ``=`` ``anglelefthumerus``,`` `` anglerightradius ``=`` ``anglerightradius``, `` `` angleleftradius ``=`` ``angleleftradius``,`` `` anglerightleg ``=`` ``anglerightleg``, `` `` angleleftleg ``=`` ``angleleftleg``, `` `` angleofneck ``=`` ``angleofneck``)`` `` `[`set.seed`](https://rdrr.io/r/base/Random.html)`(``123``)`` ``p`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `` `` `[`geom_smooth`](https://ggplot2.tidyverse.org/reference/geom_smooth.html)`(``mapping ``=`` `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``year``, y ``=`` ``number``)``,`` `` data ``=`` ``volunteers``, method ``=`` ``"loess"``, se ``=`` ``FALSE``)`` ``+`` `` `[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(``xrange``, ``yrange``)`` ``+`` `` `[`ylab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Volunteers at Caritas Spain"``)`` ``+`` `` `[`xkcdman`](https://toledoem.github.io/xkcd/reference/xkcdman.md)`(``mapping``, ``dataman``)`` ``+`` `` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x ``=`` ``2008.7``, y ``=`` ``63700``,`` `` label ``=`` ``"We Need\nVolunteers!"``, family ``=`` ``"xkcd"``)`` ``+`` `` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x ``=`` ``2010.5``, y ``=`` ``60000``,`` `` label ``=`` ``"Sure\nI can!"``, family ``=`` ``"xkcd"``)`` `` ``p`
 
 ![](xkcd-intro_files/figure-html/caritas-1.png)
 
-``` r
-
-# Save a representative plot for README
-try({
-  ggsave(filename = file.path("caritas_plot.png"), plot = p, width = 9, height = 5)
-}, silent = TRUE)
-```
+`# Save a representative plot for README`` `[`try`](https://rdrr.io/r/base/try.html)`(``{`` `` `[`ggsave`](https://ggplot2.tidyverse.org/reference/ggsave.html)`(``filename ``=`` `[`file.path`](https://rdrr.io/r/base/file.path.html)`(``"caritas_plot.png"``)``, plot ``=`` ``p``, width ``=`` ``9``, height ``=`` ``5``)`` ``}``, silent ``=`` ``TRUE``)`
 
 One interesting property of these charts is that when xkcd lines
 intersect, there is a space in blank in the crossing, following XKCD
@@ -283,83 +150,11 @@ style.
 
 ### Mommy jittered-text example
 
-``` r
-
-# Adapted from a legacy example: draw jittered 'Mummy' labels inside
-# time-of-day boxes, add small xkcd-style ticks and save the figure as a PNG
-mommy <- read.table(sep=" ",text ="
-8 100
-9 0
-10 0
-11 0
-12 0
-13 0
-14 100
-15 100
-16 500
-17 420
-18 75
-19 50
-20 100
-21 40
-22 0
-")
-names(mommy) <- c("hour","number")
-data <- mommy
-data$xmin <- data$hour - 0.25
-data$xmax <- data$xmin + 1
-data$ymin <- 0
-data$ymax <- data$number
-xrange <- range(8, 24)
-yrange <- range(min(data$ymin) + 10 , max(data$ymax) + 200)
-ratioxy <- diff(xrange)/diff(yrange)
-
-timelabel <-  function(text,x,y) {
-  te1 <- annotate("text", x=x, y = y + 65, label=text, size = 6,family ="xkcd")
-  list(te1,
-       geom_xkcdpath(mapping = aes(x = xbegin, y = ybegin, xend = xend, yend = yend),
-                      data = data.frame(xbegin = x, ybegin = y + 50, xend = x, yend = y),
-                      xjitteramount = 0.5, linewidth = 0.8, mask = FALSE))
-}
-
-n <- 1800
-set.seed(123)
-x <- runif(n, xrange[1],xrange[2] )
-y <- runif(n, yrange[1],yrange[2] )
-inside <- unlist(lapply(1:n, function(i) any(data$xmin <= x[i] & x[i] < data$xmax &
-                            data$ymin <= y[i] & y[i] < data$ymax)))
-x <- x[inside]
-y <- y[inside]
-
-nman <- length(x)
-sizer <- round(runif(nman, 1, 10),0)
-angler <- runif(nman, -10,10)
-
-p <- ggplot() +
-  geom_text(aes(x,y,label="Mummy",angle=angler,hjust=0, vjust=0),
-            family="xkcd",size=sizer,alpha=0.3) +
-  xkcdaxis(xrange,yrange) +
-  annotate("text", x=16, y = 650,
-           label="Happy Mother's day", size = 16,family ="xkcd") +
-  xlab("daily schedule") +
-  ylab("Number of times mothers are called on by their children") +
-  timelabel("Wake up", 9, 125) + timelabel("School", 12.5, 90) +
-  timelabel("Lunch", 15, 130) +
-  timelabel("Homework", 18, 525) +
-  timelabel("Bath", 21, 110) +
-  timelabel("zzz", 23.5, 60)
-
-print(p)
-```
+`# Adapted from a legacy example: draw jittered 'Mummy' labels inside`` ``# time-of-day boxes, add small xkcd-style ticks and save the figure as a PNG`` ``mommy`` ``<-`` `[`read.table`](https://rdrr.io/r/utils/read.table.html)`(``sep``=``" "``,text ``=``"`` ``8 100`` ``9 0`` ``10 0`` ``11 0`` ``12 0`` ``13 0`` ``14 100`` ``15 100`` ``16 500`` ``17 420`` ``18 75`` ``19 50`` ``20 100`` ``21 40`` ``22 0`` ``"``)`` `[`names`](https://rdrr.io/r/base/names.html)`(``mommy``)`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"hour"``,``"number"``)`` ``data`` ``<-`` ``mommy`` ``data``$``xmin`` ``<-`` ``data``$``hour`` ``-`` ``0.25`` ``data``$``xmax`` ``<-`` ``data``$``xmin`` ``+`` ``1`` ``data``$``ymin`` ``<-`` ``0`` ``data``$``ymax`` ``<-`` ``data``$``number`` ``xrange`` ``<-`` `[`range`](https://rdrr.io/r/base/range.html)`(``8``, ``24``)`` ``yrange`` ``<-`` `[`range`](https://rdrr.io/r/base/range.html)`(`[`min`](https://rdrr.io/r/base/Extremes.html)`(``data``$``ymin``)`` ``+`` ``10`` , `[`max`](https://rdrr.io/r/base/Extremes.html)`(``data``$``ymax``)`` ``+`` ``200``)`` ``ratioxy`` ``<-`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``xrange``)``/`[`diff`](https://rdrr.io/r/base/diff.html)`(``yrange``)`` `` ``timelabel`` ``<-`` ``function``(``text``,``x``,``y``)`` ``{`` `` ``te1`` ``<-`` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x``=``x``, y ``=`` ``y`` ``+`` ``65``, label``=``text``, size ``=`` ``6``,family ``=``"xkcd"``)`` `` `[`list`](https://rdrr.io/r/base/list.html)`(``te1``,`` `` `[`geom_xkcdpath`](https://toledoem.github.io/xkcd/reference/geom_xkcdpath.md)`(``mapping ``=`` `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``xbegin``, y ``=`` ``ybegin``, xend ``=`` ``xend``, yend ``=`` ``yend``)``,`` `` data ``=`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(``xbegin ``=`` ``x``, ybegin ``=`` ``y`` ``+`` ``50``, xend ``=`` ``x``, yend ``=`` ``y``)``,`` `` xjitteramount ``=`` ``0.5``, linewidth ``=`` ``0.8``, mask ``=`` ``FALSE``)``)`` ``}`` `` ``n`` ``<-`` ``1800`` `[`set.seed`](https://rdrr.io/r/base/Random.html)`(``123``)`` ``x`` ``<-`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``xrange``[``1``]``,``xrange``[``2``]`` ``)`` ``y`` ``<-`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``yrange``[``1``]``,``yrange``[``2``]`` ``)`` ``inside`` ``<-`` `[`unlist`](https://rdrr.io/r/base/unlist.html)`(`[`lapply`](https://rdrr.io/r/base/lapply.html)`(``1``:``n``, ``function``(``i``)`` `[`any`](https://rdrr.io/r/base/any.html)`(``data``$``xmin`` ``<=`` ``x``[``i``]`` ``&`` ``x``[``i``]`` ``<`` ``data``$``xmax`` ``&`` `` ``data``$``ymin`` ``<=`` ``y``[``i``]`` ``&`` ``y``[``i``]`` ``<`` ``data``$``ymax``)``)``)`` ``x`` ``<-`` ``x``[``inside``]`` ``y`` ``<-`` ``y``[``inside``]`` `` ``nman`` ``<-`` `[`length`](https://rdrr.io/r/base/length.html)`(``x``)`` ``sizer`` ``<-`` `[`round`](https://rdrr.io/r/base/Round.html)`(`[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``nman``, ``1``, ``10``)``,``0``)`` ``angler`` ``<-`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``nman``, ``-``10``,``10``)`` `` ``p`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `` `[`geom_text`](https://ggplot2.tidyverse.org/reference/geom_text.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x``,``y``,label``=``"Mummy"``,angle``=``angler``,hjust``=``0``, vjust``=``0``)``,`` `` family``=``"xkcd"``,size``=``sizer``,alpha``=``0.3``)`` ``+`` `` `[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(``xrange``,``yrange``)`` ``+`` `` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x``=``16``, y ``=`` ``650``,`` `` label``=``"Happy Mother's day"``, size ``=`` ``16``,family ``=``"xkcd"``)`` ``+`` `` `[`xlab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"daily schedule"``)`` ``+`` `` `[`ylab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Number of times mothers are called on by their children"``)`` ``+`` `` ``timelabel``(``"Wake up"``, ``9``, ``125``)`` ``+`` ``timelabel``(``"School"``, ``12.5``, ``90``)`` ``+`` `` ``timelabel``(``"Lunch"``, ``15``, ``130``)`` ``+`` `` ``timelabel``(``"Homework"``, ``18``, ``525``)`` ``+`` `` ``timelabel``(``"Bath"``, ``21``, ``110``)`` ``+`` `` ``timelabel``(``"zzz"``, ``23.5``, ``60``)`` `` `[`print`](https://rdrr.io/r/base/print.html)`(``p``)`
 
 ![](xkcd-intro_files/figure-html/mommy-1.png)
 
-``` r
-
-# Save a PNG into the vignette folder so it can be used in the README
-out_png <- file.path("mommy_plot.png")
-ggsave(filename = out_png, plot = p, width = 9, height = 6)
-```
+`# Save a PNG into the vignette folder so it can be used in the README`` ``out_png`` ``<-`` `[`file.path`](https://rdrr.io/r/base/file.path.html)`(``"mommy_plot.png"``)`` `[`ggsave`](https://ggplot2.tidyverse.org/reference/ggsave.html)`(``filename ``=`` ``out_png``, plot ``=`` ``p``, width ``=`` ``9``, height ``=`` ``6``)`
 
 You may specify the width, the height, and colors of the bars.
 
@@ -370,291 +165,29 @@ different visualization needs.
 
 ### Unemployment with Text Fill
 
-``` r
-
-library(zoo)
-library(splancs)
-
-mydatar <- read.table(text="
-6.202
-5.965
-5.778
-5.693
-5.639
-5.273
-4.978
-4.833
-4.910
-4.696
-4.574
-4.645
-4.612
-")
-
-mydata1 <- mydatar[dim(mydatar)[1]:1,]
-z <- zooreg(mydata1, end = as.yearqtr("2013-1"), frequency = 4)
-
-mydata <- data.frame(parados = z)
-mydata$year <- as.numeric(as.Date(as.yearqtr(rownames(mydata))))
-mydata$label <- paste(substr(rownames(mydata), 3, 4), substr(rownames(mydata), 6, 7), sep = "")
-
-xrange <- range(mydata$year)
-yrange <- range(mydata$parados) + c(-0.3, 0.3)
-ratioxy <- diff(xrange) / diff(yrange)
-
-set.seed(123)
-n <- 3200
-poligono <- mydata[, c("year", "parados")]
-names(poligono) <- c("x", "y")
-poligono <- rbind(poligono, c(max(poligono$x), 4.4))
-poligono <- rbind(poligono, c(min(poligono$x), 4.4))
-points <- data.frame(x = runif(n, range(poligono$x)[1], range(poligono$x)[2]),
-                     y = runif(n, range(poligono$y)[1], range(poligono$y)[2]))
-kk <- inout(points, poligono)
-points <- points[kk, ]
-points <- rbind(points, poligono)
-
-x <- points$x
-y <- points$y
-nman <- length(x)
-sizer <- runif(nman, 4, 6)
-
-n <- 2
-dataman <- data.frame(
-  x = c(15600, 14800),
-  y = c(5.3, 5.7),
-  scale = 0.2,
-  ratioxy = ratioxy,
-  angleofspine = runif(n, -pi / 2 - pi / 10, -pi / 2 + pi / 10),
-  anglerighthumerus = runif(n, -pi / 6 - pi / 10, -pi / 6 + pi / 10),
-  anglelefthumerus = runif(n, pi + pi / 6 - pi / 10, pi + pi / 6 + pi / 10),
-  anglerightradius = runif(n, -pi / 4, pi / 4),
-  angleleftradius = runif(n, pi - pi / 4, pi + pi / 4),
-  anglerightleg = runif(n, 3 * pi / 2 + pi / 12, 3 * pi / 2 + pi / 12 + pi / 10),
-  angleleftleg = runif(n, 3 * pi / 2 - pi / 12 - pi / 10, 3 * pi / 2 - pi / 12),
-  angleofneck = runif(n, -pi / 2 - pi / 10, -pi / 2 + pi / 10)
-)
-
-mapping <- aes(x = x, y = y, scale = scale, ratioxy = ratioxy,
-               angleofspine = angleofspine,
-               anglerighthumerus = anglerighthumerus,
-               anglelefthumerus = anglelefthumerus,
-               anglerightradius = anglerightradius,
-               angleleftradius = angleleftradius,
-               anglerightleg = anglerightleg,
-               angleleftleg = angleleftleg,
-               angleofneck = angleofneck)
-
-set.seed(123)
-p1 <- ggplot() + 
-  geom_text(aes(x = x, y = y, label = "0"), 
-            data = data.frame(x = x, y = y), family = "xkcd", alpha = 0.4, size = sizer) +
-  xkcdaxis(xrange, yrange) +
-  ylab("Unemployed persons (millions)") + 
-  xlab("Date") +
-  annotate("text", x = 15250, y = 5.95, label = "Help!", family = "xkcd", size = 7) +
-  geom_xkcdpath(mapping = aes(x = xbegin, y = ybegin, xend = xend, yend = yend, group = 1),
-                data = data.frame(xbegin = 15600, ybegin = 5.42, xend = 15250, yend = 5.902, group = 1),
-                xjitteramount = 200) + 
-  theme(legend.position = "none")
-
-p2 <- p1 + scale_x_continuous(breaks = as.numeric(mydata$year), label = mydata$label)
-
-p2 + xkcdman(mapping, dataman)
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`zoo`](https://zeileis.codeberg.page/zoo/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`splancs`](https://www.maths.lancs.ac.uk/~rowlings/Splancs/)`)`` `` ``mydatar`` ``<-`` `[`read.table`](https://rdrr.io/r/utils/read.table.html)`(``text``=``"`` ``6.202`` ``5.965`` ``5.778`` ``5.693`` ``5.639`` ``5.273`` ``4.978`` ``4.833`` ``4.910`` ``4.696`` ``4.574`` ``4.645`` ``4.612`` ``"``)`` `` ``mydata1`` ``<-`` ``mydatar``[`[`dim`](https://rdrr.io/r/base/dim.html)`(``mydatar``)``[``1``]``:``1``,``]`` ``z`` ``<-`` `[`zooreg`](https://rdrr.io/pkg/zoo/man/zooreg.html)`(``mydata1``, end ``=`` `[`as.yearqtr`](https://rdrr.io/pkg/zoo/man/yearqtr.html)`(``"2013-1"``)``, frequency ``=`` ``4``)`` `` ``mydata`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(``parados ``=`` ``z``)`` ``mydata``$``year`` ``<-`` `[`as.numeric`](https://rdrr.io/r/base/numeric.html)`(`[`as.Date`](https://rdrr.io/pkg/zoo/man/yearmon.html)`(`[`as.yearqtr`](https://rdrr.io/pkg/zoo/man/yearqtr.html)`(`[`rownames`](https://rdrr.io/r/base/colnames.html)`(``mydata``)``)``)``)`` ``mydata``$``label`` ``<-`` `[`paste`](https://rdrr.io/r/base/paste.html)`(`[`substr`](https://rdrr.io/r/base/substr.html)`(`[`rownames`](https://rdrr.io/r/base/colnames.html)`(``mydata``)``, ``3``, ``4``)``, `[`substr`](https://rdrr.io/r/base/substr.html)`(`[`rownames`](https://rdrr.io/r/base/colnames.html)`(``mydata``)``, ``6``, ``7``)``, sep ``=`` ``""``)`` `` ``xrange`` ``<-`` `[`range`](https://rdrr.io/r/base/range.html)`(``mydata``$``year``)`` ``yrange`` ``<-`` `[`range`](https://rdrr.io/r/base/range.html)`(``mydata``$``parados``)`` ``+`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``0.3``, ``0.3``)`` ``ratioxy`` ``<-`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``xrange``)`` ``/`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``yrange``)`` `` `[`set.seed`](https://rdrr.io/r/base/Random.html)`(``123``)`` ``n`` ``<-`` ``3200`` ``poligono`` ``<-`` ``mydata``[``, `[`c`](https://rdrr.io/r/base/c.html)`(``"year"``, ``"parados"``)``]`` `[`names`](https://rdrr.io/r/base/names.html)`(``poligono``)`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"x"``, ``"y"``)`` ``poligono`` ``<-`` `[`rbind`](https://rdrr.io/r/base/cbind.html)`(``poligono``, `[`c`](https://rdrr.io/r/base/c.html)`(`[`max`](https://rdrr.io/r/base/Extremes.html)`(``poligono``$``x``)``, ``4.4``)``)`` ``poligono`` ``<-`` `[`rbind`](https://rdrr.io/r/base/cbind.html)`(``poligono``, `[`c`](https://rdrr.io/r/base/c.html)`(`[`min`](https://rdrr.io/r/base/Extremes.html)`(``poligono``$``x``)``, ``4.4``)``)`` ``points`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(``x ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, `[`range`](https://rdrr.io/r/base/range.html)`(``poligono``$``x``)``[``1``]``, `[`range`](https://rdrr.io/r/base/range.html)`(``poligono``$``x``)``[``2``]``)``,`` `` y ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, `[`range`](https://rdrr.io/r/base/range.html)`(``poligono``$``y``)``[``1``]``, `[`range`](https://rdrr.io/r/base/range.html)`(``poligono``$``y``)``[``2``]``)``)`` ``kk`` ``<-`` `[`inout`](https://rsbivand.github.io/splancs/reference/inout.html)`(``points``, ``poligono``)`` ``points`` ``<-`` ``points``[``kk``, ``]`` ``points`` ``<-`` `[`rbind`](https://rdrr.io/r/base/cbind.html)`(``points``, ``poligono``)`` `` ``x`` ``<-`` ``points``$``x`` ``y`` ``<-`` ``points``$``y`` ``nman`` ``<-`` `[`length`](https://rdrr.io/r/base/length.html)`(``x``)`` ``sizer`` ``<-`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``nman``, ``4``, ``6``)`` `` ``n`` ``<-`` ``2`` ``dataman`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`` `` x ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``15600``, ``14800``)``,`` `` y ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``5.3``, ``5.7``)``,`` `` scale ``=`` ``0.2``,`` `` ratioxy ``=`` ``ratioxy``,`` `` angleofspine ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``10``)``,`` `` anglerighthumerus ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``-``pi`` ``/`` ``6`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``6`` ``+`` ``pi`` ``/`` ``10``)``,`` `` anglelefthumerus ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``pi`` ``+`` ``pi`` ``/`` ``6`` ``-`` ``pi`` ``/`` ``10``, ``pi`` ``+`` ``pi`` ``/`` ``6`` ``+`` ``pi`` ``/`` ``10``)``,`` `` anglerightradius ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``-``pi`` ``/`` ``4``, ``pi`` ``/`` ``4``)``,`` `` angleleftradius ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``pi`` ``-`` ``pi`` ``/`` ``4``, ``pi`` ``+`` ``pi`` ``/`` ``4``)``,`` `` anglerightleg ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``3`` ``*`` ``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``12``, ``3`` ``*`` ``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``12`` ``+`` ``pi`` ``/`` ``10``)``,`` `` angleleftleg ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``3`` ``*`` ``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``12`` ``-`` ``pi`` ``/`` ``10``, ``3`` ``*`` ``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``12``)``,`` `` angleofneck ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``n``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``10``)`` ``)`` `` ``mapping`` ``<-`` `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``x``, y ``=`` ``y``, scale ``=`` ``scale``, ratioxy ``=`` ``ratioxy``,`` `` angleofspine ``=`` ``angleofspine``,`` `` anglerighthumerus ``=`` ``anglerighthumerus``,`` `` anglelefthumerus ``=`` ``anglelefthumerus``,`` `` anglerightradius ``=`` ``anglerightradius``,`` `` angleleftradius ``=`` ``angleleftradius``,`` `` anglerightleg ``=`` ``anglerightleg``,`` `` angleleftleg ``=`` ``angleleftleg``,`` `` angleofneck ``=`` ``angleofneck``)`` `` `[`set.seed`](https://rdrr.io/r/base/Random.html)`(``123``)`` ``p1`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `` `` `[`geom_text`](https://ggplot2.tidyverse.org/reference/geom_text.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``x``, y ``=`` ``y``, label ``=`` ``"0"``)``, `` `` data ``=`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(``x ``=`` ``x``, y ``=`` ``y``)``, family ``=`` ``"xkcd"``, alpha ``=`` ``0.4``, size ``=`` ``sizer``)`` ``+`` `` `[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(``xrange``, ``yrange``)`` ``+`` `` `[`ylab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Unemployed persons (millions)"``)`` ``+`` `` `` `[`xlab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Date"``)`` ``+`` `` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x ``=`` ``15250``, y ``=`` ``5.95``, label ``=`` ``"Help!"``, family ``=`` ``"xkcd"``, size ``=`` ``7``)`` ``+`` `` `[`geom_xkcdpath`](https://toledoem.github.io/xkcd/reference/geom_xkcdpath.md)`(``mapping ``=`` `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``xbegin``, y ``=`` ``ybegin``, xend ``=`` ``xend``, yend ``=`` ``yend``, group ``=`` ``1``)``,`` `` data ``=`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(``xbegin ``=`` ``15600``, ybegin ``=`` ``5.42``, xend ``=`` ``15250``, yend ``=`` ``5.902``, group ``=`` ``1``)``,`` `` xjitteramount ``=`` ``200``)`` ``+`` `` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"none"``)`` `` ``p2`` ``<-`` ``p1`` ``+`` `[`scale_x_continuous`](https://ggplot2.tidyverse.org/reference/scale_continuous.html)`(``breaks ``=`` `[`as.numeric`](https://rdrr.io/r/base/numeric.html)`(``mydata``$``year``)``, label ``=`` ``mydata``$``label``)`` `` ``p2`` ``+`` `[`xkcdman`](https://toledoem.github.io/xkcd/reference/xkcdman.md)`(``mapping``, ``dataman``)`
 
 ![](xkcd-intro_files/figure-html/help-1.png)
 
-``` r
-
-# Grouping example: provide a group aesthetic to geom_xkcdpath() when
-df <- data.frame(x = c(1, 3), y = c(1, 1), xend = c(2, 4), yend = c(1.2, 0.8), group = 1)
-ggplot() +
-  geom_xkcdpath(aes(x = x, y = y, xend = xend, yend = yend, group = group),
-                data = df, linewidth = 1, xjitteramount = 0.05, yjitteramount = 0.05) +
-  xkcdaxis(c(0,5), c(0,2)) + theme_xkcd()
-```
+`# Grouping example: provide a group aesthetic to geom_xkcdpath() when`` ``df`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(``x ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``1``, ``3``)``, y ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``1``, ``1``)``, xend ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2``, ``4``)``, yend ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``1.2``, ``0.8``)``, group ``=`` ``1``)`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `` `[`geom_xkcdpath`](https://toledoem.github.io/xkcd/reference/geom_xkcdpath.md)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``x``, y ``=`` ``y``, xend ``=`` ``xend``, yend ``=`` ``yend``, group ``=`` ``group``)``,`` `` data ``=`` ``df``, linewidth ``=`` ``1``, xjitteramount ``=`` ``0.05``, yjitteramount ``=`` ``0.05``)`` ``+`` `` `[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(`[`c`](https://rdrr.io/r/base/c.html)`(``0``,``5``)``, `[`c`](https://rdrr.io/r/base/c.html)`(``0``,``2``)``)`` ``+`` `[`theme_xkcd`](https://toledoem.github.io/xkcd/reference/theme_xkcd.md)`(``)`
 
 ![](xkcd-intro_files/figure-html/help-2.png)
 
 ### Economic Projections
 
-``` r
-
-library(reshape)
-
-mydata <- data.frame(
-  year = c(2013, 2014, 2015),
-  ministerio = c(2, 2.1, 2.2),
-  banco = c(1.95, 1.97, 2.05),
-  fmi = c(1.96, 1.93, 1.90),
-  homo = c(1.94, 1.88, 1.87)
-)
-
-mydatalong <- melt(mydata, id = "year", 
-                   measure.vars = c("ministerio", "banco", "fmi", "homo"))
-
-xrange <- c(2013, 2015)
-yrange <- c(1.86, 2.21)
-
-set.seed(123)
-p <- ggplot() + 
-  geom_smooth(aes(x = year, y = value, group = variable, linetype = variable), 
-              data = mydatalong, color = "black", se = FALSE) + 
-  theme(legend.position = "none") + 
-  xkcdaxis(xrange, yrange) +
-  ylab("Change in real GDP (%)") + 
-  xlab("Economic Projections of several Institutes") + 
-  scale_x_continuous(breaks = c(2013, 2014, 2015), labels = c(2013, 2014, 2015))
-
-datalabel <- data.frame(
-  x = 2014.95,
-  y = c(mydata[mydata$year == 2015, "ministerio"],
-        mydata[mydata$year == 2015, "banco"],
-        mydata[mydata$year == 2015, "fmi"],
-        mydata[mydata$year == 2015, "homo"]),
-  label = c("Ministry of Economy", "National Bank", 
-            "International Monetary Fund", "Homo Sapiens Sapiens*")
-)
-
-p2 <- p + 
-  geom_text(aes(x = x, y = y, label = label), 
-            data = datalabel, hjust = 1, vjust = 1, family = "xkcd", size = 3) +
-  annotate("text", x = 2013.4, y = 1.852, 
-           label = "*Homo Sapiens Sapiens = Doubly Wise Man", 
-           family = "xkcd", size = 2.5)
-
-p2
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`reshape`](http://had.co.nz/reshape)`)`` `` ``mydata`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`` `` year ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2013``, ``2014``, ``2015``)``,`` `` ministerio ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2``, ``2.1``, ``2.2``)``,`` `` banco ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``1.95``, ``1.97``, ``2.05``)``,`` `` fmi ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``1.96``, ``1.93``, ``1.90``)``,`` `` homo ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``1.94``, ``1.88``, ``1.87``)`` ``)`` `` ``mydatalong`` ``<-`` `[`melt`](https://rdrr.io/pkg/reshape/man/melt-24.html)`(``mydata``, id ``=`` ``"year"``, `` `` measure.vars ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"ministerio"``, ``"banco"``, ``"fmi"``, ``"homo"``)``)`` `` ``xrange`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``2013``, ``2015``)`` ``yrange`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``1.86``, ``2.21``)`` `` `[`set.seed`](https://rdrr.io/r/base/Random.html)`(``123``)`` ``p`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `` `` `[`geom_smooth`](https://ggplot2.tidyverse.org/reference/geom_smooth.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``year``, y ``=`` ``value``, group ``=`` ``variable``, linetype ``=`` ``variable``)``, `` `` data ``=`` ``mydatalong``, color ``=`` ``"black"``, se ``=`` ``FALSE``)`` ``+`` `` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"none"``)`` ``+`` `` `` `[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(``xrange``, ``yrange``)`` ``+`` `` `[`ylab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Change in real GDP (%)"``)`` ``+`` `` `` `[`xlab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Economic Projections of several Institutes"``)`` ``+`` `` `` `[`scale_x_continuous`](https://ggplot2.tidyverse.org/reference/scale_continuous.html)`(``breaks ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2013``, ``2014``, ``2015``)``, labels ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2013``, ``2014``, ``2015``)``)`` `` ``datalabel`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`` `` x ``=`` ``2014.95``,`` `` y ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``mydata``[``mydata``$``year`` ``==`` ``2015``, ``"ministerio"``]``,`` `` ``mydata``[``mydata``$``year`` ``==`` ``2015``, ``"banco"``]``,`` `` ``mydata``[``mydata``$``year`` ``==`` ``2015``, ``"fmi"``]``,`` `` ``mydata``[``mydata``$``year`` ``==`` ``2015``, ``"homo"``]``)``,`` `` label ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"Ministry of Economy"``, ``"National Bank"``, `` `` ``"International Monetary Fund"``, ``"Homo Sapiens Sapiens*"``)`` ``)`` `` ``p2`` ``<-`` ``p`` ``+`` `` `` `[`geom_text`](https://ggplot2.tidyverse.org/reference/geom_text.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``x``, y ``=`` ``y``, label ``=`` ``label``)``, `` `` data ``=`` ``datalabel``, hjust ``=`` ``1``, vjust ``=`` ``1``, family ``=`` ``"xkcd"``, size ``=`` ``3``)`` ``+`` `` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x ``=`` ``2013.4``, y ``=`` ``1.852``, `` `` label ``=`` ``"*Homo Sapiens Sapiens = Doubly Wise Man"``, `` `` family ``=`` ``"xkcd"``, size ``=`` ``2.5``)`` `` ``p2`
 
 ![](xkcd-intro_files/figure-html/homosapiens-1.png)
 
 ### Regional Migration Pyramid
 
-``` r
-
-set.seed(130613)
-
-resumen <- structure(list(
-  tonombre = structure(c(1L, 2L, 3L, 11L, 4L, 5L, 8L, 6L, 7L, 9L, 10L, 14L, 12L, 13L, 15L), 
-                      .Label = c("Andalucía", "Aragón", "Asturias", "Canarias", "Cantabria", 
-                                "C-LaMancha", "CyLeón", "Cataluña", "Extremadura", "Galicia", 
-                                "Baleares", "Madrid", "Murcia", "La Rioja", "Valencia"), 
-                      class = "factor"),
-  persons = c(2743706L, 515772L, 364410L, 399963L, 699410L, 212737L, 2847377L, 717874L, 894946L, 371502L, 942277L, 119341L, 2561918L, 493833L, 1661613L),
-  frompersons = c(14266L, 3910L, 3214L, 3283L, 4371L, 1593L, 10912L, 8931L, 9566L, 3231L, 5407L, 940L, 21289L, 3202L, 9939L),
-  topersons = c(10341L, 3805L, 2523L, 4039L, 3911L, 1524L, 12826L, 10897L, 7108L, 2312L, 4522L, 1066L, 26464L, 3529L, 9187L),
-  llegan = c(0.38, 0.74, 0.69, 1.01, 0.56, 0.72, 0.45, 1.52, 0.79, 0.62, 0.48, 0.89, 1.03, 0.71, 0.55),
-  sevan = c(0.52, 0.76, 0.88, 0.82, 0.62, 0.75, 0.38, 1.24, 1.07, 0.87, 0.57, 0.79, 0.83, 0.65, 0.60)
-), class = "data.frame", row.names = c(NA, -15L))
-
-library(reshape)
-resumenlargo <- melt(resumen[, c("tonombre", "llegan", "sevan")])
-
-oo <- order(resumen$llegan)
-nombreordenados <- resumen$tonombre[oo]
-resumenlargo$tonombre <- factor(resumenlargo$tonombre, levels = nombreordenados, ordered = TRUE)
-
-xrange <- c(1, 15)
-yrange <- c(-1.3, 1.6)
-ratioxy <- diff(xrange) / diff(yrange)
-
-kk <- ggplot() +
-  geom_bar(aes(y = value, x = tonombre, fill = variable), 
-           data = resumenlargo[resumenlargo$variable == "llegan", ], stat = "identity") +
-  geom_bar(aes(y = (-1) * value, x = tonombre, fill = variable), 
-           data = resumenlargo[resumenlargo$variable == "sevan", ], stat = "identity") +
-  scale_y_continuous(breaks = seq(-1.2, 1.5, 0.3), labels = abs(seq(-1.2, 1.5, 0.3))) +
-  ylab("Movilidad de los asalariados (% sobre asalariados residentes)") +
-  coord_flip() +
-  theme_xkcd() + 
-  xlab("") + 
-  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
-
-kk2 <- kk +
-  geom_text(aes(x = tonombre, y = 0, label = tonombre), 
-            data = resumenlargo[resumenlargo$variable == "llegan", ], family = "xkcd", size = 2)
-
-lleganespana <- sum(resumen$topersons) * 100 / sum(resumen$persons)
-sevanespana <- sum(resumen$frompersons) * 100 / sum(resumen$persons)
-
-kk3 <- kk2 + 
-  scale_fill_discrete(name = "",
-                      breaks = c("llegan", "sevan"),
-                      labels = c("Llegan", "Se van")) + 
-  theme(legend.justification = c(0, 0), legend.position = c(0, 0))
-
-dataman <- data.frame(
-  x = 7,
-  y = 1.5,
-  scale = 0.35,
-  ratioxy = ratioxy,
-  angleofspine = runif(1, -pi / 2 - pi / 2 - pi / 10, -pi / 2 - pi / 2 + pi / 10),
-  anglerighthumerus = runif(1, -pi / 2 - pi / 6 - pi / 10, -pi / 2 - pi / 6 + pi / 10),
-  anglelefthumerus = runif(1, -pi / 2 - pi / 2 - pi / 10, -pi / 2 - pi / 2 + pi / 10),
-  anglerightradius = runif(1, -pi / 2 - pi / 5 - pi / 10, -pi / 2 - pi / 5 + pi / 10),
-  angleleftradius = runif(1, -pi / 2 - pi / 5 - pi / 10, -pi / 2 - pi / 5 + pi / 10),
-  angleleftleg = runif(1, -pi / 2 + 3 * pi / 2 + pi / 12 - pi / 20, -pi / 2 + 3 * pi / 2 + pi / 12 + pi / 20),
-  anglerightleg = runif(1, -pi / 2 + 3 * pi / 2 - pi / 12 - pi / 20, -pi / 2 + 3 * pi / 2 - pi / 12 + pi / 20),
-  angleofneck = runif(1, -pi / 2 + 3 * pi / 2 - pi / 10, -pi / 2 + 3 * pi / 2 + pi / 10)
-)
-
-mapping <- aes(x = x, y = y, scale = scale, ratioxy = ratioxy,
-               angleofspine = angleofspine,
-               anglerighthumerus = anglerighthumerus,
-               anglelefthumerus = anglelefthumerus,
-               anglerightradius = anglerightradius,
-               angleleftradius = angleleftradius,
-               anglerightleg = anglerightleg,
-               angleleftleg = angleleftleg,
-               angleofneck = angleofneck)
-
-p1 <- xkcdman(mapping, dataman)
-
-kk4 <- kk3 + 
-  annotate("text", x = 9.3, y = 1.3, label = "Unos vienen, otros se van", family = "xkcd") +
-  annotate("text", x = 1, y = c(lleganespana, -sevanespana), 
-           label = "Media de España", hjust = c(-0.11, -0.11), 
-           vjust = c(-0.1, 0.1), family = "xkcd", angle = 90)
-
-kk4 + xkcdman(mapping, dataman)
-```
+[`set.seed`](https://rdrr.io/r/base/Random.html)`(``130613``)`` `` ``resumen`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`` `` tonombre ``=`` `[`factor`](https://rdrr.io/r/base/factor.html)`(`[`c`](https://rdrr.io/r/base/c.html)`(``1L``, ``2L``, ``3L``, ``11L``, ``4L``, ``5L``, ``8L``, ``6L``, ``7L``, ``9L``, ``10L``, ``14L``, ``12L``, ``13L``, ``15L``)``,`` `` labels ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"Andalucía"``, ``"Aragón"``, ``"Asturias"``, ``"Canarias"``, ``"Cantabria"``,`` `` ``"C-LaMancha"``, ``"CyLeón"``, ``"Cataluña"``, ``"Extremadura"``, ``"Galicia"``,`` `` ``"Baleares"``, ``"Madrid"``, ``"Murcia"``, ``"La Rioja"``, ``"Valencia"``)``)``,`` `` persons ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2743706L``, ``515772L``, ``364410L``, ``399963L``, ``699410L``, ``212737L``, ``2847377L``, ``717874L``, ``894946L``, ``371502L``, ``942277L``, ``119341L``, ``2561918L``, ``493833L``, ``1661613L``)``,`` `` frompersons ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``14266L``, ``3910L``, ``3214L``, ``3283L``, ``4371L``, ``1593L``, ``10912L``, ``8931L``, ``9566L``, ``3231L``, ``5407L``, ``940L``, ``21289L``, ``3202L``, ``9939L``)``,`` `` topersons ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``10341L``, ``3805L``, ``2523L``, ``4039L``, ``3911L``, ``1524L``, ``12826L``, ``10897L``, ``7108L``, ``2312L``, ``4522L``, ``1066L``, ``26464L``, ``3529L``, ``9187L``)``,`` `` llegan ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``0.38``, ``0.74``, ``0.69``, ``1.01``, ``0.56``, ``0.72``, ``0.45``, ``1.52``, ``0.79``, ``0.62``, ``0.48``, ``0.89``, ``1.03``, ``0.71``, ``0.55``)``,`` `` sevan ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``0.52``, ``0.76``, ``0.88``, ``0.82``, ``0.62``, ``0.75``, ``0.38``, ``1.24``, ``1.07``, ``0.87``, ``0.57``, ``0.79``, ``0.83``, ``0.65``, ``0.60``)`` ``)`` `` `[`library`](https://rdrr.io/r/base/library.html)`(`[`reshape`](http://had.co.nz/reshape)`)`` ``resumenlargo`` ``<-`` `[`melt`](https://rdrr.io/pkg/reshape/man/melt-24.html)`(``resumen``[``, `[`c`](https://rdrr.io/r/base/c.html)`(``"tonombre"``, ``"llegan"``, ``"sevan"``)``]``)`` `` ``oo`` ``<-`` `[`order`](https://rdrr.io/r/base/order.html)`(``resumen``$``llegan``)`` ``nombreordenados`` ``<-`` ``resumen``$``tonombre``[``oo``]`` ``resumenlargo``$``tonombre`` ``<-`` `[`factor`](https://rdrr.io/r/base/factor.html)`(``resumenlargo``$``tonombre``, levels ``=`` ``nombreordenados``, ordered ``=`` ``TRUE``)`` `` ``xrange`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``1``, ``15``)`` ``yrange`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``1.3``, ``1.6``)`` ``ratioxy`` ``<-`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``xrange``)`` ``/`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``yrange``)`` `` ``kk`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `` `[`geom_bar`](https://ggplot2.tidyverse.org/reference/geom_bar.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``y ``=`` ``value``, x ``=`` ``tonombre``, fill ``=`` ``variable``)``, `` `` data ``=`` ``resumenlargo``[``resumenlargo``$``variable`` ``==`` ``"llegan"``, ``]``, stat ``=`` ``"identity"``)`` ``+`` `` `[`geom_bar`](https://ggplot2.tidyverse.org/reference/geom_bar.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``y ``=`` ``(``-``1``)`` ``*`` ``value``, x ``=`` ``tonombre``, fill ``=`` ``variable``)``, `` `` data ``=`` ``resumenlargo``[``resumenlargo``$``variable`` ``==`` ``"sevan"``, ``]``, stat ``=`` ``"identity"``)`` ``+`` `` `[`scale_y_continuous`](https://ggplot2.tidyverse.org/reference/scale_continuous.html)`(``breaks ``=`` `[`seq`](https://rdrr.io/r/base/seq.html)`(``-``1.2``, ``1.5``, ``0.3``)``, labels ``=`` `[`abs`](https://rdrr.io/r/base/MathFun.html)`(`[`seq`](https://rdrr.io/r/base/seq.html)`(``-``1.2``, ``1.5``, ``0.3``)``)``)`` ``+`` `` `[`ylab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Movilidad de los asalariados (% sobre asalariados residentes)"``)`` ``+`` `` `[`coord_flip`](https://ggplot2.tidyverse.org/reference/coord_flip.html)`(``)`` ``+`` `` `[`theme_xkcd`](https://toledoem.github.io/xkcd/reference/theme_xkcd.md)`(``)`` ``+`` `` `` `[`xlab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``""``)`` ``+`` `` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``axis.ticks.y ``=`` `[`element_blank`](https://ggplot2.tidyverse.org/reference/element.html)`(``)``, axis.text.y ``=`` `[`element_blank`](https://ggplot2.tidyverse.org/reference/element.html)`(``)``)`` `` ``kk2`` ``<-`` ``kk`` ``+`` `` `[`geom_text`](https://ggplot2.tidyverse.org/reference/geom_text.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``tonombre``, y ``=`` ``0``, label ``=`` ``tonombre``)``, `` `` data ``=`` ``resumenlargo``[``resumenlargo``$``variable`` ``==`` ``"llegan"``, ``]``, family ``=`` ``"xkcd"``, size ``=`` ``2``)`` `` ``lleganespana`` ``<-`` `[`sum`](https://rdrr.io/r/base/sum.html)`(``resumen``$``topersons``)`` ``*`` ``100`` ``/`` `[`sum`](https://rdrr.io/r/base/sum.html)`(``resumen``$``persons``)`` ``sevanespana`` ``<-`` `[`sum`](https://rdrr.io/r/base/sum.html)`(``resumen``$``frompersons``)`` ``*`` ``100`` ``/`` `[`sum`](https://rdrr.io/r/base/sum.html)`(``resumen``$``persons``)`` `` ``kk3`` ``<-`` ``kk2`` ``+`` `` `` `[`scale_fill_discrete`](https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html)`(``name ``=`` ``""``,`` `` breaks ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"llegan"``, ``"sevan"``)``,`` `` labels ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"Llegan"``, ``"Se van"``)``)`` ``+`` `` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.justification ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``0``, ``0``)``, legend.position ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``0``, ``0``)``)`` `` ``dataman`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`` `` x ``=`` ``7``,`` `` y ``=`` ``1.5``,`` `` scale ``=`` ``0.35``,`` `` ratioxy ``=`` ``ratioxy``,`` `` angleofspine ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``1``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``10``)``,`` `` anglerighthumerus ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``1``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``6`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``6`` ``+`` ``pi`` ``/`` ``10``)``,`` `` anglelefthumerus ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``1``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``10``)``,`` `` anglerightradius ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``1``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``5`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``5`` ``+`` ``pi`` ``/`` ``10``)``,`` `` angleleftradius ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``1``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``5`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``5`` ``+`` ``pi`` ``/`` ``10``)``,`` `` angleleftleg ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``1``, ``-``pi`` ``/`` ``2`` ``+`` ``3`` ``*`` ``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``12`` ``-`` ``pi`` ``/`` ``20``, ``-``pi`` ``/`` ``2`` ``+`` ``3`` ``*`` ``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``12`` ``+`` ``pi`` ``/`` ``20``)``,`` `` anglerightleg ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``1``, ``-``pi`` ``/`` ``2`` ``+`` ``3`` ``*`` ``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``12`` ``-`` ``pi`` ``/`` ``20``, ``-``pi`` ``/`` ``2`` ``+`` ``3`` ``*`` ``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``12`` ``+`` ``pi`` ``/`` ``20``)``,`` `` angleofneck ``=`` `[`runif`](https://rdrr.io/r/stats/Uniform.html)`(``1``, ``-``pi`` ``/`` ``2`` ``+`` ``3`` ``*`` ``pi`` ``/`` ``2`` ``-`` ``pi`` ``/`` ``10``, ``-``pi`` ``/`` ``2`` ``+`` ``3`` ``*`` ``pi`` ``/`` ``2`` ``+`` ``pi`` ``/`` ``10``)`` ``)`` `` ``mapping`` ``<-`` `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``x``, y ``=`` ``y``, scale ``=`` ``scale``, ratioxy ``=`` ``ratioxy``,`` `` angleofspine ``=`` ``angleofspine``,`` `` anglerighthumerus ``=`` ``anglerighthumerus``,`` `` anglelefthumerus ``=`` ``anglelefthumerus``,`` `` anglerightradius ``=`` ``anglerightradius``,`` `` angleleftradius ``=`` ``angleleftradius``,`` `` anglerightleg ``=`` ``anglerightleg``,`` `` angleleftleg ``=`` ``angleleftleg``,`` `` angleofneck ``=`` ``angleofneck``)`` `` ``p1`` ``<-`` `[`xkcdman`](https://toledoem.github.io/xkcd/reference/xkcdman.md)`(``mapping``, ``dataman``)`` `` ``kk4`` ``<-`` ``kk3`` ``+`` `` `` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x ``=`` ``9.3``, y ``=`` ``1.3``, label ``=`` ``"Unos vienen, otros se van"``, family ``=`` ``"xkcd"``)`` ``+`` `` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x ``=`` ``1``, y ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``lleganespana``, ``-``sevanespana``)``, `` `` label ``=`` ``"Media de España"``, hjust ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``0.11``, ``-``0.11``)``, `` `` vjust ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``0.1``, ``0.1``)``, family ``=`` ``"xkcd"``, angle ``=`` ``90``)`` `` ``kk4`` ``+`` `[`xkcdman`](https://toledoem.github.io/xkcd/reference/xkcdman.md)`(``mapping``, ``dataman``)`
 
 ![](xkcd-intro_files/figure-html/sevan-1.png)
 
 ### Mother’s Day Schedule
 
-``` r
-
-set.seed(123)
-
-mommy <- data.frame(
-  hour = c(8, 9, 10, 14, 15, 16, 17, 18, 19, 20, 21, 22),
-  number = c(100, 0, 0, 100, 100, 500, 420, 75, 50, 100, 40, 0)
-)
-
-data <- mommy
-data$xmin <- data$hour - 0.25
-data$xmax <- data$xmin + 1
-data$ymin <- 0
-data$ymax <- data$number
-
-xrange <- c(8, 24)
-yrange <- c(0, 600)
-ratioxy <- diff(xrange) / diff(yrange)
-
-mapping <- aes(xmin = xmin, ymin = ymin, xmax = xmax, ymax = ymax)
-
-p <- ggplot() + 
-  xkcdrect(mapping, data, fillcolour = "pink", borderlinewidth = 1) +
-  xkcdaxis(xrange, yrange) +
-  annotate("text", x = 16, y = 550,
-           label = "Happy Mother's day", size = 6, family = "xkcd") +
-  xlab("Daily schedule") +
-  ylab("Times mothers are called by children")
-
-p
-```
+[`set.seed`](https://rdrr.io/r/base/Random.html)`(``123``)`` `` ``mommy`` ``<-`` `[`data.frame`](https://rdrr.io/r/base/data.frame.html)`(`` `` hour ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``8``, ``9``, ``10``, ``14``, ``15``, ``16``, ``17``, ``18``, ``19``, ``20``, ``21``, ``22``)``,`` `` number ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``100``, ``0``, ``0``, ``100``, ``100``, ``500``, ``420``, ``75``, ``50``, ``100``, ``40``, ``0``)`` ``)`` `` ``data`` ``<-`` ``mommy`` ``data``$``xmin`` ``<-`` ``data``$``hour`` ``-`` ``0.25`` ``data``$``xmax`` ``<-`` ``data``$``xmin`` ``+`` ``1`` ``data``$``ymin`` ``<-`` ``0`` ``data``$``ymax`` ``<-`` ``data``$``number`` `` ``xrange`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``8``, ``24``)`` ``yrange`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``0``, ``600``)`` ``ratioxy`` ``<-`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``xrange``)`` ``/`` `[`diff`](https://rdrr.io/r/base/diff.html)`(``yrange``)`` `` ``mapping`` ``<-`` `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``xmin ``=`` ``xmin``, ymin ``=`` ``ymin``, xmax ``=`` ``xmax``, ymax ``=`` ``ymax``)`` `` ``p`` ``<-`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``)`` ``+`` `` `` `[`xkcdrect`](https://toledoem.github.io/xkcd/reference/xkcdrect.md)`(``mapping``, ``data``, fill ``=`` ``"pink"``, linewidth ``=`` ``1``)`` ``+`` `` `[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(``xrange``, ``yrange``)`` ``+`` `` `[`annotate`](https://ggplot2.tidyverse.org/reference/annotate.html)`(``"text"``, x ``=`` ``16``, y ``=`` ``550``,`` `` label ``=`` ``"Happy Mother's day"``, size ``=`` ``6``, family ``=`` ``"xkcd"``)`` ``+`` `` `[`xlab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Daily schedule"``)`` ``+`` `` `[`ylab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Times mothers are called by children"``)`` `` ``p`
 
 ![](xkcd-intro_files/figure-html/motherday-1.png)
 
@@ -706,10 +239,7 @@ The xkcd package relies on several key dependencies:
 
 Plots axes in XKCD style with hand-drawn appearance.
 
-``` r
-
-xkcdaxis(xrange, yrange, ...)
-```
+[`xkcdaxis`](https://toledoem.github.io/xkcd/reference/xkcdaxis.md)`(``xrange``, ``yrange``, ``...``)`
 
 **Arguments:** - `xrange`: Range of the X axis (vector of length 2) -
 `yrange`: Range of the Y axis (vector of length 2) - `...`: Additional
@@ -722,10 +252,7 @@ theme
 
 Draws a stick figure with customizable position and angles.
 
-``` r
-
-xkcdman(mapping, data, ...)
-```
+[`xkcdman`](https://toledoem.github.io/xkcd/reference/xkcdman.md)`(``mapping``, ``data``, ``...``)`
 
 **Arguments:** - `mapping`: Aesthetic mapping generated by
 [`aes()`](https://ggplot2.tidyverse.org/reference/aes.html) with
@@ -739,34 +266,27 @@ limbs and neck - `data`: Data frame containing figure parameters -
 
 Draws fuzzy rectangles with hand-drawn borders.
 
-``` r
-
-xkcdrect(mapping, data, fillcolour = "grey90", bordercolour = "black",
-         borderlinewidth = 0.5, borderxjitteramount = 0.005,
-         borderyjitteramount = 0.005)
-```
+[`xkcdrect`](https://toledoem.github.io/xkcd/reference/xkcdrect.md)`(``mapping``, ``data``, borderxjitteramount ``=`` ``0.005``,`` `` borderyjitteramount ``=`` ``0.005``, wobble ``=`` ``1``, seed ``=`` ``NULL``)`
 
 **Arguments:** - `mapping`: Aesthetic mapping with required aesthetics:
 xmin, xmax, ymin, ymax - `data`: Data frame with rectangle coordinates -
-`fillcolour`: Fill color of rectangles - `bordercolour`: Color of border
-lines - `borderlinewidth`: Width of border lines -
 `borderxjitteramount`: Horizontal jitter amount for borders -
-`borderyjitteramount`: Vertical jitter amount for borders
+`borderyjitteramount`: Vertical jitter amount for borders - `wobble`:
+Multiplier on both jitter amounts; `0` draws straight borders - `seed`:
+Optional integer for a reproducible border
 
-**Returns:** A list of layers with fill and border
+The fill and border are set with the standard `fill`, `colour` and
+`linewidth` aesthetics, which may be mapped to variables. The former
+`fillcolour`, `bordercolour` and `borderlinewidth` arguments are
+deprecated but still work.
+
+**Returns:** A layer
 
 ### geom_xkcdpath()
 
 The core geom for drawing lines, segments, and circles in XKCD style.
 
-``` r
-
-geom_xkcdpath(mapping = NULL, data = NULL, stat = "identity", 
-              position = "identity", ...,
-              xjitteramount = NULL, yjitteramount = NULL, npoints = NULL, 
-              ratioxy = NULL, bezier = FALSE, mask = FALSE, 
-              na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
-```
+[`geom_xkcdpath`](https://toledoem.github.io/xkcd/reference/geom_xkcdpath.md)`(``mapping ``=`` ``NULL``, data ``=`` ``NULL``, stat ``=`` ``"identity"``, `` `` position ``=`` ``"identity"``, ``...``,`` `` xjitteramount ``=`` ``NULL``, yjitteramount ``=`` ``NULL``, npoints ``=`` ``NULL``, `` `` ratioxy ``=`` ``NULL``, bezier ``=`` ``FALSE``, mask ``=`` ``FALSE``, `` `` na.rm ``=`` ``FALSE``, show.legend ``=`` ``NA``, inherit.aes ``=`` ``TRUE``)`
 
 **Key Arguments:** - `xjitteramount`: Horizontal jitter amount for path
 points - `yjitteramount`: Vertical jitter amount for path points -
@@ -783,10 +303,7 @@ yend - Circles: x, y, diameter - Paths: x, y
 
 Applies XKCD theme to ggplot2 plots.
 
-``` r
-
-theme_xkcd()
-```
+[`theme_xkcd`](https://toledoem.github.io/xkcd/reference/theme_xkcd.md)`(``)`
 
 **Returns:** A ggplot2 theme object with XKCD styling
 
