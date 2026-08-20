@@ -1,6 +1,6 @@
 # Articles
 
-### All vignettes
+### Articles
 
 - [PubMatrixR: Literature Co-occurrence
   Analysis](https://toledoem.github.io/pubmatrixr/articles/vignette.md):

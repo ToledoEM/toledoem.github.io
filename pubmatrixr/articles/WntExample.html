@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PubMatrixR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
 analyzing publication relationships</h3>
                         <h4 data-toc-skip class="author">ToledoEM</h4>
             
-            <h4 data-toc-skip class="date">2026-07-02</h4>
+            <h4 data-toc-skip class="date">2026-08-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ToledoEM/PubMatrixR-v2/blob/HEAD/vignettes/WntExample.Rmd" class="external-link"><code>vignettes/WntExample.Rmd</code></a></small>
       <div class="d-none name"><code>WntExample.Rmd</code></div>
@@ -70,23 +70,23 @@ analyzing publication relationships</h3>
 
     
     
-<p><img src="https://toledoem.github.io/img/LogoPubmatrix.png" align="right" width="150/"></p>
+<p><img src="https://toledoem.github.io/img/LogoPubmatrix.png" align="right" width="150" alt="PubMatrixR logo"></p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>This vignette applies PubMatrixR to a real biology question: how do
-WNT ligands and their receptors show up together in the literature? WNT
-signaling touches cell fate, tissue patterning, and stem cell
-maintenance, and the ligand-receptor pairings are not one-to-one. Some
-ligands are studied constantly alongside certain receptors and barely
-mentioned with others.</p>
-<p>The example below compares 19 WNT ligands against 15 receptors
-(FZD1-10, LRP5/6, ROR1/2, RYK), producing a 15x19 grid of PubMed
-co-occurrence counts.</p>
+<p>WNT ligands and their receptors do not pair off neatly. A given
+ligand can bind several receptors, and the literature reflects that:
+some ligand-receptor combinations turn up in paper after paper, others
+almost never.</p>
+<p>This vignette counts those co-occurrences. It compares 19 WNT ligands
+against 15 receptors (FZD1-10, LRP5/6, ROR1/2, RYK), which gives a 15x19
+grid of PubMed counts. Bear in mind what the numbers actually measure:
+how often two gene symbols appear in the same record, not whether the
+paper found them to interact.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ToledoEM/PubMatrixR-v2" class="external-link">PubMatrixR</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pheatmap</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
@@ -105,11 +105,12 @@ co-occurrence counts.</p>
 <div class="section level2">
 <h2 id="running-the-search">Running the search<a class="anchor" aria-label="anchor" href="#running-the-search"></a>
 </h2>
-<p>The live call below queries PubMed directly. A grid this size means
-285 pairwise searches, so it can take a while. This vignette skips the
-live call and uses a synthetic matrix instead, so the page builds
-without depending on NCBI being reachable. Swap in your own gene lists
-and run the live version for real numbers.</p>
+<p>A grid this size is 285 separate PubMed searches. With an API key
+that takes about half a minute; without one, closer to two. The vignette
+skips the live call by default and fills in a synthetic matrix, so the
+page builds whether or not NCBI is reachable. Every number below is
+fake. Swap in your own gene lists and run the live version to get real
+ones.</p>
 <div class="section level3">
 <h3 id="ncbi-api-key-recommended">NCBI API Key (Recommended)<a class="anchor" aria-label="anchor" href="#ncbi-api-key-recommended"></a>
 </h3>
@@ -159,11 +160,10 @@ so no key is stored in the file:</p>
 <div class="section level2">
 <h2 id="which-genes-get-the-most-attention">Which genes get the most attention<a class="anchor" aria-label="anchor" href="#which-genes-get-the-most-attention"></a>
 </h2>
-<p>Before the pairwise grid, it’s worth checking which individual genes
-are studied the most. The bar charts sum each gene’s row or column and
-color it by its strongest partner on the other list, which shows which
-receptor tends to dominate the literature for a given ligand, and the
-reverse.</p>
+<p>Before looking at pairs, check the totals. These bar charts sum each
+gene’s row or column and colour it by its strongest partner on the other
+list, so you can see which receptor dominates a given ligand’s
+literature and the other way round.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create data frame for List A genes (rows) colored by List B genes (columns)</span></span>
 <span><span class="va">a_genes_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -324,61 +324,61 @@ WNT16
 FZD1
 </td>
 <td style="text-align:center;">
-43
+24
 </td>
 <td style="text-align:center;">
-17
-</td>
-<td style="text-align:center;">
-11
-</td>
-<td style="text-align:center;">
-28
-</td>
-<td style="text-align:center;">
-45
-</td>
-<td style="text-align:center;">
-28
+31
 </td>
 <td style="text-align:center;">
 38
 </td>
 <td style="text-align:center;">
-18
+35
 </td>
 <td style="text-align:center;">
-15
+42
 </td>
 <td style="text-align:center;">
-13
+43
 </td>
 <td style="text-align:center;">
-13
+50
 </td>
 <td style="text-align:center;">
-10
+57
 </td>
 <td style="text-align:center;">
-8
+54
 </td>
 <td style="text-align:center;">
-9
+61
 </td>
 <td style="text-align:center;">
-6
+68
 </td>
 <td style="text-align:center;">
-14
+69
 </td>
 <td style="text-align:center;">
-14
+76
 </td>
 <td style="text-align:center;">
-15
+73
 </td>
 <td style="text-align:center;">
-5
+80
+</td>
+<td style="text-align:center;">
+87
+</td>
+<td style="text-align:center;">
+94
+</td>
+<td style="text-align:center;">
+95
+</td>
+<td style="text-align:center;">
+92
 </td>
 </tr>
 <tr>
@@ -386,61 +386,61 @@ FZD1
 FZD2
 </td>
 <td style="text-align:center;">
-15
+32
 </td>
 <td style="text-align:center;">
-24
+40
 </td>
 <td style="text-align:center;">
-11
+32
 </td>
 <td style="text-align:center;">
-12
+40
 </td>
 <td style="text-align:center;">
-30
+48
 </td>
 <td style="text-align:center;">
-26
+50
 </td>
 <td style="text-align:center;">
-89
+58
 </td>
 <td style="text-align:center;">
-22
+56
 </td>
 <td style="text-align:center;">
-8
+58
 </td>
 <td style="text-align:center;">
-11
+66
 </td>
 <td style="text-align:center;">
-15
+74
 </td>
 <td style="text-align:center;">
-6
+76
 </td>
 <td style="text-align:center;">
-6
+74
 </td>
 <td style="text-align:center;">
-5
+82
 </td>
 <td style="text-align:center;">
-2
+84
 </td>
 <td style="text-align:center;">
-5
+92
 </td>
 <td style="text-align:center;">
-13
+100
 </td>
 <td style="text-align:center;">
-15
+92
 </td>
 <td style="text-align:center;">
-4
+100
 </td>
 </tr>
 <tr>
@@ -448,61 +448,61 @@ FZD2
 FZD3
 </td>
 <td style="text-align:center;">
-10
+40
 </td>
 <td style="text-align:center;">
-7
+33
 </td>
 <td style="text-align:center;">
-8
+42
 </td>
 <td style="text-align:center;">
-13
+45
 </td>
 <td style="text-align:center;">
-15
+54
 </td>
 <td style="text-align:center;">
-13
+57
 </td>
 <td style="text-align:center;">
-37
+56
 </td>
 <td style="text-align:center;">
-14
+59
 </td>
 <td style="text-align:center;">
-7
+68
 </td>
 <td style="text-align:center;">
-11
+71
 </td>
 <td style="text-align:center;">
-5
+80
 </td>
 <td style="text-align:center;">
-4
+73
 </td>
 <td style="text-align:center;">
-5
+82
 </td>
 <td style="text-align:center;">
-2
+85
 </td>
 <td style="text-align:center;">
-3
+94
 </td>
 <td style="text-align:center;">
-7
+97
 </td>
 <td style="text-align:center;">
-6
+96
 </td>
 <td style="text-align:center;">
-13
+99
 </td>
 <td style="text-align:center;">
-2
+108
 </td>
 </tr>
 <tr>
@@ -510,61 +510,61 @@ FZD3
 FZD4
 </td>
 <td style="text-align:center;">
-12
+38
 </td>
 <td style="text-align:center;">
-26
+42
 </td>
 <td style="text-align:center;">
-14
+46
 </td>
 <td style="text-align:center;">
-17
+56
 </td>
 <td style="text-align:center;">
-33
+60
 </td>
 <td style="text-align:center;">
-18
+54
 </td>
 <td style="text-align:center;">
-44
+64
 </td>
 <td style="text-align:center;">
-14
+68
 </td>
 <td style="text-align:center;">
-11
+72
 </td>
 <td style="text-align:center;">
-19
+82
 </td>
 <td style="text-align:center;">
-20
+76
 </td>
 <td style="text-align:center;">
-9
+80
 </td>
 <td style="text-align:center;">
-6
+90
 </td>
 <td style="text-align:center;">
-5
+94
 </td>
 <td style="text-align:center;">
-3
+98
 </td>
 <td style="text-align:center;">
-5
+98
 </td>
 <td style="text-align:center;">
-11
+102
 </td>
 <td style="text-align:center;">
-16
+106
 </td>
 <td style="text-align:center;">
-4
+116
 </td>
 </tr>
 <tr>
@@ -572,61 +572,61 @@ FZD4
 FZD5
 </td>
 <td style="text-align:center;">
-14
+46
 </td>
 <td style="text-align:center;">
-16
+51
 </td>
 <td style="text-align:center;">
-14
+56
 </td>
 <td style="text-align:center;">
-12
+61
 </td>
 <td style="text-align:center;">
-31
+56
 </td>
 <td style="text-align:center;">
-13
+61
 </td>
 <td style="text-align:center;">
-75
+72
 </td>
 <td style="text-align:center;">
-12
+77
 </td>
 <td style="text-align:center;">
-8
+82
 </td>
 <td style="text-align:center;">
-15
+77
 </td>
 <td style="text-align:center;">
-12
+82
 </td>
 <td style="text-align:center;">
-7
+87
 </td>
 <td style="text-align:center;">
-6
+98
 </td>
 <td style="text-align:center;">
-2
+103
 </td>
 <td style="text-align:center;">
-5
+98
 </td>
 <td style="text-align:center;">
-10
+103
 </td>
 <td style="text-align:center;">
-9
+108
 </td>
 <td style="text-align:center;">
-14
+113
 </td>
 <td style="text-align:center;">
-5
+124
 </td>
 </tr>
 <tr>
@@ -634,61 +634,61 @@ FZD5
 FZD6
 </td>
 <td style="text-align:center;">
-11
+48
 </td>
 <td style="text-align:center;">
-14
+54
 </td>
 <td style="text-align:center;">
-12
+60
 </td>
 <td style="text-align:center;">
-17
+56
 </td>
 <td style="text-align:center;">
-22
+62
 </td>
 <td style="text-align:center;">
-21
+68
 </td>
 <td style="text-align:center;">
-49
+74
 </td>
 <td style="text-align:center;">
-14
+80
 </td>
 <td style="text-align:center;">
-6
+76
 </td>
 <td style="text-align:center;">
-12
+82
 </td>
 <td style="text-align:center;">
-12
+88
 </td>
 <td style="text-align:center;">
-6
+94
 </td>
 <td style="text-align:center;">
-5
+100
 </td>
 <td style="text-align:center;">
-3
+96
 </td>
 <td style="text-align:center;">
-3
+102
 </td>
 <td style="text-align:center;">
-8
+108
 </td>
 <td style="text-align:center;">
-13
+114
 </td>
 <td style="text-align:center;">
-22
+120
 </td>
 <td style="text-align:center;">
-4
+116
 </td>
 </tr>
 <tr>
@@ -696,61 +696,61 @@ FZD6
 FZD7
 </td>
 <td style="text-align:center;">
-14
+56
 </td>
 <td style="text-align:center;">
-15
+63
 </td>
 <td style="text-align:center;">
-14
+60
 </td>
 <td style="text-align:center;">
-26
+67
 </td>
 <td style="text-align:center;">
-36
+74
 </td>
 <td style="text-align:center;">
-7
+75
 </td>
 <td style="text-align:center;">
-46
+82
 </td>
 <td style="text-align:center;">
-15
+79
 </td>
 <td style="text-align:center;">
-11
+86
 </td>
 <td style="text-align:center;">
-17
+93
 </td>
 <td style="text-align:center;">
-14
+100
 </td>
 <td style="text-align:center;">
-8
+101
 </td>
 <td style="text-align:center;">
-5
+98
 </td>
 <td style="text-align:center;">
-7
+105
 </td>
 <td style="text-align:center;">
-4
+112
 </td>
 <td style="text-align:center;">
-6
+119
 </td>
 <td style="text-align:center;">
-11
+126
 </td>
 <td style="text-align:center;">
-27
+117
 </td>
 <td style="text-align:center;">
-2
+124
 </td>
 </tr>
 <tr>
@@ -758,61 +758,61 @@ FZD7
 FZD8
 </td>
 <td style="text-align:center;">
-10
+64
 </td>
 <td style="text-align:center;">
-7
+62
 </td>
 <td style="text-align:center;">
-6
+64
 </td>
 <td style="text-align:center;">
-12
+72
 </td>
 <td style="text-align:center;">
-21
+80
 </td>
 <td style="text-align:center;">
-6
+82
 </td>
 <td style="text-align:center;">
-20
+80
 </td>
 <td style="text-align:center;">
-8
+88
 </td>
 <td style="text-align:center;">
-7
+90
 </td>
 <td style="text-align:center;">
-3
+98
 </td>
 <td style="text-align:center;">
-6
+106
 </td>
 <td style="text-align:center;">
-14
+98
 </td>
 <td style="text-align:center;">
-5
+106
 </td>
 <td style="text-align:center;">
-4
+114
 </td>
 <td style="text-align:center;">
-3
+116
 </td>
 <td style="text-align:center;">
-6
+124
 </td>
 <td style="text-align:center;">
-9
+122
 </td>
 <td style="text-align:center;">
-9
+124
 </td>
 <td style="text-align:center;">
-0
+132
 </td>
 </tr>
 <tr>
@@ -820,61 +820,61 @@ FZD8
 FZD9
 </td>
 <td style="text-align:center;">
-7
+62
 </td>
 <td style="text-align:center;">
-8
+65
 </td>
 <td style="text-align:center;">
-4
+74
 </td>
 <td style="text-align:center;">
-4
+77
 </td>
 <td style="text-align:center;">
-6
+86
 </td>
 <td style="text-align:center;">
-4
+79
 </td>
 <td style="text-align:center;">
-12
+88
 </td>
 <td style="text-align:center;">
-5
+91
 </td>
 <td style="text-align:center;">
-6
+100
 </td>
 <td style="text-align:center;">
-8
+103
 </td>
 <td style="text-align:center;">
-3
+102
 </td>
 <td style="text-align:center;">
-1
+105
 </td>
 <td style="text-align:center;">
-3
+114
 </td>
 <td style="text-align:center;">
-2
+117
 </td>
 <td style="text-align:center;">
-1
+126
 </td>
 <td style="text-align:center;">
-2
+119
 </td>
 <td style="text-align:center;">
-6
+128
 </td>
 <td style="text-align:center;">
-3
+131
 </td>
 <td style="text-align:center;">
-2
+140
 </td>
 </tr>
 <tr>
@@ -882,61 +882,61 @@ FZD9
 FZD10
 </td>
 <td style="text-align:center;">
-9
+70
 </td>
 <td style="text-align:center;">
-5
+74
 </td>
 <td style="text-align:center;">
-10
+78
 </td>
 <td style="text-align:center;">
-11
+88
 </td>
 <td style="text-align:center;">
-16
+82
 </td>
 <td style="text-align:center;">
-10
+86
 </td>
 <td style="text-align:center;">
-17
+96
 </td>
 <td style="text-align:center;">
-8
+100
 </td>
 <td style="text-align:center;">
-12
+104
 </td>
 <td style="text-align:center;">
-8
+104
 </td>
 <td style="text-align:center;">
-15
+108
 </td>
 <td style="text-align:center;">
-9
+112
 </td>
 <td style="text-align:center;">
-7
+122
 </td>
 <td style="text-align:center;">
-3
+126
 </td>
 <td style="text-align:center;">
-2
+120
 </td>
 <td style="text-align:center;">
-10
+130
 </td>
 <td style="text-align:center;">
-9
+134
 </td>
 <td style="text-align:center;">
-11
+138
 </td>
 <td style="text-align:center;">
-6
+148
 </td>
 </tr>
 <tr>
@@ -944,61 +944,61 @@ FZD10
 LRP5
 </td>
 <td style="text-align:center;">
-102
+78
 </td>
 <td style="text-align:center;">
-23
+83
 </td>
 <td style="text-align:center;">
-12
+88
 </td>
 <td style="text-align:center;">
-61
+83
 </td>
 <td style="text-align:center;">
-190
+88
 </td>
 <td style="text-align:center;">
-32
+93
 </td>
 <td style="text-align:center;">
-82
+104
 </td>
 <td style="text-align:center;">
-10
+109
 </td>
 <td style="text-align:center;">
-5
+104
 </td>
 <td style="text-align:center;">
-17
+109
 </td>
 <td style="text-align:center;">
-27
+114
 </td>
 <td style="text-align:center;">
-5
+119
 </td>
 <td style="text-align:center;">
-8
+130
 </td>
 <td style="text-align:center;">
-10
+125
 </td>
 <td style="text-align:center;">
-7
+130
 </td>
 <td style="text-align:center;">
-10
+135
 </td>
 <td style="text-align:center;">
-38
+140
 </td>
 <td style="text-align:center;">
-13
+145
 </td>
 <td style="text-align:center;">
-21
+146
 </td>
 </tr>
 <tr>
@@ -1006,61 +1006,61 @@ LRP5
 LRP6
 </td>
 <td style="text-align:center;">
-87
+80
 </td>
 <td style="text-align:center;">
-21
+86
 </td>
 <td style="text-align:center;">
-13
+82
 </td>
 <td style="text-align:center;">
-56
+88
 </td>
 <td style="text-align:center;">
-237
+94
 </td>
 <td style="text-align:center;">
-30
+100
 </td>
 <td style="text-align:center;">
-76
+106
 </td>
 <td style="text-align:center;">
-13
+102
 </td>
 <td style="text-align:center;">
-8
+108
 </td>
 <td style="text-align:center;">
-24
+114
 </td>
 <td style="text-align:center;">
-21
+120
 </td>
 <td style="text-align:center;">
-13
+126
 </td>
 <td style="text-align:center;">
-10
+122
 </td>
 <td style="text-align:center;">
-6
+128
 </td>
 <td style="text-align:center;">
-13
+134
 </td>
 <td style="text-align:center;">
-26
+140
 </td>
 <td style="text-align:center;">
-38
+146
 </td>
 <td style="text-align:center;">
-21
+142
 </td>
 <td style="text-align:center;">
-8
+148
 </td>
 </tr>
 <tr>
@@ -1068,61 +1068,61 @@ LRP6
 ROR1
 </td>
 <td style="text-align:center;">
-2
+88
 </td>
 <td style="text-align:center;">
-1
+85
 </td>
 <td style="text-align:center;">
-2
+92
 </td>
 <td style="text-align:center;">
-3
+99
 </td>
 <td style="text-align:center;">
-10
+106
 </td>
 <td style="text-align:center;">
-2
+107
 </td>
 <td style="text-align:center;">
-110
+104
 </td>
 <td style="text-align:center;">
-11
+111
 </td>
 <td style="text-align:center;">
-0
+118
 </td>
 <td style="text-align:center;">
-1
+125
 </td>
 <td style="text-align:center;">
-0
+132
 </td>
 <td style="text-align:center;">
-1
+123
 </td>
 <td style="text-align:center;">
-1
+130
 </td>
 <td style="text-align:center;">
-1
+137
 </td>
 <td style="text-align:center;">
-0
+144
 </td>
 <td style="text-align:center;">
-1
+151
 </td>
 <td style="text-align:center;">
-2
+148
 </td>
 <td style="text-align:center;">
-3
+149
 </td>
 <td style="text-align:center;">
-2
+156
 </td>
 </tr>
 <tr>
@@ -1130,61 +1130,61 @@ ROR1
 ROR2
 </td>
 <td style="text-align:center;">
-14
+86
 </td>
 <td style="text-align:center;">
-6
+94
 </td>
 <td style="text-align:center;">
-2
+96
 </td>
 <td style="text-align:center;">
-13
+104
 </td>
 <td style="text-align:center;">
-35
+112
 </td>
 <td style="text-align:center;">
-7
+104
 </td>
 <td style="text-align:center;">
-327
+112
 </td>
 <td style="text-align:center;">
-16
+120
 </td>
 <td style="text-align:center;">
-2
+122
 </td>
 <td style="text-align:center;">
-8
+130
 </td>
 <td style="text-align:center;">
-1
+128
 </td>
 <td style="text-align:center;">
-7
+130
 </td>
 <td style="text-align:center;">
-2
+138
 </td>
 <td style="text-align:center;">
-2
+146
 </td>
 <td style="text-align:center;">
-0
+148
 </td>
 <td style="text-align:center;">
-4
+146
 </td>
 <td style="text-align:center;">
-3
+154
 </td>
 <td style="text-align:center;">
-17
+156
 </td>
 <td style="text-align:center;">
-2
+164
 </td>
 </tr>
 <tr>
@@ -1192,61 +1192,61 @@ ROR2
 RYK
 </td>
 <td style="text-align:center;">
-9
+94
 </td>
 <td style="text-align:center;">
-4
+97
 </td>
 <td style="text-align:center;">
-1
+106
 </td>
 <td style="text-align:center;">
-9
+109
 </td>
 <td style="text-align:center;">
-12
+108
 </td>
 <td style="text-align:center;">
-9
+111
 </td>
 <td style="text-align:center;">
-64
+120
 </td>
 <td style="text-align:center;">
-10
+123
 </td>
 <td style="text-align:center;">
-0
+132
 </td>
 <td style="text-align:center;">
-2
+125
 </td>
 <td style="text-align:center;">
-0
+134
 </td>
 <td style="text-align:center;">
-2
+137
 </td>
 <td style="text-align:center;">
-1
+146
 </td>
 <td style="text-align:center;">
-1
+149
 </td>
 <td style="text-align:center;">
-0
+148
 </td>
 <td style="text-align:center;">
-1
+151
 </td>
 <td style="text-align:center;">
-1
+160
 </td>
 <td style="text-align:center;">
-8
+163
 </td>
 <td style="text-align:center;">
-0
+172
 </td>
 </tr>
 </tbody>
@@ -1255,9 +1255,9 @@ RYK
 <div class="section level2">
 <h2 id="heatmaps">Heatmaps<a class="anchor" aria-label="anchor" href="#heatmaps"></a>
 </h2>
-<p>A 15x19 table of numbers is hard to scan, so the heatmap below shows
-the same data with color instead. <code>show_numbers = TRUE</code> keeps
-the counts visible in each cell for reference.</p>
+<p>Nobody reads a 15x19 table of numbers. The heatmap shows the same
+data as colour, and <code>show_numbers = TRUE</code> keeps the counts in
+the cells if you still want them.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_pubmatrix_heatmap.html">plot_pubmatrix_heatmap</a></span><span class="op">(</span></span>
 <span>  matrix <span class="op">=</span> <span class="va">result</span>,</span>
@@ -1265,9 +1265,8 @@ the counts visible in each cell for reference.</p>
 <span>  show_numbers <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="WntExample_files/figure-html/heatmap_with_numbers-1.png" class="r-plt" alt="" width="100%"></p>
-<p>Dropping the numbers makes the overall pattern easier to read at a
-glance, which is useful when the shape of the relationship matters more
-than exact counts.</p>
+<p>Dropping the numbers makes the pattern easier to see when you care
+about the shape rather than the exact counts.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/pubmatrix_heatmap.html">pubmatrix_heatmap</a></span><span class="op">(</span>matrix <span class="op">=</span> <span class="va">result</span><span class="op">)</span></span></code></pre></div>
 <p><img src="WntExample_files/figure-html/heatmap_clean-1.png" class="r-plt" alt="" width="100%"></p>
@@ -1277,9 +1276,9 @@ than exact counts.</p>
 </h2>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R version 4.6.0 (2026-04-24)</span></span>
+<pre><code><span><span class="co">## R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">## Platform: aarch64-apple-darwin23</span></span>
-<span><span class="co">## Running under: macOS Tahoe 26.5.1</span></span>
+<span><span class="co">## Running under: macOS Tahoe 26.6.2</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
 <span><span class="co">## BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib </span></span>
@@ -1295,23 +1294,23 @@ than exact counts.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] ggplot2_4.0.3    pheatmap_1.0.13  dplyr_1.2.1      kableExtra_1.4.0</span></span>
-<span><span class="co">## [5] knitr_1.51       PubMatrixR_1.0.0</span></span>
+<span><span class="co">## [1] ggplot2_4.0.3    pheatmap_1.0.13  dplyr_1.2.1      kableExtra_1.4.1</span></span>
+<span><span class="co">## [5] knitr_1.51       PubMatrixR_1.0.1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] sass_0.4.10        generics_0.1.4     xml2_1.6.0         stringi_1.8.7     </span></span>
-<span><span class="co">##  [5] digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5     grid_4.6.0        </span></span>
+<span><span class="co">##  [1] sass_0.4.10        generics_0.1.4     xml2_1.6.0         stringi_1.8.9     </span></span>
+<span><span class="co">##  [5] digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5     grid_4.6.1        </span></span>
 <span><span class="co">##  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     viridisLite_0.4.3 </span></span>
 <span><span class="co">## [13] scales_1.4.0       pbapply_1.7-4      textshaping_1.0.5  jquerylib_0.1.4   </span></span>
-<span><span class="co">## [17] cli_3.6.6          rlang_1.2.0        withr_3.0.3        cachem_1.1.0      </span></span>
-<span><span class="co">## [21] yaml_2.3.12        otel_0.2.0         tools_4.6.0        parallel_4.6.0    </span></span>
-<span><span class="co">## [25] readODS_2.3.5      curl_7.1.0         vctrs_0.7.3        R6_2.6.1          </span></span>
-<span><span class="co">## [29] lifecycle_1.0.5    stringr_1.6.0      fs_2.1.0           htmlwidgets_1.6.4 </span></span>
-<span><span class="co">## [33] ragg_1.5.2         pkgconfig_2.0.3    desc_1.4.3         pkgdown_2.2.0     </span></span>
-<span><span class="co">## [37] bslib_0.11.0       pillar_1.11.1      gtable_0.3.6       glue_1.8.1        </span></span>
-<span><span class="co">## [41] systemfonts_1.3.2  xfun_0.59          tibble_3.3.1       tidyselect_1.2.1  </span></span>
-<span><span class="co">## [45] rstudioapi_0.19.0  farver_2.1.2       htmltools_0.5.9    labeling_0.4.3    </span></span>
-<span><span class="co">## [49] rmarkdown_2.31     svglite_2.2.2      compiler_4.6.0     S7_0.2.2</span></span></code></pre>
+<span><span class="co">## [17] cli_3.6.6          rlang_1.3.0        withr_3.0.3        cachem_1.1.0      </span></span>
+<span><span class="co">## [21] yaml_2.3.12        otel_0.2.0         tools_4.6.1        parallel_4.6.1    </span></span>
+<span><span class="co">## [25] readODS_2.3.5      vctrs_0.7.3        R6_2.6.1           lifecycle_1.0.5   </span></span>
+<span><span class="co">## [29] stringr_1.6.0      fs_2.1.0           htmlwidgets_1.6.4  ragg_1.5.2        </span></span>
+<span><span class="co">## [33] pkgconfig_2.0.3    desc_1.4.3         pkgdown_2.2.1      bslib_0.12.0      </span></span>
+<span><span class="co">## [37] pillar_1.11.1      gtable_0.3.6       glue_1.8.1         systemfonts_1.3.2 </span></span>
+<span><span class="co">## [41] xfun_0.60          tibble_3.3.1       tidyselect_1.2.1   rstudioapi_0.19.0 </span></span>
+<span><span class="co">## [45] farver_2.1.2       htmltools_0.5.9    rmarkdown_2.31     svglite_2.2.2     </span></span>
+<span><span class="co">## [49] labeling_0.4.3     compiler_4.6.1     S7_0.2.2</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -1324,7 +1323,7 @@ than exact counts.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

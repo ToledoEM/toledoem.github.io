@@ -13,7 +13,7 @@ terms in `A`."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">PubMatrixR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,7 +114,17 @@ only when `A` and `B` are both `NULL`.</p></dd>
     <p>Examples and vignettes should avoid live web queries during package
 checks. This function performs live requests to 'NCBI' and may fail when there
 is no internet connectivity or when the service is unavailable.</p>
-    </div>
+<p>Terms are trimmed of surrounding whitespace, and duplicate terms within `A`
+or within `B` are rejected. When reading from `file`, blank lines on either
+side of the `#` separator are ignored.</p>
+<p>Requests are paced to respect the 'NCBI' rate limits (3 requests per second
+without an API key, 10 with one). Two options tune the request behaviour:</p>
+<ul><li><p>`PubMatrixR.n_tries` - number of attempts per query before giving up
+    (default `3`). Failed attempts back off exponentially.</p></li>
+<li><p>`PubMatrixR.min_interval` - seconds to wait between requests
+    (default `0.34` without an API key, `0.11` with one). Set to `0` to
+    disable pacing.</p></li>
+</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -141,7 +151,7 @@ is no internet connectivity or when the service is unavailable.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

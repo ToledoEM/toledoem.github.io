@@ -1,4 +1,3 @@
 # License
 
-    YEAR: 2026
-    COPYRIGHT HOLDER: Enrique Toledo
+YEAR: 2026 COPYRIGHT HOLDER: Enrique Toledo

@@ -5,7 +5,11 @@ A simplified version of plot_pubmatrix_heatmap for quick visualization
 ## Usage
 
 ``` r
-pubmatrix_heatmap(matrix, title = "PubMatrix Results")
+pubmatrix_heatmap(
+  matrix,
+  title = "PubMatrix Results",
+  values = c("raw", "row_pct", "relative")
+)
 ```
 
 ## Arguments
@@ -17,6 +21,11 @@ pubmatrix_heatmap(matrix, title = "PubMatrix Results")
 - title:
 
   Character string for the heatmap title
+
+- values:
+
+  Character scalar passed to \[plot_pubmatrix_heatmap()\]. Defaults to
+  \`"raw"\` (co-occurrence counts).
 
 ## Value
 

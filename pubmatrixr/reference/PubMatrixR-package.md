@@ -25,6 +25,8 @@ Useful links:
 
 - <https://github.com/ToledoEM/PubMatrixR-v2>
 
+- <https://toledoem.github.io/pubmatrixr/>
+
 - Report bugs at <https://github.com/ToledoEM/PubMatrixR-v2/issues>
 
 ## Author

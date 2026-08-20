@@ -13,6 +13,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="PubMed Pairwise Co-Occurrence Matrix Construction and Visualization">
 <meta name="description" content='Queries the NCBI (National Center for Biotechnology Information) Entrez E-utilities API to count pairwise co-occurrences between two sets of terms in PubMed or PubMed Central. It returns a matrix-like data frame of publication counts and can export hyperlink-enabled results in CSV or ODS format. The package also provides heatmap helpers for exploratory visualization of overlap patterns. Based on the method described in Becker et al. (2003) "PubMatrix: a tool for multiplex literature mining" &lt;doi:10.1186/1471-2105-4-61&gt;.'>
 <meta property="og:description" content='Queries the NCBI (National Center for Biotechnology Information) Entrez E-utilities API to count pairwise co-occurrences between two sets of terms in PubMed or PubMed Central. It returns a matrix-like data frame of publication counts and can export hyperlink-enabled results in CSV or ODS format. The package also provides heatmap helpers for exploratory visualization of overlap patterns. Based on the method described in Becker et al. (2003) "PubMatrix: a tool for multiplex literature mining" &lt;doi:10.1186/1471-2105-4-61&gt;.'>
+<link rel="canonical" href="https://toledoem.github.io/pubmatrixr/" />
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">PubMatrixR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,8 +57,8 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="pubmatrixr">PubMatrixR<a class="anchor" aria-label="anchor" href="#pubmatrixr"></a>
 </h1></div>
-<p><img src="https://toledoem.github.io/img/LogoPubmatrixR.png" align="right" width="150/"></p>
-<p><a href="https://CRAN.R-project.org/package=PubMatrixR" class="external-link"><img src="https://www.r-pkg.org/badges/version/PubMatrixR" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=PubMatrixR" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/PubMatrixR" alt="CRAN Downloads"></a> <a href="https://github.com/ToledoEM/PubMatrixR-v2/actions" class="external-link"><img src="https://github.com/ToledoEM/PubMatrixR-v2/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://doi.org/10.5281/zenodo.20141396" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.20141396.svg" alt="DOI"></a></p>
+<p><img src="https://toledoem.github.io/img/LogoPubmatrixR.png" align="right" width="150" alt="PubMatrixR logo"></p>
+<p><a href="https://CRAN.R-project.org/package=PubMatrixR" class="external-link"><img src="https://www.r-pkg.org/badges/version/PubMatrixR" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=PubMatrixR" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/PubMatrixR" alt="CRAN Downloads"></a> <a href="https://github.com/ToledoEM/PubMatrixR-v2/actions" class="external-link"><img src="https://github.com/ToledoEM/PubMatrixR-v2/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://app.codecov.io/gh/ToledoEM/PubMatrixR-v2" class="external-link"><img src="https://codecov.io/gh/ToledoEM/PubMatrixR-v2/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://doi.org/10.5281/zenodo.20141396" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.20141396.svg" alt="DOI"></a></p>
 <ul>
 <li>Repository: <a href="https://github.com/ToledoEM/PubMatrixR-v2" class="external-link">https://github.com/ToledoEM/PubMatrixR-v2</a>
 </li>
@@ -265,8 +266,33 @@
 <div class="section level4">
 <h4 id="plot_pubmatrix_heatmap">plot_pubmatrix_heatmap()<a class="anchor" aria-label="anchor" href="#plot_pubmatrix_heatmap"></a>
 </h4>
-<p>Creates a formatted heatmap displaying <strong>overlap percentages</strong> in cells, with <strong>Euclidean distance clustering</strong> for row/column ordering.</p>
-<p><strong>Cell Values</strong>: Overlap percentages derived from co-occurrence counts <strong>Clustering Method</strong>: Euclidean distance on the overlap percentage matrix</p>
+<p>Draws a heatmap, clustering rows and columns by Euclidean distance. Cells show the raw co-occurrence counts unless you pass <code>values</code>.</p>
+<div class="section level5">
+<h5 id="cell-value-options">Cell value options<a class="anchor" aria-label="anchor" href="#cell-value-options"></a>
+</h5>
+<table class="table">
+<thead><tr>
+<th><code>values</code></th>
+<th>Cell contents</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+<code>"raw"</code> (default)</td>
+<td>Publication co-occurrence counts</td>
+</tr>
+<tr>
+<td><code>"row_pct"</code></td>
+<td>Each count as a percentage of its row total</td>
+</tr>
+<tr>
+<td><code>"relative"</code></td>
+<td><code>count / (row_total + col_total - count) * 100</code></td>
+</tr>
+</tbody>
+</table>
+<p>A warning about <code>"relative"</code>: it is not a Jaccard index, and its numbers do not carry across runs. The totals in that formula are sums over whichever partner terms happen to be in your matrix, not the publication count for each term on its own. Add one unrelated term and every existing cell changes. Compare cells inside a single matrix with it if you like, but do not compare between matrices.</p>
+</div>
 <div class="section level5">
 <h5 id="heatmap-parameters">Heatmap Parameters<a class="anchor" aria-label="anchor" href="#heatmap-parameters"></a>
 </h5>
@@ -309,10 +335,16 @@
 <td>Whether to cluster columns using Euclidean distance</td>
 </tr>
 <tr>
+<td><code>values</code></td>
+<td>character</td>
+<td>“raw”</td>
+<td>What each cell shows: “raw”, “row_pct”, or “relative”</td>
+</tr>
+<tr>
 <td><code>show_numbers</code></td>
 <td>logical</td>
 <td>TRUE</td>
-<td>Display overlap percentages in cells</td>
+<td>Display the plotted values in cells</td>
 </tr>
 <tr>
 <td><code>filename</code></td>
@@ -539,26 +571,17 @@ muscle</code></pre>
 </h2>
 <p>Create heatmaps using the dedicated heatmap functions:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Basic heatmap with overlap percentages and Euclidean clustering</span></span>
+<code class="sourceCode R"><span><span class="co"># Basic heatmap: raw co-occurrence counts with Euclidean clustering</span></span>
 <span><span class="fu"><a href="reference/plot_pubmatrix_heatmap.html">plot_pubmatrix_heatmap</a></span><span class="op">(</span><span class="va">your_matrix</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Percentage views</span></span>
+<span><span class="fu"><a href="reference/plot_pubmatrix_heatmap.html">plot_pubmatrix_heatmap</a></span><span class="op">(</span><span class="va">your_matrix</span>, values <span class="op">=</span> <span class="st">"row_pct"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Save heatmap to file</span></span>
 <span><span class="fu"><a href="reference/plot_pubmatrix_heatmap.html">plot_pubmatrix_heatmap</a></span><span class="op">(</span><span class="va">your_matrix</span>,</span>
 <span>                       filename <span class="op">=</span> <span class="st">"my_heatmap.png"</span>,</span>
 <span>                       title <span class="op">=</span> <span class="st">"Custom Title"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Features of the visualization:</strong></p>
-<ul>
-<li>
-<strong>Cell Values</strong>: Publication co-occurrence counts between gene pairs</li>
-<li>
-<strong>Clustering Method</strong>: Euclidean distance on overlap percentages</li>
-<li>
-<strong>Color Scale</strong>: Custom red gradient from light pink (<code>#fee5d9</code>) to dark red (<code>#99000d</code>) representing publication counts</li>
-<li>
-<strong>Legend</strong>: Shows “Publication Count” scale for interpreting cell values</li>
-<li>
-<strong>Publication Quality</strong>: High-resolution output suitable for manuscripts and presentations</li>
-</ul>
+<p>Cells hold publication co-occurrence counts by default, or percentages if you set <code>values</code>. Rows and columns are clustered by Euclidean distance on whatever matrix ends up being plotted. The colour scale runs from light pink (<code>#fee5d9</code>) to dark red (<code>#99000d</code>), and saved output is 300 dpi, which is enough for print.</p>
 </div>
 <div class="section level2">
 <h2 id="performance-notes">Performance Notes<a class="anchor" aria-label="anchor" href="#performance-notes"></a>
@@ -683,7 +706,7 @@ muscle</code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
