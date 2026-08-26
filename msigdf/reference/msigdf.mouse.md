@@ -16,7 +16,7 @@ A data frame with 4 variables: `category_code`, `category_subcode`,
 
 ## Source
 
-<http://software.broadinstitute.org/gsea/msigdb/>
+<https://www.gsea-msigdb.org/gsea/msigdb/>
 
 ## Examples
 

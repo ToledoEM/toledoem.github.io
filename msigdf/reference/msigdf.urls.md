@@ -15,7 +15,7 @@ A data frame with 4 variables: `category_code`, `category_subcode`,
 
 ## Source
 
-<https://www.gsea-msigdb.org/gsea/msigdb/geneset/>
+<https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/>
 
 ## Examples
 
