@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -75,10 +78,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-385b40070cd2f0a15ba1d10b41efce49.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4d516fc0c8bc4f7fc7103659e1bc2ab5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,8 +124,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="https://toledoem.github.io/img/DOC_logo.png" alt="" class="navbar-logo light-content">
-    <img src="https://toledoem.github.io/img/DOC_logo.png" alt="" class="navbar-logo dark-content">
+    <img src="./img/DOC_logo.svg" alt="" class="navbar-logo light-content">
+    <img src="./img/DOC_logo.svg" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Ollama Chat History Cleaner</span>
@@ -208,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="ollama-chat-history-cleaner" class="level1">
 <h1>Ollama chat history cleaner</h1>
-<p><img src="https://toledoem.github.io/img/DOC_logo.png" align="right" width="150/"></p>
+<p><img src="img/DOC_logo.svg" align="right" width="150/"></p>
 <p><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a> <img src="https://img.shields.io/badge/macOS-supported-brightgreen.png" class="img-fluid" alt="macOS"> <img src="https://img.shields.io/badge/Windows-supported-brightgreen.png" class="img-fluid" alt="Windows"> <img src="https://img.shields.io/github/last-commit/toledoem/Delete_ollamahistory_chat.png" class="img-fluid" alt="Last Commit"> <img src="https://img.shields.io/badge/Shell_Script-121011?style=flat&amp;logo=gnu-bash&amp;logoColor=white.png" class="img-fluid" alt="Shell Script"></p>
 <p>I made these scripts to clean only the chat history and the logs from Ollama GUI and server. It does not remove models, users, or app settings.</p>
 <p>Motivation: order and privacy. But is not only me, <a href="https://www.reddit.com/r/ollama/comments/1dbi1el/how_to_clear_or_disable_user_chat_history/">Reddit post</a>, <a href="https://github.com/ollama/ollama/pull/14326">PR</a>, <a href="https://github.com/ollama/ollama/pull/16324">PR</a>, <a href="https://github.com/ollama/ollama/issues/3002">issue</a>, <a href="https://github.com/ollama/ollama/issues/13926">issue</a>, <a href="https://github.com/ollama/ollama/issues/11785">issue</a>, <a href="https://github.com/ollama/ollama/issues/15099">issue</a>, <a href="https://github.com/ollama/ollama/issues/14313">issue</a>, <a href="https://github.com/ollama/ollama/issues/14908">and another</a></p>

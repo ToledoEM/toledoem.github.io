@@ -48,9 +48,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-9b13294eb98a7ccc9837366643235be5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-4e4e502db018ecab7151d132cd41d951.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-fb28248cdd10f26360f122f44b842a09.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-4e4e502db018ecab7151d132cd41d951.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-648ce9192fc43f55ea9f68a3ba1ba23b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-e372b7b3c270e34eabd2285677c7731d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-648ce9192fc43f55ea9f68a3ba1ba23b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -200,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>A working collection across three threads: <strong>hardware</strong>, <strong>Home Assistant add-ons</strong>, and <strong>creative &amp; generative tools</strong>.</p>
+<p>A working collection: hardware, Home Assistant add-ons, creative and generative tools, and a few scripts that solved a problem once.</p>
 <section id="hardware" class="level2">
 <h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
 <section id="esp32-duckdns-client" class="level3">
@@ -237,53 +237,17 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="home-assistant-add-ons" class="level2">
 <h2 class="anchored" data-anchor-id="home-assistant-add-ons">Home Assistant add-ons</h2>
-<section id="manyfold" class="level3">
-<h3 class="anchored" data-anchor-id="manyfold">Manyfold</h3>
 <div class="project-card">
-<p><strong>Manyfold on Home Assistant</strong></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="www/manyfold_logo.png" class="img-fluid figure-img" style="width:15.0%"></p>
-<figcaption>Manyfold Logo</figcaption>
-</figure>
+<p><strong>HA Addons Playground</strong></p>
+<p>They used to live in a repo each. Now they all sit in one place, which is easier to maintain and easier to add to Home Assistant. Dev versions most of the time.</p>
+<p><a href="https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FToledoEM%2Fhassio-addons-repository" class="btn" style="margin-top: 1rem;" target="_blank">Add to Home Assistant</a> <a href="https://github.com/ToledoEM/hassio-addons-repository" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
+<p><img src="https://raw.githubusercontent.com/ToledoEM/hassio-addons-repository/main/bentopdf/icon.png" class="img-fluid" style="width:8.0%" alt="BentoPDF icon"> <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/bentopdf">BentoPDF</a> runs <a href="https://github.com/alam00000/bentopdf">BentoPDF</a> inside your browser. Merge, split, compress, convert, OCR, sign and redact, with the files never leaving your machine.</p>
+<p><img src="https://raw.githubusercontent.com/ToledoEM/hassio-addons-repository/main/manyfold_solo/icon.png" class="img-fluid" style="width:8.0%" alt="Manyfold icon"> <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/manyfold_solo">Manyfold</a> is the <a href="https://manyfold.app/">Manyfold</a> 3D model manager on port 3214. You point it at your library and thumbnail paths on HA storage and it keeps its data under <code>/config</code>. It bundles its own PostgreSQL and Redis, so you do not have to run either.</p>
+<p><img src="https://raw.githubusercontent.com/ToledoEM/hassio-addons-repository/main/nginx_webserver_proxy/icon.png" class="img-fluid" style="width:8.0%" alt="Nginx Proxy Manager icon"> <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/nginx_webserver_proxy">Nginx Proxy Manager + Static Web Server</a> gives you the NPM interface on port 81 for reverse proxies, plus a static file server on port 80 reading from HA storage.</p>
+<p><img src="https://raw.githubusercontent.com/ToledoEM/hassio-addons-repository/main/obsidian_syncserver_solo/icon.png" class="img-fluid" style="width:8.0%" alt="Obsidian Sync Server icon"> Obsidian Sync Server, a self-hosted LiveSync backend on CouchDB, in three flavours: <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/obsidian_syncserver_solo">plain HTTP</a> if you already have a proxy in front, <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/obsidian_syncserver_ssl">SSL</a> if you want to bring your own certificates from <code>/ssl</code> and sync from mobile, or <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/obsidian_syncserver_npm">bundled with NPM</a> if you would rather it handled the certificates for you.</p>
+<p><img src="https://raw.githubusercontent.com/ToledoEM/hassio-addons-repository/main/stirling_pdf_full/icon.png" class="img-fluid" style="width:8.0%" alt="Stirling-PDF icon"> Stirling-PDF, also in three sizes: <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/stirling_pdf_ultra_lite">ultra-lite</a> for merge, split, rotate and passwords, <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/stirling_pdf_full">full</a> for everything including OCR and conversion, and <a href="https://github.com/ToledoEM/hassio-addons-repository/tree/main/stirling_pdf_fat">fat</a> if you also want the extra fonts. Fat is about 4 GB, so pick accordingly.</p>
+<p>All of them build for <code>amd64</code> and <code>aarch64</code>.</p>
 </div>
-<p>A Home Assistant OS add-on that runs <a href="https://manyfold.app/">Manyfold</a>, a self-hosted 3D model manager, with persistent storage and configurable host-backed media paths. No external PostgreSQL or Redis required.</p>
-<p><strong>Features:</strong> - Runs on port 3214 - Persists app data, database, and settings under <code>/config</code> - Configurable library and thumbnails paths on HA host storage - Supports <code>amd64</code> and <code>aarch64</code> - Multiuser mode toggle</p>
-<p><a href="https://github.com/ToledoEM/ManyFoldHA_app" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
-</div>
-</section>
-<section id="bentopdf" class="level3">
-<h3 class="anchored" data-anchor-id="bentopdf">BentoPDF</h3>
-<div class="project-card">
-<p><strong>BentoPDF on Home Assistant</strong></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="www/bentopdf_logo.png" class="img-fluid figure-img" style="width:15.0%"></p>
-<figcaption>BentoPDF Logo</figcaption>
-</figure>
-</div>
-<p>A Home Assistant OS add-on that packages <a href="https://github.com/alam00000/bentopdf">BentoPDF</a> — a privacy-first, client-side PDF toolkit with 50+ tools. All PDF processing happens in the browser; files never leave your device.</p>
-<p><strong>Features:</strong> - 50+ PDF tools: merge, split, compress, convert, OCR, sign, redact - Fully client-side — no data sent to any server - HTTPS on port 8443 (enables LibreOffice WASM for office file conversion) - Supports <code>amd64</code> and <code>aarch64</code></p>
-<p><a href="https://github.com/ToledoEM/BentoPDF_HA_app" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
-</div>
-</section>
-<section id="zigbee-zha-mesh-graph-export" class="level3">
-<h3 class="anchored" data-anchor-id="zigbee-zha-mesh-graph-export">Zigbee ZHA Mesh Graph Export</h3>
-<div class="project-card">
-<p><strong>Making a graph from a Zigbee mesh network</strong><br>
-</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="www/logo_zigbee_mesh_net.png" class="img-fluid figure-img"></p>
-<figcaption>Logo</figcaption>
-</figure>
-</div>
-<p>Export ZHA devices and neighbor edges from Home Assistant to CSV files.</p>
-<p><strong>Applications:</strong> none, but nerd out about the mesh made by zigbee devices using igraph, cytoscape, gephi or any other software for networks/graph analysis.</p>
-<p><strong>Tech Stack:</strong> Home Assistant, mesh network, graph</p>
-<p><a href="https://github.com/ToledoEM/zigbee_mesh_network" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
-</div>
-</section>
 </section>
 <section id="creative-generative-tools" class="level2">
 <h2 class="anchored" data-anchor-id="creative-generative-tools">Creative &amp; generative tools</h2>
@@ -330,6 +294,22 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="utilities-scripts" class="level2">
 <h2 class="anchored" data-anchor-id="utilities-scripts">Utilities &amp; scripts</h2>
+<section id="zigbee-zha-mesh-graph-export" class="level3">
+<h3 class="anchored" data-anchor-id="zigbee-zha-mesh-graph-export">Zigbee ZHA Mesh Graph Export</h3>
+<div class="project-card">
+<p><strong>Making a graph from a Zigbee mesh network</strong><br>
+</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="www/logo_zigbee_mesh_net.png" class="img-fluid figure-img"></p>
+<figcaption>Logo</figcaption>
+</figure>
+</div>
+<p>Exports your ZHA devices and their neighbour edges from Home Assistant into CSV files.</p>
+<p>Applications: none. But you do get to nerd out over the mesh your zigbee devices built, in igraph, cytoscape, gephi or whatever else you use for graphs.</p>
+<p><a href="https://github.com/ToledoEM/zigbee_mesh_network" class="btn" style="margin-top: 1rem;" target="_blank">View on GitHub</a></p>
+</div>
+</section>
 <section id="ollama-chat-history-cleaner" class="level3">
 <h3 class="anchored" data-anchor-id="ollama-chat-history-cleaner">Ollama Chat History Cleaner</h3>
 <div class="project-card">
