@@ -2,6 +2,8 @@
 
 ## PubMatrixR 1.0.1
 
+CRAN release: 2026-08-21
+
 #### Breaking changes
 
 - [`plot_pubmatrix_heatmap()`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)

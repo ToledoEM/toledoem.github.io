@@ -2,6 +2,8 @@
 
 ![PubMatrixR logo](https://toledoem.github.io/img/LogoPubmatrixR.png)
 
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/PubMatrixR)](https://CRAN.R-project.org/package=PubMatrixR)
 [![CRAN
@@ -56,11 +58,17 @@ No installation required - just open the link and start analyzing!
 
 ### CRAN
 
+\
 [`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"PubMatrixR"``)`
 
 ### GitHub (development version)
 
-`# Install remotes if you haven't already`` ``if`` ``(``!`[`requireNamespace`](https://rdrr.io/r/base/ns-load.html)`(``"remotes"``, quietly ``=`` ``TRUE``)``)`` `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"remotes"``)`` `` ``# Install PubMatrixR`` ``remotes``::`[`install_github`](https://remotes.r-lib.org/reference/install_github.html)`(``"ToledoEM/PubMatrixR-v2"``)`
+\
+`# Install remotes if you haven't already`\
+`if`` ``(``!`[`requireNamespace`](https://rdrr.io/r/base/ns-load.html)`(``"remotes"``, quietly ``=`` ``TRUE``)``)`` `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"remotes"``)`\
+\
+`# Install PubMatrixR`\
+`remotes``::`[`install_github`](https://remotes.r-lib.org/reference/install_github.html)`(``"ToledoEM/PubMatrixR-v2"``)`
 
 ### Dependencies
 
@@ -74,7 +82,25 @@ PubMatrixR requires the following R packages:
 
 ## Quick Start
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`PubMatrixR`](https://github.com/ToledoEM/PubMatrixR-v2)`)`` `` ``# Define two sets of search terms`` ``genes_set1`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"SREBP1"``, ``"SOX4"``, ``"GLP1R"``)`` ``genes_set2`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"NR1H4"``, ``"liver"``, ``"obesity"``)`` `` ``# Perform the search and create a matrix`` ``result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`` `` A ``=`` ``genes_set1``,`` `` B ``=`` ``genes_set2``,`` `` Database ``=`` ``"pubmed"``,`` `` daterange ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2010``, ``2024``)``,`` `` outfile ``=`` ``"my_results"``,`` `` export_format ``=`` ``"csv"`` ``# Options: NULL (no export), "csv", or "ods"`` ``)`` `` ``# Create a heatmap with overlap percentages and Euclidean clustering`` `[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``result``)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`PubMatrixR`](https://github.com/ToledoEM/PubMatrixR-v2)`)`\
+\
+`# Define two sets of search terms`\
+`genes_set1`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"SREBP1"``, ``"SOX4"``, ``"GLP1R"``)`\
+`genes_set2`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"NR1H4"``, ``"liver"``, ``"obesity"``)`\
+\
+`# Perform the search and create a matrix`\
+`result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`\
+`  A ``=`` ``genes_set1``,`\
+`  B ``=`` ``genes_set2``,`\
+`  Database ``=`` ``"pubmed"``,`\
+`  daterange ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2010``, ``2024``)``,`\
+`  outfile ``=`` ``"my_results"``,`\
+`  export_format ``=`` ``"csv"``  ``# Options: NULL (no export), "csv", or "ods"`\
+`)`\
+\
+`# Create a heatmap with overlap percentages and Euclidean clustering`\
+[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``result``)`
 
 ## Function Documentation
 
@@ -159,7 +185,15 @@ you like, but do not compare between matrices.
 
 ##### Example
 
-`# First generate a matrix`` ``result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(``A ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"gene1"``, ``"gene2"``)``, B ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"disease1"``, ``"disease2"``)``)`` `` ``# Create heatmap with overlap percentages and Euclidean clustering`` `[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``result``)`` `` ``# Save to file`` `[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``result``, filename ``=`` ``"my_heatmap.png"``)`
+\
+`# First generate a matrix`\
+`result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(``A ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"gene1"``, ``"gene2"``)``, B ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"disease1"``, ``"disease2"``)``)`\
+\
+`# Create heatmap with overlap percentages and Euclidean clustering`\
+[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``result``)`\
+\
+`# Save to file`\
+[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``result``, filename ``=`` ``"my_heatmap.png"``)`
 
 #### pubmatrix_heatmap()
 
@@ -167,17 +201,68 @@ Thin wrapper around
 [`plot_pubmatrix_heatmap()`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)
 for quick visualization.
 
-`# Quick heatmap using defaults`` `[`pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/pubmatrix_heatmap.md)`(``result``, title ``=`` ``"Quick PubMatrix Heatmap"``)`
+\
+`# Quick heatmap using defaults`\
+[`pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/pubmatrix_heatmap.md)`(``result``, title ``=`` ``"Quick PubMatrix Heatmap"``)`
 
 ## Examples
 
 ### Basic Usage with Gene Symbols
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`PubMatrixR`](https://github.com/ToledoEM/PubMatrixR-v2)`)`` `` ``# Define gene sets`` ``genes_of_interest`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"TP53"``, ``"BRCA1"``, ``"EGFR"``, ``"MYC"``)`` ``pathways`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"apoptosis"``, ``"DNA repair"``, ``"cell cycle"``, ``"oncogene"``)`` `` ``# Perform search`` ``results`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`` `` A ``=`` ``genes_of_interest``,`` `` B ``=`` ``pathways``,`` `` Database ``=`` ``"pubmed"``,`` `` daterange ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2015``, ``2024``)``,`` `` outfile ``=`` ``"gene_pathway_matrix"`` ``)`` `` ``# View results`` `[`print`](https://rdrr.io/r/base/print.html)`(``results``)`` ``# TP53 BRCA1 EGFR MYC`` ``# apoptosis 1456 234 567 890`` ``# DNA repair 789 1456 123 234`` ``# cell cycle 1234 456 890 567`` ``# oncogene 567 123 789 1456`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`PubMatrixR`](https://github.com/ToledoEM/PubMatrixR-v2)`)`\
+\
+`# Define gene sets`\
+`genes_of_interest`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"TP53"``, ``"BRCA1"``, ``"EGFR"``, ``"MYC"``)`\
+`pathways`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"apoptosis"``, ``"DNA repair"``, ``"cell cycle"``, ``"oncogene"``)`\
+\
+`# Perform search`\
+`results`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`\
+`  A ``=`` ``genes_of_interest``,`\
+`  B ``=`` ``pathways``,`\
+`  Database ``=`` ``"pubmed"``,`\
+`  daterange ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2015``, ``2024``)``,`\
+`  outfile ``=`` ``"gene_pathway_matrix"`\
+`)`\
+\
+`# View results`\
+[`print`](https://rdrr.io/r/base/print.html)`(``results``)`\
+`#            TP53 BRCA1 EGFR  MYC`\
+`# apoptosis  1456   234  567  890`\
+`# DNA repair  789  1456  123  234`\
+`# cell cycle 1234   456  890  567`\
+`# oncogene    567   123  789 1456`
 
 ### Using MSigDB Gene Sets
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`PubMatrixR`](https://github.com/ToledoEM/PubMatrixR-v2)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`msigdf`](https://toledoem.github.io/msigdf/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `` ``# Extract gene symbols from MSigDB pathways`` ``wnt_genes`` ``<-`` ``msigdf``::`[`msigdf.human`](https://toledoem.github.io/msigdf/reference/msigdf.human.html)` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(`[`grepl`](https://rdrr.io/r/base/grep.html)`(``"wnt"``, ``geneset``, ignore.case ``=`` ``TRUE``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`pull`](https://dplyr.tidyverse.org/reference/pull.html)`(``symbol``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`unique`](https://rdrr.io/r/base/unique.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`sample`](https://rdrr.io/r/base/sample.html)`(``10``)`` ``# Sample 10 genes for demonstration`` `` ``obesity_genes`` ``<-`` ``msigdf``::`[`msigdf.human`](https://toledoem.github.io/msigdf/reference/msigdf.human.html)` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(`[`grepl`](https://rdrr.io/r/base/grep.html)`(``"obesity"``, ``geneset``, ignore.case ``=`` ``TRUE``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`pull`](https://dplyr.tidyverse.org/reference/pull.html)`(``symbol``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`unique`](https://rdrr.io/r/base/unique.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`sample`](https://rdrr.io/r/base/sample.html)`(``10``)`` ``# Sample 10 genes for demonstration`` `` ``# Search for co-occurrences`` ``wnt_obesity_matrix`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`` `` A ``=`` ``wnt_genes``,`` `` B ``=`` ``obesity_genes``,`` `` Database ``=`` ``"pubmed"``,`` `` outfile ``=`` ``"wnt_obesity_cooccurrence"`` ``)`` `` ``# Create heatmap with overlap percentages and Euclidean clustering`` `[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``wnt_obesity_matrix``)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`PubMatrixR`](https://github.com/ToledoEM/PubMatrixR-v2)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`msigdf`](https://toledoem.github.io/msigdf/)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`\
+\
+`# Extract gene symbols from MSigDB pathways`\
+`wnt_genes`` ``<-`` ``msigdf``::`[`msigdf.human`](https://toledoem.github.io/msigdf/reference/msigdf.human.html)` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(`[`grepl`](https://rdrr.io/r/base/grep.html)`(``"wnt"``, ``geneset``, ignore.case ``=`` ``TRUE``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`pull`](https://dplyr.tidyverse.org/reference/pull.html)`(``symbol``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`unique`](https://rdrr.io/r/base/unique.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`sample`](https://rdrr.io/r/base/sample.html)`(``10``)``  ``# Sample 10 genes for demonstration`\
+\
+`obesity_genes`` ``<-`` ``msigdf``::`[`msigdf.human`](https://toledoem.github.io/msigdf/reference/msigdf.human.html)` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(`[`grepl`](https://rdrr.io/r/base/grep.html)`(``"obesity"``, ``geneset``, ignore.case ``=`` ``TRUE``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`pull`](https://dplyr.tidyverse.org/reference/pull.html)`(``symbol``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`unique`](https://rdrr.io/r/base/unique.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`sample`](https://rdrr.io/r/base/sample.html)`(``10``)``  ``# Sample 10 genes for demonstration`\
+\
+`# Search for co-occurrences`\
+`wnt_obesity_matrix`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`\
+`  A ``=`` ``wnt_genes``,`\
+`  B ``=`` ``obesity_genes``,`\
+`  Database ``=`` ``"pubmed"``,`\
+`  outfile ``=`` ``"wnt_obesity_cooccurrence"`\
+`)`\
+\
+`# Create heatmap with overlap percentages and Euclidean clustering`\
+[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``wnt_obesity_matrix``)`
 
 ### Using File Input
 
@@ -197,11 +282,29 @@ muscle
 
 Then run:
 
-`results`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`` `` file ``=`` ``"search_terms.txt"``,`` `` Database ``=`` ``"pubmed"``,`` `` daterange ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2020``, ``2024``)``,`` `` outfile ``=`` ``"metabolic_tissue_matrix"`` ``)`` `` ``# Create heatmap visualization`` `[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``results``)`
+\
+`results`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`\
+`  file ``=`` ``"search_terms.txt"``,`\
+`  Database ``=`` ``"pubmed"``,`\
+`  daterange ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2020``, ``2024``)``,`\
+`  outfile ``=`` ``"metabolic_tissue_matrix"`\
+`)`\
+\
+`# Create heatmap visualization`\
+[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``results``)`
 
 ### Advanced Example with API Key
 
-`# Get better rate limits with an API key`` ``results`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`` `` A ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"CRISPR"``, ``"base editing"``, ``"prime editing"``)``,`` `` B ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"therapeutic"``, ``"clinical trial"``, ``"safety"``)``,`` `` API.key ``=`` ``"your_ncbi_api_key_here"``,`` `` Database ``=`` ``"pubmed"``,`` `` daterange ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2020``, ``2024``)``,`` `` outfile ``=`` ``"gene_editing_therapeutics"`` ``)`
+\
+`# Get better rate limits with an API key`\
+`results`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`\
+`  A ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"CRISPR"``, ``"base editing"``, ``"prime editing"``)``,`\
+`  B ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"therapeutic"``, ``"clinical trial"``, ``"safety"``)``,`\
+`  API.key ``=`` ``"your_ncbi_api_key_here"``,`\
+`  Database ``=`` ``"pubmed"``,`\
+`  daterange ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2020``, ``2024``)``,`\
+`  outfile ``=`` ``"gene_editing_therapeutics"`\
+`)`
 
 ## Output Files
 
@@ -229,13 +332,45 @@ All formats include:
 
 ### Output Examples
 
-`# No file export - results only in R`` ``result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(``A ``=`` ``genes``, B ``=`` ``diseases``, Database ``=`` ``"pubmed"``)`` `` ``# Export as CSV with hyperlinks`` ``result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`` `` A ``=`` ``genes``, `` `` B ``=`` ``diseases``, `` `` Database ``=`` ``"pubmed"``,`` `` outfile ``=`` ``"my_results"``,`` `` export_format ``=`` ``"csv"`` ``)`` ``# Creates: my_results_result.csv`` `` ``# Export as ODS (LibreOffice format)`` ``result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`` `` A ``=`` ``genes``, `` `` B ``=`` ``diseases``, `` `` Database ``=`` ``"pubmed"``,`` `` outfile ``=`` ``"my_results"``,`` `` export_format ``=`` ``"ods"`` ``)`` ``# Creates: my_results_result.ods`
+\
+`# No file export - results only in R`\
+`result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(``A ``=`` ``genes``, B ``=`` ``diseases``, Database ``=`` ``"pubmed"``)`\
+\
+`# Export as CSV with hyperlinks`\
+`result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`\
+`  A ``=`` ``genes``, `\
+`  B ``=`` ``diseases``, `\
+`  Database ``=`` ``"pubmed"``,`\
+`  outfile ``=`` ``"my_results"``,`\
+`  export_format ``=`` ``"csv"`\
+`)`\
+`# Creates: my_results_result.csv`\
+\
+`# Export as ODS (LibreOffice format)`\
+`result`` ``<-`` `[`PubMatrix`](https://toledoem.github.io/pubmatrixr/reference/PubMatrix.md)`(`\
+`  A ``=`` ``genes``, `\
+`  B ``=`` ``diseases``, `\
+`  Database ``=`` ``"pubmed"``,`\
+`  outfile ``=`` ``"my_results"``,`\
+`  export_format ``=`` ``"ods"`\
+`)`\
+`# Creates: my_results_result.ods`
 
 ## Visualization
 
 Create heatmaps using the dedicated heatmap functions:
 
-`# Basic heatmap: raw co-occurrence counts with Euclidean clustering`` `[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``your_matrix``)`` `` ``# Percentage views`` `[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``your_matrix``, values ``=`` ``"row_pct"``)`` `` ``# Save heatmap to file`` `[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``your_matrix``,`` `` filename ``=`` ``"my_heatmap.png"``,`` `` title ``=`` ``"Custom Title"``)`
+\
+`# Basic heatmap: raw co-occurrence counts with Euclidean clustering`\
+[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``your_matrix``)`\
+\
+`# Percentage views`\
+[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``your_matrix``, values ``=`` ``"row_pct"``)`\
+\
+`# Save heatmap to file`\
+[`plot_pubmatrix_heatmap`](https://toledoem.github.io/pubmatrixr/reference/plot_pubmatrix_heatmap.md)`(``your_matrix``,`\
+`                       filename ``=`` ``"my_heatmap.png"``,`\
+`                       title ``=`` ``"Custom Title"``)`
 
 Cells hold publication co-occurrence counts by default, or percentages
 if you set `values`. Rows and columns are clustered by Euclidean

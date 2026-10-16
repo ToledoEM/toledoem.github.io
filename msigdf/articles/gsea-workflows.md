@@ -7,7 +7,9 @@ common gene set enrichment tools: `fgsea`, `clusterProfiler`, and
 anything else that wants either a named list of gene sets or a
 two-column `TERM2GENE` frame.
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`msigdf`](https://toledoem.github.io/msigdf/)`)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`msigdf`](https://toledoem.github.io/msigdf/)`)`
 
 ## Scope
 
@@ -20,7 +22,9 @@ you see is real. The chunks that call an enrichment package are marked
 `eval=FALSE` and are shown as recipes to copy — install the relevant
 Bioconductor package first:
 
-`# install.packages("BiocManager")`` ``BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(`[`c`](https://rdrr.io/r/base/c.html)`(``"fgsea"``, ``"clusterProfiler"``)``)`
+\
+`# install.packages("BiocManager")`\
+`BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(`[`c`](https://rdrr.io/r/base/c.html)`(``"fgsea"``, ``"clusterProfiler"``)``)`
 
 ## A named list of gene sets
 
@@ -31,11 +35,18 @@ each holding a character vector of gene identifiers.
 
 Using the human hallmark collection (`category_code == "h"`):
 
-`hallmark`` ``<-`` ``msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"h"``)`` `` ``pathways`` ``<-`` `[`split`](https://rdrr.io/r/base/split.html)`(``hallmark``$``symbol``, ``hallmark``$``geneset``)`` `` `[`length`](https://rdrr.io/r/base/length.html)`(``pathways``)`
+\
+`hallmark`` ``<-`` ``msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"h"``)`\
+\
+`pathways`` ``<-`` `[`split`](https://rdrr.io/r/base/split.html)`(``hallmark``$``symbol``, ``hallmark``$``geneset``)`\
+\
+[`length`](https://rdrr.io/r/base/length.html)`(``pathways``)`
 
     ## [1] 50
 
-[`lengths`](https://rdrr.io/r/base/lengths.html)`(``pathways``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`
+\
+[`lengths`](https://rdrr.io/r/base/lengths.html)`(``pathways``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`
 
     ##        HALLMARK_ADIPOGENESIS HALLMARK_ALLOGRAFT_REJECTION 
     ##                          200                          200 
@@ -44,7 +55,8 @@ Using the human hallmark collection (`category_code == "h"`):
     ##     HALLMARK_APICAL_JUNCTION      HALLMARK_APICAL_SURFACE 
     ##                          200                           44
 
-`pathways``[[``"HALLMARK_NOTCH_SIGNALING"``]``]`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``10``)`
+\
+`pathways``[[``"HALLMARK_NOTCH_SIGNALING"``]``]`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``10``)`
 
     ##  [1] "APH1A"  "ARRB1"  "CCND1"  "CUL1"   "DLL1"   "DTX1"   "DTX2"   "DTX4"  
     ##  [9] "FBXW11" "FZD1"
@@ -52,14 +64,29 @@ Using the human hallmark collection (`category_code == "h"`):
 Feed that straight to `fgsea`, together with your own named vector of
 ranking statistics:
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`fgsea`](https://github.com/alserglab/fgsea/)`)`` `` ``` # `stats` is a named numeric vector: names are gene symbols, values are the ``` ``# ranking metric (log fold change, signed -log10 p-value, ...).`` ``res`` ``<-`` `[`fgsea`](https://rdrr.io/pkg/fgsea/man/fgsea.html)`(``pathways ``=`` ``pathways``, stats ``=`` ``stats``)`` `` ``res`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`as_tibble`](https://tibble.tidyverse.org/reference/as_tibble.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``padj``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``pathway``, ``pval``, ``padj``, ``NES``, ``size``)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`fgsea`](https://github.com/alserglab/fgsea/)`)`\
+\
+`` # `stats` is a named numeric vector: names are gene symbols, values are the ``\
+`# ranking metric (log fold change, signed -log10 p-value, ...).`\
+`res`` ``<-`` `[`fgsea`](https://rdrr.io/pkg/fgsea/man/fgsea.html)`(``pathways ``=`` ``pathways``, stats ``=`` ``stats``)`\
+\
+`res`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`as_tibble`](https://tibble.tidyverse.org/reference/as_tibble.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``padj``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``pathway``, ``pval``, ``padj``, ``NES``, ``size``)`
 
 Any collection works the same way. To restrict to one sub-collection,
 filter on `category_subcode` as well:
 
-`reactome`` ``<-`` ``msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"c2"``, ``category_subcode`` ``==`` ``"cp.reactome"``)`` `` ``reactome_pathways`` ``<-`` `[`split`](https://rdrr.io/r/base/split.html)`(``reactome``$``symbol``, ``reactome``$``geneset``)`` `[`length`](https://rdrr.io/r/base/length.html)`(``reactome_pathways``)`
+\
+`reactome`` ``<-`` ``msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"c2"``, ``category_subcode`` ``==`` ``"cp.reactome"``)`\
+\
+`reactome_pathways`` ``<-`` `[`split`](https://rdrr.io/r/base/split.html)`(``reactome``$``symbol``, ``reactome``$``geneset``)`\
+[`length`](https://rdrr.io/r/base/length.html)`(``reactome_pathways``)`
 
-    ## [1] 1839
+    ## [1] 1867
 
 ## A TERM2GENE data frame
 
@@ -67,7 +94,12 @@ filter on `category_subcode` as well:
 gene set name first, gene identifier second. That is the `msigdf` layout
 minus the collection columns.
 
-`term2gene`` ``<-`` ``msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``term ``=`` ``geneset``, gene ``=`` ``symbol``)`` `` ``term2gene`
+\
+`term2gene`` ``<-`` ``msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``term ``=`` ``geneset``, gene ``=`` ``symbol``)`\
+\
+`term2gene`
 
     ## # A tibble: 7,322 × 2
     ##    term                  gene 
@@ -86,7 +118,14 @@ minus the collection columns.
 
 Then:
 
-[`library`](https://rdrr.io/r/base/library.html)`(``clusterProfiler``)`` `` ``# Over-representation on a character vector of gene symbols.`` ``ora`` ``<-`` ``enricher``(``gene ``=`` ``my_genes``, TERM2GENE ``=`` ``term2gene``)`` `` ``# Or GSEA on a sorted, named numeric vector.`` ``gsea`` ``<-`` ``GSEA``(``geneList ``=`` ``sorted_stats``, TERM2GENE ``=`` ``term2gene``)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(``clusterProfiler``)`\
+\
+`# Over-representation on a character vector of gene symbols.`\
+`ora`` ``<-`` ``enricher``(``gene ``=`` ``my_genes``, TERM2GENE ``=`` ``term2gene``)`\
+\
+`# Or GSEA on a sorted, named numeric vector.`\
+`gsea`` ``<-`` ``GSEA``(``geneList ``=`` ``sorted_stats``, TERM2GENE ``=`` ``term2gene``)`
 
 ## Mouse
 
@@ -94,7 +133,10 @@ The mouse tibble has the same shape. Note the collection codes differ:
 hallmark is `mh` rather than `h`, and the numbered collections run
 `m1`-`m8`.
 
-`msigdf.mouse`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`distinct`](https://dplyr.tidyverse.org/reference/distinct.html)`(``category_code``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``category_code``)`
+\
+`msigdf.mouse`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`distinct`](https://dplyr.tidyverse.org/reference/distinct.html)`(``category_code``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``category_code``)`
 
     ## # A tibble: 7 × 1
     ##   category_code
@@ -107,11 +149,18 @@ hallmark is `mh` rather than `h`, and the numbered collections run
     ## 6 m8           
     ## 7 mh
 
-`mouse_hallmark`` ``<-`` ``msigdf.mouse`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"mh"``)`` `` ``mouse_pathways`` ``<-`` `[`split`](https://rdrr.io/r/base/split.html)`(``mouse_hallmark``$``symbol``, ``mouse_hallmark``$``geneset``)`` `` `[`length`](https://rdrr.io/r/base/length.html)`(``mouse_pathways``)`
+\
+`mouse_hallmark`` ``<-`` ``msigdf.mouse`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"mh"``)`\
+\
+`mouse_pathways`` ``<-`` `[`split`](https://rdrr.io/r/base/split.html)`(``mouse_hallmark``$``symbol``, ``mouse_hallmark``$``geneset``)`\
+\
+[`length`](https://rdrr.io/r/base/length.html)`(``mouse_pathways``)`
 
     ## [1] 50
 
-`mouse_pathways``[[``"HALLMARK_NOTCH_SIGNALING"``]``]`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``10``)`
+\
+`mouse_pathways``[[``"HALLMARK_NOTCH_SIGNALING"``]``]`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``10``)`
 
     ##  [1] "Aph1a"  "Arrb1"  "Ccnd1"  "Cul1"   "Dll1"   "Dtx1"   "Dtx2"   "Dtx4"  
     ##  [9] "Fbxw11" "Fzd1"
@@ -125,26 +174,41 @@ your data is already mouse.
 page on the MSigDB website. Join enrichment output against them to get
 clickable links in a report.
 
-`top_sets`` ``<-`` ``msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`count`](https://dplyr.tidyverse.org/reference/count.html)`(``geneset``, name ``=`` ``"n_genes"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``n_genes``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`head`](https://rdrr.io/r/utils/head.html)`(``5``)`` `` ``top_sets`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`inner_join`](https://dplyr.tidyverse.org/reference/mutate-joins.html)`(``msigdf.urls``, by ``=`` ``"geneset"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``geneset``, ``n_genes``, ``url``)`
+\
+`top_sets`` ``<-`` ``msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code`` ``==`` ``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`count`](https://dplyr.tidyverse.org/reference/count.html)`(``geneset``, name ``=`` ``"n_genes"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``n_genes``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`head`](https://rdrr.io/r/utils/head.html)`(``5``)`\
+\
+`top_sets`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`inner_join`](https://dplyr.tidyverse.org/reference/mutate-joins.html)`(``msigdf.urls``, by ``=`` ``"geneset"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``geneset``, ``n_genes``, ``url``)`
 
     ## # A tibble: 5 × 3
     ##   geneset                             n_genes url                               
     ##   <chr>                                 <int> <chr>                             
-    ## 1 HALLMARK_NOTCH_SIGNALING                 32 http://software.broadinstitute.or…
-    ## 2 HALLMARK_ANGIOGENESIS                    36 http://software.broadinstitute.or…
-    ## 3 HALLMARK_HEDGEHOG_SIGNALING              36 http://software.broadinstitute.or…
-    ## 4 HALLMARK_PANCREAS_BETA_CELLS             40 http://software.broadinstitute.or…
-    ## 5 HALLMARK_WNT_BETA_CATENIN_SIGNALING      42 http://software.broadinstitute.or…
+    ## 1 HALLMARK_NOTCH_SIGNALING                 32 https://www.gsea-msigdb.org/gsea/…
+    ## 2 HALLMARK_ANGIOGENESIS                    36 https://www.gsea-msigdb.org/gsea/…
+    ## 3 HALLMARK_HEDGEHOG_SIGNALING              36 https://www.gsea-msigdb.org/gsea/…
+    ## 4 HALLMARK_PANCREAS_BETA_CELLS             40 https://www.gsea-msigdb.org/gsea/…
+    ## 5 HALLMARK_WNT_BETA_CATENIN_SIGNALING      42 https://www.gsea-msigdb.org/gsea/…
 
 The same join applied to an `fgsea` result:
 
-`res`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`as_tibble`](https://tibble.tidyverse.org/reference/as_tibble.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``padj``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`head`](https://rdrr.io/r/utils/head.html)`(``20``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`inner_join`](https://dplyr.tidyverse.org/reference/mutate-joins.html)`(``msigdf.urls``, by ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"pathway"`` ``=`` ``"geneset"``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``pathway``, ``padj``, ``NES``, ``url``)`
+\
+`res`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`as_tibble`](https://tibble.tidyverse.org/reference/as_tibble.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``padj``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`head`](https://rdrr.io/r/utils/head.html)`(``20``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`inner_join`](https://dplyr.tidyverse.org/reference/mutate-joins.html)`(``msigdf.urls``, by ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"pathway"`` ``=`` ``"geneset"``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``pathway``, ``padj``, ``NES``, ``url``)`
 
 ## Session info
 
     ## R version 4.6.1 (2026-06-24)
     ## Platform: aarch64-apple-darwin23
-    ## Running under: macOS Tahoe 26.6.2
+    ## Running under: macOS Golden Gate 27.0.1
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib 
@@ -160,13 +224,13 @@ The same join applied to an `fgsea` result:
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] msigdf_2026.1 dplyr_1.2.1   knitr_1.51   
+    ## [1] msigdf_2026.2 dplyr_1.2.1   knitr_1.52   
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] vctrs_0.7.3       cli_3.6.6         rlang_1.3.0       xfun_0.60        
+    ##  [1] vctrs_0.7.3       cli_3.6.6         rlang_1.3.0       xfun_0.61        
     ##  [5] otel_0.2.0        generics_0.1.4    textshaping_1.0.5 jsonlite_2.0.0   
     ##  [9] glue_1.8.1        htmltools_0.5.9   ragg_1.5.2        sass_0.4.10      
-    ## [13] rmarkdown_2.31    evaluate_1.0.5    jquerylib_0.1.4   tibble_3.3.1     
+    ## [13] rmarkdown_2.32    evaluate_1.0.5    jquerylib_0.1.4   tibble_3.3.1     
     ## [17] fastmap_1.2.0     yaml_2.3.12       lifecycle_1.0.5   compiler_4.6.1   
     ## [21] fs_2.1.0          htmlwidgets_1.6.4 pkgconfig_2.0.3   systemfonts_1.3.2
     ## [25] digest_0.6.39     R6_2.6.1          utf8_1.2.6        tidyselect_1.2.1 

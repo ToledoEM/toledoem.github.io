@@ -20,7 +20,7 @@ Original data from the Broad Institute’s Molecular Signature Database
 
 ***Procedure:***
 
-*1. The current MSigDB v2026.1 gmt files were downloaded from Broad
+*1. The current MSigDB v2026.2 gmt files were downloaded from Broad
 ftp.*\
 *2. This was done with the human and mouse gene sets*\
 *3. Each collection was converted to a list in R, and written to a RData
@@ -48,15 +48,22 @@ filtering and consistency.
 - MF: GO Molecular Function ontology
 - BP: GO Biological Process ontology
 - CC: GO Cellular Component ontology
+- MPO.MP / MPO.MPT: Mammalian Phenotype Ontology, generic and tumor
+  terms (mouse M5)
 
 The data sets in this package have several million rows. The package
 imports the tibble package so they’re displayed nicely.
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`tibble`](https://tibble.tidyverse.org/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`purrr`](https://purrr.tidyverse.org/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`msigdf`](https://toledoem.github.io/msigdf/)`)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`tibble`](https://tibble.tidyverse.org/)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`purrr`](https://purrr.tidyverse.org/)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`msigdf`](https://toledoem.github.io/msigdf/)`)`
 
 Take a look:
 
-`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`
+\
+`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`
 
     ## # A tibble: 6 × 4
     ##   category_code category_subcode geneset symbol 
@@ -68,7 +75,8 @@ Take a look:
     ## 5 c1            all              MT      MT-CO3 
     ## 6 c1            all              MT      MT-CYB
 
-`msigdf.mouse`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`
+\
+`msigdf.mouse`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`
 
     ## # A tibble: 6 × 4
     ##   category_code category_subcode geneset symbol 
@@ -80,7 +88,8 @@ Take a look:
     ## 5 m1            all              MT      mt-Co3 
     ## 6 m1            all              MT      mt-Cytb
 
-`msigdf.urls`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`as.data.frame`](https://rdrr.io/r/base/as.data.frame.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`
+\
+`msigdf.urls`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`as.data.frame`](https://rdrr.io/r/base/as.data.frame.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`
 
     ##   category_code category_subcode  geneset
     ## 1            c1              all       MT
@@ -89,18 +98,20 @@ Take a look:
     ## 4            c1              all chr10p13
     ## 5            c1              all chr10p14
     ## 6            c1              all chr10p15
-    ##                                                             url
-    ## 1       http://software.broadinstitute.org/gsea/msigdb/cards/MT
-    ## 2 http://software.broadinstitute.org/gsea/msigdb/cards/chr10p11
-    ## 3 http://software.broadinstitute.org/gsea/msigdb/cards/chr10p12
-    ## 4 http://software.broadinstitute.org/gsea/msigdb/cards/chr10p13
-    ## 5 http://software.broadinstitute.org/gsea/msigdb/cards/chr10p14
-    ## 6 http://software.broadinstitute.org/gsea/msigdb/cards/chr10p15
+    ##                                                              url
+    ## 1       https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/MT
+    ## 2 https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/chr10p11
+    ## 3 https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/chr10p12
+    ## 4 https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/chr10p13
+    ## 5 https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/chr10p14
+    ## 6 https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/chr10p15
 
 Just get the entries for the [KEGG non-homologous end joining
 pathway](http://www.genome.jp/kegg/pathway/hsa/hsa03450.md):
 
-`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``geneset``==``"KEGG_NON_HOMOLOGOUS_END_JOINING"``)`
+\
+`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``geneset``==``"KEGG_NON_HOMOLOGOUS_END_JOINING"``)`
 
     ## # A tibble: 26 × 4
     ##    category_code category_subcode geneset                         symbol 
@@ -126,7 +137,15 @@ use only the hallmark sets, and after we `dlply` the data into this
 named list format, get just the first few pathways, and in each of
 those, just display the first few gene symbols.
 
-`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code``==``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``geneset``, ``symbol``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``geneset``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`summarize`](https://dplyr.tidyverse.org/reference/summarise.html)`(``symbol``=`[`list`](https://rdrr.io/r/base/list.html)`(``symbol``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`deframe`](https://tibble.tidyverse.org/reference/enframe.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`head`](https://rdrr.io/r/utils/head.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`map`](https://purrr.tidyverse.org/reference/map.html)`(``head``)`
+\
+`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code``==``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``geneset``, ``symbol``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``geneset``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`summarize`](https://dplyr.tidyverse.org/reference/summarise.html)`(``symbol``=`[`list`](https://rdrr.io/r/base/list.html)`(``symbol``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`deframe`](https://tibble.tidyverse.org/reference/enframe.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`head`](https://rdrr.io/r/utils/head.html)`(``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`map`](https://purrr.tidyverse.org/reference/map.html)`(``head``)`
 
     ## $HALLMARK_ADIPOGENESIS
     ## [1] "ABCA1" "ABCB8" "ACAA2" "ACADL" "ACADM" "ACADS"
@@ -154,64 +173,82 @@ dependent of the construction at MSigDB.
 **Human Collection of gene sets**
 <https://www.gsea-msigdb.org/gsea/msigdb/human/collections.jsp>
 
-`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``category_code``,``category_subcode``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `` `[`tally`](https://dplyr.tidyverse.org/reference/count.html)`(``)`
+\
+`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``category_code``,``category_subcode``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `\
+`  `[`tally`](https://dplyr.tidyverse.org/reference/count.html)`(``)`
 
     ## # A tibble: 29 × 3
     ## # Groups:   category_code [10]
     ##    category_code category_subcode      n
     ##    <chr>         <chr>             <int>
-    ##  1 c1            all               43707
-    ##  2 c2            cgp              408654
-    ##  3 c2            cp               179627
+    ##  1 c1            all               43874
+    ##  2 c2            cgp              409928
+    ##  3 c2            cp               183213
     ##  4 c2            cp.biocarta        4814
     ##  5 c2            cp.kegg_legacy    12801
-    ##  6 c2            cp.kegg_medicus    9662
+    ##  6 c2            cp.kegg_medicus   11484
     ##  7 c2            cp.pid             8054
-    ##  8 c2            cp.reactome      102437
-    ##  9 c2            cp.wikipathways   41280
-    ## 10 c3            mir              406232
+    ##  8 c2            cp.reactome      105477
+    ##  9 c2            cp.wikipathways   40004
+    ## 10 c3            mir              406228
     ## # ℹ 19 more rows
 
 **Mouse Collection of gene sets**
 <https://www.gsea-msigdb.org/gsea/msigdb/mouse/collections.jsp>
 
-`msigdf.mouse`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``category_code``,``category_subcode``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `` `[`tally`](https://dplyr.tidyverse.org/reference/count.html)`(``)`
+\
+`msigdf.mouse`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``category_code``,``category_subcode``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `\
+`  `[`tally`](https://dplyr.tidyverse.org/reference/count.html)`(``)`
 
-    ## # A tibble: 16 × 3
+    ## # A tibble: 17 × 3
     ## # Groups:   category_code [7]
     ##    category_code category_subcode      n
     ##    <chr>         <chr>             <int>
-    ##  1 m1            all               41400
-    ##  2 m2            cgp              116378
-    ##  3 m2            cp                89841
+    ##  1 m1            all               41250
+    ##  2 m2            cgp              116663
+    ##  3 m2            cp                91143
     ##  4 m2            cp.biocarta        3959
-    ##  5 m2            cp.reactome       75097
-    ##  6 m2            cp.wikipathways   10785
-    ##  7 m3            gtrd             163326
-    ##  8 m3            mirdb            233370
-    ##  9 m5            go               878221
-    ## 10 m5            go.bp            651755
-    ## 11 m5            go.cc            112349
-    ## 12 m5            go.mf            114117
-    ## 13 m5            mpt                2606
-    ## 14 m7            all               70547
-    ## 15 m8            all               47976
-    ## 16 mh            all                7191
+    ##  5 m2            cp.reactome       76386
+    ##  6 m2            cp.wikipathways   10798
+    ##  7 m3            gtrd             163656
+    ##  8 m3            mirdb            233362
+    ##  9 m5            go               867919
+    ## 10 m5            go.bp            642764
+    ## 11 m5            go.cc            107985
+    ## 12 m5            go.mf            117170
+    ## 13 m5            mpo.mp           555716
+    ## 14 m5            mpo.mpt            6302
+    ## 15 m7            all               70547
+    ## 16 m8            all               47991
+    ## 17 mh            all                7191
 
 Get the URL for the hallmark set with the fewest number of genes (Notch
 signaling). Optionally, `%>%` this to `browseURL` to open it up in your
 browser.
 
-`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code``==``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`count`](https://dplyr.tidyverse.org/reference/count.html)`(``geneset``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``n``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`head`](https://rdrr.io/r/utils/head.html)`(``1``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`inner_join`](https://dplyr.tidyverse.org/reference/mutate-joins.html)`(``msigdf.urls``, by``=``"geneset"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`pull`](https://dplyr.tidyverse.org/reference/pull.html)`(``url``)`
+\
+`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code``==``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`count`](https://dplyr.tidyverse.org/reference/count.html)`(``geneset``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``n``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`head`](https://rdrr.io/r/utils/head.html)`(``1``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`inner_join`](https://dplyr.tidyverse.org/reference/mutate-joins.html)`(``msigdf.urls``, by``=``"geneset"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`pull`](https://dplyr.tidyverse.org/reference/pull.html)`(``url``)`
 
-    ## [1] "http://software.broadinstitute.org/gsea/msigdb/cards/HALLMARK_NOTCH_SIGNALING"
+    ## [1] "https://www.gsea-msigdb.org/gsea/msigdb/human/geneset/HALLMARK_NOTCH_SIGNALING"
 
 Just look at the number of genes in each KEGG pathway (sorted descending
 by the number of genes in that pathway):
 
-`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code``==``"c2"`` ``&`` `[`grepl`](https://rdrr.io/r/base/grep.html)`(``"^KEGG_"``, ``geneset``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`count`](https://dplyr.tidyverse.org/reference/count.html)`(``geneset``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(`[`desc`](https://dplyr.tidyverse.org/reference/desc.html)`(``n``)``)`
+\
+`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code``==``"c2"`` ``&`` `[`grepl`](https://rdrr.io/r/base/grep.html)`(``"^KEGG_"``, ``geneset``)``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`count`](https://dplyr.tidyverse.org/reference/count.html)`(``geneset``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `\
+`  `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(`[`desc`](https://dplyr.tidyverse.org/reference/desc.html)`(``n``)``)`
 
-    ## # A tibble: 844 × 2
+    ## # A tibble: 976 × 2
     ##    geneset                                          n
     ##    <chr>                                        <int>
     ##  1 KEGG_OLFACTORY_TRANSDUCTION                    778
@@ -224,13 +261,13 @@ by the number of genes in that pathway):
     ##  8 KEGG_CHEMOKINE_SIGNALING_PATHWAY               376
     ##  9 KEGG_HUNTINGTONS_DISEASE                       366
     ## 10 KEGG_ENDOCYTOSIS                               362
-    ## # ℹ 834 more rows
+    ## # ℹ 966 more rows
 
 ## Session info
 
     ## R version 4.6.1 (2026-06-24)
     ## Platform: aarch64-apple-darwin23
-    ## Running under: macOS Tahoe 26.6.2
+    ## Running under: macOS Golden Gate 27.0.1
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib 
@@ -246,13 +283,13 @@ by the number of genes in that pathway):
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] msigdf_2026.1 purrr_1.2.2   tibble_3.3.1  dplyr_1.2.1   knitr_1.51   
+    ## [1] msigdf_2026.2 purrr_1.2.2   tibble_3.3.1  dplyr_1.2.1   knitr_1.52   
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] vctrs_0.7.3       cli_3.6.6         rlang_1.3.0       xfun_0.60        
+    ##  [1] vctrs_0.7.3       cli_3.6.6         rlang_1.3.0       xfun_0.61        
     ##  [5] otel_0.2.0        generics_0.1.4    textshaping_1.0.5 jsonlite_2.0.0   
     ##  [9] glue_1.8.1        htmltools_0.5.9   ragg_1.5.2        sass_0.4.10      
-    ## [13] rmarkdown_2.31    evaluate_1.0.5    jquerylib_0.1.4   fastmap_1.2.0    
+    ## [13] rmarkdown_2.32    evaluate_1.0.5    jquerylib_0.1.4   fastmap_1.2.0    
     ## [17] yaml_2.3.12       lifecycle_1.0.5   compiler_4.6.1    fs_2.1.0         
     ## [21] htmlwidgets_1.6.4 pkgconfig_2.0.3   systemfonts_1.3.2 digest_0.6.39    
     ## [25] R6_2.6.1          utf8_1.2.6        tidyselect_1.2.1  pillar_1.11.1    

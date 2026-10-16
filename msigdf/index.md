@@ -10,32 +10,40 @@ This is the updated version of the archived repo of
 [@stephenturner](https://github.com/stephenturner/msigdf/pull/1)
 
 Current version:
-[v2026.1](https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_Latest/).
+[v2026.2](https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_Latest/).
 
-[![R-CMD-check](https://github.com/ToledoEM/msigdf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ToledoEM/msigdf/actions/workflows/R-CMD-check.yaml)
-[![lint](https://github.com/ToledoEM/msigdf/actions/workflows/lint.yaml/badge.svg)](https://github.com/ToledoEM/msigdf/actions/workflows/lint.yaml)
-[![pkgdown](https://github.com/ToledoEM/msigdf/actions/workflows/pkgdown.yaml/badge.svg)](https://toledoem.github.io/msigdf/)
-[![Codecov test
-coverage](https://codecov.io/gh/ToledoEM/msigdf/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ToledoEM/msigdf?branch=master)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![License:
-CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
-[![R \>=
-3.5](https://img.shields.io/badge/R-%3E%3D%203.5-blue.svg)](https://cran.r-project.org/)
+[![R-CMD-check](https://img.shields.io/github/actions/workflow/status/ToledoEM/msigdf/R-CMD-check.yaml?branch=master&label=R-CMD-check&style=flat-square)](https://github.com/ToledoEM/msigdf/actions/workflows/R-CMD-check.yaml)
+[![lint](https://img.shields.io/github/actions/workflow/status/ToledoEM/msigdf/lint.yaml?branch=master&label=lint&style=flat-square)](https://github.com/ToledoEM/msigdf/actions/workflows/lint.yaml)
+[![pkgdown](https://img.shields.io/github/actions/workflow/status/ToledoEM/msigdf/pkgdown.yaml?branch=master&label=pkgdown&style=flat-square)](https://toledoem.github.io/msigdf/)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen?style=flat-square)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![license](https://img.shields.io/badge/license-CC0%201.0-lightgrey?style=flat-square)](https://creativecommons.org/publicdomain/zero/1.0/)
+[![R](https://img.shields.io/badge/R-%3E%3D%203.5-blue?style=flat-square)](https://cran.r-project.org/)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.16815639-blue?style=flat-square)](https://doi.org/10.5281/zenodo.16815639)
+[![version](https://img.shields.io/badge/version-2026.2-blue?style=flat-square)](https://github.com/ToledoEM/msigdf/releases)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16815639.svg)](https://doi.org/10.5281/zenodo.16815639)
-[![Version](https://img.shields.io/badge/version-2026.1-blue)](https://github.com/ToledoEM/msigdf/releases)
+**Important Notices**
 
-**Important Notices** - MSigDB v2026.1 is based on gene annotation data
-from Ensembl Release 115. - Human release notes:
-<https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_2026.1.Hs/> -
-Mouse release notes:
-<https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_2026.1.Mm/>
+- MSigDB v2026.2 is based on gene annotation data from Ensembl Release
+  116.
+- Human release notes:
+  <https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_2026.2.Hs/>
+- Mouse release notes:
+  <https://docs.gsea-msigdb.org/#MSigDB/Release_Notes/MSigDB_2026.2.Mm/>
+- Mouse M5:MPT is now M5:MPO:MPT (`category_subcode` `mpo.mpt`), with
+  the new M5:MPO:MP subcollection (`mpo.mp`).
 
 ## Installation
 
-`# Install pak if you don't already have it `` ``# install_github() was deprecated in devtools 2.5.0.`` `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"pak"``)`` `` ``# Just get the data`` ``pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"toledoem/msigdf"``)`` `` ``# Get the data and the suggested packages used by the vignettes`` ``pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"toledoem/msigdf"``, dependencies ``=`` ``TRUE``)`
+\
+`# Install pak if you don't already have it `\
+`# install_github() was deprecated in devtools 2.5.0.`\
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"pak"``)`\
+\
+`# Just get the data`\
+`pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"toledoem/msigdf"``)`\
+\
+`# Get the data and the suggested packages used by the vignettes`\
+`pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"toledoem/msigdf"``, dependencies ``=`` ``TRUE``)`
 
 ## Data
 
@@ -57,9 +65,15 @@ more examples, or [Using msigdf with enrichment
 tools](https://toledoem.github.io/msigdf/articles/gsea-workflows.html)
 to feed these tables into `fgsea` or `clusterProfiler`.
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`msigdf`](https://toledoem.github.io/msigdf/)`)`` ``#vignette("msigdf")`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`msigdf`](https://toledoem.github.io/msigdf/)`)`\
+`#vignette("msigdf")`
 
-`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code``==``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` ``head`
+\
+`msigdf.human`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  `[`filter`](https://dplyr.tidyverse.org/reference/filter.html)`(``category_code``==``"h"``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)\
+`  ``head`
 
     # A tibble: 6 x 4
       category_code category_subcode geneset                          symbol
@@ -131,7 +145,9 @@ Rscript data-raw/msigdf.R
 
 3.  Regenerate documentation and check the package:
 
-`devtools``::`[`document`](https://devtools.r-lib.org/reference/document.html)`(``)`` ``devtools``::`[`check`](https://devtools.r-lib.org/reference/check.html)`(``)`
+\
+`devtools``::`[`document`](https://devtools.r-lib.org/reference/document.html)`(``)`\
+`devtools``::`[`check`](https://devtools.r-lib.org/reference/check.html)`(``)`
 
 See the [package
 vignette](https://toledoem.github.io/msigdf/articles/msigdf.html) for
