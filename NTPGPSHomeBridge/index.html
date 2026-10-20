@@ -111,6 +111,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=ToledoEM&amp;repository=GPSNTPHomeBridge&amp;category=integration"><img src="https://my.home-assistant.io/badges/hacs_repository.svg" class="img-fluid figure-img"></a></p>
+<figcaption>Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.</figcaption>
+</figure>
+</div>
 <p>Run this on the Pi that has the GPS receiver attached, not on your Home Assistant host.</p>
 <p>Download the installer and read it before running it. It runs as root and installs packages:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSLO</span> https://raw.githubusercontent.com/ToledoEM/GPSNTPHomeBridge/main/gpsntphomebridge.sh</span>
@@ -176,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Two ways to get the data in. The custom integration sets everything up from the UI and is the easier option. The REST sensor YAML below still works if you would rather configure it by hand.</p>
 <section id="custom-integration" class="level3">
 <h3 class="anchored" data-anchor-id="custom-integration">Custom integration</h3>
-<p>In HACS, add <code>https://github.com/ToledoEM/GPSNTPHomeBridge</code> as a custom repository with category <strong>Integration</strong>, download it, and restart Home Assistant. Then add it under <strong>Settings, Devices &amp; services, Add integration</strong>, search for <em>GPS &amp; NTP Home Bridge</em>, and enter the address of the Pi.</p>
+<p>In HACS, search for <em>GPS &amp; NTP Home Bridge</em>, download it, and restart Home Assistant. Then add it under <strong>Settings, Devices &amp; services, Add integration</strong>, search for <em>GPS &amp; NTP Home Bridge</em>, and enter the address of the Pi. Home Assistant can run on any device on the network, as long as it can reach the Pi over HTTP.</p>
 <p>It creates a device with sensors for stratum, frequency, system and clock jitter, clock wander, offset, precision, the synced peer and peer reachability, plus satellite counts, satellite ratio, average signal strength, HDOP and the fix timestamp. Peer details and the per-constellation breakdown are attached as attributes.</p>
 <p>The integration polls at the same rate the services refresh: NTP every 60 seconds, GPS every 15.</p>
 </section>

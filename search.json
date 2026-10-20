@@ -70,6 +70,13 @@
     "text": "Home Assistant add-ons\n\nHA Addons Playground\nThey used to live in a repo each. Now they all sit in one place, which is easier to maintain and easier to add to Home Assistant. Dev versions most of the time.\nAdd to Home Assistant View on GitHub\n BentoPDF runs BentoPDF inside your browser. Merge, split, compress, convert, OCR, sign and redact, with the files never leaving your machine.\n Manyfold is the Manyfold 3D model manager on port 3214. You point it at your library and thumbnail paths on HA storage and it keeps its data under /config. It bundles its own PostgreSQL and Redis, so you do not have to run either.\n Nginx Proxy Manager + Static Web Server gives you the NPM interface on port 81 for reverse proxies, plus a static file server on port 80 reading from HA storage.\n Obsidian Sync Server, a self-hosted LiveSync backend on CouchDB, in three flavours: plain HTTP if you already have a proxy in front, SSL if you want to bring your own certificates from /ssl and sync from mobile, or bundled with NPM if you would rather it handled the certificates for you.\n Stirling-PDF, also in three sizes: ultra-lite for merge, split, rotate and passwords, full for everything including OCR and conversion, and fat if you also want the extra fonts. Fat is about 4 GB, so pick accordingly.\nAll of them build for amd64 and aarch64."
   },
   {
+    "objectID": "code.html#research-tools",
+    "href": "code.html#research-tools",
+    "title": "Projects",
+    "section": "Research tools",
+    "text": "Research tools\n\nlinXiv-web\n\nBrowser UI for the linXiv paper library\n\n\n\nlinXiv-web logo\n\n\nA PDF paper manager with a web interface, built on top of linXiv. Self-hosted with Docker.\nKeep papers in a tagged library with projects and reading lists, and read, highlight and annotate the PDFs in the browser. Optional AI features and MCP server.\nDocumentation View on GitHub"
+  },
+  {
     "objectID": "code.html#creative-generative-tools",
     "href": "code.html#creative-generative-tools",
     "title": "Projects",

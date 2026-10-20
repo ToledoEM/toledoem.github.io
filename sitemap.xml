@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://toledoem.github.io/</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -12,12 +12,12 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/scientifictools.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/stlshaper/documentation.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -27,7 +27,7 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/ollama-cleaner/index.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -176,28 +176,128 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://toledoem.github.io/linxiv-web/guide/settings/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/guide/authors-graph-tags/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/guide/trash-backup/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/guide/papers/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/guide/projects/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/guide/library/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/guide/search-and-add/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/guide/home-feed/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/self-hosting/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/development/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/functions-not-in-api/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/404.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/mcp/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/bulk-import/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/ai/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/bulk-ai-tags/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/reference/compatibility/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/reference/configuration/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://toledoem.github.io/linxiv-web/reference/api/index.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://toledoem.github.io/google0544b2e6a3646ae8.html</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/NTPGPSHomeBridge/index.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/papers.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/code.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/bash-blind-rename/index.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -302,12 +402,12 @@
   </url>
   <url>
     <loc>https://toledoem.github.io/BrandSTL/index.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://toledoem.github.io/pubmatrixp/index.html</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
