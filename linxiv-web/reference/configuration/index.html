@@ -678,6 +678,32 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../server-admin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server Admin
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
       
@@ -693,10 +719,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -714,8 +740,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_4">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -807,10 +833,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -828,8 +854,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_5">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -925,10 +951,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -946,8 +972,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-            <label class="md-nav__title" for="__nav_6">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_7">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1241,6 +1267,11 @@
 <td>PDF directory, symlinked from <code>&lt;data dir&gt;/pdfs</code></td>
 </tr>
 <tr>
+<td><code>LINXIV_WEB_LIBRARIES_PDF_DIR</code></td>
+<td>none</td>
+<td>Multi-user mode: where the shared and per-account libraries keep their PDFs (<code>&lt;dir&gt;/&lt;library&gt;</code>). Unset: inside each library's folder under <code>&lt;data dir&gt;/libraries/</code>. Must be writable and not inside <code>LINXIV_WEB_PDF_DIR</code>. See <a href="../../server-admin/">Server Admin</a></td>
+</tr>
+<tr>
 <td><code>LINXIV_WEB_HOST</code> / <code>LINXIV_WEB_PORT</code></td>
 <td><code>0.0.0.0</code> / <code>8000</code> in the image</td>
 <td>Listen address</td>
@@ -1259,6 +1290,11 @@
 <td><code>LINXIV_WEB_MAX_UPLOAD_MB</code></td>
 <td><code>200</code></td>
 <td>Upload size cap</td>
+</tr>
+<tr>
+<td><code>TZ</code></td>
+<td>UTC</td>
+<td>Time zone for the nightly maintenance hour and the times shown for maintenance runs and server backups, e.g. <code>Europe/London</code>. See <a href="../../server-admin/#maintenance-operations">Maintenance operations</a></td>
 </tr>
 <tr>
 <td><code>LINXIV_WEB_TIMEOUT_LONG</code> / <code>_SHORT</code></td>

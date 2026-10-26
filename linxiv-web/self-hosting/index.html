@@ -462,6 +462,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#more-than-one-person" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More than one person
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#where-your-data-lives" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -904,6 +915,32 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../server-admin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server Admin
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
       
@@ -919,10 +956,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -940,8 +977,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_4">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1033,10 +1070,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -1054,8 +1091,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_5">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1149,10 +1186,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -1170,8 +1207,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_6">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1408,6 +1445,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#more-than-one-person" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More than one person
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#where-your-data-lives" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
@@ -1600,7 +1648,7 @@
 <li>An <code>amd64</code> or <code>arm64</code> machine. The image is published for both.</li>
 <li>Two directories on the host: one for the library database, one for PDFs.</li>
 </ul>
-<p>The image bundles the <code>linxiv</code> CLI and <code>linxiv-mcp</code>, built from linXiv v0.7.0. Do not point linXiv-web at a data directory that the linXiv desktop app or <code>linxiv-headless</code> also uses: linXiv expects one process per library.</p>
+<p>The image bundles the <code>linxiv</code> CLI and <code>linxiv-mcp</code>, built from linXiv v0.7.1. Do not point linXiv-web at a data directory that the linXiv desktop app or <code>linxiv-headless</code> also uses: linXiv expects one process per library.</p>
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>linxiv-web/data<span class="w"> </span>linxiv-web/pdfs
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>linxiv-web
@@ -1611,7 +1659,7 @@
 <p>Create <code>docker-compose.yml</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">services</span><span class="p">:</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">linxiv-web</span><span class="p">:</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/toledoem/linxiv-web:0.1.2</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/toledoem/linxiv-web:0.1.3</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linxiv-web</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">env_file</span><span class="p">:</span>
@@ -1643,7 +1691,7 @@
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>linxiv-web
 </code></pre></div>
 <p>Open http://127.0.0.1:8086.</p>
-<p>The image is tagged with the linXiv-web version (<code>0.1.2</code>) and <code>latest</code>; pin the version to choose when you update. The image is public: no <code>docker login</code> needed.</p>
+<p>The image is tagged with the linXiv-web version (<code>0.1.3</code>) and <code>latest</code>; pin the version to choose when you update. The image is public: no <code>docker login</code> needed.</p>
 <h2 id="first-run-setup">First-run setup<a class="headerlink" href="#first-run-setup" title="Permanent link">&para;</a></h2>
 <p>With no password configured, the server starts in setup mode and logs:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>linxiv-web: no password set; first-run setup is open on 0.0.0.0:8000. The first visitor creates the admin password.
@@ -1661,7 +1709,7 @@
 <h3 id="setting-the-password-in-env-instead">Setting the password in <code>.env</code> instead<a class="headerlink" href="#setting-the-password-in-env-instead" title="Permanent link">&para;</a></h3>
 <p>A password from the environment always wins over the stored one, and setup never opens. Generate an argon2 hash:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-e<span class="w"> </span><span class="nv">PASSWORD</span><span class="o">=</span><span class="s1">'your-password'</span><span class="w"> </span>--entrypoint<span class="w"> </span>python<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>ghcr.io/toledoem/linxiv-web:0.1.2<span class="w"> </span>-m<span class="w"> </span>app<span class="w"> </span>hash-password
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>ghcr.io/toledoem/linxiv-web:0.1.3<span class="w"> </span>-m<span class="w"> </span>app<span class="w"> </span>hash-password
 </code></pre></div>
 <p>Put it in <code>.env</code> next to <code>docker-compose.yml</code>, in single quotes (the hash contains <code>$</code>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">LINXIV_WEB_PASSWORD_HASH</span><span class="o">=</span><span class="s1">'$argon2id$v=19$m=65536,t=3,p=4$...'</span>
@@ -1677,9 +1725,12 @@
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <p>A password set with <code>LINXIV_WEB_PASSWORD_HASH</code> / <code>LINXIV_WEB_PASSWORD</code> always wins; change it in <code>.env</code> instead.</p>
+<p>In multi-user mode, <code>reset-password --user &lt;name&gt;</code> resets one account's password and logs only that account out; without <code>--user</code> it resets the owner's server password. See <a href="../server-admin/#passwords">Server Admin</a>.</p>
 <h2 id="logging-in">Logging in<a class="headerlink" href="#logging-in" title="Permanent link">&para;</a></h2>
 <p>Tick <strong>Remember me on this browser</strong> to stay logged in for 90 days (<code>LINXIV_WEB_REMEMBER_DAYS</code> changes this). Without it, the login ends when the browser closes, and after 14 days at most.</p>
 <p>Sessions are kept in <code>data/linxiv-web-state.db</code>, so restarting or updating the container keeps you logged in.</p>
+<h2 id="more-than-one-person">More than one person<a class="headerlink" href="#more-than-one-person" title="Permanent link">&para;</a></h2>
+<p>By default linXiv-web has one password and one library. To give other people their own logins and libraries, plus a shared library that only admins change, turn on multi-user mode in <strong>Settings → Server Admin</strong>. The login page then asks for a username as well. <a href="../server-admin/">Server Admin</a> explains accounts, roles and the shared library.</p>
 <h2 id="where-your-data-lives">Where your data lives<a class="headerlink" href="#where-your-data-lives" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1693,7 +1744,7 @@
 <tr>
 <td><code>data/</code> (<code>LINXIV_WEB_DATA_HOST</code>)</td>
 <td><code>/data</code></td>
-<td><code>papers.db</code> (library), <code>user_settings.json</code> (linXiv settings, including API keys entered in Settings), <code>linxiv-web-auth.json</code> (admin password hash), <code>linxiv-web-state.db</code> (sessions, login throttle)</td>
+<td><code>papers.db</code> (library), <code>user_settings.json</code> (linXiv settings, including API keys entered in Settings), <code>linxiv-web-auth.json</code> (admin password hash), <code>linxiv-web-state.db</code> (sessions, login throttle, multi-user accounts), <code>libraries/</code> (shared and per-account libraries in multi-user mode)</td>
 </tr>
 <tr>
 <td><code>pdfs/</code> (<code>LINXIV_WEB_PDF_HOST</code>)</td>
@@ -1792,6 +1843,11 @@
 <td>Upload size cap</td>
 </tr>
 <tr>
+<td><code>LINXIV_WEB_LIBRARIES_PDF_DIR</code></td>
+<td>none</td>
+<td>Multi-user mode: PDF folder for the shared and per-account libraries (container path; mount it)</td>
+</tr>
+<tr>
 <td><code>CROSSREF_MAILTO</code>, <code>NCBI_API_KEY</code>, <code>GEMINI_API_KEY</code>, …</td>
 <td>none</td>
 <td>Override the values entered in Settings</td>
@@ -1803,7 +1859,8 @@
 <p>To import a folder of PDFs that is already on the server, without the web UI, use <code>scripts/bulk-import.sh</code>. See <a href="../bulk-import/">bulk-import.md</a>.</p>
 <h2 id="backups">Backups<a class="headerlink" href="#backups" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Database only: Settings → Server &amp; data → Backup downloads a copy of <code>papers.db</code> and can import or restore one. It does not include PDFs.</li>
+<li>Database only: Settings → Server &amp; data → Backup downloads a copy of <code>papers.db</code> and can import or restore one. It does not include PDFs. The same card exports and imports the settings (without API keys).</li>
+<li>Database copies on the server: the "Back up databases" maintenance operation keeps the newest copies of every library database inside the data directory, nightly or on demand. See <a href="../server-admin/#maintenance-operations">Maintenance operations</a>. Set <code>TZ</code> on the container so the nightly hour is your local time.</li>
 <li>Everything: stop the container and copy both directories:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>down
@@ -1821,7 +1878,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="w">    </span><span class="nt">build</span><span class="p">:</span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/ToledoEM/linXiv-web.git#release</span>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">      </span><span class="nt">args</span><span class="p">:</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">        </span><span class="nt">LINXIV_REF</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v0.7.0</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">        </span><span class="nt">LINXIV_REF</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v0.7.1</span>
 <a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linxiv-web:local</span>
 </code></pre></div>
 <p>and run <code>docker compose build &amp;&amp; docker compose up -d</code>. The first build compiles linXiv from source and takes several minutes. To build local changes, clone the repository and use <code>context: ./linXiv-web</code> instead of the URL.</p>

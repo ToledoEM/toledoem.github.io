@@ -678,6 +678,32 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../server-admin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server Admin
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
       
@@ -693,10 +719,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -714,8 +740,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_4">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -807,10 +833,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -828,8 +854,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_5">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -925,10 +951,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -946,8 +972,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-            <label class="md-nav__title" for="__nav_6">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_7">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1192,6 +1218,7 @@
 <h1 id="http-api">HTTP API<a class="headerlink" href="#http-api" title="Permanent link">&para;</a></h1>
 <p>The web UI uses this API, and scripts can call it too. Every route except <code>/api/health</code>, <code>/api/login</code>, <code>/api/me</code> and <code>/mcp</code> needs a session when a password is set. Write requests also need the <code>X-CSRF-Token</code> header, which echoes the <code>lxw_csrf</code> cookie.</p>
 <p>Most routes map to one <code>linxiv</code> CLI command. The right column names the command or describes what the server does.</p>
+<p>In multi-user mode (see <a href="../../server-admin/">Server Admin</a>) each request works on the caller's own library, or on the shared library when it sends the header <code>X-Linxiv-Library: shared</code> (plain links such as a PDF or a download use <code>?library=shared</code> instead). Writes to the shared library by accounts that are not admins get 403, except <code>POST /api/shared/copy</code> and <code>POST /api/export/bibtex</code>. Logs, activity, update check, system status and diagnostics, and <code>/api/mcp</code> are admin only. <code>GET /api/jobs</code> lists only the caller's own jobs for accounts that are not admins.</p>
 <table>
 <thead>
 <tr>
@@ -1201,8 +1228,32 @@
 </thead>
 <tbody>
 <tr>
+<td><code>POST /api/login</code> <code>{username?, password, remember?}</code></td>
+<td>Start a session. <code>username</code> is required in multi-user mode and ignored otherwise; failed attempts are limited per client address and username</td>
+</tr>
+<tr>
+<td><code>GET /api/me</code></td>
+<td>Login state: <code>auth_enabled</code>, <code>setup_required</code>, <code>authenticated</code>, <code>password_source</code>, <code>multi_user</code>, <code>username</code>, <code>role</code> (<code>admin</code> or <code>user</code>), <code>owner</code></td>
+</tr>
+<tr>
 <td><code>POST /api/password</code> <code>{current, new, remember?}</code></td>
-<td>Change the stored admin password (409 when it comes from <code>LINXIV_WEB_PASSWORD(_HASH)</code>); logs out every other session</td>
+<td>Change the caller's own password; logs out the caller's other sessions. For the owner this is the stored server password (409 when it comes from <code>LINXIV_WEB_PASSWORD(_HASH)</code>). In multi-user mode the new password must differ from every other account's</td>
+</tr>
+<tr>
+<td><code>GET /api/admin/multi-user</code>, <code>POST /api/admin/multi-user</code> <code>{enabled, username?}</code></td>
+<td>Admin only. Multi-user status and owner username; turn it on (<code>username</code> names the owner the first time) or off (owner only; logs out every other account)</td>
+</tr>
+<tr>
+<td><code>GET /api/users</code>, <code>POST /api/users</code> <code>{username, password, role}</code></td>
+<td>Admin only. List accounts (never their password hashes); create one with its own library (409 for a taken username, 400 for a password another account uses)</td>
+</tr>
+<tr>
+<td><code>PUT /api/users/{id}</code> <code>{username?, password?, role?}</code>, <code>DELETE /api/users/{id}</code></td>
+<td>Admin only. Rename, set a password, change the role (each ends that account's sessions); delete (the library stays on disk, its path is returned). The owner stays admin and can't be deleted; the last admin can't be demoted or deleted; nobody deletes their own account</td>
+</tr>
+<tr>
+<td><code>POST /api/shared/copy</code> <code>{source_ids}</code></td>
+<td>Copy papers with their PDFs from the shared library into the caller's own: a temporary project is exported with <code>project export --pdfs</code> and imported with <code>project import --on-conflict=merge</code>, then both temporary projects are deleted. Returns <code>copied</code>, <code>failed</code>, <code>skipped_pdfs</code></td>
 </tr>
 <tr>
 <td><code>POST /api/sessions/revoke-others</code></td>
@@ -1379,6 +1430,34 @@
 <tr>
 <td><code>GET /api/backup</code>, <code>POST /api/backup/import</code>, <code>POST /api/backup/restore</code> (multipart <code>file</code>)</td>
 <td><code>backup</code> (database snapshot download), <code>import</code> (merge another database), <code>restore</code> (replace the library; refused while a job runs)</td>
+</tr>
+<tr>
+<td><code>GET /api/settings/export</code>, <code>POST /api/settings/import</code> (the exported JSON)</td>
+<td>Settings that <code>PATCH /api/settings</code> accepts, as a download without API keys or tokens (admins also get the server-wide keys); import applies a file's <code>settings</code> through the same checks, refusing API keys and unknown keys</td>
+</tr>
+<tr>
+<td><code>GET /api/maintenance</code>, <code>PUT /api/maintenance/schedule</code> <code>{hour, nightly[], keep_backups?, trash_days? (0-120)}</code>, <code>POST /api/maintenance/{op}/run</code></td>
+<td>Admin only. Maintenance operations (<code>duplicates</code>, <code>complete-metadata</code>, <code>pdf-check</code>, <code>backup</code>, <code>clean-authors</code>, <code>empty-trash</code>) with their last result and running job; the nightly hour (server local time) and ticked operations; start one as job <code>maint-&lt;op&gt;</code> over every library (409 while it runs)</td>
+</tr>
+<tr>
+<td><code>GET /api/maintenance/backups</code>, <code>GET</code>/<code>DELETE /api/maintenance/backups/{library}/{name}</code></td>
+<td>Admin only. Database backups the <code>backup</code> operation keeps in each library's <code>maintenance/backups/</code>: list, download, delete</td>
+</tr>
+<tr>
+<td><code>GET</code>/<code>PUT /api/maintenance/complete-metadata/options</code> <code>{gaps[], sources[]}</code></td>
+<td>Admin only. Which gaps (<code>title</code>, <code>authors</code>, <code>date</code>, <code>abstract</code>, <code>journal</code>, <code>doi</code>) make a new paper incomplete, and which sources (<code>arxiv</code>, <code>biorxiv</code>, <code>crossref</code>, <code>pubmed</code>) are asked, in order; at least one of each</td>
+</tr>
+<tr>
+<td><code>GET /api/maintenance/pdf-check</code></td>
+<td>Admin only. Last <code>pdf-check</code> report per library: missing PDF files and files no paper points at (lists capped at 500, counts complete)</td>
+</tr>
+<tr>
+<td><code>GET /api/duplicates</code>, <code>POST /api/duplicates/merge</code> <code>{winner, loser}</code>, <code>POST /api/duplicates/dismiss</code> <code>{source_ids}</code></td>
+<td>Groups of papers with identical PDF files from the last <code>duplicates</code> run in this library; <code>paper merge</code> keeps the winner; dismissed groups stay hidden on later runs</td>
+</tr>
+<tr>
+<td><code>GET /api/metadata-review</code>, <code>POST /api/metadata-review/remove</code> <code>{source_ids}</code></td>
+<td>Papers <code>complete-metadata</code> could not complete in this library (fixed or deleted ones drop out); take papers off the list</td>
 </tr>
 <tr>
 <td><code>GET /api/settings</code>, <code>PATCH /api/settings</code></td>

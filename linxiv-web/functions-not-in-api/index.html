@@ -678,6 +678,32 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../server-admin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server Admin
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
       
@@ -693,10 +719,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
   
   
@@ -714,8 +740,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_4">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -807,10 +833,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   
@@ -828,8 +854,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_5">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -925,10 +951,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -946,8 +972,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-            <label class="md-nav__title" for="__nav_6">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_7">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1341,6 +1367,8 @@
 <li>Direct external calls: PubMed via NCBI E-utilities (<code>routes/metadata.py</code>), and bioRxiv/medRxiv as a source (DOI-only, 2 MB cap).</li>
 <li><code>POST /api/add</code>: <code>routes/add.py</code> classifies the input (arXiv ID, DOI, publisher article link, PDF URL) on the server and then picks the CLI command. Publisher links (Nature, Springer, Wiley, ACS, APS, IOP, Science, PNAS and others) map to their DOI with the table from linXiv v0.7.0's <code>recognize.rs</code>, which only the linXiv app and <code>linxiv-headless</code> use. The publisher PDF is fetched on a best-effort basis: the server checks that the link returns a real PDF before <code>linxiv pdf download</code> stores it, because that command keeps whatever the link returns.</li>
 <li>Metadata from the PDF's file name: <code>app/pdf_name.py</code> reads a title and a year folder from the stored PDF path. <code>GET /papers</code> and <code>GET /papers/{id}</code> flag titles that look like junk read from the PDF (<code>title_suspect</code>), and <code>GET /papers/{id}/lookup?by=filename</code> searches Crossref, OpenAlex, arXiv or PubMed with the file name's title instead of the stored DOI.</li>
+<li>Maintenance operations: <code>app/maintenance.py</code> runs them as jobs over every library and schedules them nightly. Duplicate detection (<code>app/duplicates.py</code>) hashes PDF files and reads PDF paths from SQLite; linXiv keeps no checksum. "Complete metadata of new papers" (<code>app/metadata_fill.py</code>) reads <code>PAPER_ROOTS.CREATED_AT</code> from SQLite, because no CLI command reports when a paper was added, and saves through <code>paper repair</code>. The PDF file check (<code>app/pdf_check.py</code>) compares the folder with SQLite. Backups (<code>app/db_backup.py</code>), author cleanup (<code>app/authors_clean.py</code>) and Empty trash (<code>app/trash_empty.py</code>) only call <code>linxiv backup</code>, <code>author list/delete</code> and <code>trash list/hard-delete</code>.</li>
+<li>Settings export and import: <code>GET /settings/export</code> and <code>POST /settings/import</code> in <code>routes/user_settings.py</code>. The CLI has no settings file format.</li>
 <li>PDF full text: <code>routes/sources.py</code> extracts a saved PDF's text with pypdf and stores it with <code>linxiv paper set-text</code> (linXiv v0.7.0). This works for one paper or as a job over every non-arXiv paper with a PDF. The CLI only fetches arXiv TeX source by itself.</li>
 </ul>
 <h2 id="server-side-logic-layered-on-cli-results">Server-side logic layered on CLI results<a class="headerlink" href="#server-side-logic-layered-on-cli-results" title="Permanent link">&para;</a></h2>
@@ -1364,7 +1392,7 @@
 <li>Settings groups with <code>#id</code> deep links.</li>
 </ul>
 <h2 id="blocked-on-the-cli">Blocked on the CLI<a class="headerlink" href="#blocked-on-the-cli" title="Permanent link">&para;</a></h2>
-<p>These exist in linXiv, but only in the <code>linxiv-headless</code> HTTP API (<a href="https://github.com/linxiv-dev/linXiv/blob/main/docs/api.md">linXiv <code>docs/api.md</code></a>), not in the CLI or <code>linxiv-mcp</code> (checked against v0.7.0). linXiv-web would need either new upstream CLI commands or <code>linxiv-headless</code> as its backend. The headless server cannot share the library with the CLI, because linXiv allows one process per library.</p>
+<p>These exist in linXiv, but only in the <code>linxiv-headless</code> HTTP API (<a href="https://github.com/linxiv-dev/linXiv/blob/main/docs/api.md">linXiv <code>docs/api.md</code></a>), not in the CLI or <code>linxiv-mcp</code> (checked against v0.7.1). linXiv-web would need either new upstream CLI commands or <code>linxiv-headless</code> as its backend. The headless server cannot share the library with the CLI, because linXiv allows one process per library.</p>
 <table>
 <thead>
 <tr>
