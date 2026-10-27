@@ -60,7 +60,7 @@
     "href": "code.html#hardware",
     "title": "Projects",
     "section": "Hardware",
-    "text": "Hardware\n\nESP32 DuckDNS Client\n\nMicrocontroller dynDNS client with an ESP32\n\n\n\nDuckDNS Logo\n\n\nThis project is an open-source, standalone Dynamic DNS (DDNS) client for DuckDNS.org that runs on an ESP32 microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.\nWhy?… because I can.\nGithub Project\n\n\n\nNTP & GPS Home Bridge\n\nNTP and GPS monitoring systems for Home Assistant integration on Raspberry Pi.\n\n\n\n\nLogo\n\n\nAPI for GPS and NTP server. Designed to be feed into Home Assistant\nProject View on Github\n\nLooking for time and space to make more of these plans a reality."
+    "text": "Hardware\n\nESP32 DuckDNS Client\n\nMicrocontroller dynDNS client with an ESP32\n\n\n\nDuckDNS Logo\n\n\nThis project is an open-source, standalone Dynamic DNS (DDNS) client for DuckDNS.org that runs on an ESP32 microcontroller. This enhanced version is a complete overhaul, offering a robust, feature-rich, and secure solution to keep your DuckDNS domain pointed to your home’s dynamic IP address.\nWhy?… because I can.\nGithub Project\n\n\n\nNTP & GPS Home Bridge\n\nNTP and GPS monitoring systems for Home Assistant integration on Raspberry Pi.\n\n\n\n\nLogo\n\n\nAPI for GPS and NTP server. Designed to be feed into Home Assistant\n\n\n\nOpen in Home Assistant\n\n\nProject View on Github\n\nLooking for time and space to make more of these plans a reality."
   },
   {
     "objectID": "code.html#home-assistant-add-ons",
