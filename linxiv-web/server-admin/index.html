@@ -1021,6 +1021,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1067,6 +1073,60 @@
   
   
     <li class="md-nav__item">
+      <a href="../scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Server scripts
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sanitize-pdf-names/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Sanitize PDF file names
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../bulk-import/" class="md-nav__link">
         
   
@@ -1102,6 +1162,33 @@
     
   
   Bulk AI tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../export-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Export tags
 
     
   </span>
@@ -1671,7 +1758,7 @@
 <p>Libraries are created the first time they are opened. To keep the PDFs of the shared and per-account libraries on another disk, set <code>LINXIV_WEB_LIBRARIES_PDF_DIR</code>; each library then links its <code>pdfs/</code> to <code>&lt;that folder&gt;/&lt;library&gt;</code>. The folder must not be inside <code>LINXIV_WEB_PDF_DIR</code>.</p>
 <p><strong>Settings → Server &amp; data → Backup</strong> backs up, imports and restores the library you are looking at. Copying the whole <code>data/</code> and <code>pdfs/</code> folders, as in <a href="../self-hosting/#backups">Backups</a>, covers every library and every account.</p>
 <h2 id="maintenance-operations">Maintenance operations<a class="headerlink" href="#maintenance-operations" title="Permanent link">&para;</a></h2>
-<p><strong>Settings → Server Admin → Maintenance operations</strong> lists jobs that look after every library on the server: the owner's, the shared one and each account's. Each row has a <strong>Run</strong> button, the result of its last run, and a <strong>Nightly</strong> box. Ticked operations run one after another once a night at the hour picked at the top of the card. The hour is the server's local time; set <code>TZ</code> on the container (for example <code>TZ=Europe/London</code>) when the server should not use UTC. A running operation shows its progress in the activity tray and can be cancelled.</p>
+<p><strong>Settings → Server Admin → Maintenance operations</strong> lists jobs that look after every library on the server: the owner's, the shared one and each account's. Each row has a <strong>Run</strong> button, the result of its last run, and <strong>Nightly</strong> and <strong>Monthly</strong> boxes. Operations ticked Nightly run one after another once a night at the hour picked at the top of the card. Operations ticked Monthly run at that same hour once 30 days have passed since their last run finished (a Run by hand counts); an operation that never ran goes at the next nightly hour. The hour is the server's local time; set <code>TZ</code> on the container (for example <code>TZ=Europe/London</code>) when the server should not use UTC. A running operation shows its progress in the activity tray and can be cancelled.</p>
 <table>
 <thead>
 <tr>
@@ -1689,8 +1776,12 @@
 <td>For papers added since its last run that have one of the gaps ticked on its row (junk title, no authors, date, abstract, journal or DOI), it looks the paper up by its own DOI or arXiv id, never by title, in the sources ticked on its row and in their order, and fills those empty fields. Stored values are kept. arXiv is asked only for arXiv papers, bioRxiv only for bioRxiv/medRxiv DOIs, Crossref and PubMed for any DOI. OpenAlex is not offered: linXiv can't look it up by an exact DOI.</td>
 </tr>
 <tr>
+<td>Refresh metadata</td>
+<td>Asks again the source each paper's metadata came from, by the paper's own id (DOI, arXiv id or OpenAlex work id), and replaces the stored title, authors, date, abstract, journal, DOI and BibTeX fields with the values it gets back. Empty values never replace stored ones, the link and tags stay, an arXiv subject code never replaces a journal, and a year-only date never replaces a full date of the same year. The source is recorded when a looked-up record is saved on the paper page or in batch edit, when a paper is added by DOI or arXiv id, and by "Complete metadata of new papers". Papers with no recorded source, or one that can't be asked again (BibTeX import, PDF file name, AI cleanup), are left alone. The option on its row picks <strong>Papers published in the last year, and preprints</strong> (arXiv, bioRxiv, medRxiv; the default) or <strong>Every paper with a recorded source</strong>.</td>
+</tr>
+<tr>
 <td>Check PDF files</td>
-<td>Reports papers whose PDF file is missing on disk, and PDF files in the PDF folder that no paper points at. It changes nothing. <strong>Show report</strong> lists them.</td>
+<td>Reports papers whose PDF file is missing on disk, and PDF files in the PDF folder that no paper points at. It changes nothing. <strong>Show report</strong> lists them and breaks the folder down: files of any type, PDFs, each top-level subfolder, next to the number of papers, papers with a PDF, extra version files and PDFs of papers in the trash. <strong>Skip folders</strong> lists subfolders (for example <code>dup, errors</code>) that are counted but never reported as unlinked. <strong>Download full list (TSV)</strong> under each list has every missing paper or unlinked file, tab separated. <strong>Move to orphans/</strong> checks again and moves each unlinked PDF to <code>orphans/</code> under the same path; files changed in the last hour stay, and nothing is deleted.</td>
 </tr>
 <tr>
 <td>Back up databases</td>
@@ -1701,14 +1792,19 @@
 <td>Deletes author records that no paper uses any more, for example the authors of papers deleted from the trash. linXiv refuses to delete an author still linked to a paper, so those are kept. It asks before running.</td>
 </tr>
 <tr>
+<td>Clean tags without papers</td>
+<td>Deletes tags that no paper and no project uses. Tags on papers in the trash stay, so a restored paper keeps its tags, and so do project tags such as <code>reading-list</code>. A tag named Untagged is always kept. It asks before running.</td>
+</tr>
+<tr>
 <td>Empty trash</td>
 <td>Deletes for good the papers that have been in the trash longer than the days typed on its row: 1 to 120, or 0 (the default) to never delete. Projects in the trash are left alone. It asks before running.</td>
 </tr>
 </tbody>
 </table>
-<p>The first run of "Complete metadata of new papers" looks at papers added in the last 30 days.</p>
+<p>The first run of "Complete metadata of new papers" looks at papers added in the last 30 days. Papers it completes also get the record's BibTeX fields that are still empty, and its source when none is recorded.</p>
+<p>Refresh metadata pauses one second between lookups, as the sources are shared public services; on a large library, tick it Monthly rather than Nightly. Each library's papers that were not found are listed in <code>maintenance/metadata-refresh.json</code>.</p>
 <h3 id="duplicates">Duplicates<a class="headerlink" href="#duplicates" title="Permanent link">&para;</a></h3>
-<p>The <strong>Duplicates</strong> page (sidebar) shows the groups the last "Find duplicate papers" run found in the library you are looking at. Pick the paper to keep and click <strong>Merge into kept paper</strong>: linXiv moves the other papers' notes, highlights, projects, tags and PDFs to it, then deletes them. <strong>Not duplicates</strong> hides a group from later runs. The Library header links to the page while there are groups. In the shared library only admins can merge or dismiss.</p>
+<p>The <strong>Duplicates</strong> page (sidebar) shows the groups the last "Find duplicate papers" run found in the library you are looking at. Pick the paper to keep and click <strong>Merge into kept paper</strong>: linXiv moves the other papers' notes, highlights, projects, tags and PDFs to it, then deletes them. <strong>Not duplicates</strong> hides a group from later runs. <strong>Download list (TSV)</strong> saves every group, one row per paper, tab separated. The Library header links to the page while there are groups. In the shared library only admins can merge or dismiss.</p>
 <h3 id="papers-left-incomplete">Papers left incomplete<a class="headerlink" href="#papers-left-incomplete" title="Permanent link">&para;</a></h3>
 <p>Papers that "Complete metadata of new papers" could not finish are listed per library. The Library header shows <strong>N to complete</strong>; the link, or <strong>Review papers left incomplete</strong> in the operation's row, selects them and opens batch edit metadata. Saving fixes a paper and drops it from the list; <strong>Skip</strong> takes it off the list too.</p>
 <h3 id="database-backups-on-the-server">Database backups on the server<a class="headerlink" href="#database-backups-on-the-server" title="Permanent link">&para;</a></h3>
