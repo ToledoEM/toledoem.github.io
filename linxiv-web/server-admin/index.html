@@ -1014,6 +1014,32 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../browser-add-on/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Browser add-on
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
       
@@ -1035,10 +1061,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -1056,8 +1082,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_6">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1232,10 +1258,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -1253,8 +1279,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_7">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_8">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1773,7 +1799,7 @@
 </tr>
 <tr>
 <td>Complete metadata of new papers</td>
-<td>For papers added since its last run that have one of the gaps ticked on its row (junk title, no authors, date, abstract, journal or DOI), it looks the paper up by its own DOI or arXiv id, never by title, in the sources ticked on its row and in their order, and fills those empty fields. Stored values are kept. arXiv is asked only for arXiv papers, bioRxiv only for bioRxiv/medRxiv DOIs, Crossref and PubMed for any DOI. OpenAlex is not offered: linXiv can't look it up by an exact DOI.</td>
+<td>For papers added since its last run that have one of the gaps ticked on its row (junk title, no authors, date, abstract, journal, DOI or BibTeX details), it looks the paper up by its own DOI or arXiv id, never by title, in the sources ticked on its row and in their order, and fills those empty fields. Stored values are kept. arXiv is asked only for arXiv papers, bioRxiv only for bioRxiv/medRxiv DOIs, Crossref and PubMed for any DOI. OpenAlex is not offered: linXiv can't look it up by an exact DOI.</td>
 </tr>
 <tr>
 <td>Refresh metadata</td>
@@ -1801,7 +1827,7 @@
 </tr>
 </tbody>
 </table>
-<p>The first run of "Complete metadata of new papers" looks at papers added in the last 30 days. Papers it completes also get the record's BibTeX fields that are still empty, and its source when none is recorded.</p>
+<p>The first run of "Complete metadata of new papers" looks at papers added in the last 30 days. Papers it completes also get the record's BibTeX fields that are still empty, and its source when none is recorded. "No BibTeX details" counts a paper with no BibTeX field stored at all; such a paper is complete once the source returns any BibTeX field, and its other values are left alone.</p>
 <p>Refresh metadata pauses one second between lookups, as the sources are shared public services; on a large library, tick it Monthly rather than Nightly. Each library's papers that were not found are listed in <code>maintenance/metadata-refresh.json</code>.</p>
 <h3 id="duplicates">Duplicates<a class="headerlink" href="#duplicates" title="Permanent link">&para;</a></h3>
 <p>The <strong>Duplicates</strong> page (sidebar) shows the groups the last "Find duplicate papers" run found in the library you are looking at. Pick the paper to keep and click <strong>Merge into kept paper</strong>: linXiv moves the other papers' notes, highlights, projects, tags and PDFs to it, then deletes them. <strong>Not duplicates</strong> hides a group from later runs. <strong>Download list (TSV)</strong> saves every group, one row per paper, tab separated. The Library header links to the page while there are groups. In the shared library only admins can merge or dismiss.</p>

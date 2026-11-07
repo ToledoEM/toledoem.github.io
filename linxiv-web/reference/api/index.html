@@ -818,6 +818,32 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../browser-add-on/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Browser add-on
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
       
@@ -839,10 +865,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -860,8 +886,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-            <label class="md-nav__title" for="__nav_6">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_7">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1038,10 +1064,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
             
   
   
@@ -1059,8 +1085,8 @@
           </label>
         
         
-          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-            <label class="md-nav__title" for="__nav_7">
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_8">
               <span class="md-nav__icon md-icon"></span>
               
   
@@ -1303,9 +1329,9 @@
 
 
 <h1 id="http-api">HTTP API<a class="headerlink" href="#http-api" title="Permanent link">&para;</a></h1>
-<p>The web UI uses this API, and scripts can call it too. Every route except <code>/api/health</code>, <code>/api/login</code>, <code>/api/me</code> and <code>/mcp</code> needs a session when a password is set. Write requests also need the <code>X-CSRF-Token</code> header, which echoes the <code>lxw_csrf</code> cookie.</p>
+<p>The web UI uses this API, and scripts can call it too. Every route except <code>/api/health</code>, <code>/api/login</code>, <code>/api/me</code>, <code>/mcp</code> and the add-on routes <code>/api/clip/ping</code>, <code>/api/clip/pdf</code> and <code>/api/clip/bibtex</code> needs a session when a password is set. Write requests also need the <code>X-CSRF-Token</code> header, which echoes the <code>lxw_csrf</code> cookie.</p>
 <p>Most routes map to one <code>linxiv</code> CLI command. The right column names the command or describes what the server does.</p>
-<p>In multi-user mode (see <a href="../../server-admin/">Server Admin</a>) each request works on the caller's own library, or on the shared library when it sends the header <code>X-Linxiv-Library: shared</code> (plain links such as a PDF or a download use <code>?library=shared</code> instead). Writes to the shared library by accounts that are not admins get 403, except <code>POST /api/shared/copy</code> and <code>POST /api/export/bibtex</code>. Logs, activity, update check, system status and diagnostics, and <code>/api/mcp</code> are admin only. <code>GET /api/jobs</code> lists only the caller's own jobs for accounts that are not admins.</p>
+<p>In multi-user mode (see <a href="../../server-admin/">Server Admin</a>) each request works on the caller's own library, or on the shared library when it sends the header <code>X-Linxiv-Library: shared</code> (plain links such as a PDF or a download use <code>?library=shared</code> instead). Writes to the shared library by accounts that are not admins get 403, except <code>POST /api/shared/copy</code> and <code>POST /api/export/bibtex</code>. Logs, activity, update check, system status and diagnostics, and <code>/api/mcp</code> are admin only. Add-on routes with the bearer token always work on the token owner's own library and ignore this header. They accept requests with no <code>Origin</code> or a <code>moz-extension://</code> one, and answer 403 to any other <code>Origin</code>. <code>GET /api/jobs</code> lists only the caller's own jobs for accounts that are not admins.</p>
 <table>
 <thead>
 <tr>
@@ -1581,6 +1607,26 @@
 <tr>
 <td><code>POST/GET/DELETE /mcp</code></td>
 <td>MCP Streamable HTTP endpoint (bearer token; see <a href="../../mcp/">MCP server</a>)</td>
+</tr>
+<tr>
+<td><code>GET /api/clip/token</code>, <code>POST /api/clip/token</code>, <code>DELETE /api/clip/token</code></td>
+<td>Browser add-on token of the caller's library: status, create (shown once; replaces any previous one) or revoke. Every account has its own</td>
+</tr>
+<tr>
+<td><code>GET /api/clip/list</code></td>
+<td><code>{project_id}</code> of the add-on's reading list in this library, null before the first clip</td>
+</tr>
+<tr>
+<td><code>GET /api/clip/ping</code></td>
+<td>Add-on token. <code>{ok, version, username}</code></td>
+</tr>
+<tr>
+<td><code>POST /api/clip/pdf</code> (multipart <code>file</code>)</td>
+<td>Add-on token. Trial <code>pdf import</code> in a throwaway library to learn the id. New paper or no PDF yet: <code>pdf import</code> (metadata of an existing paper put back with <code>paper repair</code>). Has a PDF: no import. Then <code>project add-papers</code> to the list. Answers <code>{source_ids, new, existing, attached, project_id, failed}</code>, plus <code>title</code> when known and <code>metadata_kept</code> when a PDF was attached to an existing paper</td>
+</tr>
+<tr>
+<td><code>POST /api/clip/bibtex</code> (multipart <code>file</code>)</td>
+<td>Add-on token. <code>bibtex import</code> of the entries not in the library, matched by DOI, arXiv id, else exact title, then <code>project add-papers</code> for all of them. Answers <code>{source_ids, new, existing, project_id, failed}</code></td>
 </tr>
 </tbody>
 </table>
