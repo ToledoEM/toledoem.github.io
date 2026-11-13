@@ -8,3 +8,4 @@ CLAUDE*.md
 .claude/
 **/.claude/
 design-system/*
+data/README.md

@@ -28,3 +28,7 @@ features = [
 [project.markdown_extensions]
 attr_list = {}
 md_in_html = {}
+
+[project.plugins.macros]
+include_yaml = ["data/site.yml"]
+on_error_fail = true
