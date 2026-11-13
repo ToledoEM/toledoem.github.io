@@ -1,0 +1,30 @@
+# Toledo monopage — Zensical config.
+# Layout:
+#   zensical.toml
+#   docs/index.md                 <- kit/index.md
+#   docs/assets/page_design.css        <- kit/toledo.css (renamed page_design.css)
+#   docs/assets/design_code.js         <- kit/toledo.js (renamed design_code.js)
+#   docs/www/me.jpeg, favicon.ico
+#   docs/stlshaper/, xkcd/, msigdf/, espduckdns/, GPSNTPHomeBridge/, Bash-blind-rename/
+#     (the existing static sub-sites; Zensical copies them through untouched)
+
+[project]
+site_name = "Enrique M. Toledo"
+site_url = "https://toledoem.github.io/"
+site_description = "Scientist working at the intersection of genomics, computational biology and target discovery."
+nav = [{ "Home" = "index.md" }]
+extra_css = ["assets/page_design.css"]
+extra_javascript = ["assets/design_code.js"]
+
+[project.theme]
+language = "en"
+favicon = "www/favicon.ico"
+font = false            # Geist is loaded by page_design.css
+custom_dir = "overrides" # analytics + verification tags (overrides/main.html)
+features = [
+  "navigation.instant",  # design_code.js re-runs on every swap via document$
+]
+
+[project.markdown_extensions]
+attr_list = {}
+md_in_html = {}
