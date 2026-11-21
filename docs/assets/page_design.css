@@ -144,10 +144,11 @@ body:has(.tm-root) .md-content__button { display: none; }
   transition: border-color var(--tm-fast) var(--tm-ease), color var(--tm-fast) var(--tm-ease);}
 .md-typeset .tm-root .tm-icon-btn:hover {border-color: var(--accent); color: var(--accent);}
 .md-typeset .tm-root .tm-icon-btn svg {width: 18px; height: 18px;}
-.md-typeset .tm-root .tm-hero {position: relative; overflow: hidden;
+.md-typeset .tm-root .tm-hero {position: relative; z-index: 1; overflow-x: clip; overflow-y: visible;
   padding: var(--space-9) var(--space-6) var(--space-8);
   min-height: 560px;}
-.md-typeset .tm-root .tm-hero__field {position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;}
+.md-typeset .tm-root .tm-hero__field {position: absolute; top: 0; left: 0; right: 0; bottom: -240px; width: 100%; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent); mask-image: linear-gradient(to bottom, #000 70%, transparent);}
 .md-typeset .tm-root .tm-hero__inner {position: relative; max-width: var(--content-max); margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: var(--space-6); align-items: end;}
 .md-typeset .tm-root .tm-hero__name {font-size: 72px; line-height: 72px; font-weight: 600; letter-spacing: -0.04em;
   margin: 0 0 var(--space-5); color: var(--ink);}

@@ -154,9 +154,9 @@
       var W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
       var pts = [], mouse = { x: -9999, y: -9999 };
       var col = {};
-      var SCALE = 3;                        // area of the network: 2 = 200% of the original (spread, links, cursor reach)
-      var EDGE = 1;                         // edge reach: nodes link up to this multiple of the current distance (1 = as before)
-      var NODE = 2;                         // dot size: 1 = original, 2 = kept as now
+      var SCALE = 5;                        // area of the network: 2 = 200% of the original (spread, links, cursor reach)
+      var EDGE = 0.75;                         // edge reach: nodes link up to this multiple of the current distance (1 = as before)
+      var NODE = 2.2;                         // dot size: 1 = original, 2 = kept as now
       var LEVELS = [1, 0.75, 0.5, 0.25, 0.125, 0.065]; // accent strength per point, picked at random
       function readColors() { col = { ink: css("--ink-3"), accent: css("--accent"), line: css("--line") }; }
       function rnd(a, b) { return a + Math.random() * (b - a); }
