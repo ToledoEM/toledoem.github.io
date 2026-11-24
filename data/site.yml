@@ -2,6 +2,20 @@
 # Add a project: copy an entry under `projects`. Add a paper: copy an item under its year in `papers`.
 
 projects:
+- title: GNSS NTP Graphs
+  tags:
+  - Utilities
+  - Selfhosting
+  kicker: Docker · WEB · GPS/NTP
+  desc:  History graphs for a GPS-disciplined NTP server - offset jitter, peers, satellites, DOP and ntpviz-style stats from chrony or ntpd and gpsd. Python, no dependencies.
+  images:
+  - src: img/gnssntp.png
+    alt: GNSS NTP Graphs
+  links:
+  - label: Docs
+    url: https://toledoem.github.io/gnss-ntp-graphs/
+  - label: GitHub ↗
+    url: https://github.com/ToledoEM/gnss-ntp-graphs
 - title: PubMatrixR
   tags:
   - Science
