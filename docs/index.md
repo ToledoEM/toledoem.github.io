@@ -78,7 +78,7 @@ hide:
 <section class="tm-section" id="projects">
   <div class="tm-wrap">
     <p class="tm-eyebrow tm-reveal">02 — Projects</p>
-    <h2 class="tm-h2 tm-reveal">Tools, hardware and things that solved a problem once.</h2>
+    <h2 class="tm-h2 tm-reveal">Tools, hardware and things that solved a problem at least once.</h2>
     <div data-tm-filter>
       <div class="tm-chips"></div>
       <div class="tm-grid">

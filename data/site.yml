@@ -16,6 +16,50 @@ projects:
     url: https://toledoem.github.io/gnss-ntp-graphs/
   - label: GitHub ↗
     url: https://github.com/ToledoEM/gnss-ntp-graphs
+- title: NTP & GPS Home Bridge
+  tags:
+  - Hardware
+  - Home Assistant
+  kicker: Raspberry Pi · HACS
+  desc: NTP and GPS monitoring on a Raspberry Pi, exposed as an API for Home Assistant.
+  images:
+  - src: www/NTP&GPSLogo.png
+    alt: NTP and GPS Home Bridge logo
+  links:
+  - label: Project
+    url: GPSNTPHomeBridge/index.html
+  - label: GitHub ↗
+    url: https://github.com/ToledoEM/GPSNTPHomeBridge
+  - label: Add to HACS ↗
+    url: https://my.home-assistant.io/redirect/hacs_repository/?owner=ToledoEM&repository=GPSNTPHomeBridge&category=integration
+- title: MSigDF
+  tags:
+  - Science
+  kicker: R package · Zenodo
+  desc: The Molecular Signatures Database as a tidy tibble, kept current with MSigDB 2025.1, for enrichment and pathway analysis.
+  images:
+  - src: img/msigdf_logo.png
+    alt: MSigDF logo
+  links:
+  - label: Vignette
+    url: msigdf/index.html
+  - label: GitHub ↗
+    url: https://github.com/ToledoEM/msigdf
+  - label: DOI ↗
+    url: https://doi.org/10.5281/zenodo.16815640
+- title: linXiv-web
+  tags:
+  - Research
+  kicker: Docker · web
+  desc: 'A self-hosted PDF paper library: tags, projects and reading lists, with in-browser reading and annotation. Optional AI and an MCP server.'
+  images:
+  - src: https://toledoem.github.io/linXiv-web/assets/logo.svg
+    alt: linXiv-web logo
+  links:
+  - label: Docs ↗
+    url: https://toledoem.github.io/linXiv-web/
+  - label: GitHub ↗
+    url: https://github.com/ToledoEM/linXiv-web
 - title: PubMatrixR
   tags:
   - Science
@@ -48,21 +92,6 @@ projects:
     url: https://github.com/ToledoEM/PubMatrixPython
   - label: PyPI ↗
     url: https://pypi.org/project/pubmatrixpython/
-- title: MSigDF
-  tags:
-  - Science
-  kicker: R package · Zenodo
-  desc: The Molecular Signatures Database as a tidy tibble, kept current with MSigDB 2025.1, for enrichment and pathway analysis.
-  images:
-  - src: img/msigdf_logo.png
-    alt: MSigDF logo
-  links:
-  - label: Vignette
-    url: msigdf/index.html
-  - label: GitHub ↗
-    url: https://github.com/ToledoEM/msigdf
-  - label: DOI ↗
-    url: https://doi.org/10.5281/zenodo.16815640
 - title: emeansR
   tags:
   - Science
@@ -76,48 +105,6 @@ projects:
     url: https://toledoem.github.io/emeansR/
   - label: GitHub ↗
     url: https://github.com/ToledoEM/emeansR
-- title: linXiv-web
-  tags:
-  - Research
-  kicker: Docker · web
-  desc: 'A self-hosted PDF paper library: tags, projects and reading lists, with in-browser reading and annotation. Optional AI and an MCP server.'
-  images:
-  - src: https://toledoem.github.io/linXiv-web/assets/logo.svg
-    alt: linXiv-web logo
-  links:
-  - label: Docs ↗
-    url: https://toledoem.github.io/linXiv-web/
-  - label: GitHub ↗
-    url: https://github.com/ToledoEM/linXiv-web
-- title: ESP32 DuckDNS Client
-  tags:
-  - Hardware
-  kicker: ESP32 · firmware
-  desc: A standalone dynamic DNS client on a microcontroller that keeps a DuckDNS domain pointed at home. Why? Because I can.
-  images:
-  - src: www/ducky_icon.png
-    alt: DuckDNS duck icon
-  links:
-  - label: Project
-    url: espduckdns/index.html
-  - label: GitHub ↗
-    url: https://github.com/ToledoEM/duckdns_esp32
-- title: NTP & GPS Home Bridge
-  tags:
-  - Hardware
-  - Home Assistant
-  kicker: Raspberry Pi · HACS
-  desc: NTP and GPS monitoring on a Raspberry Pi, exposed as an API for Home Assistant.
-  images:
-  - src: www/NTP&GPSLogo.png
-    alt: NTP and GPS Home Bridge logo
-  links:
-  - label: Project
-    url: GPSNTPHomeBridge/index.html
-  - label: GitHub ↗
-    url: https://github.com/ToledoEM/GPSNTPHomeBridge
-  - label: Add to HACS ↗
-    url: https://my.home-assistant.io/redirect/hacs_repository/?owner=ToledoEM&repository=GPSNTPHomeBridge&category=integration
 - title: HA Add-ons Playground
   tags:
   - Home Assistant
@@ -147,6 +134,19 @@ projects:
     url: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FToledoEM%2Fhassio-addons-repository
   - label: GitHub ↗
     url: https://github.com/ToledoEM/hassio-addons-repository
+- title: ESP32 DuckDNS Client
+  tags:
+  - Hardware
+  kicker: ESP32 · firmware
+  desc: A standalone dynamic DNS client on a microcontroller that keeps a DuckDNS domain pointed at home. Why? Because I can.
+  images:
+  - src: www/ducky_icon.png
+    alt: DuckDNS duck icon
+  links:
+  - label: Project
+    url: espduckdns/index.html
+  - label: GitHub ↗
+    url: https://github.com/ToledoEM/duckdns_esp32
 - title: STL Shaper
   tags:
   - Creative
@@ -286,9 +286,6 @@ papers:
     authors: Enrique M Toledo, Shanzheng Yang, Daniel Gyllborg, Kim E van Wijk, Indranil Sinha, Manuel Varas-Godoy, Christopher L Grigsby, Peter Lönnerberg, Saiful Islam, Knut R Steffensen, Sten Linnarsson, Ernest Arenas
     journal: Cell Reports
     vol: 31(5)
-    badges:
-    - text: First author
-      accent: true
 - year: 2018
   entries:
   - title: A Zeb2-miR-200c loop controls midbrain dopaminergic neuron neurogenesis and migration
